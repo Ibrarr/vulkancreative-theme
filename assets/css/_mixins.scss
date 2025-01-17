@@ -1,79 +1,60 @@
-@mixin dc-button($color, $hover-color) {
-  font-family: $dc-body;
-  font-weight: $dc-semi-bold;
+@mixin vc-button($color, $hover-color-text: $color) {
+  position: relative;
+  font-family: $vc-font-family;
+  font-weight: $vc-semi-bold;
   background-color: $color;
-  color: $dc-text-light;
+  color: $vc-text-light;
   padding: 10px 23px;
-  transition: $dc-transition-all;
-  border: none;
-  text-decoration: none;
-  display: block;
-  width: fit-content;
-  font-size: 14px;
-  opacity: 1;
-
-  @include media-breakpoint-down(lg) {
-    font-size: 12px;
-  }
-
-  &:hover {
-    background-color: $hover-color;
-  }
-}
-
-@mixin dc-button-secondary($color, $hover-color) {
-  font-family: $dc-body;
-  font-weight: $dc-semi-bold;
-  background-color: $dc-background-off-white;
-  color: $color;
-  padding: 10px 23px;
-  transition: $dc-transition-all;
+  transition: $vc-transition-all;
   border: 2px solid $color;
+  border-radius: 25px;
   text-decoration: none;
   display: block;
   width: fit-content;
   font-size: 14px;
   opacity: 1;
+  z-index: 1;
 
   @include media-breakpoint-down(lg) {
     font-size: 12px;
   }
 
   &:hover {
-    color: $hover-color;
-    border-color: $hover-color;
+    background-color: unset;
+    color: $hover-color-text;
   }
 }
 
-@mixin tag($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-semi-bold;
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: $color;
+@mixin vc-button-big($color) {
+  position: relative;
+  font-family: $vc-font-family;
+  font-weight: $vc-semi-bold;
+  background-color: $color;
+  color: $vc-text-light;
+  padding: 12px 25px;
+  transition: $vc-transition-all;
+  border: 2px solid $color;
+  border-radius: 25px;
+  text-decoration: none;
+  display: block;
+  width: fit-content;
+  font-size: 16px;
   opacity: 1;
+  z-index: 1;
 
   @include media-breakpoint-down(lg) {
-    font-size: 12px;
+    font-size: 14px;
+  }
+
+  &:hover {
+    background-color: unset;
+    color: $color;
   }
 }
 
-@mixin term($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-semi-bold;
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: $color;
-  opacity: 1;
-
-  @include media-breakpoint-down(lg) {
-    font-size: 12px;
-  }
-}
-
-@mixin dc-h1($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-bold;
+@mixin vc-h1($color) {
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
   font-size: 56px;
   margin-bottom: 20px;
   color: $color;
@@ -84,9 +65,9 @@
   }
 }
 
-@mixin dc-h3($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-bold;
+@mixin vc-h3($color) {
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
   font-size: 48px;
   margin-bottom: 20px;
   color: $color;
@@ -97,9 +78,9 @@
   }
 }
 
-@mixin dc-h4($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-bold;
+@mixin vc-h4($color) {
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
   font-size: 28px;
   margin-bottom: 20px;
   color: $color;
@@ -110,50 +91,13 @@
   }
 }
 
-@mixin dc-p($color) {
-  font-family: $dc-body;
-  font-size: 14px;
-  color: $color;
-  opacity: 1;
-
-  @include media-breakpoint-down(lg) {
-    font-size: 12px;
-  }
-}
-
-@mixin dc-p-heading($color) {
-  font-family: $dc-heading;
-  font-weight: $dc-bold;
+@mixin vc-p($color) {
+  font-family: $vc-font-family;
   font-size: 18px;
   color: $color;
   opacity: 1;
 
   @include media-breakpoint-down(lg) {
-    font-size: 16px;
-  }
-}
-
-@mixin dc-blockquote($color) {
-  font-family: $dc-body;
-  font-weight: $dc-medium;
-  color: $color;
-  font-style: italic;
-  border-left: 3px solid $dc-primary;
-  padding-left: 10px;
-
-  p {
-    font-size: 16px;
-  }
-
-  @include media-breakpoint-down(lg) {
-    p {
-      font-size: 14px;
-    }
-  }
-}
-
-@mixin mobile-1280 {
-  @media (max-width: 1280px) {
-    @content;
+    font-size: 14px;
   }
 }

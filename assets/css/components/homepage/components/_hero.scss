@@ -1,0 +1,99 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 69px;
+      margin-bottom: 20px;
+      color: $vc-text-dark;
+      opacity: 1;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 55px;
+      }
+
+      .spark svg {
+        position: absolute;
+        left: -34px;
+        top: 29px;
+        width: 60px;
+        height: 60px;
+        transform: rotate(352deg);
+
+        path {
+          stroke: $vc-primary;
+          stroke-width: 1;
+          fill: transparent;
+          stroke-linecap: round;
+        }
+      }
+
+      span.red {
+        color: $vc-primary;
+        position: relative;
+        display: inline-block;
+      }
+    }
+
+    .dynamic-text {
+      display: inline-block;
+      overflow: hidden;
+      height: 1.25em;
+      line-height: 1.25em;
+      position: relative;
+      margin-bottom: -13px;
+    }
+
+    .word {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(100%);
+      white-space: nowrap;
+      opacity: 0;
+      visibility: visible;
+      overflow: hidden;
+    }
+
+    .word:first-child {
+      transform: translateY(0);
+    }
+
+    p {
+      @include vc-p($vc-text-dark);
+      margin-bottom: 20px;
+    }
+
+    .button {
+      @include vc-button-big($vc-primary);
+      cursor: pointer !important;
+
+      &:hover {
+        background: $vc-background-white;
+      }
+    }
+  }
+
+  .graphic {
+    position: relative;
+    img {
+      margin-bottom: -60px;
+    }
+
+    //height: 1000px;
+    //
+    //img {
+    //  position: absolute;
+    //  left: 0;
+    //  bottom: 0;
+    //}
+  }
+}

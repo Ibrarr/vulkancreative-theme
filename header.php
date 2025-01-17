@@ -8,6 +8,8 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<div class="custom-cursor"></div>
+
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="<?php if ( is_front_page() ) { echo 'hero-active'; }; ?>">
         <div class="container px-4">

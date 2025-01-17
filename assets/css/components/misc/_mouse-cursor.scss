@@ -1,0 +1,21 @@
+/* Hide the default cursor globally */
+* {
+  cursor: none;
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+  border: 2px solid $vc-primary;
+  border-radius: 50%;
+  pointer-events: none; /* Prevent interaction with other elements */
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Ensure it appears above everything */
+  transition: opacity 0.2s ease;
+}
+
+.custom-cursor.hidden {
+  opacity: 0;
+}

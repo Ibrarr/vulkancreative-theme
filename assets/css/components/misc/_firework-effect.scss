@@ -1,0 +1,25 @@
+.firework {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@keyframes launchFirework {
+  to {
+    opacity: 0;
+  }
+}
+
+@for $i from 1 through 50 {
+  @keyframes flyInDirection#{$i} {
+    to {
+      transform: translate(
+                      #{random(200) - 100}px,
+                      #{random(200) - 100}px
+      );
+    }
+  }
+}

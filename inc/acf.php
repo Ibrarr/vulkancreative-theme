@@ -16,7 +16,7 @@ function update_author_to_acf_field( $post_id ) {
  */
 add_filter( 'acf/settings/save_json', 'my_acf_json_save_point' );
 function my_acf_json_save_point( $path ) {
-	return DC_TEMPLATE_DIR . '/acf-json';
+	return VC_TEMPLATE_DIR . '/acf-json';
 }
 
 /**
@@ -50,7 +50,7 @@ function my_acf_json_load_point( $paths ) {
 	unset( $paths[0] );
 
 	// Append the new path and return it.
-	$paths[] = DC_TEMPLATE_DIR . '/acf-json';
+	$paths[] = VC_TEMPLATE_DIR . '/acf-json';
 
 	return $paths;
 }

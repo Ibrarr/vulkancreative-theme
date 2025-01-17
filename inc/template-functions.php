@@ -21,7 +21,7 @@ function vc_schema_type() {
 
 add_action( 'init', 'register_custom_page_templates' );
 function register_custom_page_templates() {
-	$template_dir = DC_TEMPLATE_DIR . '/page-templates/';
+	$template_dir = VC_TEMPLATE_DIR . '/page-templates/';
 
 	$template_files = glob( $template_dir . '*.php' );
 

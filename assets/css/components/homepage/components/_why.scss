@@ -1,0 +1,57 @@
+.why {
+  background: $vc-background-dark;
+  margin-bottom: 60px;
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 32px;
+    padding: 50px 0;
+  }
+
+  h2 {
+    @include vc-h1($vc-text-light);
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .top {
+    p {
+      max-width: 768px;
+    }
+  }
+
+  h3 {
+    @include vc-h4($vc-text-light);
+  }
+
+  p {
+    @include vc-p($vc-text-light);
+    margin: 0;
+  }
+
+  .why-box-container {
+    padding: 40px 0;
+
+    .why-boxes {
+      img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .button {
+    @include vc-button($vc-primary, $vc-text-light);
+    cursor: pointer !important;
+  }
+}

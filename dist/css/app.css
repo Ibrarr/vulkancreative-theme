@@ -1,26 +1,110 @@
 @charset "UTF-8";
 @font-face {
-  font-family: "Inter";
-  src: url("../../assets/fonts/Inter-VariableFont_opsz,wght.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Thin.woff2") format("woff2");
+  font-weight: 100;
   font-style: normal;
 }
 @font-face {
-  font-family: "Inter";
-  src: url("../../assets/fonts/Inter-Italic-VariableFont_opsz,wght.woff2") format("woff2");
-  font-weight: 100 900;
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-ThinItalic.woff2") format("woff2");
+  font-weight: 100;
   font-style: italic;
 }
 @font-face {
-  font-family: "Plus Jakarta Sans";
-  src: url("../../assets/fonts/PlusJakartaSans-VariableFont_wght.woff2") format("woff2");
-  font-weight: 200 800;
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
   font-style: normal;
 }
 @font-face {
-  font-family: "Plus Jakarta Sans";
-  src: url("../../assets/fonts/PlusJakartaSans-Italic-VariableFont_wght.woff2") format("woff2");
-  font-weight: 200 800;
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../assets/fonts/Poppins-BlackItalic.woff2") format("woff2");
+  font-weight: 900;
   font-style: italic;
 }
 /*!
@@ -13418,7 +13502,7 @@ textarea.form-control-lg {
   }
 }
 :root {
-  --bs-body-bg: #f9f9f9;
+  --bs-body-bg: #F5F5F5;
 }
 
 :root {
@@ -13432,4 +13516,878 @@ textarea.form-control-lg {
 
 .no-scroll {
   overflow: hidden;
+}
+
+/* Hide the default cursor globally */
+* {
+  cursor: none;
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+  border: 2px solid #FF3B30;
+  border-radius: 50%;
+  pointer-events: none; /* Prevent interaction with other elements */
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Ensure it appears above everything */
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+
+.custom-cursor.hidden {
+  opacity: 0;
+}
+
+.firework {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 1;
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+@-webkit-keyframes launchFirework {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes launchFirework {
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes flyInDirection1 {
+  to {
+    -webkit-transform: translate(-27px, -72px);
+    transform: translate(-27px, -72px);
+  }
+}
+@keyframes flyInDirection1 {
+  to {
+    -webkit-transform: translate(-27px, -72px);
+    transform: translate(-27px, -72px);
+  }
+}
+@-webkit-keyframes flyInDirection2 {
+  to {
+    -webkit-transform: translate(-92px, -19px);
+    transform: translate(-92px, -19px);
+  }
+}
+@keyframes flyInDirection2 {
+  to {
+    -webkit-transform: translate(-92px, -19px);
+    transform: translate(-92px, -19px);
+  }
+}
+@-webkit-keyframes flyInDirection3 {
+  to {
+    -webkit-transform: translate(-87px, -16px);
+    transform: translate(-87px, -16px);
+  }
+}
+@keyframes flyInDirection3 {
+  to {
+    -webkit-transform: translate(-87px, -16px);
+    transform: translate(-87px, -16px);
+  }
+}
+@-webkit-keyframes flyInDirection4 {
+  to {
+    -webkit-transform: translate(100px, 42px);
+    transform: translate(100px, 42px);
+  }
+}
+@keyframes flyInDirection4 {
+  to {
+    -webkit-transform: translate(100px, 42px);
+    transform: translate(100px, 42px);
+  }
+}
+@-webkit-keyframes flyInDirection5 {
+  to {
+    -webkit-transform: translate(82px, 89px);
+    transform: translate(82px, 89px);
+  }
+}
+@keyframes flyInDirection5 {
+  to {
+    -webkit-transform: translate(82px, 89px);
+    transform: translate(82px, 89px);
+  }
+}
+@-webkit-keyframes flyInDirection6 {
+  to {
+    -webkit-transform: translate(-78px, 2px);
+    transform: translate(-78px, 2px);
+  }
+}
+@keyframes flyInDirection6 {
+  to {
+    -webkit-transform: translate(-78px, 2px);
+    transform: translate(-78px, 2px);
+  }
+}
+@-webkit-keyframes flyInDirection7 {
+  to {
+    -webkit-transform: translate(-94px, -28px);
+    transform: translate(-94px, -28px);
+  }
+}
+@keyframes flyInDirection7 {
+  to {
+    -webkit-transform: translate(-94px, -28px);
+    transform: translate(-94px, -28px);
+  }
+}
+@-webkit-keyframes flyInDirection8 {
+  to {
+    -webkit-transform: translate(43px, 41px);
+    transform: translate(43px, 41px);
+  }
+}
+@keyframes flyInDirection8 {
+  to {
+    -webkit-transform: translate(43px, 41px);
+    transform: translate(43px, 41px);
+  }
+}
+@-webkit-keyframes flyInDirection9 {
+  to {
+    -webkit-transform: translate(21px, -28px);
+    transform: translate(21px, -28px);
+  }
+}
+@keyframes flyInDirection9 {
+  to {
+    -webkit-transform: translate(21px, -28px);
+    transform: translate(21px, -28px);
+  }
+}
+@-webkit-keyframes flyInDirection10 {
+  to {
+    -webkit-transform: translate(38px, -95px);
+    transform: translate(38px, -95px);
+  }
+}
+@keyframes flyInDirection10 {
+  to {
+    -webkit-transform: translate(38px, -95px);
+    transform: translate(38px, -95px);
+  }
+}
+@-webkit-keyframes flyInDirection11 {
+  to {
+    -webkit-transform: translate(60px, 62px);
+    transform: translate(60px, 62px);
+  }
+}
+@keyframes flyInDirection11 {
+  to {
+    -webkit-transform: translate(60px, 62px);
+    transform: translate(60px, 62px);
+  }
+}
+@-webkit-keyframes flyInDirection12 {
+  to {
+    -webkit-transform: translate(13px, 52px);
+    transform: translate(13px, 52px);
+  }
+}
+@keyframes flyInDirection12 {
+  to {
+    -webkit-transform: translate(13px, 52px);
+    transform: translate(13px, 52px);
+  }
+}
+@-webkit-keyframes flyInDirection13 {
+  to {
+    -webkit-transform: translate(45px, 96px);
+    transform: translate(45px, 96px);
+  }
+}
+@keyframes flyInDirection13 {
+  to {
+    -webkit-transform: translate(45px, 96px);
+    transform: translate(45px, 96px);
+  }
+}
+@-webkit-keyframes flyInDirection14 {
+  to {
+    -webkit-transform: translate(71px, -72px);
+    transform: translate(71px, -72px);
+  }
+}
+@keyframes flyInDirection14 {
+  to {
+    -webkit-transform: translate(71px, -72px);
+    transform: translate(71px, -72px);
+  }
+}
+@-webkit-keyframes flyInDirection15 {
+  to {
+    -webkit-transform: translate(-60px, 0px);
+    transform: translate(-60px, 0px);
+  }
+}
+@keyframes flyInDirection15 {
+  to {
+    -webkit-transform: translate(-60px, 0px);
+    transform: translate(-60px, 0px);
+  }
+}
+@-webkit-keyframes flyInDirection16 {
+  to {
+    -webkit-transform: translate(-86px, 9px);
+    transform: translate(-86px, 9px);
+  }
+}
+@keyframes flyInDirection16 {
+  to {
+    -webkit-transform: translate(-86px, 9px);
+    transform: translate(-86px, 9px);
+  }
+}
+@-webkit-keyframes flyInDirection17 {
+  to {
+    -webkit-transform: translate(-96px, -57px);
+    transform: translate(-96px, -57px);
+  }
+}
+@keyframes flyInDirection17 {
+  to {
+    -webkit-transform: translate(-96px, -57px);
+    transform: translate(-96px, -57px);
+  }
+}
+@-webkit-keyframes flyInDirection18 {
+  to {
+    -webkit-transform: translate(-36px, 12px);
+    transform: translate(-36px, 12px);
+  }
+}
+@keyframes flyInDirection18 {
+  to {
+    -webkit-transform: translate(-36px, 12px);
+    transform: translate(-36px, 12px);
+  }
+}
+@-webkit-keyframes flyInDirection19 {
+  to {
+    -webkit-transform: translate(78px, -22px);
+    transform: translate(78px, -22px);
+  }
+}
+@keyframes flyInDirection19 {
+  to {
+    -webkit-transform: translate(78px, -22px);
+    transform: translate(78px, -22px);
+  }
+}
+@-webkit-keyframes flyInDirection20 {
+  to {
+    -webkit-transform: translate(-77px, -51px);
+    transform: translate(-77px, -51px);
+  }
+}
+@keyframes flyInDirection20 {
+  to {
+    -webkit-transform: translate(-77px, -51px);
+    transform: translate(-77px, -51px);
+  }
+}
+@-webkit-keyframes flyInDirection21 {
+  to {
+    -webkit-transform: translate(-25px, 10px);
+    transform: translate(-25px, 10px);
+  }
+}
+@keyframes flyInDirection21 {
+  to {
+    -webkit-transform: translate(-25px, 10px);
+    transform: translate(-25px, 10px);
+  }
+}
+@-webkit-keyframes flyInDirection22 {
+  to {
+    -webkit-transform: translate(-86px, -80px);
+    transform: translate(-86px, -80px);
+  }
+}
+@keyframes flyInDirection22 {
+  to {
+    -webkit-transform: translate(-86px, -80px);
+    transform: translate(-86px, -80px);
+  }
+}
+@-webkit-keyframes flyInDirection23 {
+  to {
+    -webkit-transform: translate(-30px, 1px);
+    transform: translate(-30px, 1px);
+  }
+}
+@keyframes flyInDirection23 {
+  to {
+    -webkit-transform: translate(-30px, 1px);
+    transform: translate(-30px, 1px);
+  }
+}
+@-webkit-keyframes flyInDirection24 {
+  to {
+    -webkit-transform: translate(-21px, 1px);
+    transform: translate(-21px, 1px);
+  }
+}
+@keyframes flyInDirection24 {
+  to {
+    -webkit-transform: translate(-21px, 1px);
+    transform: translate(-21px, 1px);
+  }
+}
+@-webkit-keyframes flyInDirection25 {
+  to {
+    -webkit-transform: translate(76px, 71px);
+    transform: translate(76px, 71px);
+  }
+}
+@keyframes flyInDirection25 {
+  to {
+    -webkit-transform: translate(76px, 71px);
+    transform: translate(76px, 71px);
+  }
+}
+@-webkit-keyframes flyInDirection26 {
+  to {
+    -webkit-transform: translate(-69px, 21px);
+    transform: translate(-69px, 21px);
+  }
+}
+@keyframes flyInDirection26 {
+  to {
+    -webkit-transform: translate(-69px, 21px);
+    transform: translate(-69px, 21px);
+  }
+}
+@-webkit-keyframes flyInDirection27 {
+  to {
+    -webkit-transform: translate(88px, 83px);
+    transform: translate(88px, 83px);
+  }
+}
+@keyframes flyInDirection27 {
+  to {
+    -webkit-transform: translate(88px, 83px);
+    transform: translate(88px, 83px);
+  }
+}
+@-webkit-keyframes flyInDirection28 {
+  to {
+    -webkit-transform: translate(-72px, 72px);
+    transform: translate(-72px, 72px);
+  }
+}
+@keyframes flyInDirection28 {
+  to {
+    -webkit-transform: translate(-72px, 72px);
+    transform: translate(-72px, 72px);
+  }
+}
+@-webkit-keyframes flyInDirection29 {
+  to {
+    -webkit-transform: translate(70px, -26px);
+    transform: translate(70px, -26px);
+  }
+}
+@keyframes flyInDirection29 {
+  to {
+    -webkit-transform: translate(70px, -26px);
+    transform: translate(70px, -26px);
+  }
+}
+@-webkit-keyframes flyInDirection30 {
+  to {
+    -webkit-transform: translate(-36px, -66px);
+    transform: translate(-36px, -66px);
+  }
+}
+@keyframes flyInDirection30 {
+  to {
+    -webkit-transform: translate(-36px, -66px);
+    transform: translate(-36px, -66px);
+  }
+}
+@-webkit-keyframes flyInDirection31 {
+  to {
+    -webkit-transform: translate(53px, 93px);
+    transform: translate(53px, 93px);
+  }
+}
+@keyframes flyInDirection31 {
+  to {
+    -webkit-transform: translate(53px, 93px);
+    transform: translate(53px, 93px);
+  }
+}
+@-webkit-keyframes flyInDirection32 {
+  to {
+    -webkit-transform: translate(-98px, 3px);
+    transform: translate(-98px, 3px);
+  }
+}
+@keyframes flyInDirection32 {
+  to {
+    -webkit-transform: translate(-98px, 3px);
+    transform: translate(-98px, 3px);
+  }
+}
+@-webkit-keyframes flyInDirection33 {
+  to {
+    -webkit-transform: translate(99px, -97px);
+    transform: translate(99px, -97px);
+  }
+}
+@keyframes flyInDirection33 {
+  to {
+    -webkit-transform: translate(99px, -97px);
+    transform: translate(99px, -97px);
+  }
+}
+@-webkit-keyframes flyInDirection34 {
+  to {
+    -webkit-transform: translate(46px, 5px);
+    transform: translate(46px, 5px);
+  }
+}
+@keyframes flyInDirection34 {
+  to {
+    -webkit-transform: translate(46px, 5px);
+    transform: translate(46px, 5px);
+  }
+}
+@-webkit-keyframes flyInDirection35 {
+  to {
+    -webkit-transform: translate(-44px, 90px);
+    transform: translate(-44px, 90px);
+  }
+}
+@keyframes flyInDirection35 {
+  to {
+    -webkit-transform: translate(-44px, 90px);
+    transform: translate(-44px, 90px);
+  }
+}
+@-webkit-keyframes flyInDirection36 {
+  to {
+    -webkit-transform: translate(71px, 60px);
+    transform: translate(71px, 60px);
+  }
+}
+@keyframes flyInDirection36 {
+  to {
+    -webkit-transform: translate(71px, 60px);
+    transform: translate(71px, 60px);
+  }
+}
+@-webkit-keyframes flyInDirection37 {
+  to {
+    -webkit-transform: translate(22px, 70px);
+    transform: translate(22px, 70px);
+  }
+}
+@keyframes flyInDirection37 {
+  to {
+    -webkit-transform: translate(22px, 70px);
+    transform: translate(22px, 70px);
+  }
+}
+@-webkit-keyframes flyInDirection38 {
+  to {
+    -webkit-transform: translate(39px, 74px);
+    transform: translate(39px, 74px);
+  }
+}
+@keyframes flyInDirection38 {
+  to {
+    -webkit-transform: translate(39px, 74px);
+    transform: translate(39px, 74px);
+  }
+}
+@-webkit-keyframes flyInDirection39 {
+  to {
+    -webkit-transform: translate(-29px, 2px);
+    transform: translate(-29px, 2px);
+  }
+}
+@keyframes flyInDirection39 {
+  to {
+    -webkit-transform: translate(-29px, 2px);
+    transform: translate(-29px, 2px);
+  }
+}
+@-webkit-keyframes flyInDirection40 {
+  to {
+    -webkit-transform: translate(53px, -37px);
+    transform: translate(53px, -37px);
+  }
+}
+@keyframes flyInDirection40 {
+  to {
+    -webkit-transform: translate(53px, -37px);
+    transform: translate(53px, -37px);
+  }
+}
+@-webkit-keyframes flyInDirection41 {
+  to {
+    -webkit-transform: translate(75px, 96px);
+    transform: translate(75px, 96px);
+  }
+}
+@keyframes flyInDirection41 {
+  to {
+    -webkit-transform: translate(75px, 96px);
+    transform: translate(75px, 96px);
+  }
+}
+@-webkit-keyframes flyInDirection42 {
+  to {
+    -webkit-transform: translate(-17px, -61px);
+    transform: translate(-17px, -61px);
+  }
+}
+@keyframes flyInDirection42 {
+  to {
+    -webkit-transform: translate(-17px, -61px);
+    transform: translate(-17px, -61px);
+  }
+}
+@-webkit-keyframes flyInDirection43 {
+  to {
+    -webkit-transform: translate(8px, 90px);
+    transform: translate(8px, 90px);
+  }
+}
+@keyframes flyInDirection43 {
+  to {
+    -webkit-transform: translate(8px, 90px);
+    transform: translate(8px, 90px);
+  }
+}
+@-webkit-keyframes flyInDirection44 {
+  to {
+    -webkit-transform: translate(-98px, 39px);
+    transform: translate(-98px, 39px);
+  }
+}
+@keyframes flyInDirection44 {
+  to {
+    -webkit-transform: translate(-98px, 39px);
+    transform: translate(-98px, 39px);
+  }
+}
+@-webkit-keyframes flyInDirection45 {
+  to {
+    -webkit-transform: translate(95px, -62px);
+    transform: translate(95px, -62px);
+  }
+}
+@keyframes flyInDirection45 {
+  to {
+    -webkit-transform: translate(95px, -62px);
+    transform: translate(95px, -62px);
+  }
+}
+@-webkit-keyframes flyInDirection46 {
+  to {
+    -webkit-transform: translate(-50px, 99px);
+    transform: translate(-50px, 99px);
+  }
+}
+@keyframes flyInDirection46 {
+  to {
+    -webkit-transform: translate(-50px, 99px);
+    transform: translate(-50px, 99px);
+  }
+}
+@-webkit-keyframes flyInDirection47 {
+  to {
+    -webkit-transform: translate(11px, -80px);
+    transform: translate(11px, -80px);
+  }
+}
+@keyframes flyInDirection47 {
+  to {
+    -webkit-transform: translate(11px, -80px);
+    transform: translate(11px, -80px);
+  }
+}
+@-webkit-keyframes flyInDirection48 {
+  to {
+    -webkit-transform: translate(71px, 45px);
+    transform: translate(71px, 45px);
+  }
+}
+@keyframes flyInDirection48 {
+  to {
+    -webkit-transform: translate(71px, 45px);
+    transform: translate(71px, 45px);
+  }
+}
+@-webkit-keyframes flyInDirection49 {
+  to {
+    -webkit-transform: translate(57px, 61px);
+    transform: translate(57px, 61px);
+  }
+}
+@keyframes flyInDirection49 {
+  to {
+    -webkit-transform: translate(57px, 61px);
+    transform: translate(57px, 61px);
+  }
+}
+@-webkit-keyframes flyInDirection50 {
+  to {
+    -webkit-transform: translate(-52px, -1px);
+    transform: translate(-52px, -1px);
+  }
+}
+@keyframes flyInDirection50 {
+  to {
+    -webkit-transform: translate(-52px, -1px);
+    transform: translate(-52px, -1px);
+  }
+}
+.home.page .hero {
+  position: relative;
+  overflow: hidden;
+}
+.home.page .hero .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.home.page .hero .content h1, .home.page .hero .content .h1 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 69px;
+  margin-bottom: 20px;
+  color: #121212;
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .home.page .hero .content h1, .home.page .hero .content .h1 {
+    font-size: 55px;
+  }
+}
+.home.page .hero .content h1 .spark svg, .home.page .hero .content .h1 .spark svg {
+  position: absolute;
+  left: -34px;
+  top: 29px;
+  width: 60px;
+  height: 60px;
+  -webkit-transform: rotate(352deg);
+  -ms-transform: rotate(352deg);
+  transform: rotate(352deg);
+}
+.home.page .hero .content h1 .spark svg path, .home.page .hero .content .h1 .spark svg path {
+  stroke: #FF3B30;
+  stroke-width: 1;
+  fill: transparent;
+  stroke-linecap: round;
+}
+.home.page .hero .content h1 span.red, .home.page .hero .content .h1 span.red {
+  color: #FF3B30;
+  position: relative;
+  display: inline-block;
+}
+.home.page .hero .content .dynamic-text {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.25em;
+  line-height: 1.25em;
+  position: relative;
+  margin-bottom: -13px;
+}
+.home.page .hero .content .word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: visible;
+  overflow: hidden;
+}
+.home.page .hero .content .word:first-child {
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+}
+.home.page .hero .content p {
+  font-family: "Poppins", serif;
+  font-size: 18px;
+  color: #121212;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+@media (max-width: 991.98px) {
+  .home.page .hero .content p {
+    font-size: 14px;
+  }
+}
+.home.page .hero .content .button {
+  position: relative;
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  background-color: #FF3B30;
+  color: #F5F5F5;
+  padding: 12px 25px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 2px solid #FF3B30;
+  border-radius: 25px;
+  text-decoration: none;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 16px;
+  opacity: 1;
+  z-index: 1;
+  cursor: pointer !important;
+}
+@media (max-width: 991.98px) {
+  .home.page .hero .content .button {
+    font-size: 14px;
+  }
+}
+.home.page .hero .content .button:hover {
+  background-color: unset;
+  color: #FF3B30;
+}
+.home.page .hero .content .button:hover {
+  background: #F5F5F5;
+}
+.home.page .hero .graphic {
+  position: relative;
+}
+.home.page .hero .graphic img {
+  margin-bottom: -60px;
+}
+.home.page .why {
+  background: #121212;
+  margin-bottom: 60px;
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+@media (max-width: 991.98px) {
+  .home.page .why {
+    margin-bottom: 32px;
+    padding: 50px 0;
+  }
+}
+.home.page .why h2, .home.page .why .h2 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 56px;
+  margin-bottom: 20px;
+  color: #F5F5F5;
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .home.page .why h2, .home.page .why .h2 {
+    font-size: 45px;
+  }
+}
+.home.page .why h2 span, .home.page .why .h2 span {
+  color: #FF3B30;
+}
+.home.page .why .top p {
+  max-width: 768px;
+}
+.home.page .why h3, .home.page .why .h3 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #F5F5F5;
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .home.page .why h3, .home.page .why .h3 {
+    font-size: 24px;
+  }
+}
+.home.page .why p {
+  font-family: "Poppins", serif;
+  font-size: 18px;
+  color: #F5F5F5;
+  opacity: 1;
+  margin: 0;
+}
+@media (max-width: 991.98px) {
+  .home.page .why p {
+    font-size: 14px;
+  }
+}
+.home.page .why .why-box-container {
+  padding: 40px 0;
+}
+.home.page .why .why-box-container .why-boxes img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+.home.page .why .why-box-container .why-boxes h3, .home.page .why .why-box-container .why-boxes .h3 {
+  margin-bottom: 10px;
+}
+.home.page .why .button {
+  position: relative;
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  background-color: #FF3B30;
+  color: #F5F5F5;
+  padding: 10px 23px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 2px solid #FF3B30;
+  border-radius: 25px;
+  text-decoration: none;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 14px;
+  opacity: 1;
+  z-index: 1;
+  cursor: pointer !important;
+}
+@media (max-width: 991.98px) {
+  .home.page .why .button {
+    font-size: 12px;
+  }
+}
+.home.page .why .button:hover {
+  background-color: unset;
+  color: #F5F5F5;
 }

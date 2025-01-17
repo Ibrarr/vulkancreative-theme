@@ -1,11 +1,10 @@
 // Boostrap Override
 :root {
-  --bs-body-bg: #f9f9f9;
+  --bs-body-bg: #F5F5F5;
 }
 
 // Typography
-$vc-heading: "Plus Jakarta Sans", sans-serif;
-$vc-body: "Inter", sans-serif;
+$vc-font-family: "Poppins", serif;
 
 $vc-light: 300;
 $vc-normal: 400;
@@ -14,14 +13,13 @@ $vc-semi-bold: 600;
 $vc-bold: 700;
 
 // Colors
-$vc-background-off-white: #f9f9f9;
-$vc-background-grey: #eeeeee;
-$vc-background-dark-grey: #282828;
-$vc-background-dark-blue: #000F20;
+$vc-background-white: #F5F5F5;
+$vc-background-dark: #121212;
 $vc-text-light: #F5F5F5;
-$vc-text-dark: #000F20;
-$vc-primary: #EE243D;
-$vc-secondary: #00375B;
+$vc-text-dark: #121212;
+$vc-primary: #FF3B30;
+$vc-secondary: #FF4500;
 
 //Other
 $vc-transition-all: all .3s;
+

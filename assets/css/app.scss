@@ -1,3 +1,5 @@
+@use "sass:math";
+
 // Fonts
 @import 'fonts';
 
@@ -35,6 +37,8 @@
 //  }
 //}
 
+@import "components/misc/mouse-cursor";
+@import "components/misc/firework-effect";
 //@import "components/misc/preloader";
 
 // Components
