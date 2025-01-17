@@ -1,14 +1,14 @@
 .why {
   background: $vc-background-dark;
   margin-bottom: 60px;
-  padding: 100px 0;
+  padding: 120px 0;
   position: relative;
   z-index: 1;
   overflow: hidden;
 
   @include media-breakpoint-down(lg) {
     margin-bottom: 32px;
-    padding: 50px 0;
+    padding: 60px 0;
   }
 
   h2 {
@@ -38,10 +38,21 @@
     padding: 40px 0;
 
     .why-boxes {
+      @include media-breakpoint-down(lg) {
+        &:not(:last-child) {
+          margin-bottom: 30px;
+        }
+      }
+
       video {
         width: 100px;
         height: 100px;
-        margin-bottom: 10px;
+        margin-left: -10px;
+
+        @include media-breakpoint-down(lg) {
+          width: 60px;
+          height: 60px;
+        }
       }
 
       h3 {
