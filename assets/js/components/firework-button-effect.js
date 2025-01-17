@@ -32,6 +32,10 @@ export const fireworkEffect = (selector) => {
         $(selector).on('mouseenter', function (e) {
             const target = e.target;
 
+            // Trigger the firework effect immediately
+            createFirework(target);
+
+            // Start the interval for continuous fireworks
             fireworkInterval = setInterval(() => {
                 createFirework(target);
             }, 500);

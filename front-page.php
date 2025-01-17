@@ -20,7 +20,7 @@ get_header();
                 <a href="#contact" class="button">Forge ahead</a>
             </div>
             <div class="col-lg-5 graphic">
-                <img src="http://vulkancreative.test/wp-content/uploads/2025/01/vulkan-statue.png" alt="VC">
+                <img src="/wp-content/uploads/2025/01/vulkantransparent.webp" alt="VC">
             </div>
         </div>
     </div>
@@ -34,17 +34,26 @@ get_header();
         </div>
         <div class="row why-box-container">
             <div class="col-lg-4 why-boxes">
-                <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/gif/in-person.gif'; ?>" alt="In-Person Approach">
+                <video autoplay muted loop playsinline>
+                    <source src="<?php echo VC_TEMPLATE_URI . '/assets/images/webm/in-person.webm'; ?>" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
                 <h3>In-Person Approach</h3>
                 <p>We work closely with you, offering a personal touch that builds trust and drives success.</p>
             </div>
             <div class="col-lg-4 why-boxes">
-                <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/gif/tailored-solutions.gif'; ?>" alt="Tailored Solutions">
+                <video autoplay muted loop playsinline>
+                    <source src="<?php echo VC_TEMPLATE_URI . '/assets/images/webm/tailored-solutions.webm'; ?>" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
                 <h3>Tailored Solutions</h3>
                 <p>Every strategy is customized to fit your unique brand and goals-no one-size-fits-all here.</p>
             </div>
             <div class="col-lg-4 why-boxes">
-                <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/gif/proven-results.gif'; ?>" alt="Proven Results">
+                <video autoplay muted loop playsinline>
+                    <source src="<?php echo VC_TEMPLATE_URI . '/assets/images/webm/proven-results.webm'; ?>" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
                 <h3>Proven Results</h3>
                 <p>Our track record speaks for itself, delivering impactful outcomes that grow your business.</p>
             </div>
