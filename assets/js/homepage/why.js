@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
         height: '700px',
         borderRadius: '50%',
         background: `radial-gradient(circle, rgba(255,59,48,1) 0%, rgba(9,9,121,0) 70%)`, // Fades out more
-        opacity: 0.50,
+        opacity: 0.60,
         pointerEvents: 'none',
         transform: 'translate(-50%, -50%)',
         display: 'none', // Start hidden

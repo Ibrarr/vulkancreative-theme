@@ -15,7 +15,7 @@ export const fireworkEffect = (selector) => {
                 firework.style.backgroundColor = '#FF3B30';
                 firework.style.left = `${xPos}px`;
                 firework.style.top = `${yPos}px`;
-                firework.style.zIndex = parseInt(window.getComputedStyle(target).zIndex) - 1 || 0;
+                firework.style.zIndex = -1;
                 firework.style.animation = `launchFirework ${random(0.5, 1)}s linear forwards, 
           flyInDirection${i} ${random(0.5, 1)}s linear forwards`;
 

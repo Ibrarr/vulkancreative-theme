@@ -1,6 +1,23 @@
 import gsap from 'gsap';
 import { fireworkEffect } from '../components/firework-button-effect';
 
+document.addEventListener('DOMContentLoaded', () => {
+    const heroContentTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+        }
+    });
+
+    heroContentTimeline.from('.hero .content', {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power2.out',
+    });
+});
+
 // Rolling words
 document.addEventListener("DOMContentLoaded", () => {
     const dynamicText = document.querySelector(".dynamic-text");
@@ -103,22 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Button
-jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
-
-    $('.button').on('mouseenter', function() {
-        cursor.classList.add('hidden');
-    });
-
-    // Handle mouse leaving a button
-    $('.button').on('mouseleave', function() {
-        cursor.classList.remove('hidden');
-    });
-
-    fireworkEffect('.hero .button');
-});
-
 // Draw spark SVG
 document.addEventListener("DOMContentLoaded", () => {
     const paths = document.querySelectorAll("path");
@@ -166,4 +167,20 @@ document.addEventListener("DOMContentLoaded", () => {
         // Start the animation
         animatePath();
     });
+});
+
+// Button
+jQuery(document).ready(function($) {
+    const cursor = document.querySelector('.custom-cursor');
+
+    $('.button').on('mouseenter', function() {
+        cursor.classList.add('hidden');
+    });
+
+    // Handle mouse leaving a button
+    $('.button').on('mouseleave', function() {
+        cursor.classList.remove('hidden');
+    });
+
+    fireworkEffect('.hero .button');
 });

@@ -19,6 +19,16 @@ eval("jQuery(document).ready(function ($) {\n  var cursor = document.querySelect
 
 /***/ }),
 
+/***/ "./assets/js/global/load-at-top.js":
+/*!*****************************************!*\
+  !*** ./assets/js/global/load-at-top.js ***!
+  \*****************************************/
+/***/ (function() {
+
+eval("document.addEventListener('DOMContentLoaded', function () {\n  if ('scrollRestoration' in history) {\n    history.scrollRestoration = 'manual';\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9hc3NldHMvanMvZ2xvYmFsL2xvYWQtYXQtdG9wLmpzIiwibmFtZXMiOlsiZG9jdW1lbnQiLCJhZGRFdmVudExpc3RlbmVyIiwiaGlzdG9yeSIsInNjcm9sbFJlc3RvcmF0aW9uIl0sInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly92dWxrYW5jcmVhdGl2ZS8uL2Fzc2V0cy9qcy9nbG9iYWwvbG9hZC1hdC10b3AuanM/ODgyZSJdLCJzb3VyY2VzQ29udGVudCI6WyJkb2N1bWVudC5hZGRFdmVudExpc3RlbmVyKCdET01Db250ZW50TG9hZGVkJywgZnVuY3Rpb24gKCkge1xuICAgIGlmICgnc2Nyb2xsUmVzdG9yYXRpb24nIGluIGhpc3RvcnkpIHtcbiAgICAgICAgaGlzdG9yeS5zY3JvbGxSZXN0b3JhdGlvbiA9ICdtYW51YWwnO1xuICAgIH1cbn0pOyJdLCJtYXBwaW5ncyI6IkFBQUFBLFFBQVEsQ0FBQ0MsZ0JBQWdCLENBQUMsa0JBQWtCLEVBQUUsWUFBWTtFQUN0RCxJQUFJLG1CQUFtQixJQUFJQyxPQUFPLEVBQUU7SUFDaENBLE9BQU8sQ0FBQ0MsaUJBQWlCLEdBQUcsUUFBUTtFQUN4QztBQUNKLENBQUMsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==\n//# sourceURL=webpack-internal:///./assets/js/global/load-at-top.js\n");
+
+/***/ }),
+
 /***/ "./assets/css/app.scss":
 /*!*****************************!*\
   !*** ./assets/css/app.scss ***!
@@ -172,6 +182,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], function() { return __webpack_require__("./assets/js/global/custom-cursor.js"); })
+/******/ 	__webpack_require__.O(undefined, ["css/app"], function() { return __webpack_require__("./assets/js/global/load-at-top.js"); })
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], function() { return __webpack_require__("./assets/css/app.scss"); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	

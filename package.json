@@ -23,7 +23,8 @@
   "dependencies": {
     "autoprefixer": "^10.4.14",
     "bootstrap": "^5.3.1",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "split-type": "^0.3.4"
   },
   "browserslist": [
     "last 3 versions"

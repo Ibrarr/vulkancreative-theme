@@ -62,6 +62,12 @@ get_header();
     </div>
 </section>
 
+<section class="story">
+    <div class="container px-4">
+
+    </div>
+</section>
+
 <?php
 get_footer();
 ?>
