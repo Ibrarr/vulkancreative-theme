@@ -1,1 +1,1 @@
-{"version":3,"file":"/js/header.js","mappings":"AAAAA,OAAOC,UAAUC,OAAM,SAAUC,GAEjC","sources":["webpack://vulkancreative/./assets/js/header/header.js"],"sourcesContent":["jQuery(document).ready(function ($) {\n\n});\n"],"names":["jQuery","document","ready","$"],"sourceRoot":""}
+{"version":3,"file":"/js/header.js","mappings":"AAAAA,OAAOC,UAAUC,OAAM,SAAUC,GAEjC","sources":["webpack://vulkancreative/./assets/js/header/header.js"],"sourcesContent":["jQuery(document).ready(function ($) {\r\n\r\n});\r\n"],"names":["jQuery","document","ready","$"],"sourceRoot":""}

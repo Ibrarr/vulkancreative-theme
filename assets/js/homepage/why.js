@@ -1,4 +1,7 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');

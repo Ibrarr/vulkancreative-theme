@@ -1,0 +1,57 @@
+.story {
+  padding: 120px 0;
+
+  @include media-breakpoint-down(lg) {
+    padding: 60px 0;
+  }
+
+  .container {
+    position: relative;
+    height: 150vh;
+  }
+
+  .content {
+    max-width: 768px;
+    margin: auto;
+    position: sticky;
+    top: 20%;
+    z-index: 1;
+    text-align: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    h2 {
+      @include vc-h1($vc-text-dark);
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    p {
+      @include vc-p($vc-text-dark);
+    }
+
+    .button {
+      @include vc-button($vc-primary);
+      margin: auto;
+      cursor: pointer !important;
+    }
+  }
+
+  .video-wrapper {
+    position: sticky;
+    top: 100px;
+    margin-top: 100px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.8);
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      transition: transform 0.5s ease;
+    }
+  }
+}

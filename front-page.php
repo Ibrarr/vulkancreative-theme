@@ -64,6 +64,24 @@ get_header();
 
 <section class="story">
     <div class="container px-4">
+        <div class="content">
+            <h2>Our <span>Story</span></h2>
+            <p>At Vulkan Creative, we believe in the power of storytelling to connect with audiences. Our journey is rooted in a passion for innovation and a commitment to helping businesses thrive in the digital landscape.</p>
+            <a href="#watch" class="button">Watch</a>
+        </div>
+        <div class="video-wrapper" id="watch">
+            <iframe
+                    src="https://www.youtube.com/embed/C0DPdy98e4c?si=Y5z5MHxS5uvEmwYC"
+                    frameborder="0"
+                    allow="encrypted-media"
+                    allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+<section class="services">
+    <div class="container px-4">
 
     </div>
 </section>

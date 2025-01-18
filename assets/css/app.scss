@@ -25,21 +25,8 @@
   overflow: hidden;
 }
 
-//body:not(.home) main {
-//  margin-top: 95px;
-//
-//  @include mobile-1280 {
-//    margin-top: 80px;
-//  }
-//
-//  @include media-breakpoint-down(md) {
-//    margin-top: 60px !important;
-//  }
-//}
-
 @import "components/misc/mouse-cursor";
 @import "components/misc/firework-effect";
-//@import "components/misc/preloader";
 
 // Components
 @import "components/header/header";

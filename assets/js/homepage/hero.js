@@ -1,5 +1,8 @@
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { fireworkEffect } from '../components/firework-button-effect';
+
+gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', () => {
     const heroContentTimeline = gsap.timeline({

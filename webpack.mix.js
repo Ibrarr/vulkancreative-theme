@@ -12,6 +12,7 @@ mix.js([
 mix.js([
     'assets/js/homepage/hero.js',
     'assets/js/homepage/why.js',
+    'assets/js/homepage/story.js',
 ], 'js/homepage.js');
 
 
