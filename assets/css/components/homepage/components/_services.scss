@@ -1,4 +1,30 @@
 .services {
   background: $vc-background-dark;
-  height: 3000px;
+  margin-bottom: 60px;
+  padding: 120px 0;
+  position: relative;
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 32px;
+    padding: 60px 0;
+  }
+
+  .content {
+    .tag {
+      @include vc-tag($vc-text-light);
+    }
+
+    p {
+      @include vc-p($vc-text-light);
+      margin: 0;
+    }
+
+    h2 {
+      @include vc-h1($vc-text-light);
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
 }

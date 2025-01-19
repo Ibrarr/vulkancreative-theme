@@ -83,7 +83,16 @@ get_header();
 
 <section class="services">
     <div class="container px-4">
-
+        <div class="row">
+            <div class="col-lg-6 content">
+                <p class="tag">Our services</p>
+                <h2>Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
+                <p>Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
+            </div>
+            <div class="col-lg-6 services">
+                services
+            </div>
+        </div>
     </div>
 </section>
 
