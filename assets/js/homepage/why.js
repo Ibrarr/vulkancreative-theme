@@ -40,19 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             revealImage.src = '';
                             revealImage.src = revealSrc;
 
-                            // Hide the reveal image and show the infinite image after 1.5 seconds
                             setTimeout(() => {
-                                revealImage.style.display = 'none';
-
                                 if (infiniteImage) {
                                     // Reload the .infinite image
                                     const infiniteSrc = infiniteImage.src;
                                     infiniteImage.src = '';
                                     infiniteImage.src = infiniteSrc;
-
-                                    // Show the infinite image
-                                    infiniteImage.style.display = 'block';
                                 }
+                            }, 1200);
+
+                            setTimeout(() => {
+                                revealImage.style.display = 'none';
+                                infiniteImage.style.display = 'block';
                             }, 1800);
                         }
                     });
@@ -85,7 +84,7 @@ jQuery(document).ready(function($) {
         height: '700px',
         borderRadius: '50%',
         background: `radial-gradient(circle, rgba(255,59,48,1) 0%, rgba(9,9,121,0) 70%)`, // Fades out more
-        opacity: 0.60,
+        opacity: 0.50,
         pointerEvents: 'none',
         transform: 'translate(-50%, -50%)',
         display: 'none', // Start hidden
