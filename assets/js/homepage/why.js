@@ -3,6 +3,78 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('.why .top', {
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.why .top',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+        }
+    });
+
+    document.querySelectorAll('.why-box-container').forEach(container => {
+        const boxes = container.querySelectorAll('.why-boxes');
+
+        gsap.from(boxes, {
+            opacity: 0,
+            y: 50,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: container,
+                start: 'top 90%',
+                toggleActions: 'play none none none',
+                onEnter: () => {
+                    boxes.forEach(box => {
+                        const revealImage = box.querySelector('.reveal');
+                        const infiniteImage = box.querySelector('.infinite');
+
+                        // Reload the .reveal image
+                        if (revealImage) {
+                            const revealSrc = revealImage.src;
+                            revealImage.src = '';
+                            revealImage.src = revealSrc;
+
+                            // Hide the reveal image and show the infinite image after 1.5 seconds
+                            setTimeout(() => {
+                                revealImage.style.display = 'none';
+
+                                if (infiniteImage) {
+                                    // Reload the .infinite image
+                                    const infiniteSrc = infiniteImage.src;
+                                    infiniteImage.src = '';
+                                    infiniteImage.src = infiniteSrc;
+
+                                    // Show the infinite image
+                                    infiniteImage.style.display = 'block';
+                                }
+                            }, 1800);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    gsap.from('.why .bottom', {
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.why .bottom',
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+        }
+    });
+});
+
+
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');
 
