@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.out',
         scrollTrigger: {
             trigger: '.why .top',
-            start: 'top 90%',
+            start: 'top 95%',
             toggleActions: 'play none none none',
         }
     });
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stagger: 0.2,
             scrollTrigger: {
                 trigger: container,
-                start: 'top 90%',
+                start: 'top 95%',
                 toggleActions: 'play none none none',
                 onEnter: () => {
                     boxes.forEach(box => {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: 'power2.out',
         scrollTrigger: {
             trigger: '.why .bottom',
-            start: 'top 90%',
+            start: 'top 100%',
             toggleActions: 'play none none none',
         }
     });

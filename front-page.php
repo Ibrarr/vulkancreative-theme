@@ -74,6 +74,7 @@ get_header();
                     src="https://www.youtube.com/embed/C0DPdy98e4c?si=Y5z5MHxS5uvEmwYC"
                     frameborder="0"
                     allow="encrypted-media"
+                    title="Our story"
                     allowfullscreen
             ></iframe>
         </div>
