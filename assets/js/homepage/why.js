@@ -130,7 +130,7 @@ jQuery(document).ready(function($) {
         cursor.classList.remove('hidden');
     });
 
-    $('.why .button').on('mouseleave', function() {
+    $('.why .button.disable-custom-cursor').on('mouseleave', function() {
         cursor.classList.add('hidden');
     });
 });

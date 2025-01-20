@@ -10,6 +10,14 @@
   }
 
   .content {
+    position: sticky;
+    top: 50px;
+    height: fit-content;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 20px;
+    }
+
     .tag {
       @include vc-tag($vc-text-light);
     }
@@ -24,6 +32,70 @@
 
       span {
         color: $vc-primary;
+      }
+    }
+  }
+
+  .service-container {
+    position: relative;
+
+    .service {
+      padding: 32px;
+      border-radius: 10px;
+      border: 2px solid $vc-primary;
+      background: $vc-background-dark;
+
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+
+      &:nth-child(1) {
+        position: sticky;
+        top: 50px;
+      }
+
+      &:nth-child(2) {
+        position: sticky;
+        top: 70px;
+      }
+
+      &:nth-child(3) {
+        position: sticky;
+        top: 90px;
+      }
+
+      &:nth-child(4) {
+        position: sticky;
+        top: 0;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+        margin-left: -5px;
+        margin-bottom: 10px;
+
+        @include media-breakpoint-down(lg) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      h3 {
+        @include vc-h4($vc-text-light);
+        margin-bottom: 20px;
+      }
+
+      p {
+        @include vc-p($vc-text-light);
+      }
+
+      .button {
+        @include vc-button($vc-primary, $vc-text-light);
+
+        @include media-breakpoint-up(lg) {
+          display: none;
+        }
       }
     }
   }

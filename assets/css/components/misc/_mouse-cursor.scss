@@ -3,17 +3,39 @@
   cursor: none;
 }
 
-/* Custom cursor styles */
 .custom-cursor {
   position: fixed;
-  width: 20px; /* Adjust size as needed */
+  width: 20px;
   height: 20px;
   border: 2px solid $vc-primary;
   border-radius: 50%;
-  pointer-events: none; /* Prevent interaction with other elements */
+  pointer-events: none;
   transform: translate(-50%, -50%);
-  z-index: 1000; /* Ensure it appears above everything */
-  transition: opacity 0.2s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $vc-semi-bold;
+  text-align: center;
+  line-height: 1.2;
+  opacity: 1;
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+
+  &.expanded {
+    width: 90px;
+    height: 90px;
+    background-color: $vc-primary;
+    border: none;
+
+    .learn-more-cursor {
+      display: block;
+      pointer-events: none;
+      font-family: $vc-font-family;
+      font-size: 16px;
+      color: $vc-text-light;
+      opacity: 1;
+    }
+  }
 }
 
 .custom-cursor.hidden {

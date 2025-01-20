@@ -13523,20 +13523,46 @@ textarea.form-control-lg {
   cursor: none;
 }
 
-/* Custom cursor styles */
 .custom-cursor {
   position: fixed;
-  width: 20px; /* Adjust size as needed */
+  width: 20px;
   height: 20px;
   border: 2px solid #FF3B30;
   border-radius: 50%;
-  pointer-events: none; /* Prevent interaction with other elements */
+  pointer-events: none;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  z-index: 1000; /* Ensure it appears above everything */
-  -webkit-transition: opacity 0.2s ease;
-  transition: opacity 0.2s ease;
+  z-index: 1000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  opacity: 1;
+  -webkit-transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+}
+.custom-cursor.expanded {
+  width: 90px;
+  height: 90px;
+  background-color: #FF3B30;
+  border: none;
+}
+.custom-cursor.expanded .learn-more-cursor {
+  display: block;
+  pointer-events: none;
+  font-family: "Poppins", serif;
+  font-size: 16px;
+  color: #F5F5F5;
+  opacity: 1;
 }
 
 .custom-cursor.hidden {
@@ -13567,602 +13593,602 @@ textarea.form-control-lg {
 }
 @-webkit-keyframes flyInDirection1 {
   to {
-    -webkit-transform: translate(-79px, -64px);
-    transform: translate(-79px, -64px);
+    -webkit-transform: translate(73px, -70px);
+    transform: translate(73px, -70px);
   }
 }
 @keyframes flyInDirection1 {
   to {
-    -webkit-transform: translate(-79px, -64px);
-    transform: translate(-79px, -64px);
+    -webkit-transform: translate(73px, -70px);
+    transform: translate(73px, -70px);
   }
 }
 @-webkit-keyframes flyInDirection2 {
   to {
-    -webkit-transform: translate(-9px, -44px);
-    transform: translate(-9px, -44px);
+    -webkit-transform: translate(-74px, 61px);
+    transform: translate(-74px, 61px);
   }
 }
 @keyframes flyInDirection2 {
   to {
-    -webkit-transform: translate(-9px, -44px);
-    transform: translate(-9px, -44px);
+    -webkit-transform: translate(-74px, 61px);
+    transform: translate(-74px, 61px);
   }
 }
 @-webkit-keyframes flyInDirection3 {
   to {
-    -webkit-transform: translate(-97px, -38px);
-    transform: translate(-97px, -38px);
+    -webkit-transform: translate(-93px, 22px);
+    transform: translate(-93px, 22px);
   }
 }
 @keyframes flyInDirection3 {
   to {
-    -webkit-transform: translate(-97px, -38px);
-    transform: translate(-97px, -38px);
+    -webkit-transform: translate(-93px, 22px);
+    transform: translate(-93px, 22px);
   }
 }
 @-webkit-keyframes flyInDirection4 {
   to {
-    -webkit-transform: translate(33px, 32px);
-    transform: translate(33px, 32px);
+    -webkit-transform: translate(59px, -44px);
+    transform: translate(59px, -44px);
   }
 }
 @keyframes flyInDirection4 {
   to {
-    -webkit-transform: translate(33px, 32px);
-    transform: translate(33px, 32px);
+    -webkit-transform: translate(59px, -44px);
+    transform: translate(59px, -44px);
   }
 }
 @-webkit-keyframes flyInDirection5 {
   to {
-    -webkit-transform: translate(60px, 81px);
-    transform: translate(60px, 81px);
+    -webkit-transform: translate(-59px, -19px);
+    transform: translate(-59px, -19px);
   }
 }
 @keyframes flyInDirection5 {
   to {
-    -webkit-transform: translate(60px, 81px);
-    transform: translate(60px, 81px);
+    -webkit-transform: translate(-59px, -19px);
+    transform: translate(-59px, -19px);
   }
 }
 @-webkit-keyframes flyInDirection6 {
   to {
-    -webkit-transform: translate(-68px, 71px);
-    transform: translate(-68px, 71px);
+    -webkit-transform: translate(-11px, -33px);
+    transform: translate(-11px, -33px);
   }
 }
 @keyframes flyInDirection6 {
   to {
-    -webkit-transform: translate(-68px, 71px);
-    transform: translate(-68px, 71px);
+    -webkit-transform: translate(-11px, -33px);
+    transform: translate(-11px, -33px);
   }
 }
 @-webkit-keyframes flyInDirection7 {
   to {
-    -webkit-transform: translate(11px, -17px);
-    transform: translate(11px, -17px);
+    -webkit-transform: translate(12px, 80px);
+    transform: translate(12px, 80px);
   }
 }
 @keyframes flyInDirection7 {
   to {
-    -webkit-transform: translate(11px, -17px);
-    transform: translate(11px, -17px);
+    -webkit-transform: translate(12px, 80px);
+    transform: translate(12px, 80px);
   }
 }
 @-webkit-keyframes flyInDirection8 {
   to {
-    -webkit-transform: translate(-19px, 73px);
-    transform: translate(-19px, 73px);
+    -webkit-transform: translate(-40px, -37px);
+    transform: translate(-40px, -37px);
   }
 }
 @keyframes flyInDirection8 {
   to {
-    -webkit-transform: translate(-19px, 73px);
-    transform: translate(-19px, 73px);
+    -webkit-transform: translate(-40px, -37px);
+    transform: translate(-40px, -37px);
   }
 }
 @-webkit-keyframes flyInDirection9 {
   to {
-    -webkit-transform: translate(-72px, -37px);
-    transform: translate(-72px, -37px);
+    -webkit-transform: translate(-94px, -2px);
+    transform: translate(-94px, -2px);
   }
 }
 @keyframes flyInDirection9 {
   to {
-    -webkit-transform: translate(-72px, -37px);
-    transform: translate(-72px, -37px);
+    -webkit-transform: translate(-94px, -2px);
+    transform: translate(-94px, -2px);
   }
 }
 @-webkit-keyframes flyInDirection10 {
   to {
-    -webkit-transform: translate(91px, -16px);
-    transform: translate(91px, -16px);
+    -webkit-transform: translate(0px, 44px);
+    transform: translate(0px, 44px);
   }
 }
 @keyframes flyInDirection10 {
   to {
-    -webkit-transform: translate(91px, -16px);
-    transform: translate(91px, -16px);
+    -webkit-transform: translate(0px, 44px);
+    transform: translate(0px, 44px);
   }
 }
 @-webkit-keyframes flyInDirection11 {
   to {
-    -webkit-transform: translate(-13px, -33px);
-    transform: translate(-13px, -33px);
+    -webkit-transform: translate(59px, 56px);
+    transform: translate(59px, 56px);
   }
 }
 @keyframes flyInDirection11 {
   to {
-    -webkit-transform: translate(-13px, -33px);
-    transform: translate(-13px, -33px);
+    -webkit-transform: translate(59px, 56px);
+    transform: translate(59px, 56px);
   }
 }
 @-webkit-keyframes flyInDirection12 {
   to {
-    -webkit-transform: translate(9px, 35px);
-    transform: translate(9px, 35px);
+    -webkit-transform: translate(-18px, 20px);
+    transform: translate(-18px, 20px);
   }
 }
 @keyframes flyInDirection12 {
   to {
-    -webkit-transform: translate(9px, 35px);
-    transform: translate(9px, 35px);
+    -webkit-transform: translate(-18px, 20px);
+    transform: translate(-18px, 20px);
   }
 }
 @-webkit-keyframes flyInDirection13 {
   to {
-    -webkit-transform: translate(-69px, -13px);
-    transform: translate(-69px, -13px);
+    -webkit-transform: translate(0px, -17px);
+    transform: translate(0px, -17px);
   }
 }
 @keyframes flyInDirection13 {
   to {
-    -webkit-transform: translate(-69px, -13px);
-    transform: translate(-69px, -13px);
+    -webkit-transform: translate(0px, -17px);
+    transform: translate(0px, -17px);
   }
 }
 @-webkit-keyframes flyInDirection14 {
   to {
-    -webkit-transform: translate(8px, -41px);
-    transform: translate(8px, -41px);
+    -webkit-transform: translate(-75px, 34px);
+    transform: translate(-75px, 34px);
   }
 }
 @keyframes flyInDirection14 {
   to {
-    -webkit-transform: translate(8px, -41px);
-    transform: translate(8px, -41px);
+    -webkit-transform: translate(-75px, 34px);
+    transform: translate(-75px, 34px);
   }
 }
 @-webkit-keyframes flyInDirection15 {
   to {
-    -webkit-transform: translate(-3px, 51px);
-    transform: translate(-3px, 51px);
+    -webkit-transform: translate(30px, 58px);
+    transform: translate(30px, 58px);
   }
 }
 @keyframes flyInDirection15 {
   to {
-    -webkit-transform: translate(-3px, 51px);
-    transform: translate(-3px, 51px);
+    -webkit-transform: translate(30px, 58px);
+    transform: translate(30px, 58px);
   }
 }
 @-webkit-keyframes flyInDirection16 {
   to {
-    -webkit-transform: translate(12px, -21px);
-    transform: translate(12px, -21px);
+    -webkit-transform: translate(-37px, -46px);
+    transform: translate(-37px, -46px);
   }
 }
 @keyframes flyInDirection16 {
   to {
-    -webkit-transform: translate(12px, -21px);
-    transform: translate(12px, -21px);
+    -webkit-transform: translate(-37px, -46px);
+    transform: translate(-37px, -46px);
   }
 }
 @-webkit-keyframes flyInDirection17 {
   to {
-    -webkit-transform: translate(77px, 60px);
-    transform: translate(77px, 60px);
+    -webkit-transform: translate(75px, -45px);
+    transform: translate(75px, -45px);
   }
 }
 @keyframes flyInDirection17 {
   to {
-    -webkit-transform: translate(77px, 60px);
-    transform: translate(77px, 60px);
+    -webkit-transform: translate(75px, -45px);
+    transform: translate(75px, -45px);
   }
 }
 @-webkit-keyframes flyInDirection18 {
   to {
-    -webkit-transform: translate(64px, -80px);
-    transform: translate(64px, -80px);
+    -webkit-transform: translate(10px, 95px);
+    transform: translate(10px, 95px);
   }
 }
 @keyframes flyInDirection18 {
   to {
-    -webkit-transform: translate(64px, -80px);
-    transform: translate(64px, -80px);
+    -webkit-transform: translate(10px, 95px);
+    transform: translate(10px, 95px);
   }
 }
 @-webkit-keyframes flyInDirection19 {
   to {
-    -webkit-transform: translate(46px, 38px);
-    transform: translate(46px, 38px);
+    -webkit-transform: translate(-83px, -58px);
+    transform: translate(-83px, -58px);
   }
 }
 @keyframes flyInDirection19 {
   to {
-    -webkit-transform: translate(46px, 38px);
-    transform: translate(46px, 38px);
+    -webkit-transform: translate(-83px, -58px);
+    transform: translate(-83px, -58px);
   }
 }
 @-webkit-keyframes flyInDirection20 {
   to {
-    -webkit-transform: translate(25px, 80px);
-    transform: translate(25px, 80px);
+    -webkit-transform: translate(-25px, 95px);
+    transform: translate(-25px, 95px);
   }
 }
 @keyframes flyInDirection20 {
   to {
-    -webkit-transform: translate(25px, 80px);
-    transform: translate(25px, 80px);
+    -webkit-transform: translate(-25px, 95px);
+    transform: translate(-25px, 95px);
   }
 }
 @-webkit-keyframes flyInDirection21 {
   to {
-    -webkit-transform: translate(23px, 32px);
-    transform: translate(23px, 32px);
+    -webkit-transform: translate(53px, 15px);
+    transform: translate(53px, 15px);
   }
 }
 @keyframes flyInDirection21 {
   to {
-    -webkit-transform: translate(23px, 32px);
-    transform: translate(23px, 32px);
+    -webkit-transform: translate(53px, 15px);
+    transform: translate(53px, 15px);
   }
 }
 @-webkit-keyframes flyInDirection22 {
   to {
-    -webkit-transform: translate(76px, -84px);
-    transform: translate(76px, -84px);
+    -webkit-transform: translate(-66px, -67px);
+    transform: translate(-66px, -67px);
   }
 }
 @keyframes flyInDirection22 {
   to {
-    -webkit-transform: translate(76px, -84px);
-    transform: translate(76px, -84px);
+    -webkit-transform: translate(-66px, -67px);
+    transform: translate(-66px, -67px);
   }
 }
 @-webkit-keyframes flyInDirection23 {
   to {
-    -webkit-transform: translate(-48px, 81px);
-    transform: translate(-48px, 81px);
+    -webkit-transform: translate(32px, -52px);
+    transform: translate(32px, -52px);
   }
 }
 @keyframes flyInDirection23 {
   to {
-    -webkit-transform: translate(-48px, 81px);
-    transform: translate(-48px, 81px);
+    -webkit-transform: translate(32px, -52px);
+    transform: translate(32px, -52px);
   }
 }
 @-webkit-keyframes flyInDirection24 {
   to {
-    -webkit-transform: translate(78px, 53px);
-    transform: translate(78px, 53px);
+    -webkit-transform: translate(53px, 64px);
+    transform: translate(53px, 64px);
   }
 }
 @keyframes flyInDirection24 {
   to {
-    -webkit-transform: translate(78px, 53px);
-    transform: translate(78px, 53px);
+    -webkit-transform: translate(53px, 64px);
+    transform: translate(53px, 64px);
   }
 }
 @-webkit-keyframes flyInDirection25 {
   to {
-    -webkit-transform: translate(3px, 58px);
-    transform: translate(3px, 58px);
+    -webkit-transform: translate(-90px, -64px);
+    transform: translate(-90px, -64px);
   }
 }
 @keyframes flyInDirection25 {
   to {
-    -webkit-transform: translate(3px, 58px);
-    transform: translate(3px, 58px);
+    -webkit-transform: translate(-90px, -64px);
+    transform: translate(-90px, -64px);
   }
 }
 @-webkit-keyframes flyInDirection26 {
   to {
-    -webkit-transform: translate(68px, -9px);
-    transform: translate(68px, -9px);
+    -webkit-transform: translate(5px, -20px);
+    transform: translate(5px, -20px);
   }
 }
 @keyframes flyInDirection26 {
   to {
-    -webkit-transform: translate(68px, -9px);
-    transform: translate(68px, -9px);
+    -webkit-transform: translate(5px, -20px);
+    transform: translate(5px, -20px);
   }
 }
 @-webkit-keyframes flyInDirection27 {
   to {
-    -webkit-transform: translate(-15px, -12px);
-    transform: translate(-15px, -12px);
+    -webkit-transform: translate(54px, -33px);
+    transform: translate(54px, -33px);
   }
 }
 @keyframes flyInDirection27 {
   to {
-    -webkit-transform: translate(-15px, -12px);
-    transform: translate(-15px, -12px);
+    -webkit-transform: translate(54px, -33px);
+    transform: translate(54px, -33px);
   }
 }
 @-webkit-keyframes flyInDirection28 {
   to {
-    -webkit-transform: translate(-95px, -26px);
-    transform: translate(-95px, -26px);
+    -webkit-transform: translate(34px, 2px);
+    transform: translate(34px, 2px);
   }
 }
 @keyframes flyInDirection28 {
   to {
-    -webkit-transform: translate(-95px, -26px);
-    transform: translate(-95px, -26px);
+    -webkit-transform: translate(34px, 2px);
+    transform: translate(34px, 2px);
   }
 }
 @-webkit-keyframes flyInDirection29 {
   to {
-    -webkit-transform: translate(-11px, -77px);
-    transform: translate(-11px, -77px);
+    -webkit-transform: translate(79px, 0px);
+    transform: translate(79px, 0px);
   }
 }
 @keyframes flyInDirection29 {
   to {
-    -webkit-transform: translate(-11px, -77px);
-    transform: translate(-11px, -77px);
+    -webkit-transform: translate(79px, 0px);
+    transform: translate(79px, 0px);
   }
 }
 @-webkit-keyframes flyInDirection30 {
   to {
-    -webkit-transform: translate(82px, 78px);
-    transform: translate(82px, 78px);
+    -webkit-transform: translate(-79px, 41px);
+    transform: translate(-79px, 41px);
   }
 }
 @keyframes flyInDirection30 {
   to {
-    -webkit-transform: translate(82px, 78px);
-    transform: translate(82px, 78px);
+    -webkit-transform: translate(-79px, 41px);
+    transform: translate(-79px, 41px);
   }
 }
 @-webkit-keyframes flyInDirection31 {
   to {
-    -webkit-transform: translate(-14px, 78px);
-    transform: translate(-14px, 78px);
+    -webkit-transform: translate(2px, -76px);
+    transform: translate(2px, -76px);
   }
 }
 @keyframes flyInDirection31 {
   to {
-    -webkit-transform: translate(-14px, 78px);
-    transform: translate(-14px, 78px);
+    -webkit-transform: translate(2px, -76px);
+    transform: translate(2px, -76px);
   }
 }
 @-webkit-keyframes flyInDirection32 {
   to {
-    -webkit-transform: translate(65px, 34px);
-    transform: translate(65px, 34px);
+    -webkit-transform: translate(-71px, 84px);
+    transform: translate(-71px, 84px);
   }
 }
 @keyframes flyInDirection32 {
   to {
-    -webkit-transform: translate(65px, 34px);
-    transform: translate(65px, 34px);
+    -webkit-transform: translate(-71px, 84px);
+    transform: translate(-71px, 84px);
   }
 }
 @-webkit-keyframes flyInDirection33 {
   to {
-    -webkit-transform: translate(37px, -88px);
-    transform: translate(37px, -88px);
+    -webkit-transform: translate(-78px, -40px);
+    transform: translate(-78px, -40px);
   }
 }
 @keyframes flyInDirection33 {
   to {
-    -webkit-transform: translate(37px, -88px);
-    transform: translate(37px, -88px);
+    -webkit-transform: translate(-78px, -40px);
+    transform: translate(-78px, -40px);
   }
 }
 @-webkit-keyframes flyInDirection34 {
   to {
-    -webkit-transform: translate(48px, 95px);
-    transform: translate(48px, 95px);
+    -webkit-transform: translate(70px, -84px);
+    transform: translate(70px, -84px);
   }
 }
 @keyframes flyInDirection34 {
   to {
-    -webkit-transform: translate(48px, 95px);
-    transform: translate(48px, 95px);
+    -webkit-transform: translate(70px, -84px);
+    transform: translate(70px, -84px);
   }
 }
 @-webkit-keyframes flyInDirection35 {
   to {
-    -webkit-transform: translate(-50px, 53px);
-    transform: translate(-50px, 53px);
+    -webkit-transform: translate(-11px, 7px);
+    transform: translate(-11px, 7px);
   }
 }
 @keyframes flyInDirection35 {
   to {
-    -webkit-transform: translate(-50px, 53px);
-    transform: translate(-50px, 53px);
+    -webkit-transform: translate(-11px, 7px);
+    transform: translate(-11px, 7px);
   }
 }
 @-webkit-keyframes flyInDirection36 {
   to {
-    -webkit-transform: translate(-78px, -51px);
-    transform: translate(-78px, -51px);
+    -webkit-transform: translate(-58px, 39px);
+    transform: translate(-58px, 39px);
   }
 }
 @keyframes flyInDirection36 {
   to {
-    -webkit-transform: translate(-78px, -51px);
-    transform: translate(-78px, -51px);
+    -webkit-transform: translate(-58px, 39px);
+    transform: translate(-58px, 39px);
   }
 }
 @-webkit-keyframes flyInDirection37 {
   to {
-    -webkit-transform: translate(-38px, 40px);
-    transform: translate(-38px, 40px);
+    -webkit-transform: translate(35px, 62px);
+    transform: translate(35px, 62px);
   }
 }
 @keyframes flyInDirection37 {
   to {
-    -webkit-transform: translate(-38px, 40px);
-    transform: translate(-38px, 40px);
+    -webkit-transform: translate(35px, 62px);
+    transform: translate(35px, 62px);
   }
 }
 @-webkit-keyframes flyInDirection38 {
   to {
-    -webkit-transform: translate(45px, -94px);
-    transform: translate(45px, -94px);
+    -webkit-transform: translate(-95px, 5px);
+    transform: translate(-95px, 5px);
   }
 }
 @keyframes flyInDirection38 {
   to {
-    -webkit-transform: translate(45px, -94px);
-    transform: translate(45px, -94px);
+    -webkit-transform: translate(-95px, 5px);
+    transform: translate(-95px, 5px);
   }
 }
 @-webkit-keyframes flyInDirection39 {
   to {
-    -webkit-transform: translate(-99px, -80px);
-    transform: translate(-99px, -80px);
+    -webkit-transform: translate(19px, -20px);
+    transform: translate(19px, -20px);
   }
 }
 @keyframes flyInDirection39 {
   to {
-    -webkit-transform: translate(-99px, -80px);
-    transform: translate(-99px, -80px);
+    -webkit-transform: translate(19px, -20px);
+    transform: translate(19px, -20px);
   }
 }
 @-webkit-keyframes flyInDirection40 {
   to {
-    -webkit-transform: translate(-40px, 25px);
-    transform: translate(-40px, 25px);
+    -webkit-transform: translate(4px, 78px);
+    transform: translate(4px, 78px);
   }
 }
 @keyframes flyInDirection40 {
   to {
-    -webkit-transform: translate(-40px, 25px);
-    transform: translate(-40px, 25px);
+    -webkit-transform: translate(4px, 78px);
+    transform: translate(4px, 78px);
   }
 }
 @-webkit-keyframes flyInDirection41 {
   to {
-    -webkit-transform: translate(73px, 56px);
-    transform: translate(73px, 56px);
+    -webkit-transform: translate(41px, 53px);
+    transform: translate(41px, 53px);
   }
 }
 @keyframes flyInDirection41 {
   to {
-    -webkit-transform: translate(73px, 56px);
-    transform: translate(73px, 56px);
+    -webkit-transform: translate(41px, 53px);
+    transform: translate(41px, 53px);
   }
 }
 @-webkit-keyframes flyInDirection42 {
   to {
-    -webkit-transform: translate(-98px, -85px);
-    transform: translate(-98px, -85px);
+    -webkit-transform: translate(99px, 35px);
+    transform: translate(99px, 35px);
   }
 }
 @keyframes flyInDirection42 {
   to {
-    -webkit-transform: translate(-98px, -85px);
-    transform: translate(-98px, -85px);
+    -webkit-transform: translate(99px, 35px);
+    transform: translate(99px, 35px);
   }
 }
 @-webkit-keyframes flyInDirection43 {
   to {
-    -webkit-transform: translate(83px, 63px);
-    transform: translate(83px, 63px);
+    -webkit-transform: translate(-26px, -5px);
+    transform: translate(-26px, -5px);
   }
 }
 @keyframes flyInDirection43 {
   to {
-    -webkit-transform: translate(83px, 63px);
-    transform: translate(83px, 63px);
+    -webkit-transform: translate(-26px, -5px);
+    transform: translate(-26px, -5px);
   }
 }
 @-webkit-keyframes flyInDirection44 {
   to {
-    -webkit-transform: translate(12px, 88px);
-    transform: translate(12px, 88px);
+    -webkit-transform: translate(-66px, -21px);
+    transform: translate(-66px, -21px);
   }
 }
 @keyframes flyInDirection44 {
   to {
-    -webkit-transform: translate(12px, 88px);
-    transform: translate(12px, 88px);
+    -webkit-transform: translate(-66px, -21px);
+    transform: translate(-66px, -21px);
   }
 }
 @-webkit-keyframes flyInDirection45 {
   to {
-    -webkit-transform: translate(13px, 39px);
-    transform: translate(13px, 39px);
+    -webkit-transform: translate(77px, -6px);
+    transform: translate(77px, -6px);
   }
 }
 @keyframes flyInDirection45 {
   to {
-    -webkit-transform: translate(13px, 39px);
-    transform: translate(13px, 39px);
+    -webkit-transform: translate(77px, -6px);
+    transform: translate(77px, -6px);
   }
 }
 @-webkit-keyframes flyInDirection46 {
   to {
-    -webkit-transform: translate(-20px, -69px);
-    transform: translate(-20px, -69px);
+    -webkit-transform: translate(-32px, -54px);
+    transform: translate(-32px, -54px);
   }
 }
 @keyframes flyInDirection46 {
   to {
-    -webkit-transform: translate(-20px, -69px);
-    transform: translate(-20px, -69px);
+    -webkit-transform: translate(-32px, -54px);
+    transform: translate(-32px, -54px);
   }
 }
 @-webkit-keyframes flyInDirection47 {
   to {
-    -webkit-transform: translate(-99px, 70px);
-    transform: translate(-99px, 70px);
+    -webkit-transform: translate(10px, -84px);
+    transform: translate(10px, -84px);
   }
 }
 @keyframes flyInDirection47 {
   to {
-    -webkit-transform: translate(-99px, 70px);
-    transform: translate(-99px, 70px);
+    -webkit-transform: translate(10px, -84px);
+    transform: translate(10px, -84px);
   }
 }
 @-webkit-keyframes flyInDirection48 {
   to {
-    -webkit-transform: translate(-99px, -18px);
-    transform: translate(-99px, -18px);
+    -webkit-transform: translate(-75px, 23px);
+    transform: translate(-75px, 23px);
   }
 }
 @keyframes flyInDirection48 {
   to {
-    -webkit-transform: translate(-99px, -18px);
-    transform: translate(-99px, -18px);
+    -webkit-transform: translate(-75px, 23px);
+    transform: translate(-75px, 23px);
   }
 }
 @-webkit-keyframes flyInDirection49 {
   to {
-    -webkit-transform: translate(-89px, -45px);
-    transform: translate(-89px, -45px);
+    -webkit-transform: translate(60px, -24px);
+    transform: translate(60px, -24px);
   }
 }
 @keyframes flyInDirection49 {
   to {
-    -webkit-transform: translate(-89px, -45px);
-    transform: translate(-89px, -45px);
+    -webkit-transform: translate(60px, -24px);
+    transform: translate(60px, -24px);
   }
 }
 @-webkit-keyframes flyInDirection50 {
   to {
-    -webkit-transform: translate(-97px, -82px);
-    transform: translate(-97px, -82px);
+    -webkit-transform: translate(-68px, 15px);
+    transform: translate(-68px, 15px);
   }
 }
 @keyframes flyInDirection50 {
   to {
-    -webkit-transform: translate(-97px, -82px);
-    transform: translate(-97px, -82px);
+    -webkit-transform: translate(-68px, 15px);
+    transform: translate(-68px, 15px);
   }
 }
 .home.page .hero {
@@ -14264,7 +14290,7 @@ textarea.form-control-lg {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 2px solid #FF3B30;
-  border-radius: 25px;
+  border-radius: 10px;
   text-decoration: none;
   display: block;
   width: -webkit-fit-content;
@@ -14402,7 +14428,7 @@ textarea.form-control-lg {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 2px solid #FF3B30;
-  border-radius: 25px;
+  border-radius: 10px;
   text-decoration: none;
   display: block;
   width: -webkit-fit-content;
@@ -14484,7 +14510,7 @@ textarea.form-control-lg {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: 2px solid #FF3B30;
-  border-radius: 25px;
+  border-radius: 10px;
   text-decoration: none;
   display: block;
   width: -webkit-fit-content;
@@ -14543,6 +14569,18 @@ textarea.form-control-lg {
     padding: 60px 0;
   }
 }
+.home.page .services .content {
+  position: sticky;
+  top: 50px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+@media (max-width: 991.98px) {
+  .home.page .services .content {
+    margin-bottom: 20px;
+  }
+}
 .home.page .services .content .tag {
   font-family: "Poppins", serif;
   font-weight: 600;
@@ -14583,4 +14621,107 @@ textarea.form-control-lg {
 }
 .home.page .services .content h2 span, .home.page .services .content .h2 span {
   color: #FF3B30;
+}
+.home.page .services .service-container {
+  position: relative;
+}
+.home.page .services .service-container .service {
+  padding: 32px;
+  border-radius: 10px;
+  border: 2px solid #FF3B30;
+  background: #121212;
+}
+.home.page .services .service-container .service:not(:last-child) {
+  margin-bottom: 30px;
+}
+.home.page .services .service-container .service:nth-child(1) {
+  position: sticky;
+  top: 50px;
+}
+.home.page .services .service-container .service:nth-child(2) {
+  position: sticky;
+  top: 70px;
+}
+.home.page .services .service-container .service:nth-child(3) {
+  position: sticky;
+  top: 90px;
+}
+.home.page .services .service-container .service:nth-child(4) {
+  position: sticky;
+  top: 0;
+}
+.home.page .services .service-container .service img {
+  width: 50px;
+  height: 50px;
+  margin-left: -5px;
+  margin-bottom: 10px;
+}
+@media (max-width: 991.98px) {
+  .home.page .services .service-container .service img {
+    width: 40px;
+    height: 40px;
+  }
+}
+.home.page .services .service-container .service h3, .home.page .services .service-container .service .h3 {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #F5F5F5;
+  opacity: 1;
+  margin-bottom: 20px;
+}
+@media (max-width: 991.98px) {
+  .home.page .services .service-container .service h3, .home.page .services .service-container .service .h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+}
+.home.page .services .service-container .service p {
+  font-family: "Poppins", serif;
+  font-size: 18px;
+  color: #F5F5F5;
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .home.page .services .service-container .service p {
+    font-size: 14px;
+  }
+}
+.home.page .services .service-container .service .button {
+  position: relative;
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  background-color: #FF3B30;
+  color: #F5F5F5;
+  padding: 10px 23px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 2px solid #FF3B30;
+  border-radius: 10px;
+  text-decoration: none;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 14px;
+  opacity: 1;
+  z-index: 1;
+}
+@media (max-width: 991.98px) {
+  .home.page .services .service-container .service .button {
+    font-size: 12px;
+  }
+}
+.home.page .services .service-container .service .button:hover {
+  background-color: unset;
+  color: #F5F5F5;
+}
+@media (min-width: 992px) {
+  .home.page .services .service-container .service .button {
+    display: none;
+  }
+}
+.home.page .contact {
+  height: 2000px;
 }

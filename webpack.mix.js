@@ -1,8 +1,8 @@
 const mix = require('laravel-mix');
 
 mix.js([
-    'assets/js/global/custom-cursor.js',
     'assets/js/global/load-at-top.js',
+    'assets/js/global/custom-cursor.js',
 ], 'js/global.js');
 
 mix.js([
@@ -13,6 +13,7 @@ mix.js([
     'assets/js/homepage/hero.js',
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
+    'assets/js/homepage/services.js',
 ], 'js/homepage.js');
 
 

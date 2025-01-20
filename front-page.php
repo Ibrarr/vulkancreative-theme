@@ -17,7 +17,7 @@ get_header();
                     </span>
                 </h1>
                 <p>We forge strong partnerships that elevate businesses into industry leaders, fostering growth and long-term success.</p>
-                <a href="#contact" class="button">Forge ahead</a>
+                <a href="#contact" class="button disable-custom-cursor">Forge ahead</a>
             </div>
             <div class="col-lg-5 graphic">
                 <img src="/wp-content/uploads/2025/01/vulkantransparent.webp" alt="VC">
@@ -58,7 +58,7 @@ get_header();
                 <p>Our track record speaks for itself, delivering impactful outcomes that grow your business.</p>
             </div>
         </div>
-        <div class="bottom"><a href="#contact" class="button">Learn more</a></div>
+        <div class="bottom"><a href="#contact" class="button disable-custom-cursor">Learn more</a></div>
     </div>
 </section>
 
@@ -67,7 +67,7 @@ get_header();
         <div class="content">
             <h2>Our <span>Story</span></h2>
             <p>At Vulkan Creative, we believe in the power of storytelling to connect with audiences. Our journey is rooted in a passion for innovation and a commitment to helping businesses thrive in the digital landscape.</p>
-            <a href="#watch" class="button">Watch</a>
+            <a href="#watch" class="button disable-custom-cursor">Watch</a>
         </div>
         <div class="video-wrapper" id="watch">
             <iframe
@@ -84,15 +84,50 @@ get_header();
 <section class="services">
     <div class="container px-4">
         <div class="row">
-            <div class="col-lg-6 content">
-                <p class="tag">Our services</p>
-                <h2>Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
-                <p>Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
+            <div class="col-lg-6">
+                <div class="content">
+                    <p class="tag">Our services</p>
+                    <h2>Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
+                    <p>Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
+                </div>
             </div>
-            <div class="col-lg-6 services">
-                services
+            <div class="col-lg-6 service-container">
+                <?php
+                $services = get_terms([
+	                'taxonomy' => 'service',
+	                'hide_empty' => false,
+                ]);
+
+                foreach ($services as $key => $service) {
+	                $services[$key]->order = get_field('order', 'service_' . $service->term_id);
+                }
+
+                usort($services, function ($a, $b) {
+	                return $a->order - $b->order;
+                });
+
+                foreach ($services as $service) {
+                    $title = $service->name;
+                    $description = term_description($service->term_id, 'service');
+                    $icon = get_field('icon', 'service_' . $service->term_id);
+                    ?>
+                    <div class="service">
+                        <img src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
+                        <h3><?php echo $title; ?></h3>
+                        <?php echo $description; ?>
+                        <a href="#contact" class="button">Learn more</a>
+                    </div>
+                    <?php
+                }
+                ?>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container px-4">
+
     </div>
 </section>
 

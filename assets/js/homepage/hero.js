@@ -176,12 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');
 
-    $('.button').on('mouseenter', function() {
+    $('.button.disable-custom-cursor').on('mouseenter', function() {
         cursor.classList.add('hidden');
     });
 
     // Handle mouse leaving a button
-    $('.button').on('mouseleave', function() {
+    $('.button.disable-custom-cursor').on('mouseleave', function() {
         cursor.classList.remove('hidden');
     });
 
