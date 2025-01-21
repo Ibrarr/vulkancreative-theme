@@ -3,6 +3,8 @@
   margin-bottom: 60px;
   padding: 120px 0;
   position: relative;
+  z-index: 1;
+  display: flow-root;
 
   @include media-breakpoint-down(lg) {
     margin-bottom: 32px;

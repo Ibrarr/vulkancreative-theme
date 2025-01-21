@@ -1,3 +1,7 @@
+import { shadowCursor } from "../components/shadow-cursor";
+
+shadowCursor('.services');
+
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');
 
@@ -21,7 +25,7 @@ jQuery(document).ready(function($) {
 
     services.forEach(service => {
         service.addEventListener('mouseenter', () => {
-            cursor.classList.add('expanded');
+            cursor.classList.add('display');
             cursor.innerHTML = '<span class="learn-more-cursor">Learn<br>More</span>';
         });
 
