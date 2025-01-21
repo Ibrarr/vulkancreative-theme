@@ -4,7 +4,7 @@
   padding: 120px 0;
   position: relative;
   z-index: 1;
-  display: flow-root;
+  overflow: clip;
 
   @include media-breakpoint-down(lg) {
     margin-bottom: 32px;

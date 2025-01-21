@@ -25,14 +25,15 @@ jQuery(document).ready(function($) {
 
     services.forEach(service => {
         service.addEventListener('mouseenter', () => {
-            cursor.classList.add('display');
+            cursor.classList.remove('dot');
+            cursor.classList.add('expanded');
             cursor.innerHTML = '<span class="learn-more-cursor">Learn<br>More</span>';
         });
 
         service.addEventListener('mouseleave', () => {
-            // Reset the cursor to its original state
             cursor.classList.remove('expanded');
-            cursor.innerHTML = ''; // Remove the text
+            cursor.innerHTML = '';
+            cursor.classList.add('dot');
         });
 
         service.addEventListener('click', (e) => {

@@ -21,6 +21,12 @@
   opacity: 1;
   transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
 
+  &.dot {
+    width: 2px;
+    height: 2px;
+    background-color: $vc-primary;
+  }
+
   &.expanded {
     width: 90px;
     height: 90px;

@@ -39,7 +39,7 @@ export const shadowCursor = (selector) => {
 
             isMouseInside = true;
             $shadow.stop(true, true).fadeIn(300);
-            cursor.classList.add('hidden');
+            cursor.classList.add('dot');
         });
 
         // Mouse move event
@@ -70,11 +70,11 @@ export const shadowCursor = (selector) => {
         $(selector).on('mouseleave', function() {
             isMouseInside = false; // Stop updating shadow position
             $shadow.stop(true, true).fadeOut(300);
-            cursor.classList.remove('hidden');
+            cursor.classList.remove('dot');
         });
 
         $(`${selector} .button.disable-custom-cursor`).on('mouseleave', function() {
-            cursor.classList.add('hidden');
+            cursor.classList.add('dot');
         });
     });
 };
