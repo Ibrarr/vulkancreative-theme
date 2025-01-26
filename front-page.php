@@ -70,13 +70,19 @@ get_header();
             <a href="#watch" class="button disable-custom-cursor">Watch</a>
         </div>
         <div class="video-wrapper" id="watch">
-            <iframe
-                    src="https://www.youtube.com/embed/C0DPdy98e4c?si=Y5z5MHxS5uvEmwYC"
-                    frameborder="0"
-                    allow="encrypted-media"
+            <video
+                    id="our-story"
+                    class="video-js vjs-theme-city"
+                    controls
+                    preload="auto"
+                    poster="/wp-content/uploads/2025/01/vulkantransparent.webp"
+                    data-setup='{
+                        "techOrder": ["youtube"],
+                        "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=C0DPdy98e4c" }]
+                    }'
                     title="Our story"
-                    allowfullscreen
-            ></iframe>
+            >
+            </video>
         </div>
     </div>
 </section>
