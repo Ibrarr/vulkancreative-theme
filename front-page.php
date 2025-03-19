@@ -30,7 +30,7 @@ get_header();
     <div class="container px-4">
         <div class="top">
             <h2>Why Choose <span>Vulkan</span>?</h2>
-            <p>Vulkan Creative is your dedicated partner, combining expertise with innovation to deliver results that last.</p>
+            <p class="sub-heading">Vulkan Creative is your dedicated partner, combining expertise with innovation to deliver results that last.</p>
         </div>
         <div class="row why-box-container">
             <div class="col-lg-4 why-boxes">
@@ -94,7 +94,7 @@ get_header();
                 <div class="content">
                     <p class="tag">Our services</p>
                     <h2>Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
-                    <p>Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
+                    <p class="sub-heading">Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
                 </div>
             </div>
             <div class="col-lg-6 service-container">
@@ -131,9 +131,20 @@ get_header();
     </div>
 </section>
 
-<section class="contact">
+<section class="contact" id="contact">
     <div class="container px-4">
-
+        <div class="row gx-5">
+            <div class="col-lg-6">
+                <div class="content">
+                    <p class="tag">Connect</p>
+                    <h2>Have a <span>Project</span> You Want To Discuss?</h2>
+                    <p>Let’s build something powerful together – share your vision with us.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 form">
+                <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+            </div>
+        </div>
     </div>
 </section>
 

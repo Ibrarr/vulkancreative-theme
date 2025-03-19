@@ -1,13 +1,11 @@
 .services {
   background: $vc-background-dark;
-  margin-bottom: 60px;
   padding: 120px 0;
   position: relative;
   z-index: 1;
   overflow: clip;
 
   @include media-breakpoint-down(lg) {
-    margin-bottom: 32px;
     padding: 60px 0;
   }
 
@@ -24,7 +22,7 @@
       @include vc-tag($vc-text-light);
     }
 
-    p {
+    .sub-heading {
       @include vc-p($vc-text-light);
       margin: 0;
     }
@@ -89,7 +87,11 @@
       }
 
       p {
-        @include vc-p($vc-text-light);
+        @include vc-body($vc-text-light);
+
+        @include media-breakpoint-up(lg) {
+          margin: 0;
+        }
       }
 
       .button {

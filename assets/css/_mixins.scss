@@ -11,12 +11,12 @@
   text-decoration: none;
   display: block;
   width: fit-content;
-  font-size: 14px;
+  font-size: 16px;
   opacity: 1;
   z-index: 1;
 
   @include media-breakpoint-down(lg) {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   &:hover {
@@ -75,7 +75,7 @@
   opacity: 1;
 
   @include media-breakpoint-down(lg) {
-    font-size: 40px;
+    font-size: 42px;
     margin-bottom: 10px;
   }
 }
@@ -84,7 +84,7 @@
   font-family: $vc-font-family;
   font-weight: $vc-bold;
   font-size: 28px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   color: $color;
   opacity: 1;
 
@@ -101,6 +101,17 @@
   opacity: 1;
 
   @include media-breakpoint-down(lg) {
+    font-size: 16px;
+  }
+}
+
+@mixin vc-body($color) {
+  font-family: $vc-font-family;
+  font-size: 16px;
+  color: $color;
+  opacity: 1;
+
+  @include media-breakpoint-down(lg) {
     font-size: 14px;
   }
 }
@@ -111,8 +122,9 @@
   font-size: 14px;
   color: $color;
   opacity: 1;
+  margin-bottom: 10px;
 
   @include media-breakpoint-down(lg) {
-    font-size: 10px;
+    font-size: 12px;
   }
 }

@@ -14,6 +14,7 @@ mix.js([
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
+    'assets/js/homepage/contact.js',
 ], 'js/homepage.js');
 
 

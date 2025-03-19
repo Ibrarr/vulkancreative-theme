@@ -29,8 +29,14 @@
     @include vc-h4($vc-text-light);
   }
 
-  p {
+
+  .sub-heading {
     @include vc-p($vc-text-light);
+    margin: 0;
+  }
+
+  p {
+    @include vc-body($vc-text-light);
     margin: 0;
   }
 
