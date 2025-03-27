@@ -3,9 +3,19 @@ get_header();
 
 ?>
 
-<section class="hero">
+    <style>
+        .graphic {
+            height: 100%;
+            position: absolute !important;
+            right: -550px;
+            top: 0;
+            width: 100%;
+        }
+    </style>
+
+<section class="hero" id="top">
     <div class="container px-4">
-        <div class="row">
+        <div class="row" style="height: 1000px;">
             <div class="col-lg-7 content">
                 <h1>
                     Turning Creative <span class="red spark">Sparks <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/spark.svg' ) ?></span> Into Powerful
@@ -20,13 +30,15 @@ get_header();
                 <a href="#contact" class="button disable-custom-cursor">Forge ahead</a>
             </div>
             <div class="col-lg-5 graphic">
-                <img src="/wp-content/uploads/2025/01/vulkantransparent.webp" alt="VC">
+<!--                <img src="/wp-content/uploads/2025/01/vulkantransparent.webp" alt="VC">-->
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+                <spline-viewer loading-anim-type="spinner-small-dark" url="https://prod.spline.design/pTob7yOPjxmQtLAB/scene.splinecode"></spline-viewer>
             </div>
         </div>
     </div>
 </section>
 
-<section class="why">
+<section class="why" id="why">
     <div class="container px-4">
         <div class="top">
             <h2>Why Choose <span>Vulkan</span>?</h2>
@@ -47,7 +59,7 @@ get_header();
                     <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>" class="infinite" alt="Tailored Solutions">
                 </div>
                 <h3>Tailored Solutions</h3>
-                <p>Every strategy is customized to fit your unique brand and goals-no one-size-fits-all here.</p>
+                <p>Every strategy is customised to fit your unique brand and goals-no one-size-fits-all here.</p>
             </div>
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
@@ -62,7 +74,7 @@ get_header();
     </div>
 </section>
 
-<section class="story">
+<section class="story" id="story">
     <div class="container px-4">
         <div class="content">
             <h2>Our <span>Story</span></h2>
@@ -87,7 +99,7 @@ get_header();
     </div>
 </section>
 
-<section class="services">
+<section class="services" id="services">
     <div class="container px-4">
         <div class="row">
             <div class="col-lg-6">

@@ -6,10 +6,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener("DOMContentLoaded", () => {
+    const cursor = document.querySelector('.custom-cursor');
     const content = document.querySelector(".story .content");
     const videoWrapper = document.querySelector(".story .video-wrapper");
 
     videojs('our-story');
+
+    const isTouchDevice = () => {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+    };
+
+    if (!isTouchDevice()) {
+        videoWrapper.addEventListener('mouseenter', () => {
+            cursor.classList.add('expanded');
+            cursor.innerHTML = '<span class="learn-more-cursor">Watch</span>';
+        });
+
+        videoWrapper.addEventListener('mouseleave', () => {
+            cursor.classList.remove('expanded');
+            cursor.innerHTML = '';
+        });
+    }
 
     gsap.timeline({
         scrollTrigger: {
@@ -28,15 +45,4 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 });
 
-jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
 
-    $('.video-js').on('mouseenter', function() {
-        cursor.classList.add('hidden');
-    });
-
-    // Handle mouse leaving a button
-    $('.video-js').on('mouseleave', function() {
-        cursor.classList.remove('hidden');
-    });
-});

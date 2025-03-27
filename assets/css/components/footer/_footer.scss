@@ -1,3 +1,239 @@
 footer {
+  background: $vc-background-dark;
+  padding: 60px 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 
+  @include media-breakpoint-down(lg) {
+    padding: 30px 0;
+  }
+
+  .left {
+    .footer-logo svg {
+
+      path {
+        fill: $vc-text-light;
+      }
+    }
+
+    .form {
+      margin-top: 30px;
+
+      p {
+        @include vc-body($vc-text-light);
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .gform_wrapper.newsletter-form_wrapper .newsletter-form {
+        .gform_heading {
+          display: none;
+        }
+
+        .gform_body:after {
+          content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
+          color: $vc-text-light;
+          font-size: 12px;
+          top: 3px;
+          position: relative;
+        }
+
+        .gform_fields {
+          display: flex;
+          column-gap: 0;
+        }
+
+        .gform_validation_errors {
+          width: fit-content;
+          margin: auto auto 20px;
+        }
+
+        .validation_message {
+          display: none;
+        }
+
+        input:focus {
+          border-color: $vc-primary;
+          --gf-local-shadow: none;
+          --gf-local-outline-color: none;
+          outline: none !important;
+        }
+
+        .gfield--type-submit {
+          margin-left: 10px;
+          display: contents;
+        }
+
+        input[type="email"] {
+          font-family: $vc-font-family;
+          font-size: 14px;
+          border-radius: 10px;
+          padding: 15px;
+          height: 45px;
+          box-shadow: none;
+          background: none;
+          border: 1px solid $vc-text-light;
+          color: $vc-text-light;
+          transition: $vc-transition-all;
+          width: 360px;
+          cursor: text;
+
+          &:focus {
+            border-color: $vc-primary;
+          }
+        }
+
+        input[type="submit"] {
+          @include vc-button($vc-primary);
+          font-size: 14px;
+          cursor: pointer !important;
+          height: 45px;
+          white-space: nowrap;
+          width: 120px;
+
+          &:hover {
+            color: $vc-text-light;
+          }
+        }
+      }
+
+      .gform_footer {
+        display: none;
+      }
+
+      .gform_confirmation_wrapper {
+        .gform_confirmation_message {
+          font-family: $vc-font-family;
+          font-size: 14px;
+          color: $vc-text-dark;
+          font-weight: $vc-normal;
+        }
+      }
+    }
+  }
+
+  .footer-menu {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 30px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+
+        a {
+          @include vc-body($vc-text-light);
+          text-decoration: none;
+          margin: 0;
+          cursor: pointer;
+          font-size: 14px;
+
+          &:hover {
+            color: $vc-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .socials {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 30px;
+    }
+
+    .social-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    a {
+      @include vc-body($vc-text-light);
+      text-decoration: none;
+      margin: 0;
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        color: $vc-primary;
+
+        path {
+          fill: $vc-primary;
+        }
+      }
+
+      svg {
+        cursor: pointer !important;
+        width: 25px;
+        height: 25px;
+
+        path {
+          fill: $vc-text-light;
+          transition: $vc-transition-all;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid $vc-text-light;
+
+    @include media-breakpoint-up(lg) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    p, a {
+      @include vc-body($vc-text-light);
+      text-decoration: none;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .legal {
+      display: flex;
+      gap: 20px;
+
+      a {
+        cursor: pointer;
+
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+
+      @include media-breakpoint-down(lg) {
+        display: block;
+        margin-top: 20px;
+
+        a {
+          width: 100%;
+          display: block;
+
+          &:not(:last-child) {
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
 }

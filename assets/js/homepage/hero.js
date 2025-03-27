@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Draw spark SVG
 document.addEventListener("DOMContentLoaded", () => {
-    const paths = document.querySelectorAll("path");
+    const paths = document.querySelectorAll(".spark path");
 
     paths.forEach((path) => {
         const length = path.getTotalLength(); // Get the total path length

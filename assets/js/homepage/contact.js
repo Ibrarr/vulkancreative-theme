@@ -6,12 +6,12 @@ gsap.registerPlugin(ScrollTrigger);
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');
 
-    $('.gform_button.button').on('mouseenter', function() {
+    $('.gform_button.button, input[type="text"], input[type="email"], textarea').on('mouseenter', function() {
         cursor.classList.add('hidden');
     });
 
     // Handle mouse leaving a button
-    $('.gform_button.button').on('mouseleave', function() {
+    $('.gform_button.button, input[type="text"], input[type="email"], textarea').on('mouseleave', function() {
         cursor.classList.remove('hidden');
     });
 

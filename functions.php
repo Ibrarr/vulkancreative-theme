@@ -8,8 +8,6 @@ define( 'VC_INC_PATH', VC_TEMPLATE_DIR . '/inc' );
 
 define( 'DISALLOW_FILE_EDIT', true );
 
-define('VC_NGROK', 'https://3ec3-45-145-28-4.ngrok-free.app/wp-content/themes/dc-theme');
-
 // Actions
 require VC_INC_PATH . '/actions.php';
 

@@ -3,9 +3,9 @@
 /**
  * Initial setup
  */
-add_action( 'after_setup_theme', 'dc_setup' );
-function dc_setup() {
-	load_theme_textdomain( 'dc', get_template_directory() . '/languages' );
+add_action( 'after_setup_theme', 'vc_setup' );
+function vc_setup() {
+	load_theme_textdomain( 'vc', get_template_directory() . '/languages' );
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'responsive-embeds' );
@@ -17,23 +17,23 @@ function dc_setup() {
 	if ( ! isset( $content_width ) ) {
 		$content_width = 1920;
 	}
-	register_nav_menus( array( 'main-menu' => esc_html__( 'Main Menu', 'dc' ) ) );
+	register_nav_menus( array( 'main-menu' => esc_html__( 'Main Menu', 'vc' ) ) );
 }
 
 /**
  * Register main stylesheet and jquery
  */
-add_action( 'wp_enqueue_scripts', 'dc_enqueue' );
-function dc_enqueue() {
-	wp_enqueue_style( 'dc-style', get_stylesheet_uri() );
+add_action( 'wp_enqueue_scripts', 'vc_enqueue' );
+function vc_enqueue() {
+	wp_enqueue_style( 'vc-style', get_stylesheet_uri() );
 	wp_enqueue_script( 'jquery' );
 }
 
 /**
  * Add script to the footer to check which device/browser the user is using
  */
-add_action( 'wp_footer', 'dc_footer' );
-function dc_footer() {
+add_action( 'wp_footer', 'vc_footer' );
+function vc_footer() {
 	?>
     <script>
         jQuery(document).ready(function ($) {
@@ -65,8 +65,8 @@ function dc_footer() {
 /**
  * Wrapper function to execute the 'wp_body_open' action.
  */
-if ( ! function_exists( 'dc_wp_body_open' ) ) {
-	function dc_wp_body_open() {
+if ( ! function_exists( 'vc_wp_body_open' ) ) {
+	function vc_wp_body_open() {
 		do_action( 'wp_body_open' );
 	}
 }
@@ -74,8 +74,8 @@ if ( ! function_exists( 'dc_wp_body_open' ) ) {
 /**
  * Adds a pingback link to the header if the post supports pingbacks.
  */
-add_action( 'wp_head', 'dc_pingback_header' );
-function dc_pingback_header() {
+add_action( 'wp_head', 'vc_pingback_header' );
+function vc_pingback_header() {
 	if ( is_singular() && pings_open() ) {
 		printf( '<link rel="pingback" href="%s" />' . "\n", esc_url( get_bloginfo( 'pingback_url' ) ) );
 	}
@@ -84,8 +84,7 @@ function dc_pingback_header() {
 /**
  * Register menus
  */
-register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'dc' ) ) );
-register_nav_menus( array( 'footer-menu-practise-areas' => esc_html__( 'Footer Menu Practise Areas', 'dc' ) ) );
+register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) );
 
 /**
  * Setup 404 page

@@ -10,6 +10,10 @@ mix.js([
 ], 'js/header.js');
 
 mix.js([
+    'assets/js/footer/footer.js',
+], 'js/footer.js');
+
+mix.js([
     'assets/js/homepage/hero.js',
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',

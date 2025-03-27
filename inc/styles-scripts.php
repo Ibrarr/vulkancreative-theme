@@ -13,6 +13,8 @@ function add_custom_scripts() {
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/dist/js/global.js'), [ 'jquery' ], null, true );
 
     wp_enqueue_script( 'header', VC_TEMPLATE_URI . mix('/dist/js/header.js'), [ 'jquery' ], null, true );
+
+    wp_enqueue_script( 'footer', VC_TEMPLATE_URI . mix('/dist/js/footer.js'), [ 'jquery' ], null, true );
 }
 
 function mix($path) {

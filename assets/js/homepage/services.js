@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
         service.addEventListener('mouseenter', () => {
             cursor.classList.remove('dot');
             cursor.classList.add('expanded');
-            cursor.innerHTML = '<span class="learn-more-cursor">Learn<br>More</span>';
+            cursor.innerHTML = '<span class="learn-more-cursor">Enquire<br>Now</span>';
         });
 
         service.addEventListener('mouseleave', () => {

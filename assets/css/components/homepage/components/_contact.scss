@@ -91,6 +91,7 @@
         height: 50px;
         min-height: 50px;
         transition: $vc-transition-all;
+        cursor: text;
 
         &:focus {
           border-bottom: 1px solid $vc-primary;
