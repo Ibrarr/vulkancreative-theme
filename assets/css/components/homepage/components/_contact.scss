@@ -111,9 +111,9 @@
 
       input[type="submit"] {
         margin-top: 10px;
-        @include vc-button($vc-primary);
+        @include vc-button-big($vc-primary);
         cursor: pointer !important;
-        height: 45px;
+        padding: 18px 35px;
       }
     }
 

@@ -32,7 +32,7 @@
     }
 
     .button {
-      @include vc-button($vc-primary);
+      @include vc-button-big($vc-primary);
       margin: auto;
       cursor: pointer !important;
     }

@@ -25,13 +25,13 @@
   }
 }
 
-@mixin vc-button-big($color) {
+@mixin vc-button-big($color, $hover-color-text: $color) {
   position: relative;
   font-family: $vc-font-family;
   font-weight: $vc-semi-bold;
   background-color: $color;
   color: $vc-text-light;
-  padding: 12px 25px;
+  padding: 15px 35px;
   transition: $vc-transition-all;
   border: 2px solid $color;
   border-radius: 10px;
@@ -48,7 +48,7 @@
 
   &:hover {
     background-color: unset;
-    color: $color;
+    color: $hover-color-text;
   }
 }
 

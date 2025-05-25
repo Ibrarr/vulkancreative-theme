@@ -85,7 +85,7 @@
   }
 
   .button {
-    @include vc-button($vc-primary, $vc-text-light);
+    @include vc-button-big($vc-primary, $vc-text-light);
     cursor: pointer !important;
   }
 }
