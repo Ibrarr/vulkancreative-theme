@@ -29,6 +29,10 @@
   overflow: hidden;
 }
 
+.hidden {
+  display: none !important;
+}
+
 @import "components/misc/mouse-cursor";
 @import "components/misc/firework-effect";
 

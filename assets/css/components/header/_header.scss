@@ -1,3 +1,73 @@
 header {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+  background: $vc-background-white;
+  transition: $vc-transition-all;
 
+  .main-menu {
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 1600px;
+    margin: auto;
+
+    @include media-breakpoint-down(md) {
+      padding: 20px 0;
+    }
+
+    .logo {
+      margin-right: 20px;
+      svg {
+        width: 180px;
+        height: auto;
+      }
+
+      @include media-breakpoint-down(md) {
+        svg {
+          width: 100px;
+        }
+      }
+    }
+
+    nav {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          display: inline-block;
+
+          &.current-menu-item a {
+            color: $vc-primary;
+            font-weight: $vc-semi-bold;
+          }
+
+          &:not(:last-child) {
+            margin-right: 15px;
+          }
+
+          a {
+            text-decoration: none;
+            transition: $vc-transition-all;
+
+            @include vc-body($vc-text-dark);
+
+            &:hover {
+              color: $vc-primary !important;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .menu-button a {
+        @include vc-button($vc-primary);
+        cursor: pointer !important;
+      }
+    }
+  }
 }

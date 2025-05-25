@@ -15,8 +15,8 @@
       color: $vc-text-dark;
       opacity: 1;
 
-      @include media-breakpoint-down(lg) {
-        font-size: 55px;
+      @include media-breakpoint-down(xl) {
+        font-size: 50px;
         margin-bottom: 10px;
       }
 
@@ -71,6 +71,10 @@
     p {
       @include vc-p($vc-text-dark);
       margin-bottom: 20px;
+
+      @include media-breakpoint-up(lg) {
+        width: 75%;
+      }
     }
 
     .button {
@@ -85,10 +89,19 @@
 
   .graphic {
     position: relative;
+    z-index: -1;
+    height: 100%;
+    position: absolute !important;
+    right: -550px;
+    top: 0;
+    width: 100%;
 
-    img {
-      margin-bottom: -60px;
-      width: 200%;
+    @include media-breakpoint-down(xl) {
+      right: -450px;
+    }
+
+    @include media-breakpoint-down(lg) {
+      display: none;
     }
 
     //height: 1000px;

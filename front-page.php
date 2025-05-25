@@ -3,20 +3,10 @@ get_header();
 
 ?>
 
-    <style>
-        .graphic {
-            height: 100%;
-            position: absolute !important;
-            right: -550px;
-            top: 0;
-            width: 100%;
-        }
-    </style>
-
 <section class="hero" id="top">
     <div class="container px-4">
         <div class="row" style="height: 1000px;">
-            <div class="col-lg-7 content">
+            <div class="col-lg-8 content">
                 <h1>
                     Turning Creative <span class="red spark">Sparks <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/spark.svg' ) ?></span> Into Powerful
                     <span class="dynamic-text">
@@ -29,7 +19,7 @@ get_header();
                 <p>We forge strong partnerships that elevate businesses into industry leaders, fostering growth and long-term success.</p>
                 <a href="#contact" class="button disable-custom-cursor">Forge ahead</a>
             </div>
-            <div class="col-lg-5 graphic">
+            <div class="col-lg-4 graphic">
 <!--                <img src="/wp-content/uploads/2025/01/vulkantransparent.webp" alt="VC">-->
                 <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
                 <spline-viewer loading-anim-type="spinner-small-dark" url="https://prod.spline.design/pTob7yOPjxmQtLAB/scene.splinecode"></spline-viewer>
