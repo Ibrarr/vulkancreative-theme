@@ -87,14 +87,12 @@ get_header();
                     class="video-js vjs-theme-city"
                     controls
                     preload="auto"
-                    poster="/wp-content/uploads/2025/01/vulkantransparent.webp"
-                    data-setup='{
-                        "techOrder": ["youtube"],
-                        "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=C0DPdy98e4c" }]
-                    }'
+                    data-setup='{}'
                     title="Our story"
             >
+                <source src="/wp-content/uploads/2025/04/VulkanTrailer.mp4" type="video/mp4" />
             </video>
+
         </div>
     </div>
 </section>
