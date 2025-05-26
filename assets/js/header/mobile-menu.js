@@ -9,33 +9,19 @@ jQuery(document).ready(function($) {
     });
 
     $('.mobile-menu-icons .close').on('click.mobileMenu', function() {
-        // Check if .mega-menu-mobile is visible and slide it up first
-        if ($('.mega-menu-mobile').is(':visible')) {
-            $('.mega-menu-mobile').slideUp(function() {
-                // Once .mega-menu-mobile is hidden, slide up the mobile menus
-                $('.mobile-menu').slideUp(function() {
-                    // Remove the active classes only after animations are complete
-                    $('header').removeClass('mobile-menu-active active-mega-menu');
-                    $('.mega-menu-link').removeClass('active');
-                    $('body').removeClass('no-scroll'); // Enable scrolling on the body
-                });
-            });
-        } else {
-            // If .mega-menu-mobile is not visible, slide up the mobile menus directly
-            $('.mobile-menu').slideUp(function() {
-                // Remove the active classes after sliding up the mobile menus
-                $('header').removeClass('mobile-menu-active active-mega-menu');
-                $('.mega-menu-link').removeClass('active');
-                $('body').removeClass('no-scroll'); // Enable scrolling on the body
-            });
-        }
+        $('.mobile-menu').slideUp(function() {
+            // Remove the active classes after sliding up the mobile menus
+            $('header').removeClass('mobile-menu-active active-mega-menu');
+            $('.mega-menu-link').removeClass('active');
+            $('body').removeClass('no-scroll'); // Enable scrolling on the body
+        });
 
         $(this).hide(); // Hide the close button
         $('.mobile-menu-icons .open').show(); // Show the open button
     });
 
     // Handler for anchor links within the menu
-    $('.mobile-menu .button').on('click.mobileMenu', function(e) {
+    $('.mobile-menu a').on('click.mobileMenu', function(e) {
         const target = $(this).attr('href'); // Get the href attribute of the button
         if (target.startsWith('#')) { // Check if it's an anchor link
             e.preventDefault(); // Prevent default link behavior

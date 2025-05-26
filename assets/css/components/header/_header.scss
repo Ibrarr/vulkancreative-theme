@@ -4,6 +4,7 @@ header {
   z-index: 99;
   background: $vc-background-white;
   transition: $vc-transition-all;
+  top: -102px;
 
   @import "components/desktop";
   @import "components/mobile";
