@@ -8,7 +8,6 @@ jQuery(document).ready(function ($) {
         header.style.top = "-102px";
     }
 
-    /* -------- scroll behaviour -------- */
     window.addEventListener("scroll", () => {
         const currentScrollPos = window.pageYOffset;
 

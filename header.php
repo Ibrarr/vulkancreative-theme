@@ -43,4 +43,6 @@
             </div>
         </div>
     </header>
-    <main id="content" role="main">
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+            <main id="content" role="main">
