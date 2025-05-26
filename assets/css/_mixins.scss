@@ -1,7 +1,7 @@
 @mixin vc-button($color, $hover-color-text: $color) {
   position: relative;
   font-family: $vc-font-family;
-  font-weight: $vc-semi-bold;
+  font-weight: $vc-bold;
   background-color: $color;
   color: $vc-text-light;
   padding: 10px 23px;
@@ -28,7 +28,7 @@
 @mixin vc-button-big($color, $hover-color-text: $color) {
   position: relative;
   font-family: $vc-font-family;
-  font-weight: $vc-semi-bold;
+  font-weight: $vc-bold;
   background-color: $color;
   color: $vc-text-light;
   padding: 15px 35px;

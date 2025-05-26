@@ -12,7 +12,7 @@
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="<?php if ( is_front_page() ) { echo 'hero-active'; }; ?>">
-        <div class="container px-4">
+        <div class="px-4">
             <div class="main-menu">
                 <div class="logo">
                     <a href="/" aria-label="Home">
@@ -25,6 +25,21 @@
                         'theme_location' => 'main-menu',
                     ) ); ?>
                 </nav>
+                <div class="mobile-menu-icons">
+                    <div class="open"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/menu.svg' ) ?></div>
+                    <div class="close"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/cross.svg' ) ?></div>
+                </div>
+            </div>
+
+            <div class="mobile-menu">
+                <div class="px-4">
+                    <nav id="nav" role="navigation" itemscope
+                         itemtype="https://schema.org/SiteNavigationElement">
+                        <?php wp_nav_menu( array(
+                            'theme_location' => 'main-menu',
+                        ) ); ?>
+                    </nav>
+                </div>
             </div>
         </div>
     </header>

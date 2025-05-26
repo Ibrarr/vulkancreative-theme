@@ -7,6 +7,7 @@ mix.js([
 
 mix.js([
     'assets/js/header/header.js',
+    'assets/js/header/mobile-menu.js',
 ], 'js/header.js');
 
 mix.js([

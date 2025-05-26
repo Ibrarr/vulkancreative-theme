@@ -1,0 +1,55 @@
+.mobile-menu {
+  display: none;
+  background-color: $vc-background-white;
+  position: absolute;
+  top: 92px;
+  left: 0;
+  height: calc(100vh - 92.53px);
+  width: 100%;
+  z-index: 99;
+
+  @include media-breakpoint-down(md) {
+    top: 68px;
+    height: calc(100vh - 68.35px);
+  }
+
+  nav {
+    margin-top: 20px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      a {
+        text-decoration: none;
+        font-family: $vc-font-family;
+        font-weight: $vc-bold;
+        font-size: 30px;
+        color: $vc-text-dark;
+        opacity: 1;
+        transition: $vc-transition-all;
+
+        @include media-breakpoint-down(md) {
+          font-size: 25px;
+        }
+
+        &:hover {
+          color: $vc-primary !important;
+          cursor: pointer;
+        }
+      }
+
+      .menu-button a {
+        @include vc-button($vc-primary);
+        width: 100%;
+        text-align: center;
+        cursor: pointer !important;
+        margin-top: 20px;
+      }
+    }
+  }
+}
