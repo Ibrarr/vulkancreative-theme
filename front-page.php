@@ -7,7 +7,7 @@ get_header();
     <div class="container px-4">
         <div class="row">
             <div class="col-lg-8 content">
-                <h1>
+                <h1 class="split-lines">
                     Turning Creative <span class="red spark">Sparks <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/spark.svg' ) ?></span> Into Powerful
                     <span class="dynamic-text">
                         <span class="word">Brands<span class="red">.</span></span>
@@ -16,12 +16,12 @@ get_header();
                         <span class="word">Content<span class="red">.</span></span>
                     </span>
                 </h1>
-                <p>We forge strong partnerships that elevate businesses into industry leaders, fostering growth and long-term success.</p>
-                <a href="#contact" class="button disable-custom-cursor">Forge ahead</a>
+                <p class="split-text-hero">We forge strong partnerships that elevate businesses into industry leaders, fostering growth and long-term success.</p>
+                <div class="bottom"><a href="#contact" class="button disable-custom-cursor">Forge ahead</a></div>
             </div>
             <div class="col-lg-4 graphic">
-                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
-                <spline-viewer loading-anim-type="spinner-small-dark" url="https://prod.spline.design/pTob7yOPjxmQtLAB/scene.splinecode"></spline-viewer>
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+                <spline-viewer loading-anim-type="spinner-small-light" url="https://prod.spline.design/TGbj8tyAqN3q8iiZ/scene.splinecode"></spline-viewer>
             </div>
         </div>
     </div>

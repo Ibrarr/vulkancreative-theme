@@ -3,7 +3,7 @@ header {
   position: fixed;
   z-index: 99;
   background: $vc-background-white;
-  transition: $vc-transition-all;
+  transition: all .75s;
   top: -102px;
 
   @import "components/desktop";

@@ -47,6 +47,22 @@
       }
     }
 
+    .split-text-hero {
+      -webkit-text-rendering: optimizeSpeed;
+      text-rendering: optimizeSpeed;
+      -webkit-transform: translateZ(0);
+      font-kerning: none;
+    }
+
+    .lineParent {
+      overflow: hidden;
+      max-width: max-content;
+    }
+
+    .mask {
+      overflow: hidden;
+    }
+
     .dynamic-text {
       display: inline-block;
       overflow: hidden;

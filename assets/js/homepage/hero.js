@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import { fireworkEffect } from '../components/firework-button-effect';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,12 +14,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    heroContentTimeline.from('.hero .content', {
+    heroContentTimeline.from('.hero h1', {
         opacity: 0,
         y: 50,
         duration: 1,
         ease: 'power2.out',
     });
+
+    gsap.from('.hero .bottom', {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: 0.75,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.hero .bottom',
+            start: 'top 100%',
+            toggleActions: 'play none none none',
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    let textAnim;
+
+    const doText = () => {
+        textAnim && textAnim.progress(1);
+        const text = new SplitText(".split-text-hero", { types: "lines", linesClass: "lineChild"});
+        const mask = new SplitText(".split-text-hero", { types: "lines", linesClass: "lineParent"});
+
+        textAnim = gsap.fromTo(".lineChild", {yPercent: 200}, {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            delay: 0.2,
+            onComplete() {
+                mask.revert();
+                text.revert();
+            }
+        });
+    };
+
+
+    doText();
+    window.addEventListener("resize", doText);
 });
 
 // Rolling words
