@@ -7,7 +7,7 @@ get_header();
     <div class="container px-4">
         <div class="row">
             <div class="col-lg-8 content">
-                <h1 class="split-lines">
+                <h1>
                     Turning Creative <span class="red spark">Sparks <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/spark.svg' ) ?></span> Into Powerful
                     <span class="dynamic-text">
                         <span class="word">Brands<span class="red">.</span></span>

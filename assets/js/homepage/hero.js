@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     gsap.from('.hero .bottom', {
         opacity: 0,
-        y: 50,
-        duration: 1,
+        y: 30,
+        duration: 0.8,
         delay: 0.75,
         ease: 'power2.out',
         scrollTrigger: {
@@ -55,9 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-
     doText();
-    window.addEventListener("resize", doText);
 });
 
 // Rolling words
