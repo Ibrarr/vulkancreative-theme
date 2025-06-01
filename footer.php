@@ -31,7 +31,7 @@
                                 <div class="legal">
                                     <a href="/privacy-policy">Privacy Policy</a>
                                     <a href="/terms-of-service">Terms of Service</a>
-                                    <a href="/cookies-settings">Cookies Settings</a>
+                                    <a href="/cookie-settings">Cookie Settings</a>
                                 </div>
                             </div>
                         </div>
