@@ -1,3 +1,23 @@
 .page-template-default {
+  font-family: $vc-font-family;
 
+  #smooth-wrapper {
+    margin-top: 120px;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 70px;
+    }
+
+    .title {
+      font-weight: $vc-semi-bold;
+      margin-bottom: 20px;
+    }
+
+    .content-area {
+      a {
+        cursor: pointer;
+        color: $vc-primary;
+      }
+    }
+  }
 }
