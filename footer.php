@@ -30,8 +30,7 @@
                                 <p>© 2025 Vulkan Creative. All rights reserved.</p>
                                 <div class="legal">
                                     <a href="/privacy-policy">Privacy Policy</a>
-                                    <a href="/terms-of-service">Terms of Service</a>
-                                    <a href="/cookie-settings">Cookie Settings</a>
+                                    <a href="/cookie-policy">Cookie Settings</a>
                                 </div>
                             </div>
                         </div>
