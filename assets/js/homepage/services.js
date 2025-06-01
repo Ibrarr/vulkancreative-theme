@@ -1,6 +1,75 @@
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {SplitText} from "gsap/SplitText";
 import { shadowCursor } from "../components/shadow-cursor";
 
+gsap.registerPlugin(ScrollTrigger);
+
 shadowCursor('.services');
+
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.from('.services .tag', {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.services .tag',
+            start: 'top 100%',
+            toggleActions: 'play none none none'
+        }
+    });
+
+    gsap.from('.services .sub-heading', {
+        opacity: 0,
+        y: 20,
+        duration: 0.5,
+        delay: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.services .sub-heading',
+            start: 'top 100%',
+            toggleActions: 'play none none none'
+        }
+    });
+});
+
+document.fonts.ready.then(() => {
+    gsap.set('.split-text-services', { opacity: 1 });
+
+    SplitText.create('.split-text-services', {
+        type: 'words,lines',
+        linesClass: 'line',
+        mask: 'lines',
+        autoSplit: true,
+        onSplit: ({ lines }) => {
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.split-text-services',
+                    start: 'top 100%',
+                    toggleActions: 'play none none none'
+                }
+            })
+                .from(lines, {
+                    yPercent: 100,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.18,
+                    delay: 0.15,
+                    ease: 'expo.out',
+                })
+                .from('.service-container', {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    delay: 0.2,
+                    ease: 'power2.out'
+                }, 0);
+        }
+    });
+
+    ScrollTrigger.refresh();
+});
 
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');

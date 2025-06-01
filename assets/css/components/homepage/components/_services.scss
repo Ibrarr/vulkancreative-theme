@@ -27,11 +27,21 @@
       margin: 0;
     }
 
-    h2 {
+    .split-text-services {
       @include vc-h1($vc-text-light);
+      will-change: transform;
+      line-height: 70px;
+
+      & * {
+        will-change: transform;
+      }
 
       span {
         color: $vc-primary;
+      }
+
+      @include media-breakpoint-down(lg) {
+        line-height: 55px;
       }
     }
   }

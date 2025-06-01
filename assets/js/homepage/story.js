@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroContentTl = gsap.timeline({
         scrollTrigger: {
             trigger: '.story',
-            start: 'top 90%',
+            start: 'top 100%',
             toggleActions: 'play none none none'
         }
     });
@@ -66,7 +66,7 @@ document.fonts.ready.then(() => {
                 ease: 'expo.out',
                 scrollTrigger: {
                     trigger: '.split-text-story',
-                    start: 'top 90%',
+                    start: 'top 100%',
                     toggleActions: 'play none none none'
                 }
             });

@@ -92,7 +92,7 @@ get_header();
             <div class="col-lg-6">
                 <div class="content">
                     <p class="tag">Our services</p>
-                    <h2>Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
+                    <h2 class="split-text-services">Strategic <span>Solutions</span> Tailored to Your <span>Vision</span>.</h2>
                     <p class="sub-heading">Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
                 </div>
             </div>

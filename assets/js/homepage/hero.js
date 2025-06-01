@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroContentTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.hero',
-            start: 'top 90%',
+            start: 'top 100%',
             toggleActions: 'play none none none',
         }
     });
