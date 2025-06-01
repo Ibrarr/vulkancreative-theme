@@ -3,7 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {SplitText} from "gsap/SplitText";
 import { shadowCursor } from "../components/shadow-cursor";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 shadowCursor('.services');
 
@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '.services .tag',
             start: 'top 100%',
-            toggleActions: 'play none none none'
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 
@@ -29,7 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '.services .sub-heading',
             start: 'top 100%',
-            toggleActions: 'play none none none'
+            toggleActions: 'play none none none',
+            once: true
+        }
+    });
+
+    gsap.from('.service-container', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.service-container',
+            start: 'top 95%',
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 });
@@ -37,34 +52,25 @@ document.addEventListener('DOMContentLoaded', () => {
 document.fonts.ready.then(() => {
     gsap.set('.split-text-services', { opacity: 1 });
 
-    SplitText.create('.split-text-services', {
+    const split = SplitText.create('.split-text-services', {
         type: 'words,lines',
         linesClass: 'line',
         mask: 'lines',
-        autoSplit: true,
-        onSplit: ({ lines }) => {
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.split-text-services',
-                    start: 'top 100%',
-                    toggleActions: 'play none none none'
-                }
-            })
-                .from(lines, {
-                    yPercent: 100,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    delay: 0.15,
-                    ease: 'expo.out',
-                })
-                .from('.service-container', {
-                    opacity: 0,
-                    y: 30,
-                    duration: 0.8,
-                    delay: 0.5,
-                    ease: 'power2.out'
-                }, 0);
+        autoSplit: true
+    });
+
+    gsap.from(split.lines, {
+        yPercent: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        delay: 0.15,
+        ease: 'expo.out',
+        scrollTrigger: {
+            trigger: '.split-text-services',
+            start: 'top 100%',
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 

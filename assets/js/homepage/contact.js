@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {SplitText} from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.contact .tag', {
@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '.contact .tag',
             start: 'top 100%',
-            toggleActions: 'play none none none'
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 
@@ -26,7 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: {
             trigger: '.contact .sub-heading',
             start: 'top 100%',
-            toggleActions: 'play none none none'
+            toggleActions: 'play none none none',
+            once: true
+        }
+    });
+
+    gsap.from('.form-container', {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.form-container',
+            start: 'top 95%',
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 });
@@ -34,34 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
 document.fonts.ready.then(() => {
     gsap.set('.split-text-contact', { opacity: 1 });
 
-    SplitText.create('.split-text-contact', {
+    const split = SplitText.create('.split-text-contact', {
         type: 'words,lines',
         linesClass: 'line',
         mask: 'lines',
-        autoSplit: true,
-        onSplit: ({ lines }) => {
-            gsap.timeline({
-                scrollTrigger: {
-                    trigger: '.split-text-contact',
-                    start: 'top 100%',
-                    toggleActions: 'play none none none'
-                }
-            })
-                .from(lines, {
-                    yPercent: 100,
-                    opacity: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    delay: 0.15,
-                    ease: 'expo.out',
-                })
-                .from('.form-container', {
-                    opacity: 0,
-                    y: 30,
-                    duration: 0.8,
-                    delay: 0.5,
-                    ease: 'power2.out'
-                }, 0);
+        autoSplit: true
+    });
+
+    gsap.from(split.lines, {
+        yPercent: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        delay: 0.15,
+        ease: 'expo.out',
+        scrollTrigger: {
+            trigger: '.split-text-contact',
+            start: 'top 100%',
+            toggleActions: 'play none none none',
+            once: true
         }
     });
 

@@ -21,7 +21,7 @@ get_header();
             </div>
             <div class="col-lg-4 graphic">
                 <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
-                <spline-viewer loading-anim-type="spinner-small-light" url="https://prod.spline.design/TGbj8tyAqN3q8iiZ/scene.splinecode"></spline-viewer>
+                <spline-viewer loading-anim-type="spinner-big-dark" url="https://prod.spline.design/TGbj8tyAqN3q8iiZ/scene.splinecode"></spline-viewer>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@ get_header();
                     data-setup='{}'
                     title="Our story"
             >
-                <source src="/wp-content/uploads/2025/04/VulkanTrailer.mp4" type="video/mp4" />
+                <source src="https://staging.vulkancreative.com/wp-content/VulkanTrailer.mp4" type="video/mp4" />
             </video>
 
         </div>
