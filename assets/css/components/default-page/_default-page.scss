@@ -1,4 +1,4 @@
-.page-template-default {
+.page-template-default:not(.home) {
   font-family: $vc-font-family;
 
   #smooth-wrapper {
