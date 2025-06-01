@@ -16,3 +16,17 @@ jQuery(document).ready(function($) {
         cursor.style.top = `${e.clientY}px`;
     });
 });
+
+jQuery(function ($) {
+    $(document).on('gform_post_render gform_confirmation_loaded gform_page_loaded', function () {
+
+        let $cursor = $('.custom-cursor');
+        if (!$cursor.length) {
+            $cursor = $('<div class="custom-cursor"></div>');
+        }
+
+        $('body').append($cursor);
+
+        $cursor.removeClass('hidden').show();
+    });
+});
