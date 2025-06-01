@@ -61,7 +61,7 @@ document.fonts.ready.then(() => {
                 yPercent: 100,
                 opacity: 0,
                 duration: 0.8,
-                stagger: 0.2,
+                stagger: 0.1,
                 delay: 0.2,
                 ease: 'expo.out',
                 scrollTrigger: {

@@ -9,8 +9,8 @@
   z-index: 99;
 
   @include media-breakpoint-down(md) {
-    top: 46px;
-    height: calc(100vh - 46px);
+    top: 40px;
+    height: calc(100vh - 40px);
   }
 
   nav {

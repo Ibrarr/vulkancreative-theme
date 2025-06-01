@@ -32,6 +32,18 @@
         height: 60px;
         transform: rotate(352deg);
 
+        @include media-breakpoint-down(xl) {
+          left: -37px;
+          top: 14px;
+        }
+
+        @include media-breakpoint-down(lg) {
+          width: 45px;
+          height: 45px;
+          left: -26px;
+          top: 21px;
+        }
+
         path {
           stroke: $vc-primary;
           stroke-width: 1;
