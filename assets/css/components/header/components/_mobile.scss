@@ -4,13 +4,13 @@
   position: absolute;
   top: 92çpx;
   left: 0;
-  height: calc(100vh - 92.53px);
+  height: calc(100vh - 46px);
   width: 100%;
   z-index: 99;
 
   @include media-breakpoint-down(md) {
-    top: 68px;
-    height: calc(100vh - 68.35px);
+    top: 46px;
+    height: calc(100vh - 46px);
   }
 
   nav {
