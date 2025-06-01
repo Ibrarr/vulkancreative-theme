@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         opacity: 0,
         y: 20,
         duration: 0.5,
-        delay: 0.6,
+        delay: 0.5,
         ease: 'power2.out',
         scrollTrigger: {
             trigger: '.services .sub-heading',
@@ -54,7 +54,7 @@ document.fonts.ready.then(() => {
                     yPercent: 100,
                     opacity: 0,
                     duration: 0.8,
-                    stagger: 0.18,
+                    stagger: 0.1,
                     delay: 0.15,
                     ease: 'expo.out',
                 })
@@ -62,7 +62,7 @@ document.fonts.ready.then(() => {
                     opacity: 0,
                     y: 30,
                     duration: 0.8,
-                    delay: 0.2,
+                    delay: 0.5,
                     ease: 'power2.out'
                 }, 0);
         }

@@ -96,35 +96,37 @@ get_header();
                     <p class="sub-heading">Discover a full suite of marketing and web solutions at Vulkan Creative, where strategy meets creativity to elevate your brand’s impact and reach.</p>
                 </div>
             </div>
-            <div class="col-lg-6 service-container">
-                <?php
-                $services = get_terms([
-	                'taxonomy' => 'service',
-	                'hide_empty' => false,
-                ]);
-
-                foreach ($services as $key => $service) {
-	                $services[$key]->order = get_field('order', 'service_' . $service->term_id);
-                }
-
-                usort($services, function ($a, $b) {
-	                return $a->order - $b->order;
-                });
-
-                foreach ($services as $service) {
-                    $title = $service->name;
-                    $description = term_description($service->term_id, 'service');
-                    $icon = get_field('icon', 'service_' . $service->term_id);
-                    ?>
-                    <div class="service">
-                        <img src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
-                        <h3><?php echo $title; ?></h3>
-                        <?php echo $description; ?>
-                        <a href="#contact" class="button">Learn more</a>
-                    </div>
+            <div class="col-lg-6">
+                <div class="service-container">
                     <?php
-                }
-                ?>
+                    $services = get_terms([
+                        'taxonomy' => 'service',
+                        'hide_empty' => false,
+                    ]);
+
+                    foreach ($services as $key => $service) {
+                        $services[$key]->order = get_field('order', 'service_' . $service->term_id);
+                    }
+
+                    usort($services, function ($a, $b) {
+                        return $a->order - $b->order;
+                    });
+
+                    foreach ($services as $service) {
+                        $title = $service->name;
+                        $description = term_description($service->term_id, 'service');
+                        $icon = get_field('icon', 'service_' . $service->term_id);
+                        ?>
+                        <div class="service">
+                            <img src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
+                            <h3><?php echo $title; ?></h3>
+                            <?php echo $description; ?>
+                            <a href="#contact" class="button">Learn more</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -136,12 +138,14 @@ get_header();
             <div class="col-lg-6">
                 <div class="content">
                     <p class="tag">Connect</p>
-                    <h2>Have a <span>Project</span> You Want To Discuss?</h2>
-                    <p>Let’s build something powerful together – share your vision with us.</p>
+                    <h2 class="split-text-contact">Have a <span>Project</span> You Want To Discuss?</h2>
+                    <p class="sub-heading">Let’s build something powerful together – share your vision with us.</p>
                 </div>
             </div>
             <div class="col-lg-6 form">
-                <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                <div class="form-container">
+                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                </div>
             </div>
         </div>
     </div>
