@@ -67,8 +67,8 @@ get_header();
     <div class="container px-4">
         <div class="content">
             <h2>Our <span>Story</span></h2>
-            <p>At Vulkan Creative, we believe in the power of storytelling to connect with audiences. Our journey is rooted in a passion for innovation and a commitment to helping businesses thrive in the digital landscape.</p>
-            <a href="#watch" class="button disable-custom-cursor">Watch</a>
+            <p class="split-text-story">At Vulkan Creative, we believe in the power of storytelling to connect with audiences. Our journey is rooted in a passion for innovation and a commitment to helping businesses thrive in the digital landscape.</p>
+            <div class="bottom"><a href="#watch" class="button disable-custom-cursor">Watch</a></div>
         </div>
         <div class="video-wrapper" id="watch">
             <video

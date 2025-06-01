@@ -35,27 +35,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    let textAnim;
+document.fonts.ready.then(() => {
+    gsap.set(".split-text-hero", { opacity: 1 });
 
-    const doText = () => {
-        textAnim && textAnim.progress(1);
-        const text = new SplitText(".split-text-hero", { types: "lines", linesClass: "lineChild"});
-        const mask = new SplitText(".split-text-hero", { types: "lines", linesClass: "lineParent"});
-
-        textAnim = gsap.fromTo(".lineChild", {yPercent: 200}, {
-            yPercent: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            delay: 0.2,
-            onComplete() {
-                mask.revert();
-                text.revert();
-            }
-        });
-    };
-
-    doText();
+    let split;
+    SplitText.create(".split-text-hero", {
+        type: "words,lines",
+        linesClass: "line",
+        autoSplit: true,
+        mask: "lines",
+        onSplit: (self) => {
+            split = gsap.from(self.lines, {
+                duration: 0.8,
+                yPercent: 100,
+                opacity: 0,
+                stagger: 0.2,
+                delay: 0.2,
+                ease: "expo.out",
+            });
+            return split;
+        }
+    });
 });
 
 // Rolling words

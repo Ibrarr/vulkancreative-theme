@@ -47,22 +47,6 @@
       }
     }
 
-    .split-text-hero {
-      -webkit-text-rendering: optimizeSpeed;
-      text-rendering: optimizeSpeed;
-      -webkit-transform: translateZ(0);
-      font-kerning: none;
-    }
-
-    .lineParent {
-      overflow: hidden;
-      max-width: max-content;
-    }
-
-    .mask {
-      overflow: hidden;
-    }
-
     .dynamic-text {
       display: inline-block;
       overflow: hidden;
@@ -88,9 +72,15 @@
       transform: translateY(0);
     }
 
-    p {
+    .split-text-hero {
       @include vc-p($vc-text-dark);
       margin-bottom: 20px;
+      opacity: 0;
+      will-change: transform;
+
+      & * {
+        will-change: transform;
+      }
 
       @include media-breakpoint-up(lg) {
         width: 75%;

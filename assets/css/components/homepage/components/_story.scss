@@ -14,7 +14,7 @@
     max-width: 768px;
     margin: auto;
     position: sticky;
-    top: 20%;
+    top: 10%;
     z-index: 1;
     text-align: center;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -27,8 +27,13 @@
       }
     }
 
-    p {
+    .split-text-story {
       @include vc-p($vc-text-dark);
+      will-change: transform;
+
+      & * {
+        will-change: transform;
+      }
     }
 
     .button {
@@ -41,12 +46,16 @@
   .video-wrapper {
     position: sticky;
     top: 100px;
-    margin-top: 100px;
+    margin-top: 50px;
     z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
     transform: scale(0.8);
+
+    @include media-breakpoint-down(md) {
+      top: 80px;
+    }
 
     .video-js {
       width: 100%;
