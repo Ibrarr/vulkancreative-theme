@@ -19,10 +19,10 @@
                         </div>
                         <div class="col-lg-2 socials">
                             <div class="social-inner">
-                                <a href="https://www.linkedin.com/company/vulkan-creative/"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></i> LinkedIn</a>
-                                <a href="https://www.tiktok.com/@vulkancreative"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></i> TikTok</a>
-                                <a href="https://www.instagram.com/vulkancreative/"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/instagram.svg' ) ?></i> Instagram</a>
-                                <a href="https://www.youtube.com/@VulkanCreative"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/youtube.svg' ) ?></i> YouTube</a>
+                                <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></i> LinkedIn</a>
+                                <a href="https://www.tiktok.com/@vulkancreative" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></i> TikTok</a>
+                                <a href="https://www.instagram.com/vulkancreative/" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/instagram.svg' ) ?></i> Instagram</a>
+                                <a href="https://www.youtube.com/@VulkanCreative" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/youtube.svg' ) ?></i> YouTube</a>
                             </div>
                         </div>
                         <div class="col-lg-12">
