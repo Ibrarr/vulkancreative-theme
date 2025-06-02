@@ -76,7 +76,7 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+jQuery(document).ready(function($) {
     const cursor       = document.querySelector(".custom-cursor");
     const content      = document.querySelector(".story .content");
     const videoWrapper = document.querySelector(".story .video-wrapper");
@@ -113,6 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 cursor.innerHTML =
                     '<span class="learn-more-cursor">Watch</span>';
             }
+        });
+
+        $('.vjs-control-bar').on('mouseenter', function() {
+            cursor.classList.add('hidden');
+        });
+
+        $('.vjs-control-bar').on('mouseleave', function() {
+            cursor.classList.remove('hidden');
         });
     }
 

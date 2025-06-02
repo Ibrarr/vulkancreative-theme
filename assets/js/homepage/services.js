@@ -116,7 +116,20 @@ jQuery(document).ready(function($) {
             if (link) {
                 const href = link.getAttribute('href');
                 if (href) {
-                    window.location.href = href;
+                    // Check if it's an anchor link (starts with #)
+                    if (href.startsWith('#')) {
+                        const id = href.slice(1);
+                        const target = document.getElementById(id);
+                        if (target) {
+                            e.preventDefault(); // Prevent default anchor behaviour
+                            target.scrollIntoView({ behavior: 'smooth' });
+                            // Optional: clean up URL without the hash
+                            history.replaceState(null, '', window.location.pathname);
+                        }
+                    } else {
+                        // Regular link - navigate normally
+                        window.location.href = href;
+                    }
                 }
             }
         });
