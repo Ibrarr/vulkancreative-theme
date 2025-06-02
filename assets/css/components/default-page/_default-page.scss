@@ -3,7 +3,6 @@
 
   #smooth-wrapper {
     margin-top: 120px;
-    margin-bottom: 60px;
 
     @include media-breakpoint-down(lg) {
       margin-top: 70px;
@@ -15,6 +14,8 @@
     }
 
     .content-area {
+      margin-bottom: 60px;
+
       a {
         cursor: pointer;
         color: $vc-primary;
