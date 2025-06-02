@@ -78,12 +78,18 @@ get_header();
                     class="video-js vjs-theme-city"
                     controls
                     preload="auto"
-                    data-setup='{}'
+                    data-setup='{
+                        "techOrder": ["youtube"],
+                        "sources": [
+                            {
+                                "type": "video/youtube",
+                                "src": "https://www.youtube.com/watch?v=DOYA1kLIbJE"
+                            }
+                        ]
+                    }'
                     title="Our story"
             >
-                <source src="https://staging.vulkancreative.com/wp-content/VulkanTrailer.mp4" type="video/mp4" />
             </video>
-
         </div>
     </div>
 </section>

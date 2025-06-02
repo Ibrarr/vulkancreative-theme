@@ -61,6 +61,16 @@
       width: 100%;
       height: 80vh;
       transition: transform 0.5s ease;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .vjs-big-play-button {
+        display: none;
+      }
+
+      .vjs-poster {
+        display: none !important;
+      }
     }
 
     .vjs-big-play-button {
