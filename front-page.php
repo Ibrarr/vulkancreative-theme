@@ -78,18 +78,28 @@ get_header();
                     class="video-js vjs-theme-city"
                     controls
                     preload="auto"
-                    data-setup='{
-                        "techOrder": ["youtube"],
-                        "sources": [
-                            {
-                                "type": "video/youtube",
-                                "src": "https://www.youtube.com/watch?v=DOYA1kLIbJE"
-                            }
-                        ]
-                    }'
+                    data-setup='{}'
                     title="Our story"
             >
+                <source src="https://vulkancreative.com/wp-content/VulkanTrailer.mp4" type="video/mp4" />
             </video>
+<!--            <video-->
+<!--                    id="our-story"-->
+<!--                    class="video-js vjs-theme-city"-->
+<!--                    controls-->
+<!--                    preload="auto"-->
+<!--                    data-setup='{-->
+<!--                        "techOrder": ["youtube"],-->
+<!--                        "sources": [-->
+<!--                            {-->
+<!--                                "type": "video/youtube",-->
+<!--                                "src": "https://www.youtube.com/watch?v=DOYA1kLIbJE"-->
+<!--                            }-->
+<!--                        ]-->
+<!--                    }'-->
+<!--                    title="Our story"-->
+<!--            >-->
+<!--            </video>-->
         </div>
     </div>
 </section>

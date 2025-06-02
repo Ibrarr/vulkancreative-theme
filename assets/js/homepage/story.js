@@ -89,47 +89,47 @@ jQuery(document).ready(function($) {
         navigator.msMaxTouchPoints > 0;
 
     if (!isTouchDevice()) {
-        // videoWrapper.addEventListener("mouseenter", () => {
-        //     cursor.classList.add("expanded");
-        //     cursor.innerHTML = `<span class="learn-more-cursor">${
-        //         player.paused() ? "Watch" : "Pause"
-        //     }</span>`;
-        // });
-        //
-        // videoWrapper.addEventListener("mouseleave", () => {
-        //     cursor.classList.remove("expanded");
-        //     cursor.innerHTML = "";
-        // });
-        //
-        // player.on("play", () => {
-        //     if (cursor.classList.contains("expanded")) {
-        //         cursor.innerHTML =
-        //             '<span class="learn-more-cursor">Pause</span>';
-        //     }
-        // });
-        //
-        // player.on("pause", () => {
-        //     if (cursor.classList.contains("expanded")) {
-        //         cursor.innerHTML =
-        //             '<span class="learn-more-cursor">Watch</span>';
-        //     }
-        // });
-        //
-        // $('.vjs-control-bar').on('mouseenter', function() {
-        //     cursor.classList.add('hidden');
-        // });
-        //
-        // $('.vjs-control-bar').on('mouseleave', function() {
-        //     cursor.classList.remove('hidden');
-        // });
+        videoWrapper.addEventListener("mouseenter", () => {
+            cursor.classList.add("expanded");
+            cursor.innerHTML = `<span class="learn-more-cursor">${
+                player.paused() ? "Watch" : "Pause"
+            }</span>`;
+        });
 
-        $('.video-js').on('mouseenter', function() {
+        videoWrapper.addEventListener("mouseleave", () => {
+            cursor.classList.remove("expanded");
+            cursor.innerHTML = "";
+        });
+
+        player.on("play", () => {
+            if (cursor.classList.contains("expanded")) {
+                cursor.innerHTML =
+                    '<span class="learn-more-cursor">Pause</span>';
+            }
+        });
+
+        player.on("pause", () => {
+            if (cursor.classList.contains("expanded")) {
+                cursor.innerHTML =
+                    '<span class="learn-more-cursor">Watch</span>';
+            }
+        });
+
+        $('.vjs-control-bar').on('mouseenter', function() {
             cursor.classList.add('hidden');
         });
 
-        $('.video-js').on('mouseleave', function() {
+        $('.vjs-control-bar').on('mouseleave', function() {
             cursor.classList.remove('hidden');
         });
+
+        // $('.video-js').on('mouseenter', function() {
+        //     cursor.classList.add('hidden');
+        // });
+        //
+        // $('.video-js').on('mouseleave', function() {
+        //     cursor.classList.remove('hidden');
+        // });
     }
 
     gsap.timeline({
