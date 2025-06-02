@@ -17,6 +17,7 @@ mix.js([
 ], 'js/footer.js');
 
 mix.js([
+    'assets/js/spline/spline-viewer.js',
     'assets/js/homepage/hero.js',
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
