@@ -1,6 +1,5 @@
 <?php
 get_header();
-
 ?>
 
 <section class="hero" id="top">

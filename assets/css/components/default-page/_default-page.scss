@@ -16,6 +16,8 @@
     .content-area {
       margin-bottom: 60px;
 
+      @include vc-body($vc-text-dark);
+
       a {
         cursor: pointer;
         color: $vc-primary;

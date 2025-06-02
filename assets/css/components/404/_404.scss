@@ -1,3 +1,36 @@
 .error404 {
+  font-family: $vc-font-family;
 
+  .error-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 90vh;
+
+    h1 {
+      font-size: clamp(7.5rem, -1.7308rem + 25.641vw, 17.5rem);
+      line-height: clamp(7.5rem, -1.7308rem + 25.641vw, 17.5rem);
+      font-weight: $vc-semi-bold;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: clamp(1rem, 0.6538rem + 0.9615vw, 1.375rem);
+      color: $vc-text-dark;
+      margin-bottom: 20px;
+    }
+
+    p {
+      @include vc-body($vc-text-dark);
+      margin-bottom: 20px;
+    }
+
+    .button {
+      @include vc-button-big($vc-primary);
+      margin: auto;
+      cursor: pointer !important;
+    }
+  }
 }
