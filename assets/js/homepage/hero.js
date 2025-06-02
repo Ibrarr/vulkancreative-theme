@@ -46,25 +46,37 @@ function initializeAllAnimations() {
         }
     });
 
-    heroContentTimeline.from('.hero h1', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power2.out',
-    });
-
-    gsap.from('.hero .bottom', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        delay: 0.75,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.hero .bottom',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
+    heroContentTimeline.fromTo('.hero h1',
+        {
+            opacity: 0,
+            y: 50
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power2.out'
         }
-    });
+    );
+
+    gsap.fromTo('.hero .bottom',
+        {
+            opacity: 0,
+            y: 30
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: 0.75,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.hero .bottom',
+                start: 'top 100%',
+                toggleActions: 'play none none none',
+            }
+        }
+    );
 
     // Split text (keep original)
     gsap.set(".split-text-hero", { opacity: 1 });

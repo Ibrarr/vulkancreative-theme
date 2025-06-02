@@ -17,6 +17,7 @@
       font-size: 69px;
       margin-bottom: 20px;
       color: $vc-text-dark;
+      opacity: 0;
 
       @include media-breakpoint-down(xl) {
         font-size: 50px;
@@ -96,6 +97,10 @@
       @include media-breakpoint-up(lg) {
         width: 75%;
       }
+    }
+
+    .bottom {
+      opacity: 0;
     }
 
     .button {
