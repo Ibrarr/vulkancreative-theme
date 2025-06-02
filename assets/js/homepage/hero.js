@@ -5,7 +5,39 @@ import { fireworkEffect } from '../components/firework-button-effect';
 
 gsap.registerPlugin(ScrollTrigger);
 
-document.addEventListener('DOMContentLoaded', () => {
+// Add CSS to prevent initial flash - run immediately
+const hideStyle = document.createElement('style');
+hideStyle.id = 'animation-hide-style';
+hideStyle.textContent = `
+    .hero h1,
+    .hero .bottom,
+    .split-text-hero,
+    .dynamic-text,
+    .spark path {
+        opacity: 0 !important;
+    }
+`;
+document.head.appendChild(hideStyle);
+
+// Simple loading state tracker
+let domReady = false;
+let fontsReady = false;
+
+function initializeWhenReady() {
+    if (domReady && fontsReady) {
+        // Small delay to ensure everything is settled
+        setTimeout(() => {
+            initializeAllAnimations();
+        }, 100);
+    }
+}
+
+function initializeAllAnimations() {
+    // Remove the specific CSS hiding styles now that we're ready
+    const hideStyleElement = document.getElementById('animation-hide-style');
+    if (hideStyleElement) hideStyleElement.remove();
+
+    // Hero animations (keep original)
     const heroContentTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.hero',
@@ -33,9 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleActions: 'play none none none',
         }
     });
-});
 
-document.fonts.ready.then(() => {
+    // Split text (keep original)
     gsap.set(".split-text-hero", { opacity: 1 });
 
     let split;
@@ -56,171 +87,160 @@ document.fonts.ready.then(() => {
             return split;
         }
     });
-});
 
-// Rolling words
-document.addEventListener("DOMContentLoaded", () => {
+    // Rolling words (keep original logic)
     const dynamicText = document.querySelector(".dynamic-text");
     const words = document.querySelectorAll(".dynamic-text .word");
-    let animationInterval = null; // Store the interval for the animation
-    let currentIndex = 0; // Track the current word index
 
-    // Function to calculate and set the container and word widths
-    function setFixedWidth() {
-        let maxWidth = 0;
+    if (dynamicText && words.length > 0) {
+        // Make dynamic text visible now
+        gsap.set(dynamicText, { opacity: 1 });
 
-        // Temporarily make all words visible and measure their widths
-        words.forEach((word) => {
-            word.style.position = "static"; // Temporarily reset positioning
-            word.style.transform = "none"; // Remove transformations
+        let animationInterval = null;
+        let currentIndex = 0;
 
-            const wordWidth = word.offsetWidth; // Measure the word's width
-            maxWidth = Math.max(maxWidth, wordWidth);
+        function setFixedWidth() {
+            let maxWidth = 0;
 
-            // Revert styles after measuring
-            word.style.position = "absolute";
-            word.style.transform = "translateY(100%)";
-        });
+            words.forEach((word) => {
+                word.style.position = "static";
+                word.style.transform = "none";
 
-        // Apply the maximum width to the container and all words
-        dynamicText.style.width = `${maxWidth}px`;
-        words.forEach((word) => {
-            word.style.width = `${maxWidth}px`;
-        });
-    }
+                const wordWidth = word.offsetWidth;
+                maxWidth = Math.max(maxWidth, wordWidth);
 
-    // Function to run the word animation
-    function animateWords() {
-        const nextIndex = (currentIndex + 1) % words.length;
-
-        // Seamless animation: current word slides up, next word slides in at the same time
-        gsap.timeline()
-            .set(words[nextIndex], { y: "100%" }) // Ensure the next word starts from the bottom
-            .to(words[currentIndex], { y: "-100%", duration: 0.8, ease: "power2.inOut" }, 0) // Current word slides up
-            .to(words[nextIndex], { y: "0%", duration: 0.8, ease: "power2.inOut" }, 0); // Next word slides in at the same time
-
-        currentIndex = nextIndex; // Update the index for the next cycle
-    }
-
-    // Function to start the animation
-    function startAnimation() {
-        if (!animationInterval) {
-            animationInterval = setInterval(animateWords, 2000); // Loop the animation every 2 seconds
-        }
-    }
-
-    // Function to stop the animation
-    function stopAnimation() {
-        clearInterval(animationInterval);
-        animationInterval = null;
-    }
-
-    // Handle visibility change
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            stopAnimation(); // Stop the animation when the tab is inactive
-        } else {
-            startAnimation(); // Resume the animation when the tab becomes active
-        }
-    });
-
-    // Ensure fonts are fully loaded before starting
-    if (document.fonts) {
-        // Modern browsers: Wait for all fonts to load
-        document.fonts.ready.then(() => {
-            setFixedWidth();
-
-            // Ensure all words are positioned correctly before animation starts
-            words.forEach((word, index) => {
-                gsap.set(word, { y: index === 0 ? "0%" : "100%", opacity: 1 }); // First word in view, others below
+                word.style.position = "absolute";
+                word.style.transform = "translateY(100%)";
             });
 
-            // Add an initial delay before starting the first animation cycle
-            setTimeout(() => {
-                animateWords(); // Run the first animation immediately
-                startAnimation(); // Start the loop
-            }, 1000); // 2-second initial delay
-        });
-    } else {
-        // Fallback for older browsers
-        window.onload = () => {
-            setFixedWidth();
-
-            // Ensure all words are positioned correctly before animation starts
-            words.forEach((word, index) => {
-                gsap.set(word, { y: index === 0 ? "0%" : "100%", opacity: 1 }); // First word in view, others below
+            dynamicText.style.width = `${maxWidth}px`;
+            words.forEach((word) => {
+                word.style.width = `${maxWidth}px`;
             });
+        }
 
-            // Add an initial delay before starting the first animation cycle
-            setTimeout(() => {
-                animateWords(); // Run the first animation immediately
-                startAnimation(); // Start the loop
-            }, 1000); // 2-second initial delay
-        };
+        function animateWords() {
+            const nextIndex = (currentIndex + 1) % words.length;
+
+            gsap.timeline()
+                .set(words[nextIndex], { y: "100%" })
+                .to(words[currentIndex], { y: "-100%", duration: 0.8, ease: "power2.inOut" }, 0)
+                .to(words[nextIndex], { y: "0%", duration: 0.8, ease: "power2.inOut" }, 0);
+
+            currentIndex = nextIndex;
+        }
+
+        function startAnimation() {
+            if (!animationInterval) {
+                animationInterval = setInterval(animateWords, 2000);
+            }
+        }
+
+        function stopAnimation() {
+            clearInterval(animationInterval);
+            animationInterval = null;
+        }
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        });
+
+        setFixedWidth();
+
+        words.forEach((word, index) => {
+            gsap.set(word, { y: index === 0 ? "0%" : "100%", opacity: 1 });
+        });
+
+        setTimeout(() => {
+            animateWords();
+            startAnimation();
+        }, 1000);
     }
-});
 
-// Draw spark SVG
-document.addEventListener("DOMContentLoaded", () => {
+    // Spark SVG (keep original)
     const paths = document.querySelectorAll(".spark path");
 
     paths.forEach((path) => {
-        const length = path.getTotalLength(); // Get the total path length
+        // Make spark visible now
+        gsap.set(path, { opacity: 1 });
 
-        // Set initial stroke-dasharray, stroke-dashoffset, and fill
+        const length = path.getTotalLength();
+
         gsap.set(path, {
             strokeDasharray: length,
             strokeDashoffset: length,
             fill: "transparent"
         });
 
-        // Create a function for random timing
         const getRandomDuration = (min, max) => Math.random() * (max - min) + min;
 
-        // Create a timeline with randomized behavior
         const animatePath = () => {
             const timeline = gsap.timeline({
-                onComplete: () => animatePath(), // Recursively trigger another random animation
+                onComplete: () => animatePath(),
             });
 
             timeline
                 .to(path, {
                     strokeDashoffset: 0,
-                    duration: getRandomDuration(1, 3), // Random draw duration
+                    duration: getRandomDuration(1, 3),
                     ease: "power1.inOut",
                 })
                 .to(path, {
                     fill: "#ff4500",
-                    duration: getRandomDuration(0.5, 1.5), // Random fill duration
-                }, "-=1") // Overlap fill with draw
+                    duration: getRandomDuration(0.5, 1.5),
+                }, "-=1")
                 .to(path, {
                     strokeDashoffset: length,
-                    duration: getRandomDuration(1, 3), // Random undraw duration
+                    duration: getRandomDuration(1, 3),
                     ease: "power1.inOut",
                 })
                 .to(path, {
                     fill: "transparent",
-                    duration: getRandomDuration(0.5, 1.5), // Random unfill duration
-                }, "-=1"); // Overlap unfill with undraw
+                    duration: getRandomDuration(0.5, 1.5),
+                }, "-=1");
         };
 
-        // Start the animation
         animatePath();
     });
+
+    // Button effects (keep original)
+    if (window.jQuery) {
+        const $ = window.jQuery;
+        const cursor = document.querySelector('.custom-cursor');
+
+        if (cursor) {
+            $('.button.disable-custom-cursor').on('mouseenter', function() {
+                cursor.classList.add('hidden');
+            });
+
+            $('.button.disable-custom-cursor').on('mouseleave', function() {
+                cursor.classList.remove('hidden');
+            });
+        }
+
+        fireworkEffect('.hero .button');
+    }
+}
+
+// DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    domReady = true;
+    initializeWhenReady();
 });
 
-// Button
-jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
-
-    $('.button.disable-custom-cursor').on('mouseenter', function() {
-        cursor.classList.add('hidden');
+// Fonts ready
+if (document.fonts) {
+    document.fonts.ready.then(() => {
+        fontsReady = true;
+        initializeWhenReady();
     });
-
-    // Handle mouse leaving a button
-    $('.button.disable-custom-cursor').on('mouseleave', function() {
-        cursor.classList.remove('hidden');
+} else {
+    window.addEventListener('load', () => {
+        fontsReady = true;
+        initializeWhenReady();
     });
-
-    fireworkEffect('.hero .button');
-});
+}
