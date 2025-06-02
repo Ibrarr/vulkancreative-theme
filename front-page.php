@@ -20,13 +20,10 @@ get_header();
                 <div class="bottom"><a href="#contact" class="button disable-custom-cursor">Forge ahead</a></div>
             </div>
             <div class="col-lg-4 graphic">
-                <?php if (!preg_match('/iphone|android|mobile/i', $_SERVER['HTTP_USER_AGENT'])): ?>
-                    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
-                    <spline-viewer loading-anim-type="spinner-big-dark"
-                                   url="https://prod.spline.design/TGbj8tyAqN3q8iiZ/scene.splinecode">
-                    </spline-viewer>
-                <?php endif; ?>
-
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+                <spline-viewer loading-anim-type="spinner-big-dark"
+                               url="https://prod.spline.design/TGbj8tyAqN3q8iiZ/scene.splinecode">
+                </spline-viewer>
             </div>
         </div>
     </div>
