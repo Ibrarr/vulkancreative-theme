@@ -38,24 +38,72 @@ get_header();
         <div class="row why-box-container">
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?>" class="reveal" alt="In-Person Approach reveal">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?>"  class="infinite" alt="In-Person Approach">
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?> 100w,
+                            <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="In-Person Approach reveal"
+                        class="reveal"
+                    >
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?> 100w,
+                                <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="In-Person Approach"
+                        class="infinite"
+                    >
                 </div>
                 <h3>In-Person Approach</h3>
                 <p>We work closely with you, offering a personal touch that builds trust and drives success.</p>
             </div>
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?>"  class="reveal" alt="Tailored Solutions reveal">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>" class="infinite" alt="Tailored Solutions">
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?> 100w,
+                            <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="Tailored Solutions reveal"
+                        class="reveal"
+                    >
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?> 100w,
+                            <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="Tailored Solutions"
+                        class="infinite"
+                    >
                 </div>
                 <h3>Tailored Solutions</h3>
                 <p>Every strategy is customised to fit your unique brand and goals-no one-size-fits-all here.</p>
             </div>
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?>" class="reveal" alt="Proven Results reveal">
-                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?>" class="infinite" alt="Proven Results">
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?> 100w,
+                            <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="Proven Results reveal"
+                        class="reveal"
+                    >
+                    <img
+                        loading="lazy"
+                        src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?>"
+                        srcset="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?> 100w,
+                            <?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?> 60w"
+                        sizes="(max-width: 991px) 60px, 100px"
+                        alt="Proven Results"
+                        class="infinite"
+                    >
                 </div>
                 <h3>Proven Results</h3>
                 <p>Our track record speaks for itself, delivering impactful outcomes that grow your business.</p>
@@ -136,7 +184,14 @@ get_header();
                         $icon = get_field('icon', 'service_' . $service->term_id);
                         ?>
                         <div class="service">
-                            <img loading="lazy" src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
+                            <img
+                                    loading="lazy"
+                                    src="<?php echo $icon; ?>"
+                                    srcset="<?php echo $icon; ?> 50w,
+                                        <?php echo $icon; ?> 40w"
+                                    sizes="(max-width: 991px) 40px, 50px"
+                                    alt="<?php echo $title; ?>"
+                            />
                             <h3><?php echo $title; ?></h3>
                             <?php echo $description; ?>
                             <a href="#contact" class="button">Learn more</a>
