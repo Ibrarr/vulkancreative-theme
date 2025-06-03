@@ -38,24 +38,24 @@ get_header();
         <div class="row why-box-container">
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?>" class="reveal" alt="In-Person Approach reveal">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?>"  class="infinite" alt="In-Person Approach">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?>" class="reveal" alt="In-Person Approach reveal">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?>"  class="infinite" alt="In-Person Approach">
                 </div>
                 <h3>In-Person Approach</h3>
                 <p>We work closely with you, offering a personal touch that builds trust and drives success.</p>
             </div>
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?>"  class="reveal" alt="Tailored Solutions reveal">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>" class="infinite" alt="Tailored Solutions">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?>"  class="reveal" alt="Tailored Solutions reveal">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>" class="infinite" alt="Tailored Solutions">
                 </div>
                 <h3>Tailored Solutions</h3>
                 <p>Every strategy is customised to fit your unique brand and goals-no one-size-fits-all here.</p>
             </div>
             <div class="col-lg-4 why-boxes">
                 <div class="image-container">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?>" class="reveal" alt="Proven Results reveal">
-                    <img src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?>" class="infinite" alt="Proven Results">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?>" class="reveal" alt="Proven Results reveal">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?>" class="infinite" alt="Proven Results">
                 </div>
                 <h3>Proven Results</h3>
                 <p>Our track record speaks for itself, delivering impactful outcomes that grow your business.</p>
@@ -136,7 +136,7 @@ get_header();
                         $icon = get_field('icon', 'service_' . $service->term_id);
                         ?>
                         <div class="service">
-                            <img src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
+                            <img loading="lazy" src="<?php echo $icon; ?>" alt="<?php echo $title; ?>">
                             <h3><?php echo $title; ?></h3>
                             <?php echo $description; ?>
                             <a href="#contact" class="button">Learn more</a>
