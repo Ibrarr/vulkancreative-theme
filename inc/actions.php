@@ -26,7 +26,7 @@ function vc_setup() {
 add_action( 'wp_enqueue_scripts', 'vc_enqueue' );
 function vc_enqueue() {
 	wp_enqueue_style( 'vc-style', get_stylesheet_uri() );
-	wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jquery', false, [], false, true );
 }
 
 /**
