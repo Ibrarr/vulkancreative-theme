@@ -130,3 +130,13 @@
     }
   }
 }
+
+@at-root body.dark-mode .contact {
+  h2, p, input, .gform_confirmation_message, textarea {
+    color: $vc-text-light !important;
+  }
+
+  .button:hover {
+    color: $vc-text-light !important;
+  }
+}

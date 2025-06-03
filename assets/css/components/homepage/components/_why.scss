@@ -4,6 +4,7 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
+  transition: background 0.3s;
 
   @include media-breakpoint-down(lg) {
     margin-bottom: 32px;
@@ -86,5 +87,13 @@
   .button {
     @include vc-button-big($vc-primary, $vc-text-light);
     cursor: pointer !important;
+  }
+}
+
+@at-root body.dark-mode .why {
+  background: $dark-vc-background-dark-alt !important;
+
+  h1, p {
+    color: $vc-text-light !important;
   }
 }

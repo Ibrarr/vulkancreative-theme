@@ -12,7 +12,7 @@ $vc-medium: 500;
 $vc-semi-bold: 600;
 $vc-bold: 700;
 
-// Colors
+// Colors Light Mode
 $vc-background-white: #F5F5F5;
 $vc-background-dark: #121212;
 $vc-text-light: #F5F5F5;
@@ -21,6 +21,9 @@ $vc-primary: #FF3B30;
 $vc-secondary: #FF4500;
 $vc-disabled: #c7c7c7;
 
+// Colors Dark Mode
+$dark-vc-background-dark: #121212;
+$dark-vc-background-dark-alt: #242424;
+
 //Other
 $vc-transition-all: all .3s;
-

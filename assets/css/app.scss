@@ -7,6 +7,9 @@
 // Fonts
 @import 'fonts';
 
+// Theme Toggle
+@import "theme-toggles/css/classic.css";
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -31,6 +34,14 @@
 
 .hidden {
   display: none !important;
+}
+
+body {
+  transition: $vc-transition-all;
+
+  &.dark-mode {
+    background-color: $dark-vc-background-dark;
+  }
 }
 
 @import "components/misc/mouse-cursor";

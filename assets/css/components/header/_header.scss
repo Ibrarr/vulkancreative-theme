@@ -3,11 +3,31 @@ header {
   position: fixed;
   z-index: 99;
   background: $vc-background-white;
-  transition: all .75s;
+  transition: background 0.3s, top 0.75s;
   top: -102px;
 
   @import "components/desktop";
   @import "components/mobile";
+
+  @include media-breakpoint-down(lg) {
+    .main-menu .menu-theme-toggle {
+      display: none;
+    }
+  }
+
+  .menu-theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .theme-toggle {
+    cursor: pointer;
+
+    svg {
+      transition: $vc-transition-all;
+    }
+  }
 
   //&.scrolled .main-menu {
   //  padding: 22px 0;
@@ -16,4 +36,16 @@ header {
   //    width: 145px;
   //  }
   //}
+}
+
+@at-root body.dark-mode header {
+  background: $dark-vc-background-dark !important;
+
+  .theme-toggle svg {
+    fill: $vc-text-light !important;
+  }
+
+  .menu-button:hover a {
+    color: $vc-text-light !important;
+  }
 }

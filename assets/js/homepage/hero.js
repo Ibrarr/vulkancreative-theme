@@ -225,11 +225,11 @@ function initializeAllAnimations() {
         const cursor = document.querySelector('.custom-cursor');
 
         if (cursor) {
-            $('.button.disable-custom-cursor').on('mouseenter', function() {
+            $('.disable-custom-cursor').on('mouseenter', function() {
                 cursor.classList.add('hidden');
             });
 
-            $('.button.disable-custom-cursor').on('mouseleave', function() {
+            $('.disable-custom-cursor').on('mouseleave', function() {
                 cursor.classList.remove('hidden');
             });
         }

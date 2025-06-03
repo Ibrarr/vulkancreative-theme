@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 
 mix.js([
+    'assets/js/global/dark-mode.js',
     'assets/js/global/load-at-top.js',
     'assets/js/global/custom-cursor.js',
     'assets/js/global/smooth-scrolling.js',

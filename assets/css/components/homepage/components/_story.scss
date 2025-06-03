@@ -82,3 +82,13 @@
     }
   }
 }
+
+@at-root body.dark-mode .story {
+  h2, p {
+    color: $vc-text-light !important;
+  }
+
+  .button:hover {
+    color: $vc-text-light !important;
+  }
+}

@@ -4,6 +4,7 @@
   position: relative;
   z-index: 1;
   overflow: clip;
+  transition: background 0.3s;
 
   @include media-breakpoint-down(lg) {
     padding: 60px 0;
@@ -112,5 +113,17 @@
         }
       }
     }
+  }
+}
+
+@at-root body.dark-mode .services {
+  background: $dark-vc-background-dark-alt !important;
+
+  .service {
+    background: $dark-vc-background-dark-alt !important;
+  }
+
+  .button:hover {
+    color: $vc-text-light !important;
   }
 }

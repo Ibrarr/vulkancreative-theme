@@ -4,6 +4,7 @@ footer {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  transition: background 0.3s;
 
   @include media-breakpoint-down(lg) {
     padding: 45px 0;
@@ -19,6 +20,10 @@ footer {
 
     .form {
       margin-top: 30px;
+
+      h2.gform_submission_error.hide_summary {
+        color: $vc-text-light !important;
+      }
 
       p {
         @include vc-body($vc-text-light);
@@ -236,4 +241,8 @@ footer {
       }
     }
   }
+}
+
+@at-root body.dark-mode footer {
+  background: $dark-vc-background-dark-alt !important;
 }

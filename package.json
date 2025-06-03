@@ -18,7 +18,7 @@
     "laravel-mix": "^6.0.49",
     "postcss-preset-env": "^10.1.3",
     "resolve-url-loader": "^5.0.0",
-    "sass": "^1.62.1",
+    "sass": "^1.89.1",
     "sass-loader": "^12.1.0",
     "video.js": "^8.21.0"
   },
@@ -29,6 +29,7 @@
     "bootstrap": "^5.3.1",
     "gsap": "^3.12.5",
     "split-type": "^0.3.4",
+    "theme-toggles": "^4.10.1",
     "videojs-youtube": "^3.0.1"
   },
   "browserslist": [

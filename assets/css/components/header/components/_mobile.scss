@@ -7,13 +7,25 @@
   height: calc(100vh - 46px);
   width: 100%;
   z-index: 99;
+  transition: background 0.3s;
 
   @include media-breakpoint-down(md) {
     top: 40px;
     height: calc(100vh - 40px);
   }
 
+  .menu-theme-mobile {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+
+    .theme-toggle {
+      margin-bottom: 5px;
+    }
+  }
+
   nav {
+    width: 100%;
     margin-top: 20px;
 
     ul {
@@ -51,5 +63,13 @@
         margin-top: 20px;
       }
     }
+  }
+}
+
+@at-root body.dark-mode .mobile-menu {
+  background: $dark-vc-background-dark-alt !important;
+
+  nav a {
+    color: $vc-text-light !important;
   }
 }
