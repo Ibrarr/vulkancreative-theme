@@ -11,7 +11,7 @@
 	<?php wp_head(); ?>
 
     <!-- Start cookieyes banner -->
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
+    <script id="cookieyes" async type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
     <!-- End cookieyes banner -->
 </head>
 <body <?php body_class(); ?>>
