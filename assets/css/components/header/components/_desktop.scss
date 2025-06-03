@@ -22,6 +22,24 @@
       width: 180px;
       height: auto;
 
+      > path:nth-of-type(7),
+      > path:nth-of-type(8),
+      > path:nth-of-type(9),
+      > path:nth-of-type(10),
+      > path:nth-of-type(11),
+      > path:nth-of-type(12),
+      > path:nth-of-type(13),
+      > path:nth-of-type(14),
+      > path:nth-of-type(15),
+      > path:nth-of-type(16) {
+        visibility: hidden;    /* keep in DOM so DrawSVGPlugin can measure */
+        fill: none;            /* we’ll assign the fill colour in JS */
+        stroke: #EF3E36;       /* outline matches your brand colour */
+        stroke-width: .5;       /* adjust stroke weight as needed */
+        fill-opacity: 0;       /* ensure no fill until JS sets it */
+        stroke-opacity: 1;     /* start fully opaque stroke */
+      }
+
       @include media-breakpoint-between(md, lg) {
         width: 150px;
       }
