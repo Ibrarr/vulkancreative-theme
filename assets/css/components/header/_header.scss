@@ -24,6 +24,19 @@ header {
   .theme-toggle {
     cursor: pointer;
 
+    &:not(.theme-toggle--toggled) {
+      circle:nth-of-type(1) {
+        transition: $vc-transition-all;
+        stroke: $vc-text-light;
+        stroke-width: 3;
+      }
+
+      circle:nth-of-type(2) {
+        transition: $vc-transition-all;
+        fill: $vc-text-light;
+      }
+    }
+
     svg {
       transition: $vc-transition-all;
     }

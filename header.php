@@ -56,7 +56,8 @@
                                 </clipPath>
                             </defs>
                             <g clip-path="url(#clip-path-1)">
-                                <circle cx="16" cy="16" r="9.34" />
+                                <circle cx="50%" cy="50%" r="9.34" />
+                                <circle cx="50%" cy="50%" r="6.34" />
                                 <g stroke="currentColor" stroke-width="1.5">
                                     <path d="M16 5.5v-4" />
                                     <path d="M16 30.5v-4" />
