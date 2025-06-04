@@ -23,6 +23,7 @@ header {
 
   .theme-toggle {
     cursor: pointer;
+    transition: filter .3s;
 
     &:not(.theme-toggle--toggled) {
       circle:nth-of-type(1) {
@@ -39,6 +40,14 @@ header {
 
     svg {
       transition: $vc-transition-all;
+    }
+
+    &:not(.theme-toggle--toggled):hover circle:nth-of-type(2) {
+      fill: $vc-text-dark;
+    }
+
+    &.theme-toggle--toggled:hover {
+      filter: drop-shadow(0px 0px 10px #FF3B30) drop-shadow(0px 0px 15px #FF3B30);
     }
   }
 
