@@ -8,6 +8,7 @@
   .content {
     h2 {
       @include vc-h1($vc-text-dark);
+      transition: color 0.3s;
 
       span {
         color: $vc-primary;
@@ -22,6 +23,7 @@
       @include vc-p($vc-text-dark);
       margin: 0;
       max-width: 75%;
+      transition: color 0.3s;
 
       @include media-breakpoint-down(lg) {
         max-width: 85%;

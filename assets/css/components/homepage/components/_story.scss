@@ -21,6 +21,7 @@
 
     h2 {
       @include vc-h1($vc-text-dark);
+      transition: color 0.3s;
 
       span {
         color: $vc-primary;
@@ -29,6 +30,7 @@
 
     .split-text-story {
       @include vc-p($vc-text-dark);
+      transition: color 0.3s;
       will-change: transform;
 
       & * {

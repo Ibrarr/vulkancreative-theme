@@ -18,6 +18,7 @@
       margin-bottom: 20px;
       color: $vc-text-dark;
       opacity: 0;
+      transition: color 0.3s;
 
       @include media-breakpoint-down(xl) {
         font-size: 50px;
@@ -89,6 +90,7 @@
       margin-bottom: 20px;
       opacity: 0;
       will-change: transform;
+      transition: color 0.3s;
 
       & * {
         will-change: transform;
