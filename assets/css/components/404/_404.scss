@@ -34,3 +34,14 @@
     }
   }
 }
+
+@at-root body.dark-mode.error404 {
+  h1, h2, p {
+    color: $vc-text-light !important;
+  }
+
+  .button:hover {
+    background: $dark-vc-background-dark !important;
+    color: $vc-text-light !important;
+  }
+}
