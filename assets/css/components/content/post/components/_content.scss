@@ -1,0 +1,29 @@
+.content {
+  a {
+    color: $vc-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-weight: $vc-bold;
+    scroll-margin-top: 105px;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  ul {
+    list-style: square;
+
+    li {
+      &::marker {
+        color: $vc-primary;
+      }
+    }
+  }
+}

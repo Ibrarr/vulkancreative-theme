@@ -1,0 +1,212 @@
+.sidebar.right {
+  padding: 0 0 0 20px;
+
+  @include media-breakpoint-down(lg) {
+    padding: 0;
+  }
+
+  .sticky-container {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 105px;
+    }
+
+    .heading-label {
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: $vc-semi-bold;
+    }
+
+    .table-of-contents {
+
+      @include media-breakpoint-down(lg) {
+        display: none;
+      }
+
+
+      ul {
+        list-style: square;
+
+        padding-left: 1.4rem;
+
+        li {
+          &:not(:last-child) {
+            margin-bottom: 10px;
+          }
+
+          &::marker {
+            color: $vc-primary;
+          }
+
+          a {
+            text-decoration: none;
+            color: $vc-text-dark;
+            font-weight: $vc-semi-bold;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .author-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .author-avatar {
+        border-radius: 100%;
+        overflow: hidden;
+      }
+
+      .author-info {
+        .author-name {
+          margin-bottom: 0;
+
+          a {
+            text-decoration: none;
+            color: $vc-text-dark;
+            font-weight: $vc-semi-bold;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .author-title {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .form {
+      h2.gform_submission_error.hide_summary {
+        color: $vc-text-dark !important;
+      }
+
+      p {
+        @include vc-body($vc-text-dark);
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .gform_wrapper.newsletter-form_wrapper {
+        .gform_heading {
+          display: none;
+        }
+
+        .gform_body:after {
+          content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
+          color: $vc-text-dark;
+          font-size: 12px;
+          top: 3px;
+          position: relative;
+        }
+
+        .gform_fields {
+          display: flex;
+          column-gap: 0;
+        }
+
+        .gform_validation_errors {
+          width: fit-content;
+          margin-bottom: 20px !important;
+        }
+
+        .validation_message {
+          display: none;
+        }
+
+        input:focus {
+          border-color: $vc-primary;
+          --gf-local-shadow: none;
+          --gf-local-outline-color: none;
+          outline: none !important;
+        }
+
+        .gfield--type-submit {
+          margin-left: 10px;
+          display: contents;
+        }
+
+        input[type="email"] {
+          font-family: $vc-font-family;
+          font-size: 14px;
+          border-radius: 10px;
+          padding: 15px;
+          height: 45px;
+          box-shadow: none;
+          background: none;
+          border: 1px solid $vc-text-dark;
+          color: $vc-text-dark;
+          transition: $vc-transition-all;
+          width: 360px;
+          cursor: text;
+
+          &:focus {
+            border-color: $vc-primary;
+          }
+        }
+
+        input[type="submit"] {
+          @include vc-button($vc-primary);
+          font-size: 14px;
+          cursor: pointer !important;
+          height: 45px;
+          white-space: nowrap;
+          width: 120px;
+
+          @include media-breakpoint-between(lg, xl) {
+            padding: 0;
+          }
+
+          &:hover {
+            color: $vc-primary;
+          }
+        }
+      }
+
+      .gform_footer {
+        display: none;
+      }
+
+      .gform_confirmation_wrapper {
+        .gform_confirmation_message {
+          font-family: $vc-font-family;
+          font-size: 14px;
+          font-weight: $vc-normal;
+
+          p {
+            color: $vc-text-dark !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode.single-post .content-area .sidebar.right .sticky-container {
+  .table-of-contents ul li a, .author-box .author-info .author-name a {
+    color: $vc-text-light;
+  }
+
+  .form {
+    .gform_wrapper.newsletter-form_wrapper {
+      .gform_body:after {
+        color: $vc-text-light;
+      }
+
+      input[type="email"] {
+        color: $vc-text-light;
+        border-color: $vc-text-light;
+      }
+    }
+
+    .gform_confirmation_wrapper .gform_confirmation_message p {
+      color: $vc-text-light !important;
+    }
+  }
+}
