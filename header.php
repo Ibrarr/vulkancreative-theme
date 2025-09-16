@@ -19,6 +19,16 @@
     <!-- Start cookieyes banner -->
     <script id="cookieyes" async type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
     <!-- End cookieyes banner -->
+
+    <!-- Start active campaign tracking -->
+    <script>
+        (function(e,t,o,n,p,r,i){e.visitorGlobalObjectAlias=n;e[e.visitorGlobalObjectAlias]=e[e.visitorGlobalObjectAlias]||function(){(e[e.visitorGlobalObjectAlias].q=e[e.visitorGlobalObjectAlias].q||[]).push(arguments)};e[e.visitorGlobalObjectAlias].l=(new Date).getTime();r=t.createElement("script");r.src=o;r.async=true;i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i)})(window,document,"https://diffuser-cdn.app-us1.com/diffuser/diffuser.js","vgo");
+        vgo('setAccount', '802279391');
+        vgo('setTrackByDefault', true);
+
+        vgo('process');
+    </script>
+    <!-- End active campaign tracking -->
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
