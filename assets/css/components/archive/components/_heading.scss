@@ -18,10 +18,14 @@
 
     .breadcrumbs {
       @include vc-breadcrumbs($vc-primary, $vc-text-dark);
+      opacity: 0;
+      visibility: hidden;
     }
 
     h1 {
       @include vc-general-h1($vc-text-dark);
+      opacity: 0;
+      visibility: hidden;
 
       .line {
         padding-bottom: 0.1em;

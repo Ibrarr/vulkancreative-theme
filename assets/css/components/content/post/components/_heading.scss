@@ -40,6 +40,8 @@
 
     h1 {
       @include vc-general-h1($vc-text-light);
+      opacity: 0;
+      visibility: hidden;
 
       .line {
         padding-bottom: 0.1em;
