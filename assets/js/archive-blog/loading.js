@@ -1,10 +1,8 @@
-// blog-heading-and-posts.js
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(SplitText);
 
-// 1) POSTS: run ASAP on DOM ready (no font waiting)
 document.addEventListener("DOMContentLoaded", () => {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 });
 
-// 2) HEADINGS: wait for fonts so SplitText line metrics don’t lie
 function runHeadingSplits() {
     let bcTween, h1Tween;
 
@@ -68,6 +65,5 @@ function runHeadingSplits() {
 if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(runHeadingSplits);
 } else {
-    // if the browser doesn’t speak Font Loading API, do it after load
     window.addEventListener("load", runHeadingSplits);
 }
