@@ -187,9 +187,11 @@ get_header();
                                     sizes="(max-width: 991px) 40px, 50px"
                                     alt="<?php echo $title; ?>"
                             />
-                            <h3><?php echo $title; ?></h3>
-                            <?php echo $description; ?>
-                            <a href="#contact" class="button">Learn more</a>
+                            <div class="content">
+                                <h3><?php echo $title; ?></h3>
+                                <?php echo $description; ?>
+                                <a href="#contact" class="button">Learn more</a>
+                            </div>
                         </div>
                         <?php
                     }

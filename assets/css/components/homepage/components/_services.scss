@@ -55,6 +55,13 @@
       border-radius: 10px;
       border: 2px solid $vc-primary;
       background: $vc-background-dark;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      @include media-breakpoint-down(lg) {
+        align-items: flex-start;
+      }
 
       &:not(:last-child) {
         margin-bottom: 30px;
