@@ -1,0 +1,33 @@
+.heading {
+  margin-top: 155px;
+  margin-bottom: 60px;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: 147px;
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-top: 110px;
+    margin-bottom: 40px;
+  }
+
+  .content {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+
+    .breadcrumbs {
+      @include vc-breadcrumbs($vc-primary);
+    }
+
+    h1 {
+      @include vc-general-h1($vc-text-dark);
+    }
+  }
+}
+
+@at-root body.dark-mode .heading {
+  h1 {
+    color: $vc-text-light !important;
+  }
+}

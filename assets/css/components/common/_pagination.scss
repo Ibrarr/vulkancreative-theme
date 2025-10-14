@@ -1,0 +1,58 @@
+.pagination {
+  margin: 60px 0;
+  justify-content: center;
+
+  .page-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: $vc-text-dark;
+    width: 25px;
+
+    &.next, &.prev {
+      margin: 0;
+    }
+
+    &:not(.dots) {
+      height: 40px;
+      width: 40px;
+      border-radius: 5px;
+      border: 1px solid $vc-text-dark;
+      margin: 0 5px;
+      transition: $vc-transition-all;
+
+      &:hover {
+        border-color: $vc-primary;
+        color: $vc-primary;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 14px;
+      width: 18px;
+
+      &:not(.dots) {
+        height: 33px;
+        width: 33px;
+      }
+    }
+  }
+
+  span.current {
+    background: $vc-primary;
+    font-weight: $vc-bold;
+    color: $vc-text-light;
+    border: none !important;
+  }
+}
+
+@at-root body.dark-mode .pagination {
+  .page-numbers {
+    color: $vc-text-light;
+
+    &:not(.dots) {
+      border-color: $vc-text-light;
+    }
+  }
+}

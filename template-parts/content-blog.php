@@ -30,6 +30,7 @@ $image_srcset = wp_get_attachment_image_srcset( $thumbnail_id );
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <section class="heading" style="background: url('<?php the_post_thumbnail_url(); ?>');">
         <div class="container px-4 py-4 content">
+            <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]') ?></div>
             <h1 class="title"><?php the_title(); ?></h1>
             <p class="excerpt"><?php echo esc_html(get_the_excerpt()); ?></p>
             <div class="terms">

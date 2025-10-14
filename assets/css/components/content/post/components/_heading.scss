@@ -34,17 +34,12 @@
       padding: 60px 40px !important
     }
 
+    .breadcrumbs {
+      @include vc-breadcrumbs($vc-text-light);
+    }
+
     h1 {
-      font-size: 3.5rem;
-      font-weight: $vc-bold;
-
-      @include media-breakpoint-down(lg) {
-        font-size: 2.5rem
-      }
-
-      @include media-breakpoint-down(sm) {
-        font-size: 2rem
-      }
+      @include vc-general-h1($vc-text-light);
     }
 
     .terms {
