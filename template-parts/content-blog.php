@@ -144,34 +144,3 @@ $image_srcset = wp_get_attachment_image_srcset( $thumbnail_id );
 	    </div>
 	</div>
 </article>
-
-<!--<aside class="related-content">-->
-<!--    <div class="container px-4">-->
-<!--        <h3>More --><?php //echo $term_name; ?><!-- Content</h3>-->
-<!--        <div class="row mb-3">-->
-<!--            --><?php
-//            $related_posts = new WP_Query(array(
-//                'post_type' => $post_type,
-//                'posts_per_page' => 4,
-//                'post__not_in' => array(get_the_ID()),
-//                'tax_query' => array(
-//                    array(
-//                        'taxonomy' => $taxonomy,
-//                        'field' => 'name',
-//                        'terms' => $term_name,
-//                    ),
-//                ),
-//            ));
-//
-//            if ($related_posts->have_posts()) :
-//                while ($related_posts->have_posts()) : $related_posts->the_post();
-//                    require('standard-article-card.php');
-//                endwhile;
-//                wp_reset_postdata();
-//            else :
-//                echo '<p>No related posts available at the moment.</p>';
-//            endif;
-//            ?>
-<!--        </div>-->
-<!--    </div>-->
-<!--</aside>-->
