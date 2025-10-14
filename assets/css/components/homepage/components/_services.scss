@@ -49,42 +49,35 @@
 
   .service-container {
     position: relative;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+
+    // Sticky config
+    $sticky-start: 50px;     // first child top
+    $sticky-step: 10px;      // increment per next child
+    $child-count: 10;        // how many items you want to cover
 
     .service {
-      padding: 32px;
+      padding: 50px 32px;
       border-radius: 10px;
       border: 2px solid $vc-primary;
       background: $vc-background-dark;
       display: flex;
       align-items: center;
       gap: 20px;
+      position: sticky;
 
       @include media-breakpoint-down(lg) {
+        padding: 30px;
         align-items: flex-start;
       }
 
-      &:not(:last-child) {
-        margin-bottom: 30px;
-      }
-
-      &:nth-child(1) {
-        position: sticky;
-        top: 50px;
-      }
-
-      &:nth-child(2) {
-        position: sticky;
-        top: 70px;
-      }
-
-      &:nth-child(3) {
-        position: sticky;
-        top: 90px;
-      }
-
-      &:nth-child(4) {
-        position: sticky;
-        top: 0;
+      // Generate incremental top offsets
+      @for $i from 1 through $child-count {
+        &:nth-child(#{$i}) {
+          top: $sticky-start + ($sticky-step * ($i - 1));
+        }
       }
 
       img {
