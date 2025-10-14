@@ -26,6 +26,14 @@ mix.js([
     'assets/js/homepage/contact.js',
 ], 'js/homepage.js');
 
+mix.js([
+    'assets/js/archive-blog/loading.js',
+], 'js/archive-blog.js');
+
+mix.js([
+    'assets/js/single-blog/loading.js',
+], 'js/single-blog.js');
+
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

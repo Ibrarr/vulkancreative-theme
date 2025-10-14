@@ -3,5 +3,7 @@
     "/js/header.js": "/js/header.js?id=d4344271a972d9e103a06b7c71b14b70",
     "/js/footer.js": "/js/footer.js?id=e99656a7a286ade1f8220b117d3443a8",
     "/js/homepage.js": "/js/homepage.js?id=3af49a901e3c68454066a749f3101b94",
-    "/css/app.css": "/css/app.css?id=6e8da7853509edf1af371be0513590f8"
+    "/js/archive-blog.js": "/js/archive-blog.js?id=60acf87aacad4164c022c32c140c5e5a",
+    "/js/single-blog.js": "/js/single-blog.js?id=6b75862ed3481f5cdbd2fbe5c3f889a2",
+    "/css/app.css": "/css/app.css?id=bfc4caaa069ef0eb329979410fe897ca"
 }

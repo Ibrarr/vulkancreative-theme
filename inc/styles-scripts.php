@@ -10,6 +10,14 @@ function add_custom_scripts() {
         wp_enqueue_script( 'homepage', VC_TEMPLATE_URI . mix('/js/homepage.js'), [ 'jquery' ], null, true );
     }
 
+    if ( is_single() ) {
+        wp_enqueue_script( 'single-blog', VC_TEMPLATE_URI . mix('/js/single-blog.js'), [ 'jquery' ], null, true );
+    }
+
+    if ( is_home() || is_category() ) {
+        wp_enqueue_script( 'archive-blog', VC_TEMPLATE_URI . mix('/js/archive-blog.js'), [ 'jquery' ], null, true );
+    }
+
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/js/global.js'), [ 'jquery' ], null, true );
 
     wp_enqueue_script( 'header', VC_TEMPLATE_URI . mix('/js/header.js'), [ 'jquery' ], null, true );

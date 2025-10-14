@@ -22,6 +22,10 @@
 
     h1 {
       @include vc-general-h1($vc-text-dark);
+
+      .line {
+        padding-bottom: 0.1em;
+      }
     }
   }
 }
