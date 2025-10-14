@@ -177,13 +177,14 @@ get_header();
                         $title = $service->name;
                         $description = term_description($service->term_id, 'service');
                         $icon = get_field('icon', 'service_' . $service->term_id);
+                        $icon_url = trailingslashit( home_url('/wp-content/themes/vulkancreative-theme/assets/images/icons/services') ) . ltrim($icon, '/');
                         ?>
                         <div class="service">
                             <img
                                     loading="lazy"
-                                    src="<?php echo $icon; ?>"
-                                    srcset="<?php echo $icon; ?> 50w,
-                                        <?php echo $icon; ?> 40w"
+                                    src="<?php echo $icon_url; ?>"
+                                    srcset="<?php echo $icon_url; ?> 50w,
+                                        <?php echo $icon_url; ?> 40w"
                                     sizes="(max-width: 991px) 40px, 50px"
                                     alt="<?php echo $title; ?>"
                             />

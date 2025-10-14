@@ -7,7 +7,7 @@
             "label": "Icon",
             "name": "icon",
             "aria-label": "",
-            "type": "url",
+            "type": "text",
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
@@ -17,8 +17,11 @@
                 "id": ""
             },
             "default_value": "",
-            "allow_in_bindings": 1,
-            "placeholder": ""
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_678ed6cb6f6cb",
@@ -62,5 +65,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1737414358
+    "display_title": "",
+    "modified": 1760454799
 }
