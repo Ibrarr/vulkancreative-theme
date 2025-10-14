@@ -17,7 +17,8 @@ function vc_setup() {
 	if ( ! isset( $content_width ) ) {
 		$content_width = 1920;
 	}
-	register_nav_menus( array( 'main-menu' => esc_html__( 'Main Menu', 'vc' ) ) );
+	register_nav_menus( array( 'main-menu-home' => esc_html__( 'Main Menu - Home', 'vc' ) ) );
+	register_nav_menus( array( 'main-menu-other' => esc_html__( 'Main Menu - Other', 'vc' ) ) );
 }
 
 /**

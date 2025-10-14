@@ -47,9 +47,17 @@
                 <div class="menu-theme-toggle">
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
-                        <?php wp_nav_menu( array(
-                            'theme_location' => 'main-menu',
-                        ) ); ?>
+                        <?php
+                        if (is_front_page()) {
+                            wp_nav_menu( array(
+                                'theme_location' => 'main-menu-home',
+                            ) );
+                        } else {
+                            wp_nav_menu( array(
+                                'theme_location' => 'main-menu-other',
+                            ) );
+                        }
+                        ?>
                     </nav>
                     <div class="theme-toggle disable-custom-cursor" title="Toggle theme">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -92,9 +100,17 @@
                 <div class="px-4 menu-theme-mobile">
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
-                        <?php wp_nav_menu( array(
-                            'theme_location' => 'main-menu',
-                        ) ); ?>
+                        <?php
+                        if (is_front_page()) {
+                            wp_nav_menu( array(
+                                'theme_location' => 'main-menu-home',
+                            ) );
+                        } else {
+                            wp_nav_menu( array(
+                                'theme_location' => 'main-menu-other',
+                            ) );
+                        }
+                        ?>
                     </nav>
                     <div class="theme-toggle disable-custom-cursor" title="Toggle theme">
                         <svg xmlns="http://www.w3.org/2000/svg"

@@ -40,9 +40,9 @@
   }
 
   span.current {
-    background: $vc-primary;
+    background: $vc-primary !important;
     font-weight: $vc-bold;
-    color: $vc-text-light;
+    color: $vc-text-light !important;
     border: none !important;
   }
 }

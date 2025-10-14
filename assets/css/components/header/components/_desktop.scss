@@ -80,6 +80,10 @@
           @include vc-body($vc-text-dark);
           font-weight: $vc-semi-bold;
 
+          @include media-breakpoint-between(lg, xl) {
+            font-size: 14px;
+          }
+
           &:hover {
             color: $vc-primary !important;
             cursor: pointer;
