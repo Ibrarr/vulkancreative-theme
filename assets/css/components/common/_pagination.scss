@@ -23,8 +23,8 @@
       transition: $vc-transition-all;
 
       &:hover {
-        border-color: $vc-primary;
-        color: $vc-primary;
+        border-color: $vc-primary !important;
+        color: $vc-primary !important;
       }
     }
 
@@ -49,10 +49,10 @@
 
 @at-root body.dark-mode .pagination {
   .page-numbers {
-    color: $vc-text-light;
+    color: $vc-text-light !important;
 
     &:not(.dots) {
-      border-color: $vc-text-light;
+      border-color: $vc-text-light !important;
     }
   }
 }

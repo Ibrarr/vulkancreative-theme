@@ -156,11 +156,11 @@
   }
 }
 
-@mixin vc-breadcrumbs($color) {
+@mixin vc-breadcrumbs($color, $span) {
   margin-bottom: 10px;
 
   span {
-    color: $color;
+    color: $span;
   }
 
   a {

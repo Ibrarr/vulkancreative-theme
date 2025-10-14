@@ -17,7 +17,7 @@
     text-align: center;
 
     .breadcrumbs {
-      @include vc-breadcrumbs($vc-primary);
+      @include vc-breadcrumbs($vc-primary, $vc-text-dark);
     }
 
     h1 {
@@ -27,7 +27,7 @@
 }
 
 @at-root body.dark-mode .heading {
-  h1 {
+  h1, .breadcrumbs span {
     color: $vc-text-light !important;
   }
 }
