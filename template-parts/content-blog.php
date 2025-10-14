@@ -144,3 +144,39 @@ $image_srcset = wp_get_attachment_image_srcset( $thumbnail_id );
 	    </div>
 	</div>
 </article>
+
+<?php
+$faqs = get_field('faqs');
+
+if ( is_singular('post') && !empty($faqs) && is_array($faqs) ) {
+    $schema = [
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => [],
+    ];
+
+    foreach ( $faqs as $row ) {
+        if ( empty($row['question']) || empty($row['answer']) ) {
+            continue;
+        }
+
+        $question = wp_strip_all_tags( $row['question'] );
+        $answer_html = wp_kses_post( $row['answer'] );
+
+        $schema['mainEntity'][] = [
+            '@type'          => 'Question',
+            'name'           => $question,
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text'  => $answer_html,
+            ],
+        ];
+    }
+
+    if ( !empty($schema['mainEntity']) ) {
+        echo '<script type="application/ld+json">'
+            . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
+            . '</script>';
+    }
+}
+?>
