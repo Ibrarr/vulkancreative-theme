@@ -31,9 +31,13 @@ mix.js([
 ], 'js/archive-blog.js');
 
 mix.js([
+    'assets/js/archive-author/loading.js',
+], 'js/archive-author.js');
+
+
+mix.js([
     'assets/js/single-blog/loading.js',
 ], 'js/single-blog.js');
-
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

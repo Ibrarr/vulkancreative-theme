@@ -1,0 +1,7 @@
+.archive.author {
+  font-family: $vc-font-family;
+
+  @import "components/heading";
+  @import "../components/posts";
+  @import "../components/pagination";
+}

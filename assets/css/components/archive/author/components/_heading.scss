@@ -1,0 +1,76 @@
+.heading {
+  margin-top: 155px;
+  margin-bottom: 60px;
+
+  @include media-breakpoint-down(lg) {
+    margin-top: 147px;
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-top: 110px;
+    margin-bottom: 40px;
+  }
+
+  .content {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+
+    .author-avatar {
+      margin-bottom: 30px;
+
+      @include media-breakpoint-down(lg) {
+        margin-bottom: 20px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        img {
+          width: 130px !important;
+          height: 130px !important;
+        }
+      }
+    }
+
+    .breadcrumbs {
+      @include vc-breadcrumbs($vc-primary, $vc-text-dark);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    h1 {
+      @include vc-general-h1($vc-text-dark);
+      margin-bottom: 20px;
+      opacity: 0;
+      visibility: hidden;
+
+      @include media-breakpoint-down(lg) {
+        margin-bottom: 10px;
+      }
+
+      .line {
+        padding-bottom: 0.1em;
+      }
+    }
+
+    .author-meta {
+      .author-text {
+        opacity: 0;
+        visibility: hidden;
+
+        p {
+          @include vc-general-p($vc-text-dark);
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .heading {
+  h1, .breadcrumbs span, .author-text p {
+    color: $vc-text-light !important;
+  }
+}
