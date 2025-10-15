@@ -1,4 +1,7 @@
 article {
+  opacity: 0;
+  visibility: hidden;
+
   &:hover {
     .post-title a {
       text-decoration: underline;

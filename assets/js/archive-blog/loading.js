@@ -14,12 +14,11 @@ function onReady(fn) {
 function runPosts() {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    tl.from(".posts article", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.17
-    }, 0)
+    tl.fromTo(".posts article",
+        { y: 30, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.17, clearProps: "transform" },
+        0
+    )
         .fromTo(".posts .pagination",
             { y: 20, autoAlpha: 0 },
             { y: 0, autoAlpha: 1, duration: 0.6, clearProps: "transform" },

@@ -32,20 +32,16 @@ function runHeadingSplit() {
 
     if (h1Tween) tl.add(h1Tween, 0.05);
 
-    tl.from(".content-area .left", {
-        y: 24,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: "power2.out"
-    }, 0.45)
-        .from(".content-area .right", {
-            y: 24,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: "power2.out"
-        }, 0.70);
+    tl.fromTo(".content-area .left",
+        { y: 24, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, ease: "power2.out", clearProps: "transform" },
+        0.2
+    )
+        .fromTo(".content-area .right",
+            { y: 24, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, ease: "power2.out", clearProps: "transform" },
+            0.4
+        );
 }
 
 if (document.fonts && document.fonts.ready) {
