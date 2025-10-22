@@ -12,10 +12,6 @@
                         <div class="col-lg-2 offset-lg-2 footer-menu">
                             <nav id="footer-menu" role="navigation" itemscope
                                  itemtype="https://schema.org/SiteNavigationElement">
-                                <?php wp_nav_menu( array(
-                                    'theme_location' => 'footer-menu',
-                                ) ); ?>
-
                                 <?php
                                 if (is_front_page()) {
                                     wp_nav_menu( array(
