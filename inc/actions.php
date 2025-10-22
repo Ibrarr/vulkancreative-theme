@@ -85,7 +85,8 @@ function vc_pingback_header() {
 /**
  * Register menus
  */
-register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) );
+register_nav_menus( array( 'footer-menu-home' => esc_html__( 'Footer Menu  - Home', 'vc' ) ) );
+register_nav_menus( array( 'footer-menu-other' => esc_html__( 'Footer Menu  - Other', 'vc' ) ) );
 
 /**
  * Setup 404 page

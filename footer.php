@@ -15,6 +15,18 @@
                                 <?php wp_nav_menu( array(
                                     'theme_location' => 'footer-menu',
                                 ) ); ?>
+
+                                <?php
+                                if (is_front_page()) {
+                                    wp_nav_menu( array(
+                                        'theme_location' => 'footer-menu-home',
+                                    ) );
+                                } else {
+                                    wp_nav_menu( array(
+                                        'theme_location' => 'footer-menu-other',
+                                    ) );
+                                }
+                                ?>
                             </nav>
                         </div>
                         <div class="col-lg-2 socials">
