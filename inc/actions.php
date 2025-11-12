@@ -125,3 +125,36 @@ add_action( 'init', 'disable_content_editor_on_post' );
 function disable_content_editor_on_post() {
 	remove_post_type_support( 'post', 'editor' );
 }
+
+/**
+ * Stop WP Site Icon from outputting its own tags
+ */
+remove_action('wp_head', 'wp_site_icon', 99);
+add_action('wp_head', function () {
+    $base = VC_TEMPLATE_URI . '/assets/images/logos/icon';
+
+    $svg      = esc_url("$base/favicon.svg");
+    $ico      = esc_url("$base/favicon.ico");
+    $png32    = esc_url("$base/favicon-32x32.png");
+    $png192   = esc_url("$base/android-chrome-192x192.png");
+    $png512   = esc_url("$base/android-chrome-512x512.png");
+    $apple180 = esc_url("$base/apple-touch-icon.png");
+    $manifest = esc_url('/site.webmanifest');
+    ?>
+
+    <link rel="icon" type="image/svg+xml" href="<?php echo $svg; ?>" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $png32; ?>">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $png192; ?>">
+    <link rel="icon" type="image/png" sizes="512x512" href="<?php echo $png512; ?>">
+    <link rel="icon" type="image/x-icon" href="<?php echo $ico; ?>">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $ico; ?>">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $apple180; ?>">
+    <meta name="apple-mobile-web-app-title" content="Vulkan Creative">
+    <meta name="application-name" content="Vulkan Creative">
+
+    <!-- Your colours -->
+    <meta name="theme-color" content="#FF3B30">
+    <link rel="manifest" href="<?php echo get_site_url().$manifest; ?>">
+    <?php
+}, 1);

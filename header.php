@@ -15,8 +15,6 @@
     </script>
 
 	<?php wp_head(); ?>
-    <link rel="icon" href="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/favicon.ico' ); ?>">
-    <link rel="icon" type="image/svg+xml" href="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/favicon.svg' ); ?>" sizes="any">
 
     <!-- Start cookieyes banner -->
     <script id="cookieyes" async type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
