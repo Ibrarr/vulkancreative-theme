@@ -135,26 +135,37 @@ add_action('wp_head', function () {
 
     $svg      = esc_url("$base/favicon.svg");
     $ico      = esc_url("$base/favicon.ico");
+    $png16    = esc_url("$base/favicon-16x16.png");
     $png32    = esc_url("$base/favicon-32x32.png");
+    $png96    = esc_url("$base/favicon-96x96.png");
     $png192   = esc_url("$base/android-chrome-192x192.png");
     $png512   = esc_url("$base/android-chrome-512x512.png");
     $apple180 = esc_url("$base/apple-touch-icon.png");
     $manifest = esc_url('/site.webmanifest');
     ?>
 
+    <!-- Modern SVG -->
     <link rel="icon" type="image/svg+xml" href="<?php echo $svg; ?>" sizes="any">
+
+    <!-- Desktop/Android PNGs -->
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $png16; ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $png32; ?>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?php echo $png96; ?>">
     <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $png192; ?>">
     <link rel="icon" type="image/png" sizes="512x512" href="<?php echo $png512; ?>">
-    <link rel="icon" type="image/x-icon" href="<?php echo $ico; ?>">
-    <link rel="shortcut icon" type="image/x-icon" href="<?php echo $ico; ?>">
 
+    <!-- Single ICO (drop the duplicate/shortcut line) -->
+    <link rel="icon" type="image/x-icon" href="<?php echo $ico; ?>">
+
+    <!-- iOS -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $apple180; ?>">
     <meta name="apple-mobile-web-app-title" content="Vulkan Creative">
     <meta name="application-name" content="Vulkan Creative">
 
-    <!-- Your colours -->
+    <!-- Colours -->
     <meta name="theme-color" content="#FF3B30">
-    <link rel="manifest" href="<?php echo get_site_url().$manifest; ?>">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="<?php echo $manifest; ?>">
     <?php
 }, 1);
