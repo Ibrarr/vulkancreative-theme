@@ -23,6 +23,7 @@ article {
       img {
         border-radius: 10px;
         transition: scale .5s;
+        aspect-ratio: 16 / 9;
         object-fit: cover;
         object-position: top;
       }
