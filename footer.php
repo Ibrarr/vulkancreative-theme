@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="bottom">
-                                <p>© 2025 Vulkan Creative. All rights reserved.</p>
+                                <p>© <?php echo date("Y"); ?> Vulkan Creative. All rights reserved.</p>
                                 <div class="legal">
                                     <a href="/privacy-policy">Privacy Policy</a>
                                     <a href="/cookie-policy">Cookie Settings</a>
