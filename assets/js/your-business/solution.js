@@ -5,6 +5,9 @@ import { SplitText } from 'gsap/SplitText';
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 document.addEventListener('DOMContentLoaded', () => {
+    const isDesktop = window.innerWidth >= 991;
+
+    // Tag - exact homepage pattern
     gsap.from('.yb-solution .tag', {
         opacity: 0,
         y: 20,
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sub-heading - exact homepage pattern
     gsap.from('.yb-solution .sub-heading', {
         opacity: 0,
         y: 20,
@@ -32,21 +36,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    gsap.from('.pillar', {
+    // Pillar cards - standard container entrance
+    gsap.from('.yb-solution .pillar', {
         opacity: 0,
         y: 30,
         duration: 0.8,
         stagger: 0.2,
         ease: 'power2.out',
         scrollTrigger: {
-            trigger: '.pillar-container',
+            trigger: '.yb-solution .pillar-container',
             start: 'top 95%',
             toggleActions: 'play none none none',
             once: true
         }
     });
+
+    if (isDesktop) {
+        // Parallax: pillars move at different scroll speeds
+        gsap.to('.yb-solution .pillar-1', {
+            y: -30,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.yb-solution .pillar-container',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
+        });
+
+        gsap.to('.yb-solution .pillar-2', {
+            y: -60,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.yb-solution .pillar-container',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
+        });
+
+        // Background numbers: slowest layer
+        gsap.to('.yb-solution .pillar-bg-number', {
+            y: 40,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.yb-solution .pillar-container',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+            }
+        });
+    }
 });
 
+// SplitText - exact homepage pattern
 document.fonts.ready.then(() => {
     gsap.set('.split-text-yb-solution', { opacity: 1 });
 

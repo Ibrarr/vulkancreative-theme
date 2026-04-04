@@ -1,23 +1,25 @@
 .yb-problem {
   background: $vc-background-dark;
-  padding: 120px 0;
   position: relative;
   z-index: 1;
   overflow: clip;
   transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
+  .yb-problem-pin {
+    padding: 120px 0;
+
+    @include media-breakpoint-down(lg) {
+      padding: 60px 0;
+    }
   }
 
   .content {
-    position: sticky;
-    top: 50px;
-    height: fit-content;
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 60px;
 
     @include media-breakpoint-down(lg) {
-      position: static;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     .tag {
@@ -47,25 +49,50 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
 
     .problem-card {
-      padding: 40px 32px;
+      padding: 50px 32px;
       border-radius: 10px;
       border: 2px solid $vc-primary;
       background: $vc-background-dark;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
 
       @include media-breakpoint-down(lg) {
-        padding: 25px 20px;
+        padding: 30px;
       }
 
-      h3 {
-        @include vc-h4($vc-text-light);
-        margin-bottom: 10px;
+      @include media-breakpoint-up(lg) {
+        opacity: 0;
       }
 
-      p {
-        @include vc-body($vc-text-light);
-        margin: 0;
+      .problem-number {
+        font-family: $vc-font-family;
+        font-weight: $vc-bold;
+        font-size: 28px;
+        color: $vc-primary;
+        line-height: 1;
+        flex-shrink: 0;
+        opacity: 0.3;
+
+        @include media-breakpoint-down(lg) {
+          font-size: 24px;
+        }
+      }
+
+      .problem-card-content {
+        h3 {
+          @include vc-h4($vc-text-light);
+          margin-bottom: 10px;
+        }
+
+        p {
+          @include vc-body($vc-text-light);
+          margin: 0;
+        }
       }
     }
   }

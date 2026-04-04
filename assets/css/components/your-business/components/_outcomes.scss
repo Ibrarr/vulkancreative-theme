@@ -1,13 +1,21 @@
 .yb-outcomes {
   background: $vc-background-dark;
-  padding: 120px 0;
   position: relative;
   z-index: 1;
   overflow: hidden;
   transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
+  .yb-outcomes-pin {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+
+    @include media-breakpoint-down(lg) {
+      min-height: auto;
+      padding: 60px 0;
+    }
   }
 
   .content {
@@ -35,28 +43,33 @@
     }
   }
 
-  .outcomes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .outcomes-track {
+    display: flex;
     gap: 30px;
+    padding-left: calc((100vw - 1140px) / 2 + 12px);
+    will-change: transform;
+
+    @include media-breakpoint-down(xl) {
+      padding-left: 30px;
+    }
 
     @include media-breakpoint-down(lg) {
-      grid-template-columns: repeat(2, 1fr);
+      flex-direction: column;
+      padding: 0;
       gap: 20px;
     }
 
-    @include media-breakpoint-down(md) {
-      grid-template-columns: 1fr;
-    }
-
-    .outcome-item {
-      padding: 40px 32px;
+    .outcome-panel {
+      flex-shrink: 0;
+      width: 380px;
+      padding: 50px 32px;
       border-radius: 10px;
       border: 2px solid $vc-primary;
       background: $vc-background-dark;
 
       @include media-breakpoint-down(lg) {
-        padding: 25px 20px;
+        width: 100%;
+        padding: 30px;
       }
 
       h3 {
@@ -75,7 +88,7 @@
 @at-root body.dark-mode .yb-outcomes {
   background: $dark-vc-background-dark-alt !important;
 
-  .outcome-item {
+  .outcome-panel {
     background: $dark-vc-background-dark-alt !important;
   }
 }

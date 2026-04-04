@@ -42,55 +42,74 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
 
 <section class="yb-hero" id="top">
     <div class="container px-4">
-        <div class="row">
-            <div class="col-lg-8 content">
-                <p class="tag">From Your Business Magazine</p>
-                <h1><?php echo esc_html($hero_heading); ?></h1>
-                <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
-                <div class="bottom"><a href="#yb-contact" class="button disable-custom-cursor"><?php echo esc_html($hero_button_text); ?></a></div>
+        <div class="row gx-5">
+            <div class="col-lg-6">
+                <div class="content">
+                    <p class="tag">From Your Business Magazine</p>
+                    <h1><?php echo esc_html($hero_heading); ?></h1>
+                    <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
+                    <div class="bottom"><a href="#yb-contact" class="button disable-custom-cursor"><?php echo esc_html($hero_button_text); ?></a></div>
+                </div>
+            </div>
+            <div class="col-lg-6 form">
+                <div class="form-container">
+                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                </div>
+                <p class="form-trust">We respond within 24 hours.</p>
             </div>
         </div>
     </div>
 </section>
 
 <section class="yb-problem" id="yb-problem">
-    <div class="container px-4">
-        <div class="row gx-5">
-            <div class="col-lg-6">
-                <div class="content">
-                    <p class="tag"><?php echo esc_html($problem_tag); ?></p>
-                    <h2 class="split-text-yb-problem"><?php echo esc_html($problem_heading); ?></h2>
-                    <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
-                </div>
+    <div class="yb-problem-pin">
+        <div class="container px-4">
+            <div class="content">
+                <p class="tag"><?php echo esc_html($problem_tag); ?></p>
+                <h2 class="split-text-yb-problem"><?php echo esc_html($problem_heading); ?></h2>
+                <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
             </div>
-            <div class="col-lg-6">
-                <div class="problem-cards">
-                    <?php if (have_rows('yb_problem_points')) : ?>
-                        <?php while (have_rows('yb_problem_points')) : the_row(); ?>
-                            <div class="problem-card">
+            <div class="problem-cards">
+                <?php if (have_rows('yb_problem_points')) : ?>
+                    <?php $i = 1; while (have_rows('yb_problem_points')) : the_row(); ?>
+                        <div class="problem-card">
+                            <span class="problem-number"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></span>
+                            <div class="problem-card-content">
                                 <h3><?php echo esc_html(get_sub_field('title')); ?></h3>
                                 <p><?php echo esc_html(get_sub_field('description')); ?></p>
                             </div>
-                        <?php endwhile; ?>
-                    <?php else : ?>
-                        <div class="problem-card">
+                        </div>
+                    <?php $i++; endwhile; ?>
+                <?php else : ?>
+                    <div class="problem-card">
+                        <span class="problem-number">01</span>
+                        <div class="problem-card-content">
                             <h3>Inconsistent results</h3>
                             <p>The website looks decent, yet leads are unpredictable. Traffic comes in but nothing converts.</p>
                         </div>
-                        <div class="problem-card">
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-number">02</span>
+                        <div class="problem-card-content">
                             <h3>Disconnected channels</h3>
                             <p>Social, paid, email and your website all running separately with no joined-up strategy behind them.</p>
                         </div>
-                        <div class="problem-card">
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-number">03</span>
+                        <div class="problem-card-content">
                             <h3>Wasted budget</h3>
                             <p>Paid advertising brings traffic but not the right conversations. You know money is going out but the ROI is unclear.</p>
                         </div>
-                        <div class="problem-card">
+                    </div>
+                    <div class="problem-card">
+                        <span class="problem-number">04</span>
+                        <div class="problem-card-content">
                             <h3>No clear direction</h3>
                             <p>You want more enquiries, more sales, and a clearer brand, but every agency just offers the same templated approach.</p>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -103,17 +122,17 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
             <h2 class="split-text-yb-solution"><?php echo esc_html($solution_heading); ?></h2>
             <p class="sub-heading"><?php echo esc_html($solution_description); ?></p>
         </div>
-        <div class="row gx-5 pillar-container">
-            <div class="col-lg-6 pillar">
-                <div class="pillar-inner">
-                    <span class="pillar-number">1</span>
+        <div class="pillar-container">
+            <div class="pillar pillar-1">
+                <span class="pillar-bg-number">01</span>
+                <div class="pillar-content">
                     <h3><?php echo esc_html($pillar_1_heading); ?></h3>
                     <p><?php echo esc_html($pillar_1_description); ?></p>
                 </div>
             </div>
-            <div class="col-lg-6 pillar">
-                <div class="pillar-inner">
-                    <span class="pillar-number">2</span>
+            <div class="pillar pillar-2">
+                <span class="pillar-bg-number">02</span>
+                <div class="pillar-content">
                     <h3><?php echo esc_html($pillar_2_heading); ?></h3>
                     <p><?php echo esc_html($pillar_2_description); ?></p>
                 </div>
@@ -123,37 +142,39 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
 </section>
 
 <section class="yb-outcomes" id="yb-outcomes">
-    <div class="container px-4">
-        <div class="content">
-            <p class="tag"><?php echo esc_html($outcomes_tag); ?></p>
-            <h2 class="split-text-yb-outcomes"><?php echo esc_html($outcomes_heading); ?></h2>
+    <div class="yb-outcomes-pin">
+        <div class="container px-4">
+            <div class="content">
+                <p class="tag"><?php echo esc_html($outcomes_tag); ?></p>
+                <h2 class="split-text-yb-outcomes"><?php echo esc_html($outcomes_heading); ?></h2>
+            </div>
         </div>
-        <div class="outcomes-grid">
+        <div class="outcomes-track">
             <?php if (have_rows('yb_outcomes_items')) : ?>
                 <?php while (have_rows('yb_outcomes_items')) : the_row(); ?>
-                    <div class="outcome-item">
+                    <div class="outcome-panel">
                         <h3><?php echo esc_html(get_sub_field('title')); ?></h3>
                         <p><?php echo esc_html(get_sub_field('description')); ?></p>
                     </div>
                 <?php endwhile; ?>
             <?php else : ?>
-                <div class="outcome-item">
+                <div class="outcome-panel">
                     <h3>More qualified leads</h3>
                     <p>Attract the right people with messaging that speaks to their needs, not just your features.</p>
                 </div>
-                <div class="outcome-item">
+                <div class="outcome-panel">
                     <h3>Clear ROI reporting</h3>
                     <p>Know exactly what is working, what is not, and where your budget is best spent.</p>
                 </div>
-                <div class="outcome-item">
+                <div class="outcome-panel">
                     <h3>One partner end-to-end</h3>
                     <p>No contractors, no outsourcing. You speak to the people actually doing the work.</p>
                 </div>
-                <div class="outcome-item">
+                <div class="outcome-panel">
                     <h3>Messaging that sells</h3>
                     <p>Copy and creative built around what your customers need to hear, not what you want to say.</p>
                 </div>
-                <div class="outcome-item">
+                <div class="outcome-panel">
                     <h3>A website that converts</h3>
                     <p>Strong UX, clean structure, and tracking that tells you what is working.</p>
                 </div>
@@ -164,19 +185,21 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
 
 <section class="yb-trust" id="yb-trust">
     <div class="container px-4">
-        <div class="content">
-            <p class="tag"><?php echo esc_html($trust_tag); ?></p>
-            <h2 class="split-text-yb-trust"><?php echo esc_html($trust_heading); ?></h2>
-        </div>
-        <div class="trust-logos">
-            <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/google-partner.svg'; ?>" alt="Google Partner" class="trust-logo">
-            <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/hotjar-partner.svg'; ?>" alt="Hotjar Partner" class="trust-logo">
-        </div>
-        <div class="testimonial">
-            <blockquote>
-                <p>&ldquo;<?php echo esc_html($trust_quote); ?>&rdquo;</p>
-                <cite>&mdash; <?php echo esc_html($trust_name); ?>, <?php echo esc_html($trust_company); ?></cite>
-            </blockquote>
+        <div class="trust-inner">
+            <div class="testimonial">
+                <span class="quote-mark">&ldquo;</span>
+                <blockquote>
+                    <p class="split-text-yb-trust"><?php echo esc_html($trust_quote); ?></p>
+                    <cite><?php echo esc_html($trust_name); ?>, <?php echo esc_html($trust_company); ?></cite>
+                </blockquote>
+            </div>
+            <div class="trust-logos">
+                <p class="tag"><?php echo esc_html($trust_tag); ?></p>
+                <div class="logo-row">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/google-partner.svg'; ?>" alt="Google Partner" class="trust-logo">
+                    <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/hotjar-partner.svg'; ?>" alt="Hotjar Partner" class="trust-logo">
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -187,7 +210,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
             <div class="col-lg-6">
                 <div class="content">
                     <p class="tag"><?php echo esc_html($cta_tag); ?></p>
-                    <h2 class="split-text-yb-cta"><?php echo esc_html($cta_heading); ?></h2>
+                    <h2 class="split-text-yb-cta">Have a <span>Project</span> You Want To Discuss?</h2>
                     <p class="sub-heading"><?php echo esc_html($cta_subheading); ?></p>
                 </div>
             </div>

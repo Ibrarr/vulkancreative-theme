@@ -5,14 +5,16 @@ import { fireworkEffect } from '../components/firework-button-effect';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Add CSS to prevent initial flash
+// Anti-flash pattern - exact match to homepage/hero.js
 const hideStyle = document.createElement('style');
 hideStyle.id = 'yb-animation-hide-style';
 hideStyle.textContent = `
     .yb-hero h1,
     .yb-hero .bottom,
     .yb-hero .tag,
-    .split-text-yb-hero {
+    .split-text-yb-hero,
+    .yb-hero .form-container,
+    .yb-hero .form-trust {
         opacity: 0 !important;
     }
 `;
@@ -33,57 +35,30 @@ function initializeAllAnimations() {
     const hideStyleElement = document.getElementById('yb-animation-hide-style');
     if (hideStyleElement) hideStyleElement.remove();
 
-    // Tag fade in
-    gsap.fromTo('.yb-hero .tag',
-        { opacity: 0, y: 20 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.yb-hero',
-                start: 'top 100%',
-                toggleActions: 'play none none none',
-            }
-        }
-    );
+    // Use individual tweens like homepage hero, NOT a shared timeline
+    // Tag fade up
+    gsap.to('.yb-hero .tag', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+    });
 
-    // H1 fade up
-    gsap.fromTo('.yb-hero h1',
-        { opacity: 0, y: 50 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: 0.2,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.yb-hero',
-                start: 'top 100%',
-                toggleActions: 'play none none none',
-            }
-        }
-    );
+    // Set from states explicitly
+    gsap.set('.yb-hero h1', { opacity: 0, y: 50 });
+    gsap.set('.yb-hero .bottom', { opacity: 0, y: 30 });
+    gsap.set('.yb-hero .form-container', { opacity: 0, y: 30 });
+    gsap.set('.yb-hero .form-trust', { opacity: 0 });
 
-    // Bottom CTA fade up
-    gsap.fromTo('.yb-hero .bottom',
-        { opacity: 0, y: 30 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: 0.75,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.yb-hero .bottom',
-                start: 'top 100%',
-                toggleActions: 'play none none none',
-            }
-        }
-    );
+    // H1 fade up - exact homepage hero values
+    gsap.to('.yb-hero h1', {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+    });
 
-    // Split text
+    // SplitText - exact homepage hero pattern
     gsap.set('.split-text-yb-hero', { opacity: 1 });
 
     SplitText.create('.split-text-yb-hero', {
@@ -103,7 +78,33 @@ function initializeAllAnimations() {
         }
     });
 
-    // Button effects
+    // Bottom CTA - exact homepage hero values
+    gsap.to('.yb-hero .bottom', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: 0.75,
+        ease: 'power2.out',
+    });
+
+    // Form container fade in
+    gsap.to('.yb-hero .form-container', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: 0.3,
+        ease: 'power2.out',
+    });
+
+    // Form trust line fade in
+    gsap.to('.yb-hero .form-trust', {
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.8,
+        ease: 'power2.out',
+    });
+
+    // Button effects - exact homepage hero pattern
     if (window.jQuery) {
         const $ = window.jQuery;
         const cursor = document.querySelector('.custom-cursor');
@@ -116,17 +117,36 @@ function initializeAllAnimations() {
             $('.disable-custom-cursor').on('mouseleave', function() {
                 cursor.classList.remove('hidden');
             });
+
+            // Form interactions - exact homepage contact.js pattern
+            $('.yb-hero .gform_button.button, .yb-hero input[type="text"], .yb-hero input[type="email"], .yb-hero textarea').on('mouseenter', function() {
+                cursor.classList.add('hidden');
+            });
+
+            $('.yb-hero .gform_button.button, .yb-hero input[type="text"], .yb-hero input[type="email"], .yb-hero textarea').on('mouseleave', function() {
+                cursor.classList.remove('hidden');
+            });
         }
 
         fireworkEffect('.yb-hero .button');
+
+        $('input[type="text"], input[type="email"], textarea').focus(function() {
+            $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '#FF3B30');
+        });
+
+        $('input[type="text"], input[type="email"], textarea').blur(function() {
+            $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '');
+        });
     }
 }
 
+// DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     domReady = true;
     initializeWhenReady();
 });
 
+// Fonts ready
 if (document.fonts) {
     document.fonts.ready.then(() => {
         fontsReady = true;

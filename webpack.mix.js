@@ -40,6 +40,7 @@ mix.js([
 ], 'js/single-blog.js');
 
 mix.js([
+    'assets/js/your-business/scroll-smoother.js',
     'assets/js/your-business/hero.js',
     'assets/js/your-business/problem.js',
     'assets/js/your-business/solution.js',

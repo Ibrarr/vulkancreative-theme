@@ -4,6 +4,8 @@ import { SplitText } from 'gsap/SplitText';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+// All animations below are exact matches of homepage/contact.js
+
 document.addEventListener('DOMContentLoaded', () => {
     gsap.from('.yb-cta .tag', {
         opacity: 0,
@@ -74,6 +76,7 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
+// Form interactions - exact match of homepage/contact.js
 jQuery(document).ready(function($) {
     const cursor = document.querySelector('.custom-cursor');
 

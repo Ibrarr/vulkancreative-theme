@@ -6,10 +6,12 @@
   }
 
   .content {
-    margin-bottom: 50px;
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 60px;
 
     @include media-breakpoint-down(lg) {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
     .tag {
@@ -33,53 +35,69 @@
     .sub-heading {
       @include vc-p($vc-text-dark);
       margin: 0;
-      max-width: 768px;
       transition: color 0.3s;
     }
   }
 
   .pillar-container {
+    display: flex;
+    gap: 40px;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      gap: 20px;
+    }
+
     .pillar {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      padding: 50px 32px;
+      border-radius: 10px;
+      border: 2px solid $vc-primary;
+      background: $vc-background-dark;
+      transition: background 0.3s;
+
       @include media-breakpoint-down(lg) {
-        &:not(:last-child) {
-          margin-bottom: 20px;
+        padding: 30px;
+      }
+
+      &.pillar-2 {
+        @include media-breakpoint-up(lg) {
+          margin-top: 80px;
         }
       }
 
-      .pillar-inner {
-        padding: 40px 32px;
-        border-radius: 10px;
-        border: 2px solid $vc-primary;
-        height: 100%;
+      .pillar-bg-number {
+        position: absolute;
+        top: -20px;
+        right: -10px;
+        font-family: $vc-font-family;
+        font-weight: $vc-bold;
+        font-size: 180px;
+        line-height: 1;
+        color: $vc-text-light;
+        opacity: 0.04;
+        pointer-events: none;
+        user-select: none;
 
         @include media-breakpoint-down(lg) {
-          padding: 25px 20px;
+          font-size: 120px;
         }
+      }
 
-        .pillar-number {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          background: $vc-primary;
-          color: $vc-text-light;
-          font-family: $vc-font-family;
-          font-weight: $vc-bold;
-          font-size: 20px;
+      .pillar-content {
+        position: relative;
+        z-index: 1;
+
+        h3 {
+          @include vc-h4($vc-text-light);
           margin-bottom: 20px;
         }
 
-        h3 {
-          @include vc-h4($vc-text-dark);
-          transition: color 0.3s;
-        }
-
         p {
-          @include vc-body($vc-text-dark);
+          @include vc-body($vc-text-light);
           margin: 0;
-          transition: color 0.3s;
         }
       }
     }
@@ -87,7 +105,11 @@
 }
 
 @at-root body.dark-mode .yb-solution {
-  h2, h3, p {
+  h2, .sub-heading {
     color: $vc-text-light !important;
+  }
+
+  .pillar {
+    background: $dark-vc-background-dark-alt !important;
   }
 }
