@@ -1,0 +1,81 @@
+.yb-trust {
+  padding: 120px 0;
+
+  @include media-breakpoint-down(lg) {
+    padding: 60px 0;
+  }
+
+  .content {
+    margin-bottom: 40px;
+
+    .tag {
+      @include vc-tag($vc-primary);
+    }
+
+    .split-text-yb-trust {
+      @include vc-h1($vc-text-dark);
+      will-change: transform;
+      transition: color 0.3s;
+
+      & * {
+        will-change: transform;
+      }
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .trust-logos {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .trust-logo {
+      height: 50px;
+      width: auto;
+
+      @include media-breakpoint-down(lg) {
+        height: 35px;
+      }
+    }
+  }
+
+  .testimonial {
+    max-width: 700px;
+
+    blockquote {
+      margin: 0;
+
+      p {
+        @include vc-p($vc-text-dark);
+        font-style: italic;
+        margin-bottom: 15px;
+        transition: color 0.3s;
+      }
+
+      cite {
+        @include vc-body($vc-disabled);
+        font-style: normal;
+        font-weight: $vc-semi-bold;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .yb-trust {
+  h2 {
+    color: $vc-text-light !important;
+  }
+
+  blockquote p {
+    color: $vc-text-light !important;
+  }
+}

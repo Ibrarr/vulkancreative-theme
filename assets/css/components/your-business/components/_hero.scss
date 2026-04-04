@@ -1,0 +1,73 @@
+.yb-hero {
+  position: relative;
+  overflow: hidden;
+
+  .row {
+    min-height: 100vh;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .tag {
+      @include vc-tag($vc-primary);
+    }
+
+    h1 {
+      @include vc-h1($vc-text-dark);
+      font-size: 64px;
+      opacity: 0;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(xl) {
+        font-size: 48px;
+      }
+
+      @include media-breakpoint-down(lg) {
+        font-size: 40px;
+      }
+    }
+
+    .split-text-yb-hero {
+      @include vc-p($vc-text-dark);
+      margin-bottom: 20px;
+      opacity: 0;
+      will-change: transform;
+      transition: color 0.3s;
+
+      & * {
+        will-change: transform;
+      }
+
+      @include media-breakpoint-up(lg) {
+        width: 75%;
+      }
+    }
+
+    .bottom {
+      opacity: 0;
+    }
+
+    .button {
+      @include vc-button-big($vc-primary);
+      cursor: pointer !important;
+
+      &:hover {
+        background: $vc-background-white;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .yb-hero {
+  h1, p {
+    color: $vc-text-light !important;
+  }
+
+  .button:hover {
+    background: $dark-vc-background-dark !important;
+    color: $vc-text-light !important;
+  }
+}

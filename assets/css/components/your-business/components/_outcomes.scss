@@ -1,0 +1,81 @@
+.yb-outcomes {
+  background: $vc-background-dark;
+  padding: 120px 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: background 0.3s;
+
+  @include media-breakpoint-down(lg) {
+    padding: 60px 0;
+  }
+
+  .content {
+    margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 30px;
+    }
+
+    .tag {
+      @include vc-tag($vc-text-light);
+    }
+
+    .split-text-yb-outcomes {
+      @include vc-h1($vc-text-light);
+      will-change: transform;
+
+      & * {
+        will-change: transform;
+      }
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
+    }
+
+    .outcome-item {
+      padding: 40px 32px;
+      border-radius: 10px;
+      border: 2px solid $vc-primary;
+      background: $vc-background-dark;
+
+      @include media-breakpoint-down(lg) {
+        padding: 25px 20px;
+      }
+
+      h3 {
+        @include vc-h4($vc-text-light);
+        margin-bottom: 10px;
+      }
+
+      p {
+        @include vc-body($vc-text-light);
+        margin: 0;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .yb-outcomes {
+  background: $dark-vc-background-dark-alt !important;
+
+  .outcome-item {
+    background: $dark-vc-background-dark-alt !important;
+  }
+}

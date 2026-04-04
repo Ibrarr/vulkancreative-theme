@@ -39,6 +39,14 @@ mix.js([
     'assets/js/single-blog/loading.js',
 ], 'js/single-blog.js');
 
+mix.js([
+    'assets/js/your-business/hero.js',
+    'assets/js/your-business/problem.js',
+    'assets/js/your-business/solution.js',
+    'assets/js/your-business/outcomes.js',
+    'assets/js/your-business/cta.js',
+], 'js/your-business.js');
+
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({
         processCssUrls: false

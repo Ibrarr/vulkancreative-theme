@@ -1,0 +1,144 @@
+.yb-cta {
+  padding: 120px 0;
+
+  @include media-breakpoint-down(lg) {
+    padding: 60px 0;
+  }
+
+  .content {
+    h2 {
+      @include vc-h1($vc-text-dark);
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .tag {
+      @include vc-tag($vc-primary);
+    }
+
+    p {
+      @include vc-p($vc-text-dark);
+      margin: 0;
+      max-width: 75%;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        max-width: 85%;
+      }
+    }
+  }
+
+  .form {
+    @include media-breakpoint-down(lg) {
+      margin-top: 40px;
+    }
+
+    .gform_wrapper.contact-form_wrapper .contact-form {
+      .gform_heading {
+        display: none;
+      }
+
+      .gform_validation_errors {
+        margin-bottom: 30px;
+      }
+
+      .gform_fields {
+        row-gap: 20px !important;
+      }
+
+      .ginput_container_consent {
+        cursor: pointer;
+      }
+
+      label {
+        font-family: $vc-font-family;
+        font-size: 14px;
+        color: $vc-disabled;
+        font-weight: $vc-semi-bold;
+        margin: 0;
+        transition: $vc-transition-all;
+
+        .gfield_required {
+          display: none;
+        }
+      }
+
+      textarea {
+        font-family: $vc-font-family;
+        font-size: 16px !important;
+        color: $vc-text-dark;
+        min-height: 180px;
+      }
+
+      input:focus, textarea:focus {
+        border-color: $vc-primary;
+        --gf-local-shadow: none;
+        --gf-local-outline-color: none;
+        outline: none !important;
+      }
+
+      input[type="text"], input[type="email"], textarea {
+        font-family: $vc-font-family;
+        font-weight: $vc-medium;
+        font-size: 16px !important;
+        border: none;
+        border-bottom: 1px solid $vc-disabled;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        height: 50px;
+        min-height: 50px;
+        transition: $vc-transition-all;
+        cursor: text;
+
+        &:focus {
+          border-bottom: 1px solid $vc-primary;
+        }
+      }
+
+      .gfield--type-textarea {
+        label {
+          margin-bottom: 10px;
+        }
+
+        textarea {
+          height: 100px;
+          min-height: 100px;
+        }
+      }
+
+      input[type="submit"] {
+        margin-top: 10px;
+        @include vc-button-big($vc-primary);
+        cursor: pointer !important;
+        padding: 18px 35px;
+      }
+    }
+
+    .gform_confirmation_wrapper {
+      .gform_confirmation_message {
+        font-family: $vc-font-family;
+        font-size: 16px;
+        color: $vc-text-dark;
+
+        @include media-breakpoint-down(lg) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .yb-cta {
+  h2, p, input, .gform_confirmation_message, textarea {
+    color: $vc-text-light !important;
+  }
+
+  .button:hover {
+    color: $vc-text-light !important;
+  }
+}

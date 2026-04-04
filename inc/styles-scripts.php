@@ -22,6 +22,10 @@ function add_custom_scripts() {
         wp_enqueue_script( 'archive-author', VC_TEMPLATE_URI . mix('/js/archive-author.js'), [ 'jquery' ], null, true );
     }
 
+    if ( is_page_template( 'page-templates/page-your-business.php' ) ) {
+        wp_enqueue_script( 'your-business', VC_TEMPLATE_URI . mix('/js/your-business.js'), [ 'jquery' ], null, true );
+    }
+
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/js/global.js'), [ 'jquery' ], null, true );
 
     wp_enqueue_script( 'header', VC_TEMPLATE_URI . mix('/js/header.js'), [ 'jquery' ], null, true );
