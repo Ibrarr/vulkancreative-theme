@@ -12,7 +12,7 @@
 
   .content {
     position: sticky;
-    top: 50px;
+    top: 120px;
     height: fit-content;
 
     @include media-breakpoint-down(lg) {
@@ -43,30 +43,32 @@
     }
   }
 
-  .problem-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .card-viewport {
+    .problem-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
 
-    .problem-card {
-      padding: 40px 32px;
-      border-radius: 10px;
-      border: 2px solid $vc-primary;
-      background: $vc-background-dark;
+  .problem-card {
+    padding: 40px 32px;
+    border-radius: 10px;
+    border: 2px solid $vc-primary;
+    background: $vc-background-dark;
 
-      @include media-breakpoint-down(lg) {
-        padding: 25px 20px;
-      }
+    @include media-breakpoint-down(lg) {
+      padding: 25px 20px;
+    }
 
-      h3 {
-        @include vc-h4($vc-text-light);
-        margin-bottom: 10px;
-      }
+    h3 {
+      @include vc-h4($vc-text-light);
+      margin-bottom: 10px;
+    }
 
-      p {
-        @include vc-body($vc-text-light);
-        margin: 0;
-      }
+    p {
+      @include vc-body($vc-text-light);
+      margin: 0;
     }
   }
 }

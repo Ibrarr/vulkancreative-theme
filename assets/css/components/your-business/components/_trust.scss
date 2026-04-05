@@ -6,7 +6,11 @@
   }
 
   .content {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 30px;
+    }
 
     .tag {
       @include vc-tag($vc-primary);
@@ -27,15 +31,74 @@
     }
   }
 
+  .testimonial {
+    position: relative;
+    max-width: 750px;
+    margin-bottom: 50px;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 30px;
+    }
+
+    .decorative-quote {
+      position: absolute;
+      top: -40px;
+      left: -20px;
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 200px;
+      line-height: 1;
+      color: $vc-primary;
+      opacity: 0.08;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 120px;
+        top: -25px;
+        left: -10px;
+      }
+    }
+
+    blockquote {
+      margin: 0;
+      position: relative;
+      z-index: 1;
+
+      .split-text-yb-trust-quote {
+        @include vc-p($vc-text-dark);
+        font-size: 22px;
+        font-style: italic;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        transition: color 0.3s;
+        will-change: transform;
+
+        & * {
+          will-change: transform;
+        }
+
+        @include media-breakpoint-down(lg) {
+          font-size: 18px;
+        }
+      }
+
+      cite {
+        @include vc-body($vc-disabled);
+        font-style: normal;
+        font-weight: $vc-semi-bold;
+      }
+    }
+  }
+
   .trust-logos {
     display: flex;
     align-items: center;
     gap: 40px;
-    margin-bottom: 50px;
 
     @include media-breakpoint-down(lg) {
       gap: 25px;
-      margin-bottom: 30px;
     }
 
     .trust-logo {
@@ -47,27 +110,6 @@
       }
     }
   }
-
-  .testimonial {
-    max-width: 700px;
-
-    blockquote {
-      margin: 0;
-
-      p {
-        @include vc-p($vc-text-dark);
-        font-style: italic;
-        margin-bottom: 15px;
-        transition: color 0.3s;
-      }
-
-      cite {
-        @include vc-body($vc-disabled);
-        font-style: normal;
-        font-weight: $vc-semi-bold;
-      }
-    }
-  }
 }
 
 @at-root body.dark-mode .yb-trust {
@@ -75,7 +117,7 @@
     color: $vc-text-light !important;
   }
 
-  blockquote p {
+  blockquote .split-text-yb-trust-quote {
     color: $vc-text-light !important;
   }
 }

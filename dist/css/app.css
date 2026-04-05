@@ -15807,602 +15807,602 @@ body {
 }
 @-webkit-keyframes flyInDirection1 {
   to {
-    -webkit-transform: translate(-33px, -3px);
-    transform: translate(-33px, -3px);
+    -webkit-transform: translate(-26px, 91px);
+    transform: translate(-26px, 91px);
   }
 }
 @keyframes flyInDirection1 {
   to {
-    -webkit-transform: translate(-33px, -3px);
-    transform: translate(-33px, -3px);
+    -webkit-transform: translate(-26px, 91px);
+    transform: translate(-26px, 91px);
   }
 }
 @-webkit-keyframes flyInDirection2 {
   to {
-    -webkit-transform: translate(-17px, -82px);
-    transform: translate(-17px, -82px);
+    -webkit-transform: translate(66px, 32px);
+    transform: translate(66px, 32px);
   }
 }
 @keyframes flyInDirection2 {
   to {
-    -webkit-transform: translate(-17px, -82px);
-    transform: translate(-17px, -82px);
+    -webkit-transform: translate(66px, 32px);
+    transform: translate(66px, 32px);
   }
 }
 @-webkit-keyframes flyInDirection3 {
   to {
-    -webkit-transform: translate(58px, 32px);
-    transform: translate(58px, 32px);
+    -webkit-transform: translate(31px, -52px);
+    transform: translate(31px, -52px);
   }
 }
 @keyframes flyInDirection3 {
   to {
-    -webkit-transform: translate(58px, 32px);
-    transform: translate(58px, 32px);
+    -webkit-transform: translate(31px, -52px);
+    transform: translate(31px, -52px);
   }
 }
 @-webkit-keyframes flyInDirection4 {
   to {
-    -webkit-transform: translate(-68px, -50px);
-    transform: translate(-68px, -50px);
+    -webkit-transform: translate(-8px, -58px);
+    transform: translate(-8px, -58px);
   }
 }
 @keyframes flyInDirection4 {
   to {
-    -webkit-transform: translate(-68px, -50px);
-    transform: translate(-68px, -50px);
+    -webkit-transform: translate(-8px, -58px);
+    transform: translate(-8px, -58px);
   }
 }
 @-webkit-keyframes flyInDirection5 {
   to {
-    -webkit-transform: translate(19px, -91px);
-    transform: translate(19px, -91px);
+    -webkit-transform: translate(-57px, -8px);
+    transform: translate(-57px, -8px);
   }
 }
 @keyframes flyInDirection5 {
   to {
-    -webkit-transform: translate(19px, -91px);
-    transform: translate(19px, -91px);
+    -webkit-transform: translate(-57px, -8px);
+    transform: translate(-57px, -8px);
   }
 }
 @-webkit-keyframes flyInDirection6 {
   to {
-    -webkit-transform: translate(89px, 61px);
-    transform: translate(89px, 61px);
+    -webkit-transform: translate(35px, -13px);
+    transform: translate(35px, -13px);
   }
 }
 @keyframes flyInDirection6 {
   to {
-    -webkit-transform: translate(89px, 61px);
-    transform: translate(89px, 61px);
+    -webkit-transform: translate(35px, -13px);
+    transform: translate(35px, -13px);
   }
 }
 @-webkit-keyframes flyInDirection7 {
   to {
-    -webkit-transform: translate(18px, 99px);
-    transform: translate(18px, 99px);
+    -webkit-transform: translate(-90px, 13px);
+    transform: translate(-90px, 13px);
   }
 }
 @keyframes flyInDirection7 {
   to {
-    -webkit-transform: translate(18px, 99px);
-    transform: translate(18px, 99px);
+    -webkit-transform: translate(-90px, 13px);
+    transform: translate(-90px, 13px);
   }
 }
 @-webkit-keyframes flyInDirection8 {
   to {
-    -webkit-transform: translate(-95px, -90px);
-    transform: translate(-95px, -90px);
+    -webkit-transform: translate(88px, 92px);
+    transform: translate(88px, 92px);
   }
 }
 @keyframes flyInDirection8 {
   to {
-    -webkit-transform: translate(-95px, -90px);
-    transform: translate(-95px, -90px);
+    -webkit-transform: translate(88px, 92px);
+    transform: translate(88px, 92px);
   }
 }
 @-webkit-keyframes flyInDirection9 {
   to {
-    -webkit-transform: translate(49px, -41px);
-    transform: translate(49px, -41px);
+    -webkit-transform: translate(-61px, -80px);
+    transform: translate(-61px, -80px);
   }
 }
 @keyframes flyInDirection9 {
   to {
-    -webkit-transform: translate(49px, -41px);
-    transform: translate(49px, -41px);
+    -webkit-transform: translate(-61px, -80px);
+    transform: translate(-61px, -80px);
   }
 }
 @-webkit-keyframes flyInDirection10 {
   to {
-    -webkit-transform: translate(-33px, 66px);
-    transform: translate(-33px, 66px);
+    -webkit-transform: translate(-48px, -34px);
+    transform: translate(-48px, -34px);
   }
 }
 @keyframes flyInDirection10 {
   to {
-    -webkit-transform: translate(-33px, 66px);
-    transform: translate(-33px, 66px);
+    -webkit-transform: translate(-48px, -34px);
+    transform: translate(-48px, -34px);
   }
 }
 @-webkit-keyframes flyInDirection11 {
   to {
-    -webkit-transform: translate(-14px, 6px);
-    transform: translate(-14px, 6px);
+    -webkit-transform: translate(-5px, 79px);
+    transform: translate(-5px, 79px);
   }
 }
 @keyframes flyInDirection11 {
   to {
-    -webkit-transform: translate(-14px, 6px);
-    transform: translate(-14px, 6px);
+    -webkit-transform: translate(-5px, 79px);
+    transform: translate(-5px, 79px);
   }
 }
 @-webkit-keyframes flyInDirection12 {
   to {
-    -webkit-transform: translate(44px, -96px);
-    transform: translate(44px, -96px);
+    -webkit-transform: translate(34px, 92px);
+    transform: translate(34px, 92px);
   }
 }
 @keyframes flyInDirection12 {
   to {
-    -webkit-transform: translate(44px, -96px);
-    transform: translate(44px, -96px);
+    -webkit-transform: translate(34px, 92px);
+    transform: translate(34px, 92px);
   }
 }
 @-webkit-keyframes flyInDirection13 {
   to {
-    -webkit-transform: translate(21px, 6px);
-    transform: translate(21px, 6px);
+    -webkit-transform: translate(14px, 53px);
+    transform: translate(14px, 53px);
   }
 }
 @keyframes flyInDirection13 {
   to {
-    -webkit-transform: translate(21px, 6px);
-    transform: translate(21px, 6px);
+    -webkit-transform: translate(14px, 53px);
+    transform: translate(14px, 53px);
   }
 }
 @-webkit-keyframes flyInDirection14 {
   to {
-    -webkit-transform: translate(57px, -95px);
-    transform: translate(57px, -95px);
+    -webkit-transform: translate(3px, 63px);
+    transform: translate(3px, 63px);
   }
 }
 @keyframes flyInDirection14 {
   to {
-    -webkit-transform: translate(57px, -95px);
-    transform: translate(57px, -95px);
+    -webkit-transform: translate(3px, 63px);
+    transform: translate(3px, 63px);
   }
 }
 @-webkit-keyframes flyInDirection15 {
   to {
-    -webkit-transform: translate(-23px, 23px);
-    transform: translate(-23px, 23px);
+    -webkit-transform: translate(-42px, 86px);
+    transform: translate(-42px, 86px);
   }
 }
 @keyframes flyInDirection15 {
   to {
-    -webkit-transform: translate(-23px, 23px);
-    transform: translate(-23px, 23px);
+    -webkit-transform: translate(-42px, 86px);
+    transform: translate(-42px, 86px);
   }
 }
 @-webkit-keyframes flyInDirection16 {
   to {
-    -webkit-transform: translate(30px, 60px);
-    transform: translate(30px, 60px);
+    -webkit-transform: translate(-27px, -75px);
+    transform: translate(-27px, -75px);
   }
 }
 @keyframes flyInDirection16 {
   to {
-    -webkit-transform: translate(30px, 60px);
-    transform: translate(30px, 60px);
+    -webkit-transform: translate(-27px, -75px);
+    transform: translate(-27px, -75px);
   }
 }
 @-webkit-keyframes flyInDirection17 {
   to {
-    -webkit-transform: translate(83px, 1px);
-    transform: translate(83px, 1px);
+    -webkit-transform: translate(-27px, -33px);
+    transform: translate(-27px, -33px);
   }
 }
 @keyframes flyInDirection17 {
   to {
-    -webkit-transform: translate(83px, 1px);
-    transform: translate(83px, 1px);
+    -webkit-transform: translate(-27px, -33px);
+    transform: translate(-27px, -33px);
   }
 }
 @-webkit-keyframes flyInDirection18 {
   to {
-    -webkit-transform: translate(0px, -6px);
-    transform: translate(0px, -6px);
+    -webkit-transform: translate(-21px, -11px);
+    transform: translate(-21px, -11px);
   }
 }
 @keyframes flyInDirection18 {
   to {
-    -webkit-transform: translate(0px, -6px);
-    transform: translate(0px, -6px);
+    -webkit-transform: translate(-21px, -11px);
+    transform: translate(-21px, -11px);
   }
 }
 @-webkit-keyframes flyInDirection19 {
   to {
-    -webkit-transform: translate(-57px, -70px);
-    transform: translate(-57px, -70px);
+    -webkit-transform: translate(0px, 42px);
+    transform: translate(0px, 42px);
   }
 }
 @keyframes flyInDirection19 {
   to {
-    -webkit-transform: translate(-57px, -70px);
-    transform: translate(-57px, -70px);
+    -webkit-transform: translate(0px, 42px);
+    transform: translate(0px, 42px);
   }
 }
 @-webkit-keyframes flyInDirection20 {
   to {
-    -webkit-transform: translate(-92px, 71px);
-    transform: translate(-92px, 71px);
+    -webkit-transform: translate(-90px, -7px);
+    transform: translate(-90px, -7px);
   }
 }
 @keyframes flyInDirection20 {
   to {
-    -webkit-transform: translate(-92px, 71px);
-    transform: translate(-92px, 71px);
+    -webkit-transform: translate(-90px, -7px);
+    transform: translate(-90px, -7px);
   }
 }
 @-webkit-keyframes flyInDirection21 {
   to {
-    -webkit-transform: translate(87px, -28px);
-    transform: translate(87px, -28px);
+    -webkit-transform: translate(65px, -84px);
+    transform: translate(65px, -84px);
   }
 }
 @keyframes flyInDirection21 {
   to {
-    -webkit-transform: translate(87px, -28px);
-    transform: translate(87px, -28px);
+    -webkit-transform: translate(65px, -84px);
+    transform: translate(65px, -84px);
   }
 }
 @-webkit-keyframes flyInDirection22 {
   to {
-    -webkit-transform: translate(76px, -38px);
-    transform: translate(76px, -38px);
+    -webkit-transform: translate(-21px, -32px);
+    transform: translate(-21px, -32px);
   }
 }
 @keyframes flyInDirection22 {
   to {
-    -webkit-transform: translate(76px, -38px);
-    transform: translate(76px, -38px);
+    -webkit-transform: translate(-21px, -32px);
+    transform: translate(-21px, -32px);
   }
 }
 @-webkit-keyframes flyInDirection23 {
   to {
-    -webkit-transform: translate(13px, -72px);
-    transform: translate(13px, -72px);
+    -webkit-transform: translate(-16px, 38px);
+    transform: translate(-16px, 38px);
   }
 }
 @keyframes flyInDirection23 {
   to {
-    -webkit-transform: translate(13px, -72px);
-    transform: translate(13px, -72px);
+    -webkit-transform: translate(-16px, 38px);
+    transform: translate(-16px, 38px);
   }
 }
 @-webkit-keyframes flyInDirection24 {
   to {
-    -webkit-transform: translate(25px, 66px);
-    transform: translate(25px, 66px);
+    -webkit-transform: translate(-34px, -59px);
+    transform: translate(-34px, -59px);
   }
 }
 @keyframes flyInDirection24 {
   to {
-    -webkit-transform: translate(25px, 66px);
-    transform: translate(25px, 66px);
+    -webkit-transform: translate(-34px, -59px);
+    transform: translate(-34px, -59px);
   }
 }
 @-webkit-keyframes flyInDirection25 {
   to {
-    -webkit-transform: translate(42px, -74px);
-    transform: translate(42px, -74px);
+    -webkit-transform: translate(-94px, 95px);
+    transform: translate(-94px, 95px);
   }
 }
 @keyframes flyInDirection25 {
   to {
-    -webkit-transform: translate(42px, -74px);
-    transform: translate(42px, -74px);
+    -webkit-transform: translate(-94px, 95px);
+    transform: translate(-94px, 95px);
   }
 }
 @-webkit-keyframes flyInDirection26 {
   to {
-    -webkit-transform: translate(81px, 49px);
-    transform: translate(81px, 49px);
+    -webkit-transform: translate(16px, 33px);
+    transform: translate(16px, 33px);
   }
 }
 @keyframes flyInDirection26 {
   to {
-    -webkit-transform: translate(81px, 49px);
-    transform: translate(81px, 49px);
+    -webkit-transform: translate(16px, 33px);
+    transform: translate(16px, 33px);
   }
 }
 @-webkit-keyframes flyInDirection27 {
   to {
-    -webkit-transform: translate(49px, 23px);
-    transform: translate(49px, 23px);
+    -webkit-transform: translate(-12px, -4px);
+    transform: translate(-12px, -4px);
   }
 }
 @keyframes flyInDirection27 {
   to {
-    -webkit-transform: translate(49px, 23px);
-    transform: translate(49px, 23px);
+    -webkit-transform: translate(-12px, -4px);
+    transform: translate(-12px, -4px);
   }
 }
 @-webkit-keyframes flyInDirection28 {
   to {
-    -webkit-transform: translate(60px, -14px);
-    transform: translate(60px, -14px);
+    -webkit-transform: translate(17px, 27px);
+    transform: translate(17px, 27px);
   }
 }
 @keyframes flyInDirection28 {
   to {
-    -webkit-transform: translate(60px, -14px);
-    transform: translate(60px, -14px);
+    -webkit-transform: translate(17px, 27px);
+    transform: translate(17px, 27px);
   }
 }
 @-webkit-keyframes flyInDirection29 {
   to {
-    -webkit-transform: translate(35px, -62px);
-    transform: translate(35px, -62px);
+    -webkit-transform: translate(-5px, -94px);
+    transform: translate(-5px, -94px);
   }
 }
 @keyframes flyInDirection29 {
   to {
-    -webkit-transform: translate(35px, -62px);
-    transform: translate(35px, -62px);
+    -webkit-transform: translate(-5px, -94px);
+    transform: translate(-5px, -94px);
   }
 }
 @-webkit-keyframes flyInDirection30 {
   to {
-    -webkit-transform: translate(16px, -88px);
-    transform: translate(16px, -88px);
+    -webkit-transform: translate(51px, 22px);
+    transform: translate(51px, 22px);
   }
 }
 @keyframes flyInDirection30 {
   to {
-    -webkit-transform: translate(16px, -88px);
-    transform: translate(16px, -88px);
+    -webkit-transform: translate(51px, 22px);
+    transform: translate(51px, 22px);
   }
 }
 @-webkit-keyframes flyInDirection31 {
   to {
-    -webkit-transform: translate(63px, -77px);
-    transform: translate(63px, -77px);
+    -webkit-transform: translate(94px, 14px);
+    transform: translate(94px, 14px);
   }
 }
 @keyframes flyInDirection31 {
   to {
-    -webkit-transform: translate(63px, -77px);
-    transform: translate(63px, -77px);
+    -webkit-transform: translate(94px, 14px);
+    transform: translate(94px, 14px);
   }
 }
 @-webkit-keyframes flyInDirection32 {
   to {
-    -webkit-transform: translate(-64px, -56px);
-    transform: translate(-64px, -56px);
+    -webkit-transform: translate(-73px, -30px);
+    transform: translate(-73px, -30px);
   }
 }
 @keyframes flyInDirection32 {
   to {
-    -webkit-transform: translate(-64px, -56px);
-    transform: translate(-64px, -56px);
+    -webkit-transform: translate(-73px, -30px);
+    transform: translate(-73px, -30px);
   }
 }
 @-webkit-keyframes flyInDirection33 {
   to {
-    -webkit-transform: translate(-82px, -19px);
-    transform: translate(-82px, -19px);
+    -webkit-transform: translate(43px, 40px);
+    transform: translate(43px, 40px);
   }
 }
 @keyframes flyInDirection33 {
   to {
-    -webkit-transform: translate(-82px, -19px);
-    transform: translate(-82px, -19px);
+    -webkit-transform: translate(43px, 40px);
+    transform: translate(43px, 40px);
   }
 }
 @-webkit-keyframes flyInDirection34 {
   to {
-    -webkit-transform: translate(97px, 6px);
-    transform: translate(97px, 6px);
+    -webkit-transform: translate(-44px, 61px);
+    transform: translate(-44px, 61px);
   }
 }
 @keyframes flyInDirection34 {
   to {
-    -webkit-transform: translate(97px, 6px);
-    transform: translate(97px, 6px);
+    -webkit-transform: translate(-44px, 61px);
+    transform: translate(-44px, 61px);
   }
 }
 @-webkit-keyframes flyInDirection35 {
   to {
-    -webkit-transform: translate(-90px, 66px);
-    transform: translate(-90px, 66px);
+    -webkit-transform: translate(-53px, 54px);
+    transform: translate(-53px, 54px);
   }
 }
 @keyframes flyInDirection35 {
   to {
-    -webkit-transform: translate(-90px, 66px);
-    transform: translate(-90px, 66px);
+    -webkit-transform: translate(-53px, 54px);
+    transform: translate(-53px, 54px);
   }
 }
 @-webkit-keyframes flyInDirection36 {
   to {
-    -webkit-transform: translate(54px, -14px);
-    transform: translate(54px, -14px);
+    -webkit-transform: translate(-65px, -66px);
+    transform: translate(-65px, -66px);
   }
 }
 @keyframes flyInDirection36 {
   to {
-    -webkit-transform: translate(54px, -14px);
-    transform: translate(54px, -14px);
+    -webkit-transform: translate(-65px, -66px);
+    transform: translate(-65px, -66px);
   }
 }
 @-webkit-keyframes flyInDirection37 {
   to {
-    -webkit-transform: translate(81px, -30px);
-    transform: translate(81px, -30px);
+    -webkit-transform: translate(-74px, -84px);
+    transform: translate(-74px, -84px);
   }
 }
 @keyframes flyInDirection37 {
   to {
-    -webkit-transform: translate(81px, -30px);
-    transform: translate(81px, -30px);
+    -webkit-transform: translate(-74px, -84px);
+    transform: translate(-74px, -84px);
   }
 }
 @-webkit-keyframes flyInDirection38 {
   to {
-    -webkit-transform: translate(-13px, 58px);
-    transform: translate(-13px, 58px);
+    -webkit-transform: translate(55px, 94px);
+    transform: translate(55px, 94px);
   }
 }
 @keyframes flyInDirection38 {
   to {
-    -webkit-transform: translate(-13px, 58px);
-    transform: translate(-13px, 58px);
+    -webkit-transform: translate(55px, 94px);
+    transform: translate(55px, 94px);
   }
 }
 @-webkit-keyframes flyInDirection39 {
   to {
-    -webkit-transform: translate(-67px, 9px);
-    transform: translate(-67px, 9px);
+    -webkit-transform: translate(6px, -35px);
+    transform: translate(6px, -35px);
   }
 }
 @keyframes flyInDirection39 {
   to {
-    -webkit-transform: translate(-67px, 9px);
-    transform: translate(-67px, 9px);
+    -webkit-transform: translate(6px, -35px);
+    transform: translate(6px, -35px);
   }
 }
 @-webkit-keyframes flyInDirection40 {
   to {
-    -webkit-transform: translate(83px, -45px);
-    transform: translate(83px, -45px);
+    -webkit-transform: translate(41px, -79px);
+    transform: translate(41px, -79px);
   }
 }
 @keyframes flyInDirection40 {
   to {
-    -webkit-transform: translate(83px, -45px);
-    transform: translate(83px, -45px);
+    -webkit-transform: translate(41px, -79px);
+    transform: translate(41px, -79px);
   }
 }
 @-webkit-keyframes flyInDirection41 {
   to {
-    -webkit-transform: translate(79px, -9px);
-    transform: translate(79px, -9px);
+    -webkit-transform: translate(-5px, 85px);
+    transform: translate(-5px, 85px);
   }
 }
 @keyframes flyInDirection41 {
   to {
-    -webkit-transform: translate(79px, -9px);
-    transform: translate(79px, -9px);
+    -webkit-transform: translate(-5px, 85px);
+    transform: translate(-5px, 85px);
   }
 }
 @-webkit-keyframes flyInDirection42 {
   to {
-    -webkit-transform: translate(77px, -50px);
-    transform: translate(77px, -50px);
+    -webkit-transform: translate(16px, 70px);
+    transform: translate(16px, 70px);
   }
 }
 @keyframes flyInDirection42 {
   to {
-    -webkit-transform: translate(77px, -50px);
-    transform: translate(77px, -50px);
+    -webkit-transform: translate(16px, 70px);
+    transform: translate(16px, 70px);
   }
 }
 @-webkit-keyframes flyInDirection43 {
   to {
-    -webkit-transform: translate(-16px, -46px);
-    transform: translate(-16px, -46px);
+    -webkit-transform: translate(71px, -66px);
+    transform: translate(71px, -66px);
   }
 }
 @keyframes flyInDirection43 {
   to {
-    -webkit-transform: translate(-16px, -46px);
-    transform: translate(-16px, -46px);
+    -webkit-transform: translate(71px, -66px);
+    transform: translate(71px, -66px);
   }
 }
 @-webkit-keyframes flyInDirection44 {
   to {
-    -webkit-transform: translate(-44px, 59px);
-    transform: translate(-44px, 59px);
+    -webkit-transform: translate(-82px, -19px);
+    transform: translate(-82px, -19px);
   }
 }
 @keyframes flyInDirection44 {
   to {
-    -webkit-transform: translate(-44px, 59px);
-    transform: translate(-44px, 59px);
+    -webkit-transform: translate(-82px, -19px);
+    transform: translate(-82px, -19px);
   }
 }
 @-webkit-keyframes flyInDirection45 {
   to {
-    -webkit-transform: translate(75px, 30px);
-    transform: translate(75px, 30px);
+    -webkit-transform: translate(-94px, 41px);
+    transform: translate(-94px, 41px);
   }
 }
 @keyframes flyInDirection45 {
   to {
-    -webkit-transform: translate(75px, 30px);
-    transform: translate(75px, 30px);
+    -webkit-transform: translate(-94px, 41px);
+    transform: translate(-94px, 41px);
   }
 }
 @-webkit-keyframes flyInDirection46 {
   to {
-    -webkit-transform: translate(36px, 4px);
-    transform: translate(36px, 4px);
+    -webkit-transform: translate(-80px, 43px);
+    transform: translate(-80px, 43px);
   }
 }
 @keyframes flyInDirection46 {
   to {
-    -webkit-transform: translate(36px, 4px);
-    transform: translate(36px, 4px);
+    -webkit-transform: translate(-80px, 43px);
+    transform: translate(-80px, 43px);
   }
 }
 @-webkit-keyframes flyInDirection47 {
   to {
-    -webkit-transform: translate(-16px, -69px);
-    transform: translate(-16px, -69px);
+    -webkit-transform: translate(1px, 97px);
+    transform: translate(1px, 97px);
   }
 }
 @keyframes flyInDirection47 {
   to {
-    -webkit-transform: translate(-16px, -69px);
-    transform: translate(-16px, -69px);
+    -webkit-transform: translate(1px, 97px);
+    transform: translate(1px, 97px);
   }
 }
 @-webkit-keyframes flyInDirection48 {
   to {
-    -webkit-transform: translate(79px, -5px);
-    transform: translate(79px, -5px);
+    -webkit-transform: translate(-43px, -65px);
+    transform: translate(-43px, -65px);
   }
 }
 @keyframes flyInDirection48 {
   to {
-    -webkit-transform: translate(79px, -5px);
-    transform: translate(79px, -5px);
+    -webkit-transform: translate(-43px, -65px);
+    transform: translate(-43px, -65px);
   }
 }
 @-webkit-keyframes flyInDirection49 {
   to {
-    -webkit-transform: translate(2px, -18px);
-    transform: translate(2px, -18px);
+    -webkit-transform: translate(83px, -34px);
+    transform: translate(83px, -34px);
   }
 }
 @keyframes flyInDirection49 {
   to {
-    -webkit-transform: translate(2px, -18px);
-    transform: translate(2px, -18px);
+    -webkit-transform: translate(83px, -34px);
+    transform: translate(83px, -34px);
   }
 }
 @-webkit-keyframes flyInDirection50 {
   to {
-    -webkit-transform: translate(-97px, 75px);
-    transform: translate(-97px, 75px);
+    -webkit-transform: translate(37px, 51px);
+    transform: translate(37px, 51px);
   }
 }
 @keyframes flyInDirection50 {
   to {
-    -webkit-transform: translate(-97px, 75px);
-    transform: translate(-97px, 75px);
+    -webkit-transform: translate(37px, 51px);
+    transform: translate(37px, 51px);
   }
 }
 header {
@@ -17609,6 +17609,9 @@ body.dark-mode .contact .button:hover {
 }
 .page-template-page-your-business .yb-hero .row {
   min-height: 100vh;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 .page-template-page-your-business .yb-hero .content {
   display: -webkit-box;
@@ -17684,11 +17687,16 @@ body.dark-mode .contact .button:hover {
 }
 @media (min-width: 992px) {
   .page-template-page-your-business .yb-hero .content .split-text-yb-hero {
-    width: 75%;
+    width: 85%;
   }
 }
 .page-template-page-your-business .yb-hero .content .bottom {
   opacity: 0;
+}
+@media (min-width: 992px) {
+  .page-template-page-your-business .yb-hero .content .bottom {
+    display: none;
+  }
 }
 .page-template-page-your-business .yb-hero .content .button {
   position: relative;
@@ -17723,7 +17731,155 @@ body.dark-mode .contact .button:hover {
 .page-template-page-your-business .yb-hero .content .button:hover {
   background: #F5F5F5;
 }
+.page-template-page-your-business .yb-hero .hero-form {
+  opacity: 0;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-hero .hero-form {
+    margin-top: 40px;
+  }
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .gform_heading {
+  display: none;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .gform_validation_errors {
+  margin-bottom: 30px;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .gform_fields {
+  row-gap: 20px !important;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .ginput_container_consent {
+  cursor: pointer;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form label {
+  font-family: "Poppins", serif;
+  font-size: 14px;
+  color: #c7c7c7;
+  font-weight: 600;
+  margin: 0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form label .gfield_required {
+  display: none;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form textarea {
+  font-family: "Poppins", serif;
+  font-size: 16px !important;
+  color: #121212;
+  min-height: 120px;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input:focus, .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form textarea:focus {
+  border-color: #FF3B30;
+  --gf-local-shadow: none;
+  --gf-local-outline-color: none;
+  outline: none !important;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=text], .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=email], .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form textarea {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-size: 16px !important;
+  border: none;
+  border-bottom: 1px solid #c7c7c7;
+  border-radius: 0;
+  background: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  height: 50px;
+  min-height: 50px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: text;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=text]:focus, .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=email]:focus, .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form textarea:focus {
+  border-bottom: 1px solid #FF3B30;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .gfield--type-textarea label {
+  margin-bottom: 10px;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form .gfield--type-textarea textarea {
+  height: 80px;
+  min-height: 80px;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=submit] {
+  margin-top: 10px;
+  position: relative;
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  background-color: #FF3B30;
+  color: #F5F5F5;
+  padding: 15px 35px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: 2px solid #FF3B30;
+  border-radius: 10px;
+  text-decoration: none;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 16px;
+  opacity: 1;
+  z-index: 1;
+  cursor: pointer !important;
+  padding: 18px 35px;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=submit] {
+    font-size: 14px;
+  }
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_wrapper.contact-form_wrapper .contact-form input[type=submit]:hover {
+  background-color: unset;
+  color: #FF3B30;
+}
+.page-template-page-your-business .yb-hero .hero-form .form-container .gform_confirmation_wrapper .gform_confirmation_message {
+  font-family: "Poppins", serif;
+  font-size: 16px;
+  color: #121212;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-hero .hero-form .form-container .gform_confirmation_wrapper .gform_confirmation_message {
+    font-size: 14px;
+  }
+}
+.page-template-page-your-business .yb-hero .hero-form .hero-trust-logos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 30px;
+  opacity: 0;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-hero .hero-form .hero-trust-logos {
+    margin-top: 20px;
+    gap: 20px;
+  }
+}
+.page-template-page-your-business .yb-hero .hero-form .hero-trust-logos .trust-logo {
+  height: 35px;
+  width: auto;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-hero .hero-form .hero-trust-logos .trust-logo {
+    height: 28px;
+  }
+}
+.page-template-page-your-business .yb-hero .hero-form .hero-trust-logos .trust-logo:hover {
+  opacity: 0.8;
+}
 body.dark-mode .yb-hero h1, body.dark-mode .yb-hero .h1, body.dark-mode .yb-hero p {
+  color: #F5F5F5 !important;
+}
+body.dark-mode .yb-hero .hero-form input, body.dark-mode .yb-hero .hero-form textarea, body.dark-mode .yb-hero .hero-form .gform_confirmation_message {
   color: #F5F5F5 !important;
 }
 body.dark-mode .yb-hero .button:hover {
@@ -17747,7 +17903,7 @@ body.dark-mode .yb-hero .button:hover {
 }
 .page-template-page-your-business .yb-problem .content {
   position: sticky;
-  top: 50px;
+  top: 120px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -17804,7 +17960,7 @@ body.dark-mode .yb-hero .button:hover {
     font-size: 16px;
   }
 }
-.page-template-page-your-business .yb-problem .problem-cards {
+.page-template-page-your-business .yb-problem .card-viewport .problem-cards {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17814,18 +17970,18 @@ body.dark-mode .yb-hero .button:hover {
   flex-direction: column;
   gap: 20px;
 }
-.page-template-page-your-business .yb-problem .problem-cards .problem-card {
+.page-template-page-your-business .yb-problem .problem-card {
   padding: 40px 32px;
   border-radius: 10px;
   border: 2px solid #FF3B30;
   background: #121212;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-problem .problem-cards .problem-card {
+  .page-template-page-your-business .yb-problem .problem-card {
     padding: 25px 20px;
   }
 }
-.page-template-page-your-business .yb-problem .problem-cards .problem-card h3, .page-template-page-your-business .yb-problem .problem-cards .problem-card .h3 {
+.page-template-page-your-business .yb-problem .problem-card h3, .page-template-page-your-business .yb-problem .problem-card .h3 {
   font-family: "Poppins", serif;
   font-weight: 700;
   font-size: 28px;
@@ -17835,12 +17991,12 @@ body.dark-mode .yb-hero .button:hover {
   margin-bottom: 10px;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-problem .problem-cards .problem-card h3, .page-template-page-your-business .yb-problem .problem-cards .problem-card .h3 {
+  .page-template-page-your-business .yb-problem .problem-card h3, .page-template-page-your-business .yb-problem .problem-card .h3 {
     font-size: 24px;
     margin-bottom: 10px;
   }
 }
-.page-template-page-your-business .yb-problem .problem-cards .problem-card p {
+.page-template-page-your-business .yb-problem .problem-card p {
   font-family: "Poppins", serif;
   font-size: 16px;
   color: #F5F5F5;
@@ -17850,7 +18006,7 @@ body.dark-mode .yb-hero .button:hover {
   margin: 0;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-problem .problem-cards .problem-card p {
+  .page-template-page-your-business .yb-problem .problem-card p {
     font-size: 14px;
   }
 }
@@ -17870,11 +18026,13 @@ body.dark-mode .yb-problem .problem-card {
   }
 }
 .page-template-page-your-business .yb-solution .content {
-  margin-bottom: 50px;
+  margin-bottom: 80px;
+  text-align: center;
 }
 @media (max-width: 991.98px) {
   .page-template-page-your-business .yb-solution .content {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    text-align: left;
   }
 }
 .page-template-page-your-business .yb-solution .content .tag {
@@ -17918,8 +18076,8 @@ body.dark-mode .yb-problem .problem-card {
   font-size: 18px;
   color: #121212;
   opacity: 1;
-  margin: 0;
-  max-width: 768px;
+  margin: 0 auto;
+  max-width: 700px;
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
 }
@@ -17929,42 +18087,81 @@ body.dark-mode .yb-problem .problem-card {
   }
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-solution .pillar-container .pillar:not(:last-child) {
-    margin-bottom: 20px;
+  .page-template-page-your-business .yb-solution .content .sub-heading {
+    margin: 0;
+    max-width: none;
   }
 }
-.page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner {
-  padding: 40px 32px;
-  border-radius: 10px;
-  border: 2px solid #FF3B30;
-  height: 100%;
-}
-@media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner {
-    padding: 25px 20px;
-  }
-}
-.page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner .pillar-number {
+.page-template-page-your-business .yb-solution .pillar-editorial {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #FF3B30;
-  color: #F5F5F5;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 80px;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-solution .pillar-editorial {
+    gap: 40px;
+  }
+}
+.page-template-page-your-business .yb-solution .pillar-block {
+  position: relative;
+}
+@media (min-width: 992px) {
+  .page-template-page-your-business .yb-solution .pillar-block {
+    max-width: 620px;
+  }
+}
+@media (min-width: 992px) {
+  .page-template-page-your-business .yb-solution .pillar-block.pillar-left {
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+@media (min-width: 992px) {
+  .page-template-page-your-business .yb-solution .pillar-block.pillar-right {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+.page-template-page-your-business .yb-solution .pillar-block .pillar-number {
+  display: block;
   font-family: "Poppins", serif;
   font-weight: 700;
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-size: 150px;
+  line-height: 1;
+  color: #FF3B30;
+  opacity: 0.08;
+  margin-bottom: -30px;
+  position: relative;
+  z-index: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner h3, .page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner .h3 {
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-solution .pillar-block .pillar-number {
+    font-size: 80px;
+    margin-bottom: -15px;
+  }
+}
+.page-template-page-your-business .yb-solution .pillar-block .pillar-content {
+  padding: 40px 32px;
+  border-radius: 10px;
+  border: 2px solid #FF3B30;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-solution .pillar-block .pillar-content {
+    padding: 25px 20px;
+  }
+}
+.page-template-page-your-business .yb-solution .pillar-block .pillar-content h3, .page-template-page-your-business .yb-solution .pillar-block .pillar-content .h3 {
   font-family: "Poppins", serif;
   font-weight: 700;
   font-size: 28px;
@@ -17975,12 +18172,12 @@ body.dark-mode .yb-problem .problem-card {
   transition: color 0.3s;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner h3, .page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner .h3 {
+  .page-template-page-your-business .yb-solution .pillar-block .pillar-content h3, .page-template-page-your-business .yb-solution .pillar-block .pillar-content .h3 {
     font-size: 24px;
     margin-bottom: 10px;
   }
 }
-.page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner p {
+.page-template-page-your-business .yb-solution .pillar-block .pillar-content p {
   font-family: "Poppins", serif;
   font-size: 16px;
   color: #121212;
@@ -17992,7 +18189,7 @@ body.dark-mode .yb-problem .problem-card {
   transition: color 0.3s;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-solution .pillar-container .pillar .pillar-inner p {
+  .page-template-page-your-business .yb-solution .pillar-block .pillar-content p {
     font-size: 14px;
   }
 }
@@ -18015,7 +18212,7 @@ body.dark-mode .yb-solution h2, body.dark-mode .yb-solution .h2, body.dark-mode 
   }
 }
 .page-template-page-your-business .yb-outcomes .content {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 @media (max-width: 991.98px) {
   .page-template-page-your-business .yb-outcomes .content {
@@ -18056,49 +18253,66 @@ body.dark-mode .yb-solution h2, body.dark-mode .yb-solution .h2, body.dark-mode 
 .page-template-page-your-business .yb-outcomes .content .split-text-yb-outcomes span {
   color: #FF3B30;
 }
-.page-template-page-your-business .yb-outcomes .outcomes-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
   gap: 30px;
+  padding: 35px 0;
+  border-top: 1px solid rgba(255, 59, 48, 0.2);
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-outcomes .outcomes-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item {
     gap: 20px;
+    padding: 25px 0;
   }
 }
-@media (max-width: 767.98px) {
-  .page-template-page-your-business .yb-outcomes .outcomes-grid {
-    grid-template-columns: 1fr;
-  }
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item:last-child {
+  border-bottom: 1px solid rgba(255, 59, 48, 0.2);
 }
-.page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item {
-  padding: 40px 32px;
-  border-radius: 10px;
-  border: 2px solid #FF3B30;
-  background: #121212;
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-number {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1;
+  color: #FF3B30;
+  opacity: 0.3;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  min-width: 70px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item {
-    padding: 25px 20px;
+  .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-number {
+    font-size: 32px;
+    min-width: 45px;
   }
 }
-.page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item h3, .page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item .h3 {
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content {
+  padding-top: 5px;
+}
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content h3, .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content .h3 {
   font-family: "Poppins", serif;
   font-weight: 700;
   font-size: 28px;
   margin-bottom: 22px;
   color: #F5F5F5;
   opacity: 1;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item h3, .page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item .h3 {
+  .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content h3, .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content .h3 {
     font-size: 24px;
     margin-bottom: 10px;
   }
 }
-.page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item p {
+.page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content p {
   font-family: "Poppins", serif;
   font-size: 16px;
   color: #F5F5F5;
@@ -18108,14 +18322,11 @@ body.dark-mode .yb-solution h2, body.dark-mode .yb-solution .h2, body.dark-mode 
   margin: 0;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-outcomes .outcomes-grid .outcome-item p {
+  .page-template-page-your-business .yb-outcomes .outcomes-list .outcome-item .outcome-content p {
     font-size: 14px;
   }
 }
 body.dark-mode .yb-outcomes {
-  background: #121212 !important;
-}
-body.dark-mode .yb-outcomes .outcome-item {
   background: #121212 !important;
 }
 
@@ -18128,7 +18339,12 @@ body.dark-mode .yb-outcomes .outcome-item {
   }
 }
 .page-template-page-your-business .yb-trust .content {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-trust .content {
+    margin-bottom: 30px;
+  }
 }
 .page-template-page-your-business .yb-trust .content .tag {
   font-family: "Poppins", serif;
@@ -18166,50 +18382,69 @@ body.dark-mode .yb-outcomes .outcome-item {
 .page-template-page-your-business .yb-trust .content .split-text-yb-trust span {
   color: #FF3B30;
 }
-.page-template-page-your-business .yb-trust .trust-logos {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  gap: 40px;
+.page-template-page-your-business .yb-trust .testimonial {
+  position: relative;
+  max-width: 750px;
   margin-bottom: 50px;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-trust .trust-logos {
-    gap: 25px;
+  .page-template-page-your-business .yb-trust .testimonial {
     margin-bottom: 30px;
   }
 }
-.page-template-page-your-business .yb-trust .trust-logos .trust-logo {
-  height: 50px;
-  width: auto;
+.page-template-page-your-business .yb-trust .testimonial .decorative-quote {
+  position: absolute;
+  top: -40px;
+  left: -20px;
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-size: 200px;
+  line-height: 1;
+  color: #FF3B30;
+  opacity: 0.08;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-trust .trust-logos .trust-logo {
-    height: 35px;
+  .page-template-page-your-business .yb-trust .testimonial .decorative-quote {
+    font-size: 120px;
+    top: -25px;
+    left: -10px;
   }
-}
-.page-template-page-your-business .yb-trust .testimonial {
-  max-width: 700px;
 }
 .page-template-page-your-business .yb-trust .testimonial blockquote {
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
-.page-template-page-your-business .yb-trust .testimonial blockquote p {
+.page-template-page-your-business .yb-trust .testimonial blockquote .split-text-yb-trust-quote {
   font-family: "Poppins", serif;
   font-size: 18px;
   color: #121212;
   opacity: 1;
+  font-size: 22px;
   font-style: italic;
-  margin-bottom: 15px;
+  line-height: 1.7;
+  margin-bottom: 20px;
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
+  will-change: transform;
 }
 @media (max-width: 991.98px) {
-  .page-template-page-your-business .yb-trust .testimonial blockquote p {
+  .page-template-page-your-business .yb-trust .testimonial blockquote .split-text-yb-trust-quote {
     font-size: 16px;
+  }
+}
+.page-template-page-your-business .yb-trust .testimonial blockquote .split-text-yb-trust-quote * {
+  will-change: transform;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-trust .testimonial blockquote .split-text-yb-trust-quote {
+    font-size: 18px;
   }
 }
 .page-template-page-your-business .yb-trust .testimonial blockquote cite {
@@ -18227,10 +18462,33 @@ body.dark-mode .yb-outcomes .outcome-item {
     font-size: 14px;
   }
 }
+.page-template-page-your-business .yb-trust .trust-logos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 40px;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-trust .trust-logos {
+    gap: 25px;
+  }
+}
+.page-template-page-your-business .yb-trust .trust-logos .trust-logo {
+  height: 50px;
+  width: auto;
+}
+@media (max-width: 991.98px) {
+  .page-template-page-your-business .yb-trust .trust-logos .trust-logo {
+    height: 35px;
+  }
+}
 body.dark-mode .yb-trust h2, body.dark-mode .yb-trust .h2 {
   color: #F5F5F5 !important;
 }
-body.dark-mode .yb-trust blockquote p {
+body.dark-mode .yb-trust blockquote .split-text-yb-trust-quote {
   color: #F5F5F5 !important;
 }
 

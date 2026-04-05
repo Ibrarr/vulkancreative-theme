@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 shadowCursor('.yb-problem');
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Tag fade
     gsap.from('.yb-problem .tag', {
         opacity: 0,
         y: 20,
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sub-heading fade
     gsap.from('.yb-problem .sub-heading', {
         opacity: 0,
         y: 20,
@@ -35,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Cards: staggered fade-up
     gsap.from('.problem-card', {
         opacity: 0,
         y: 30,

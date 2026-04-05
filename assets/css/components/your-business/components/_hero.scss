@@ -4,6 +4,7 @@
 
   .row {
     min-height: 100vh;
+    align-items: center;
   }
 
   .content {
@@ -42,12 +43,16 @@
       }
 
       @include media-breakpoint-up(lg) {
-        width: 75%;
+        width: 85%;
       }
     }
 
     .bottom {
       opacity: 0;
+
+      @include media-breakpoint-up(lg) {
+        display: none;
+      }
     }
 
     .button {
@@ -59,11 +64,150 @@
       }
     }
   }
+
+  .hero-form {
+    opacity: 0;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: 40px;
+    }
+
+    .form-container {
+      .gform_wrapper.contact-form_wrapper .contact-form {
+        .gform_heading {
+          display: none;
+        }
+
+        .gform_validation_errors {
+          margin-bottom: 30px;
+        }
+
+        .gform_fields {
+          row-gap: 20px !important;
+        }
+
+        .ginput_container_consent {
+          cursor: pointer;
+        }
+
+        label {
+          font-family: $vc-font-family;
+          font-size: 14px;
+          color: $vc-disabled;
+          font-weight: $vc-semi-bold;
+          margin: 0;
+          transition: $vc-transition-all;
+
+          .gfield_required {
+            display: none;
+          }
+        }
+
+        textarea {
+          font-family: $vc-font-family;
+          font-size: 16px !important;
+          color: $vc-text-dark;
+          min-height: 120px;
+        }
+
+        input:focus, textarea:focus {
+          border-color: $vc-primary;
+          --gf-local-shadow: none;
+          --gf-local-outline-color: none;
+          outline: none !important;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+          font-family: $vc-font-family;
+          font-weight: $vc-medium;
+          font-size: 16px !important;
+          border: none;
+          border-bottom: 1px solid $vc-disabled;
+          border-radius: 0;
+          background: none;
+          box-shadow: none;
+          padding: 0;
+          height: 50px;
+          min-height: 50px;
+          transition: $vc-transition-all;
+          cursor: text;
+
+          &:focus {
+            border-bottom: 1px solid $vc-primary;
+          }
+        }
+
+        .gfield--type-textarea {
+          label {
+            margin-bottom: 10px;
+          }
+
+          textarea {
+            height: 80px;
+            min-height: 80px;
+          }
+        }
+
+        input[type="submit"] {
+          margin-top: 10px;
+          @include vc-button-big($vc-primary);
+          cursor: pointer !important;
+          padding: 18px 35px;
+        }
+      }
+
+      .gform_confirmation_wrapper {
+        .gform_confirmation_message {
+          font-family: $vc-font-family;
+          font-size: 16px;
+          color: $vc-text-dark;
+
+          @include media-breakpoint-down(lg) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .hero-trust-logos {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      margin-top: 30px;
+      opacity: 0;
+
+      @include media-breakpoint-down(lg) {
+        margin-top: 20px;
+        gap: 20px;
+      }
+
+      .trust-logo {
+        height: 35px;
+        width: auto;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+
+        @include media-breakpoint-down(lg) {
+          height: 28px;
+        }
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
 }
 
 @at-root body.dark-mode .yb-hero {
   h1, p {
     color: $vc-text-light !important;
+  }
+
+  .hero-form {
+    input, textarea, .gform_confirmation_message {
+      color: $vc-text-light !important;
+    }
   }
 
   .button:hover {
