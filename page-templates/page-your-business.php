@@ -60,13 +60,13 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 <div class="yb-hero-wrapper">
 <section class="yb-hero" id="top">
     <div class="container px-4">
-        <div class="row gx-5">
+        <div class="row gx">
             <div class="col-lg-6 content">
                 <p class="tag">From Your Business Magazine</p>
                 <h1><?php echo wp_kses_post($hero_heading); ?></h1>
                 <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
             </div>
-            <div class="col-lg-6 hero-form">
+            <div class="offset-xl-1 col-lg-5 hero-form">
                 <div class="hero-form-container">
                     <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
                 </div>
