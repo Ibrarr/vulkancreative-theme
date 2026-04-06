@@ -64,45 +64,56 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
 
 <section class="yb-problem" id="yb-problem">
     <div class="container px-4">
-        <div class="row gx-5">
-            <div class="col-lg-5">
-                <div class="content">
-                    <p class="tag"><?php echo esc_html($problem_tag); ?></p>
-                    <h2 class="split-text-yb-problem"><?php echo esc_html($problem_heading); ?></h2>
-                    <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
+        <div class="content">
+            <p class="tag"><?php echo esc_html($problem_tag); ?></p>
+            <h2 class="split-text-yb-problem"><?php echo esc_html($problem_heading); ?></h2>
+            <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
+        </div>
+        <div class="problem-grid">
+            <?php if (have_rows('yb_problem_points')) : ?>
+                <?php
+                $problem_index = 0;
+                $col_pattern = ['col-lg-7', 'col-lg-5', 'col-lg-5', 'col-lg-7'];
+                ?>
+                <div class="row gx-4 gy-4">
+                    <?php while (have_rows('yb_problem_points')) : the_row(); ?>
+                        <div class="<?php echo $col_pattern[$problem_index % 4]; ?>">
+                            <div class="problem-card">
+                                <h3><?php echo esc_html(get_sub_field('title')); ?></h3>
+                                <p><?php echo esc_html(get_sub_field('description')); ?></p>
+                            </div>
+                        </div>
+                        <?php $problem_index++; ?>
+                    <?php endwhile; ?>
                 </div>
-            </div>
-            <div class="col-lg-7">
-                <div class="card-viewport">
-                    <div class="problem-cards">
-                        <?php if (have_rows('yb_problem_points')) : ?>
-                            <?php while (have_rows('yb_problem_points')) : the_row(); ?>
-                                <div class="problem-card">
-                                    <h3><?php echo esc_html(get_sub_field('title')); ?></h3>
-                                    <p><?php echo esc_html(get_sub_field('description')); ?></p>
-                                </div>
-                            <?php endwhile; ?>
-                        <?php else : ?>
-                            <div class="problem-card">
-                                <h3>Inconsistent results</h3>
-                                <p>The website looks decent, yet leads are unpredictable. Traffic comes in but nothing converts.</p>
-                            </div>
-                            <div class="problem-card">
-                                <h3>Disconnected channels</h3>
-                                <p>Social, paid, email and your website all running separately with no joined-up strategy behind them.</p>
-                            </div>
-                            <div class="problem-card">
-                                <h3>Wasted budget</h3>
-                                <p>Paid advertising brings traffic but not the right conversations. You know money is going out but the ROI is unclear.</p>
-                            </div>
-                            <div class="problem-card">
-                                <h3>No clear direction</h3>
-                                <p>You want more enquiries, more sales, and a clearer brand, but every agency just offers the same templated approach.</p>
-                            </div>
-                        <?php endif; ?>
+            <?php else : ?>
+                <div class="row gx-4 gy-4">
+                    <div class="col-lg-7">
+                        <div class="problem-card">
+                            <h3>Inconsistent results</h3>
+                            <p>The website looks decent, yet leads are unpredictable. Traffic comes in but nothing converts.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="problem-card">
+                            <h3>Disconnected channels</h3>
+                            <p>Social, paid, email and your website all running separately with no joined-up strategy behind them.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="problem-card">
+                            <h3>Wasted budget</h3>
+                            <p>Paid advertising brings traffic but not the right conversations. You know money is going out but the ROI is unclear.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="problem-card">
+                            <h3>No clear direction</h3>
+                            <p>You want more enquiries, more sales, and a clearer brand, but every agency just offers the same templated approach.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>
