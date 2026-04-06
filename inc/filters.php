@@ -73,6 +73,11 @@ add_filter( 'body_class', 'custom_body_classes' );
 function custom_body_classes( $classes ) {
     $classes[] = 'loading';
 
+    // Force dark mode on the Your Business landing page from the first frame
+    if ( is_page_template( 'page-templates/page-your-business.php' ) ) {
+        $classes[] = 'dark-mode';
+    }
+
     if ( is_tax( 'practice_area' ) ) {
         $term = get_queried_object();
         if ( $term ) {

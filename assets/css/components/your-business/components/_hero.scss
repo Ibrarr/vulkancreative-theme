@@ -1,3 +1,9 @@
+// Force dark background instantly (no transition flash on load)
+@at-root body.page-template-page-your-business {
+  background-color: $dark-vc-background-dark;
+  transition: none;
+}
+
 // Override header to static position on this page (no scroll follow)
 @at-root .page-template-page-your-business header {
   position: absolute;
