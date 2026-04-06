@@ -45,6 +45,7 @@ mix.js([
     'assets/js/your-business/problem.js',
     'assets/js/your-business/solution.js',
     'assets/js/your-business/outcomes.js',
+    'assets/js/your-business/testimonials.js',
     'assets/js/your-business/cta.js',
 ], 'js/your-business.js');
 

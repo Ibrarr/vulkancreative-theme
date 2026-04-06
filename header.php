@@ -41,7 +41,7 @@
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="<?php if ( is_front_page() ) { echo 'hero-active'; }; ?>">
-        <div class="px-4">
+        <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) { echo 'container '; } ?>px-4">
             <div class="main-menu">
                 <div class="logo">
                     <a href="/" aria-label="Home">

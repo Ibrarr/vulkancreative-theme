@@ -1,5 +1,6 @@
 .yb-cta {
   padding: 120px 0;
+  background: #222222;
 
   @include media-breakpoint-down(lg) {
     padding: 60px 0;
@@ -136,6 +137,10 @@
 @at-root body.dark-mode .yb-cta {
   h2, p, input, .gform_confirmation_message, textarea {
     color: $vc-text-light !important;
+  }
+
+  .tag {
+    color: $vc-primary !important;
   }
 
   .button:hover {

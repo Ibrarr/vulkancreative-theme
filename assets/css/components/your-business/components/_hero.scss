@@ -1,9 +1,42 @@
+// Override header to static position on this page (no scroll follow)
+@at-root .page-template-page-your-business header {
+  position: absolute;
+  top: 0;
+}
+
+.yb-hero-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-down(lg) {
+    min-height: auto;
+  }
+}
+
 .yb-hero {
   position: relative;
   overflow: hidden;
+  flex: 1;
+  display: flex;
+  padding-top: 90px;
+
+  @include media-breakpoint-down(lg) {
+    padding-top: 80px;
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-top: 80px;
+  }
+
+  > .container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
 
   .row {
-    min-height: 100vh;
+    flex: 1;
     align-items: center;
   }
 
@@ -21,6 +54,10 @@
       font-size: 64px;
       opacity: 0;
       transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
 
       @include media-breakpoint-down(xl) {
         font-size: 48px;
@@ -43,23 +80,12 @@
       }
     }
 
-    .bottom {
-      opacity: 0;
-    }
-
-    .button {
-      @include vc-button-big($vc-primary);
-      cursor: pointer !important;
-
-      &:hover {
-        background: $vc-background-white;
-      }
-    }
   }
 
   .hero-form {
     @include media-breakpoint-down(lg) {
-      margin-top: 40px;
+      margin-top: 25px;
+      padding-bottom: 20px;
     }
 
     .hero-form-container {
@@ -162,9 +188,8 @@
     color: $vc-text-light !important;
   }
 
-  .button:hover {
-    background: $dark-vc-background-dark !important;
-    color: $vc-text-light !important;
+  .tag {
+    color: $vc-primary !important;
   }
 
   .hero-form-container {

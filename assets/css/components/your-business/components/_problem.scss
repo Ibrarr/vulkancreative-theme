@@ -21,7 +21,7 @@
     }
 
     .tag {
-      @include vc-tag($vc-text-light);
+      @include vc-tag($vc-primary);
     }
 
     .split-text-yb-problem {

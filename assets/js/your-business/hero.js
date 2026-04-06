@@ -1,7 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { fireworkEffect } from '../components/firework-button-effect';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,7 +9,6 @@ const hideStyle = document.createElement('style');
 hideStyle.id = 'yb-animation-hide-style';
 hideStyle.textContent = `
     .yb-hero h1,
-    .yb-hero .bottom,
     .yb-hero .tag,
     .split-text-yb-hero,
     .yb-hero .hero-form-container {
@@ -51,13 +49,6 @@ function initializeAllAnimations() {
         0.2
     );
 
-    // Bottom CTA fade up
-    heroTl.fromTo('.yb-hero .bottom',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-        0.75
-    );
-
     // Hero form fade up
     heroTl.fromTo('.yb-hero .hero-form-container',
         { opacity: 0, y: 30 },
@@ -85,21 +76,12 @@ function initializeAllAnimations() {
         }
     });
 
-    // Button effects
+    // Hero form cursor and label handlers
     if (window.jQuery) {
         const $ = window.jQuery;
         const cursor = document.querySelector('.custom-cursor');
 
         if (cursor) {
-            $('.disable-custom-cursor').on('mouseenter', function() {
-                cursor.classList.add('hidden');
-            });
-
-            $('.disable-custom-cursor').on('mouseleave', function() {
-                cursor.classList.remove('hidden');
-            });
-
-            // Hero form cursor and label handlers
             $('.yb-hero .hero-form-container .gform_button.button, .yb-hero .hero-form-container input[type="text"], .yb-hero .hero-form-container input[type="email"], .yb-hero .hero-form-container textarea').on('mouseenter', function() {
                 cursor.classList.add('hidden');
             });
@@ -116,8 +98,6 @@ function initializeAllAnimations() {
         $('.yb-hero .hero-form-container input[type="text"], .yb-hero .hero-form-container input[type="email"], .yb-hero .hero-form-container textarea').blur(function() {
             $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '');
         });
-
-        fireworkEffect('.yb-hero .button');
     }
 }
 

@@ -39,42 +39,79 @@
     }
 
     .trust-logo {
-      height: 50px;
+      height: 30px;
       width: auto;
 
       @include media-breakpoint-down(lg) {
-        height: 35px;
+        height: 22px;
       }
     }
   }
 
-  .testimonials {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  // Testimonial carousel
+  #yb-testimonial-splide {
 
-    @include media-breakpoint-down(lg) {
-      gap: 25px;
-    }
-  }
+    .testimonial-card {
+      padding: 40px 32px;
+      border-radius: 0 0 10px 10px;
+      background: rgba($vc-text-light, 0.05);
+      border-top: 3px solid $vc-primary;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
-  .testimonial {
-    max-width: 700px;
-
-    blockquote {
-      margin: 0;
-
-      p {
-        @include vc-p($vc-text-dark);
-        font-style: italic;
-        margin-bottom: 15px;
-        transition: color 0.3s;
+      @include media-breakpoint-down(lg) {
+        padding: 30px 24px;
       }
 
-      cite {
-        @include vc-body($vc-disabled);
-        font-style: normal;
-        font-weight: $vc-semi-bold;
+      blockquote {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        p {
+          @include vc-p($vc-text-dark);
+          font-style: italic;
+          margin-bottom: 24px;
+          line-height: 1.7;
+          transition: color 0.3s;
+          flex: 1;
+        }
+
+        cite {
+          @include vc-body($vc-disabled);
+          font-style: normal;
+          font-weight: $vc-semi-bold;
+          display: block;
+          padding-top: 20px;
+          border-top: 1px solid rgba($vc-disabled, 0.2);
+        }
+      }
+    }
+
+    .splide__pagination {
+      position: relative;
+      bottom: auto;
+      margin-top: 40px;
+      gap: 6px;
+      padding: 0;
+
+      .splide__pagination__page {
+        background: $vc-primary;
+        opacity: 0.3;
+        width: 24px;
+        height: 5px;
+        border-radius: 3px;
+        border: none;
+        margin: 0;
+        transition: opacity 0.3s, width 0.3s;
+
+        &.is-active {
+          opacity: 1;
+          width: 40px;
+        }
       }
     }
   }
@@ -85,7 +122,29 @@
     color: $vc-text-light !important;
   }
 
-  blockquote p {
-    color: $vc-text-light !important;
+  .tag {
+    color: $vc-primary !important;
+  }
+
+  .testimonial-card {
+    background: rgba($vc-text-light, 0.04) !important;
+
+    blockquote p {
+      color: $vc-text-light !important;
+    }
+
+    blockquote cite {
+      border-top-color: rgba($vc-text-light, 0.1);
+    }
+  }
+
+  .splide__pagination__page {
+    background: $vc-primary !important;
+    border: none !important;
+    opacity: 0.3;
+
+    &.is-active {
+      opacity: 1;
+    }
   }
 }

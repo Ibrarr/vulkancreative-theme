@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     const header        = document.getElementById("header");
+
+    // On the Your Business landing page, keep header fixed at top with no scroll behaviour
+    if (document.body.classList.contains('page-template-page-your-business')) {
+        header.style.top = "0";
+        return;
+    }
+
     let   prevScrollPos = window.pageYOffset;
 
     if (prevScrollPos <= 97) {

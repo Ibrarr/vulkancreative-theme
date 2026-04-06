@@ -4,47 +4,67 @@ Template Name: Your Business
 */
 get_header();
 
+// Heading highlight defaults: map plain-text defaults to span-highlighted versions.
+// If the ACF value matches the plain-text default (or is empty), use the highlighted version.
+// If the user has customised the heading, their text is used as-is (they can add <span> tags).
+$heading_highlights = [
+    'yb_hero_heading'     => [ 'Ready to Forge Ahead?',             'Ready to <span>Forge Ahead</span>?' ],
+    'yb_problem_heading'  => [ 'Sound Familiar?',                   'Sound <span>Familiar</span>?' ],
+    'yb_solution_heading' => [ 'Two Pillars. One Partner.',          'Two Pillars. <span>One Partner.</span>' ],
+    'yb_outcomes_heading' => [ 'The Results That Matter',            'The Results That <span>Matter</span>' ],
+    'yb_trust_heading'    => [ 'Recognised Partners',               'Recognised <span>Partners</span>' ],
+    'yb_cta_heading'      => [ "Let's Build Something That Works",  "Let's Build Something That <span>Works</span>" ],
+];
+function yb_heading( $field_name, $highlights ) {
+    $val = get_field( $field_name );
+    if ( isset( $highlights[ $field_name ] ) ) {
+        if ( ! $val || $val === $highlights[ $field_name ][0] ) {
+            return $highlights[ $field_name ][1];
+        }
+    }
+    return $val ?: '';
+}
+
 // Hero
-$hero_heading = get_field('yb_hero_heading') ?: 'Ready to Forge Ahead?';
+$hero_heading    = yb_heading( 'yb_hero_heading', $heading_highlights );
 $hero_subheading = get_field('yb_hero_subheading') ?: 'You read the article. You know the problem. Now let\'s build the solution. Vulkan Creative helps SMEs turn scattered marketing into a joined-up system that actually delivers.';
-$hero_button_text = get_field('yb_hero_button_text') ?: 'Start the conversation';
 
 // Problem
-$problem_tag = get_field('yb_problem_tag') ?: 'The problem';
-$problem_heading = get_field('yb_problem_heading') ?: 'Sound Familiar?';
+$problem_tag         = get_field('yb_problem_tag') ?: 'The problem';
+$problem_heading     = yb_heading( 'yb_problem_heading', $heading_highlights );
 $problem_description = get_field('yb_problem_description') ?: 'Most SME marketing fails because it focuses on the business and not the buyer. You end up with a patchwork of disconnected activity that looks busy but doesn\'t convert.';
 
 // Solution
-$solution_tag = get_field('yb_solution_tag') ?: 'How we solve it';
-$solution_heading = get_field('yb_solution_heading') ?: 'Two Pillars. One Partner.';
+$solution_tag         = get_field('yb_solution_tag') ?: 'How we solve it';
+$solution_heading     = yb_heading( 'yb_solution_heading', $heading_highlights );
 $solution_description = get_field('yb_solution_description') ?: 'We focus on what your customers are trying to achieve, what\'s stopping them, and what they need to believe to choose you. Then we build the system that makes that decision easy.';
-$pillar_1_heading = get_field('yb_solution_pillar_1_heading') ?: 'A website that earns trust and drives action';
+$pillar_1_heading     = get_field('yb_solution_pillar_1_heading') ?: 'A website that earns trust and drives action';
 $pillar_1_description = get_field('yb_solution_pillar_1_description') ?: 'You can\'t market a weak website. Every campaign pushes people back to your site, so the foundations have to be strong. We design and develop bespoke websites that load quickly, work brilliantly on mobile, and guide visitors towards a clear next step.';
-$pillar_2_heading = get_field('yb_solution_pillar_2_heading') ?: 'Campaigns that work together, not in isolation';
+$pillar_2_heading     = get_field('yb_solution_pillar_2_heading') ?: 'Campaigns that work together, not in isolation';
 $pillar_2_description = get_field('yb_solution_pillar_2_description') ?: 'We offer end-to-end campaign management, designed to compound over time rather than chase short-term spikes. Social media, paid advertising, content creation, email marketing, automation and brand building, all working towards your goal.';
 
 // Outcomes
-$outcomes_tag = get_field('yb_outcomes_tag') ?: 'What you get';
-$outcomes_heading = get_field('yb_outcomes_heading') ?: 'The Results That Matter';
+$outcomes_tag     = get_field('yb_outcomes_tag') ?: 'What you get';
+$outcomes_heading = yb_heading( 'yb_outcomes_heading', $heading_highlights );
 
 // Trust
-$trust_tag = get_field('yb_trust_tag') ?: 'Trusted by';
-$trust_heading = get_field('yb_trust_heading') ?: 'Recognised Partners';
+$trust_tag     = get_field('yb_trust_tag') ?: 'Trusted by';
+$trust_heading = yb_heading( 'yb_trust_heading', $heading_highlights );
 
 // CTA
-$cta_tag = get_field('yb_cta_tag') ?: 'Get in touch';
-$cta_heading = get_field('yb_cta_heading') ?: 'Let\'s Build Something That Works';
-$cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. Just a straight conversation about where you are, where you want to be, and how we can get you there.';
+$cta_tag         = get_field('yb_cta_tag') ?: 'Get in touch';
+$cta_heading     = yb_heading( 'yb_cta_heading', $heading_highlights );
+$cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. Just a straight conversation about where you are, where you want to be, and how we can get you there.';
 ?>
 
+<div class="yb-hero-wrapper">
 <section class="yb-hero" id="top">
     <div class="container px-4">
-        <div class="row">
+        <div class="row gx-5">
             <div class="col-lg-6 content">
                 <p class="tag">From Your Business Magazine</p>
-                <h1><?php echo esc_html($hero_heading); ?></h1>
+                <h1><?php echo wp_kses_post($hero_heading); ?></h1>
                 <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
-                <div class="bottom"><a href="#yb-contact" class="button disable-custom-cursor"><?php echo esc_html($hero_button_text); ?></a></div>
             </div>
             <div class="col-lg-6 hero-form">
                 <div class="hero-form-container">
@@ -73,6 +93,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
     </div>
 </section>
 <?php endif; ?>
+</div>
 
 <section class="yb-problem" id="yb-problem">
     <div class="container px-4">
@@ -80,7 +101,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
             <div class="col-lg-6">
                 <div class="content">
                     <p class="tag"><?php echo esc_html($problem_tag); ?></p>
-                    <h2 class="split-text-yb-problem"><?php echo esc_html($problem_heading); ?></h2>
+                    <h2 class="split-text-yb-problem"><?php echo wp_kses_post($problem_heading); ?></h2>
                     <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
                 </div>
             </div>
@@ -121,7 +142,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
     <div class="container px-4">
         <div class="content">
             <p class="tag"><?php echo esc_html($solution_tag); ?></p>
-            <h2 class="split-text-yb-solution"><?php echo esc_html($solution_heading); ?></h2>
+            <h2 class="split-text-yb-solution"><?php echo wp_kses_post($solution_heading); ?></h2>
             <p class="sub-heading"><?php echo esc_html($solution_description); ?></p>
         </div>
         <div class="row gx-5 pillar-container">
@@ -147,7 +168,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
     <div class="container px-4">
         <div class="content">
             <p class="tag"><?php echo esc_html($outcomes_tag); ?></p>
-            <h2 class="split-text-yb-outcomes"><?php echo esc_html($outcomes_heading); ?></h2>
+            <h2 class="split-text-yb-outcomes"><?php echo wp_kses_post($outcomes_heading); ?></h2>
         </div>
         <div class="outcomes-grid">
             <?php if (have_rows('yb_outcomes_items')) : ?>
@@ -187,7 +208,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
     <div class="container px-4">
         <div class="content">
             <p class="tag"><?php echo esc_html($trust_tag); ?></p>
-            <h2 class="split-text-yb-trust"><?php echo esc_html($trust_heading); ?></h2>
+            <h2 class="split-text-yb-trust"><?php echo wp_kses_post($trust_heading); ?></h2>
         </div>
         <div class="trust-logos">
             <?php if ( have_rows('yb_trust_partner_logos') ) : ?>
@@ -203,24 +224,40 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
                 <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/hotjar-partner.svg'; ?>" alt="Hotjar Partner" class="trust-logo">
             <?php endif; ?>
         </div>
-        <div class="testimonials">
-            <?php if ( have_rows('yb_trust_testimonials') ) : ?>
-                <?php while ( have_rows('yb_trust_testimonials') ) : the_row(); ?>
-                    <div class="testimonial">
-                        <blockquote>
-                            <p>&ldquo;<?php echo esc_html( get_sub_field('quote') ); ?>&rdquo;</p>
-                            <cite>&mdash; <?php echo esc_html( get_sub_field('name') ); ?>, <?php echo esc_html( get_sub_field('company') ); ?></cite>
-                        </blockquote>
-                    </div>
-                <?php endwhile; ?>
-            <?php else : ?>
-                <div class="testimonial">
-                    <blockquote>
-                        <p>&ldquo;Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.&rdquo;</p>
-                        <cite>&mdash; Client Name, Company Name</cite>
-                    </blockquote>
-                </div>
-            <?php endif; ?>
+        <div class="splide" id="yb-testimonial-splide" aria-label="Client testimonials">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <?php if ( have_rows('yb_trust_testimonials') ) : ?>
+                        <?php while ( have_rows('yb_trust_testimonials') ) : the_row(); ?>
+                            <li class="splide__slide">
+                                <div class="testimonial-card">
+                                    <blockquote>
+                                        <p>&ldquo;<?php echo esc_html( get_sub_field('quote') ); ?>&rdquo;</p>
+                                        <cite>&mdash; <?php echo esc_html( get_sub_field('name') ); ?>, <?php echo esc_html( get_sub_field('company') ); ?></cite>
+                                    </blockquote>
+                                </div>
+                            </li>
+                        <?php endwhile; ?>
+                    <?php else : ?>
+                        <li class="splide__slide">
+                            <div class="testimonial-card">
+                                <blockquote>
+                                    <p>&ldquo;Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.&rdquo;</p>
+                                    <cite>&mdash; Client Name, Company Name</cite>
+                                </blockquote>
+                            </div>
+                        </li>
+                        <li class="splide__slide">
+                            <div class="testimonial-card">
+                                <blockquote>
+                                    <p>&ldquo;Professional, responsive, and genuinely invested in our success. They feel like an extension of our team.&rdquo;</p>
+                                    <cite>&mdash; Client Name, Company Name</cite>
+                                </blockquote>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
@@ -231,7 +268,7 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
             <div class="col-lg-6">
                 <div class="content">
                     <p class="tag"><?php echo esc_html($cta_tag); ?></p>
-                    <h2 class="split-text-yb-cta"><?php echo esc_html($cta_heading); ?></h2>
+                    <h2 class="split-text-yb-cta"><?php echo wp_kses_post($cta_heading); ?></h2>
                     <p class="sub-heading"><?php echo esc_html($cta_subheading); ?></p>
                 </div>
             </div>
