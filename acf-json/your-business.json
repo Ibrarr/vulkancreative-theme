@@ -66,6 +66,57 @@
             "append": ""
         },
         {
+            "key": "field_6750a1c100040",
+            "label": "Logo Bar Logos",
+            "name": "yb_logo_bar_logos",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Add company logos for the scrolling logo bar below the hero section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Logo",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6750a1c100041",
+                    "label": "Logo",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,svg,webp",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_6750a1c100040"
+                }
+            ]
+        },
+        {
             "key": "field_6750a1c100004",
             "label": "Problem Tag",
             "name": "yb_problem_tag",
@@ -496,12 +547,12 @@
             "append": ""
         },
         {
-            "key": "field_6750a1c100024",
-            "label": "Testimonial Quote",
-            "name": "yb_trust_testimonial_quote",
+            "key": "field_6750a1c100030",
+            "label": "Partner Logos",
+            "name": "yb_trust_partner_logos",
             "aria-label": "",
-            "type": "textarea",
-            "instructions": "",
+            "type": "repeater",
+            "instructions": "Add partner/certification logos to display in the trust section.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -509,20 +560,72 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "rows": 3,
-            "new_lines": ""
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Partner Logo",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6750a1c100031",
+                    "label": "Logo",
+                    "name": "logo",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,svg,webp",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_6750a1c100030"
+                },
+                {
+                    "key": "field_6750a1c100032",
+                    "label": "Alt Text",
+                    "name": "alt_text",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6750a1c100030"
+                }
+            ]
         },
         {
-            "key": "field_6750a1c100025",
-            "label": "Testimonial Name",
-            "name": "yb_trust_testimonial_name",
+            "key": "field_6750a1c100033",
+            "label": "Testimonials",
+            "name": "yb_trust_testimonials",
             "aria-label": "",
-            "type": "text",
-            "instructions": "",
+            "type": "repeater",
+            "instructions": "Add client testimonials to display in the trust section.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -530,33 +633,81 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Client Name",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_6750a1c100026",
-            "label": "Testimonial Company",
-            "name": "yb_trust_testimonial_company",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Company Name",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Testimonial",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_6750a1c100034",
+                    "label": "Quote",
+                    "name": "quote",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_6750a1c100033"
+                },
+                {
+                    "key": "field_6750a1c100035",
+                    "label": "Name",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6750a1c100033"
+                },
+                {
+                    "key": "field_6750a1c100036",
+                    "label": "Company",
+                    "name": "company",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_6750a1c100033"
+                }
+            ]
         },
         {
             "key": "field_6750a1c100027",
@@ -641,5 +792,5 @@
     "description": "",
     "show_in_rest": 1,
     "display_title": "",
-    "modified": 1761222162
+    "modified": 1761264000
 }

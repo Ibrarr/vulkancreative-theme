@@ -23,6 +23,8 @@
     "video.js": "^8.21.0"
   },
   "dependencies": {
+    "@splidejs/splide": "^4.1.4",
+    "@splidejs/splide-extension-auto-scroll": "^0.5.3",
     "@splinetool/viewer": "^1.9.98",
     "@videojs/themes": "^1.0.1",
     "autoprefixer": "^10.4.14",

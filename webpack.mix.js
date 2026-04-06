@@ -41,6 +41,7 @@ mix.js([
 
 mix.js([
     'assets/js/your-business/hero.js',
+    'assets/js/your-business/logo-bar.js',
     'assets/js/your-business/problem.js',
     'assets/js/your-business/solution.js',
     'assets/js/your-business/outcomes.js',

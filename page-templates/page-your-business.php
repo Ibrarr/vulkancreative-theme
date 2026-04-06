@@ -30,9 +30,6 @@ $outcomes_heading = get_field('yb_outcomes_heading') ?: 'The Results That Matter
 // Trust
 $trust_tag = get_field('yb_trust_tag') ?: 'Trusted by';
 $trust_heading = get_field('yb_trust_heading') ?: 'Recognised Partners';
-$trust_quote = get_field('yb_trust_testimonial_quote') ?: 'Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.';
-$trust_name = get_field('yb_trust_testimonial_name') ?: 'Client Name';
-$trust_company = get_field('yb_trust_testimonial_company') ?: 'Company Name';
 
 // CTA
 $cta_tag = get_field('yb_cta_tag') ?: 'Get in touch';
@@ -43,15 +40,39 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
 <section class="yb-hero" id="top">
     <div class="container px-4">
         <div class="row">
-            <div class="col-lg-8 content">
+            <div class="col-lg-6 content">
                 <p class="tag">From Your Business Magazine</p>
                 <h1><?php echo esc_html($hero_heading); ?></h1>
                 <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
                 <div class="bottom"><a href="#yb-contact" class="button disable-custom-cursor"><?php echo esc_html($hero_button_text); ?></a></div>
             </div>
+            <div class="col-lg-6 hero-form">
+                <div class="hero-form-container">
+                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<?php if ( have_rows('yb_logo_bar_logos') ) : ?>
+<section class="yb-logo-bar">
+    <div class="splide" id="yb-logo-splide" aria-label="Companies we've worked with">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <?php while ( have_rows('yb_logo_bar_logos') ) : the_row();
+                    $logo = get_sub_field('logo');
+                    if ( $logo ) : ?>
+                        <li class="splide__slide">
+                            <img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
+                        </li>
+                    <?php endif;
+                endwhile; ?>
+            </ul>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <section class="yb-problem" id="yb-problem">
     <div class="container px-4">
@@ -169,14 +190,37 @@ $cta_subheading = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. J
             <h2 class="split-text-yb-trust"><?php echo esc_html($trust_heading); ?></h2>
         </div>
         <div class="trust-logos">
-            <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/google-partner.svg'; ?>" alt="Google Partner" class="trust-logo">
-            <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/hotjar-partner.svg'; ?>" alt="Hotjar Partner" class="trust-logo">
+            <?php if ( have_rows('yb_trust_partner_logos') ) : ?>
+                <?php while ( have_rows('yb_trust_partner_logos') ) : the_row();
+                    $logo = get_sub_field('logo');
+                    $alt = get_sub_field('alt_text');
+                    if ( $logo ) : ?>
+                        <img loading="lazy" src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $alt ?: $logo['alt'] ?: $logo['title'] ); ?>" class="trust-logo">
+                    <?php endif;
+                endwhile; ?>
+            <?php else : ?>
+                <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/google-partner.svg'; ?>" alt="Google Partner" class="trust-logo">
+                <img loading="lazy" src="<?php echo VC_TEMPLATE_URI . '/assets/images/logos/hotjar-partner.svg'; ?>" alt="Hotjar Partner" class="trust-logo">
+            <?php endif; ?>
         </div>
-        <div class="testimonial">
-            <blockquote>
-                <p>&ldquo;<?php echo esc_html($trust_quote); ?>&rdquo;</p>
-                <cite>&mdash; <?php echo esc_html($trust_name); ?>, <?php echo esc_html($trust_company); ?></cite>
-            </blockquote>
+        <div class="testimonials">
+            <?php if ( have_rows('yb_trust_testimonials') ) : ?>
+                <?php while ( have_rows('yb_trust_testimonials') ) : the_row(); ?>
+                    <div class="testimonial">
+                        <blockquote>
+                            <p>&ldquo;<?php echo esc_html( get_sub_field('quote') ); ?>&rdquo;</p>
+                            <cite>&mdash; <?php echo esc_html( get_sub_field('name') ); ?>, <?php echo esc_html( get_sub_field('company') ); ?></cite>
+                        </blockquote>
+                    </div>
+                <?php endwhile; ?>
+            <?php else : ?>
+                <div class="testimonial">
+                    <blockquote>
+                        <p>&ldquo;Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.&rdquo;</p>
+                        <cite>&mdash; Client Name, Company Name</cite>
+                    </blockquote>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

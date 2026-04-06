@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleBtns = document.querySelectorAll('.theme-toggle');
     const body = document.body;
 
+    // Force dark mode on Your Business landing page
+    if (body.classList.contains('page-template-page-your-business')) {
+        body.classList.add('dark-mode');
+        toggleBtns.forEach(btn => btn.classList.add('theme-toggle--toggled'));
+        return;
+    }
+
     // Load user's theme preference from localStorage
     if (localStorage.getItem('darkMode') === 'enabled') {
         body.classList.add('dark-mode');

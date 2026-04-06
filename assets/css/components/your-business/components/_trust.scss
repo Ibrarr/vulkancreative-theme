@@ -48,6 +48,16 @@
     }
   }
 
+  .testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include media-breakpoint-down(lg) {
+      gap: 25px;
+    }
+  }
+
   .testimonial {
     max-width: 700px;
 

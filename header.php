@@ -9,9 +9,13 @@
     <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
 
     <script>
-        if (localStorage.getItem('darkMode') === 'enabled') {
+        <?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
             document.documentElement.classList.add('dark-mode');
-        }
+        <?php else : ?>
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        <?php endif; ?>
     </script>
 
 	<?php wp_head(); ?>
@@ -44,6 +48,7 @@
                         <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?>
                     </a>
                 </div>
+                <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
                 <div class="menu-theme-toggle">
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
@@ -94,8 +99,10 @@
                     <div class="open"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/menu.svg' ) ?></div>
                     <div class="close"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/cross.svg' ) ?></div>
                 </div>
+                <?php endif; ?>
             </div>
 
+            <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
             <div class="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
                     <nav id="nav" role="navigation" itemscope
@@ -145,6 +152,7 @@
 
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </header>
     <div id="smooth-wrapper">
