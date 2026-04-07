@@ -552,7 +552,7 @@
             "name": "yb_trust_partner_logos",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Add partner/certification logos to display in the trust section.",
+            "instructions": "Add partner\/certification logos to display in the trust section.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -778,19 +778,23 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-templates/page-your-business.php"
+                "value": "page-templates\/page-your-business.php"
             }
         ]
     ],
     "menu_order": 0,
     "position": "acf_after_title",
-    "style": "default",
+    "style": "seamless",
     "label_placement": "top",
     "instruction_placement": "label",
-    "hide_on_screen": "",
+    "hide_on_screen": [
+        "the_content"
+    ],
     "active": true,
     "description": "",
     "show_in_rest": 1,
     "display_title": "",
-    "modified": 1761264000
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1775551340
 }
