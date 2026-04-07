@@ -3,7 +3,6 @@
   padding: 120px 0;
   position: relative;
   z-index: 1;
-  overflow: clip;
   transition: background 0.3s;
 
   @include media-breakpoint-down(lg) {
@@ -11,12 +10,9 @@
   }
 
   .content {
-    position: sticky;
-    top: 50px;
-    height: fit-content;
+    margin-bottom: 60px;
 
     @include media-breakpoint-down(lg) {
-      position: static;
       margin-bottom: 30px;
     }
 
@@ -40,19 +36,17 @@
     .sub-heading {
       @include vc-p($vc-text-light);
       margin: 0;
+      max-width: 700px;
     }
   }
 
-  .problem-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
+  .problem-grid {
     .problem-card {
       padding: 40px 32px;
       border-radius: 10px;
       border: 2px solid $vc-primary;
       background: $vc-background-dark;
+      height: 100%;
 
       @include media-breakpoint-down(lg) {
         padding: 25px 20px;

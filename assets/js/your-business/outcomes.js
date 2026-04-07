@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 shadowCursor('.yb-outcomes');
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Tag fade
     gsap.from('.yb-outcomes .tag', {
         opacity: 0,
         y: 20,
@@ -21,17 +22,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    gsap.from('.outcome-item', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.outcomes-grid',
-            start: 'top 95%',
-            toggleActions: 'play none none none',
-            once: true
+    // Outcome items: staggered reveal
+    const items = gsap.utils.toArray('.yb-outcomes .outcome-item');
+
+    items.forEach((item) => {
+        const number = item.querySelector('.outcome-number');
+        const content = item.querySelector('.outcome-content');
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: item,
+                start: 'top 95%',
+                toggleActions: 'play none none none',
+                once: true
+            }
+        });
+
+        // Number slides in from left
+        if (number) {
+            tl.from(number, {
+                x: -20,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            }, 0);
+        }
+
+        // Content fades up
+        if (content) {
+            tl.from(content, {
+                y: 15,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.out',
+            }, 0.1);
         }
     });
 });

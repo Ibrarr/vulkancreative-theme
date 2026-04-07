@@ -5,6 +5,7 @@ import { SplitText } from 'gsap/SplitText';
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Tag fade
     gsap.from('.yb-solution .tag', {
         opacity: 0,
         y: 20,
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Sub-heading fade
     gsap.from('.yb-solution .sub-heading', {
         opacity: 0,
         y: 20,
@@ -32,19 +34,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    gsap.from('.pillar', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.pillar-container',
-            start: 'top 95%',
-            toggleActions: 'play none none none',
-            once: true
-        }
+    // Decorative numbers: scale in and settle at low opacity
+    gsap.utils.toArray('.yb-solution .pillar-number').forEach((num) => {
+        gsap.fromTo(num,
+            { scale: 0.5, opacity: 0 },
+            {
+                scale: 1,
+                opacity: 0.15,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: num,
+                    start: 'top 95%',
+                    toggleActions: 'play none none none',
+                    once: true
+                }
+            }
+        );
+
     });
+
+    // Pillar content blocks: slide in from offset direction
+    const pillarLeft = document.querySelector('.pillar-left .pillar-content');
+    const pillarRight = document.querySelector('.pillar-right .pillar-content');
+
+    if (pillarLeft) {
+        gsap.from(pillarLeft, {
+            x: -60,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: pillarLeft,
+                start: 'top 90%',
+                toggleActions: 'play none none none',
+                once: true
+            }
+        });
+    }
+
+    if (pillarRight) {
+        gsap.from(pillarRight, {
+            x: 60,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: pillarRight,
+                start: 'top 90%',
+                toggleActions: 'play none none none',
+                once: true
+            }
+        });
+    }
 });
 
 document.fonts.ready.then(() => {

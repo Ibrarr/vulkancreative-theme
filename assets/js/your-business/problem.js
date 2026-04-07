@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stagger: 0.2,
         ease: 'power2.out',
         scrollTrigger: {
-            trigger: '.problem-cards',
+            trigger: '.problem-grid',
             start: 'top 95%',
             toggleActions: 'play none none none',
             once: true

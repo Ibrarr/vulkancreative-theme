@@ -11,7 +11,7 @@
   }
 
   .content {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 
     @include media-breakpoint-down(lg) {
       margin-bottom: 30px;
@@ -35,38 +35,52 @@
     }
   }
 
-  .outcomes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-
-    @include media-breakpoint-down(lg) {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    @include media-breakpoint-down(md) {
-      grid-template-columns: 1fr;
-    }
-
+  .outcomes-list {
     .outcome-item {
-      padding: 40px 32px;
-      border-radius: 10px;
-      border: 2px solid $vc-primary;
-      background: $vc-background-dark;
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 35px 0;
+      border-top: 1px solid rgba($vc-primary, 0.2);
 
       @include media-breakpoint-down(lg) {
-        padding: 25px 20px;
+        gap: 20px;
+        padding: 25px 0;
       }
 
-      h3 {
-        @include vc-h4($vc-text-light);
-        margin-bottom: 10px;
+      &:last-child {
+        border-bottom: 1px solid rgba($vc-primary, 0.2);
       }
 
-      p {
-        @include vc-body($vc-text-light);
-        margin: 0;
+      .outcome-number {
+        font-family: $vc-font-family;
+        font-weight: $vc-bold;
+        font-size: 48px;
+        line-height: 1;
+        color: $vc-primary;
+        opacity: 0.3;
+        flex-shrink: 0;
+        min-width: 70px;
+        user-select: none;
+
+        @include media-breakpoint-down(lg) {
+          font-size: 32px;
+          min-width: 45px;
+        }
+      }
+
+      .outcome-content {
+        padding-top: 5px;
+
+        h3 {
+          @include vc-h4($vc-text-light);
+          margin-bottom: 8px;
+        }
+
+        p {
+          @include vc-body($vc-text-light);
+          margin: 0;
+        }
       }
     }
   }
@@ -74,8 +88,4 @@
 
 @at-root body.dark-mode .yb-outcomes {
   background: $dark-vc-background-dark-alt !important;
-
-  .outcome-item {
-    background: $dark-vc-background-dark-alt !important;
-  }
 }
