@@ -24,6 +24,23 @@ get_header();
     </div>
 </section>
 
+<section class="logo-bar">
+    <div class="splide" id="logo-splide" aria-label="Companies we've worked with">
+        <div class="splide__track">
+            <ul class="splide__list">
+                <?php while ( have_rows('worked_with_logos', 'options') ) : the_row();
+                    $logo = get_sub_field('logo');
+                    if ( $logo ) : ?>
+                        <li class="splide__slide">
+                            <img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
+                        </li>
+                    <?php endif;
+                endwhile; ?>
+            </ul>
+        </div>
+    </div>
+</section>
+
 <section class="why" id="why">
     <div class="container px-4">
         <div class="top">

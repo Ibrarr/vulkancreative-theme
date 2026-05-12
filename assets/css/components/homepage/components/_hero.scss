@@ -3,7 +3,11 @@
   overflow: hidden;
 
   .row {
-    height: 100vh;
+    height: 85vh;
+
+    @include media-breakpoint-down(sm) {
+      height: 75vh;
+    }
   }
 
   .content {

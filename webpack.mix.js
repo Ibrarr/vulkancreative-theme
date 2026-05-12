@@ -20,6 +20,7 @@ mix.js([
 mix.js([
     'assets/js/spline/spline-viewer.js',
     'assets/js/homepage/hero.js',
+    'assets/js/homepage/logo-bar.js',
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
