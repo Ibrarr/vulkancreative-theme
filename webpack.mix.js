@@ -3,7 +3,6 @@ const mix = require('laravel-mix');
 mix.js([
     'assets/js/global/dark-mode.js',
     'assets/js/global/load-at-top.js',
-    'assets/js/global/custom-cursor.js',
     'assets/js/global/smooth-scrolling.js',
     'assets/js/global/remove-anchor-from-url.js',
 ], 'js/global.js');
@@ -24,6 +23,9 @@ mix.js([
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
+    'assets/js/homepage/testimonials.js',
+    'assets/js/homepage/reveal.js',
+    'assets/js/homepage/counter.js',
     'assets/js/homepage/contact.js',
 ], 'js/homepage.js');
 

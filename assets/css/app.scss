@@ -47,8 +47,14 @@ body {
   }
 }
 
-@import "components/misc/mouse-cursor";
-@import "components/misc/firework-effect";
+// Visible keyboard focus ring (keyboard users only; does not affect mouse clicks).
+:focus-visible {
+  outline: 2px solid $vc-primary;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@import "components/misc/motion";
 
 // Components
 @import "components/header/header";

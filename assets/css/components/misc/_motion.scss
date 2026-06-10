@@ -1,0 +1,47 @@
+// Respect prefers-reduced-motion. Strip non-essential motion and guarantee that
+// any content revealed by GSAP (split text, hero, stats) stays visible even if a
+// script is slow or blocked. The JS modules also branch on this query.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  // Elements that start hidden and are revealed by GSAP must not stay invisible.
+  .split-text-hero,
+  .split-text-story,
+  .split-text-services,
+  .split-text-contact,
+  .split-text-results,
+  .split-text-process,
+  .split-text-testimonials,
+  .hero h1,
+  .hero .bottom,
+  .dynamic-text,
+  .dynamic-text .word:first-child,
+  .spark path {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  // The rolling-word container is normally sized by JS. With motion off, show
+  // only the first word inline so the headline reads as a complete sentence.
+  .dynamic-text {
+    overflow: visible !important;
+    height: auto !important;
+    width: auto !important;
+  }
+
+  .dynamic-text .word {
+    position: static !important;
+    display: none !important;
+  }
+
+  .dynamic-text .word:first-child {
+    display: inline !important;
+  }
+}

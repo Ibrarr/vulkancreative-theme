@@ -1,11 +1,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { shadowCursor } from '../components/shadow-cursor';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
-
-shadowCursor('.yb-outcomes');
 
 document.addEventListener('DOMContentLoaded', () => {
     // Tag fade

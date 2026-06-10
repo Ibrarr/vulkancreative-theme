@@ -1,77 +1,59 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { shadowCursor } from '../components/shadow-cursor'
+import { prefersReducedMotion } from '../components/reduced-motion';
 
-gsap.registerPlugin(ScrollTrigger);
-
+// The Why cards are visible by default (set in CSS). On scroll-in we add `.is-in`
+// for a subtle slide-up and restart the animated icon. IntersectionObserver is used
+// instead of ScrollTrigger so the cards can never be left stuck hidden.
 document.addEventListener('DOMContentLoaded', () => {
-    gsap.from('.why .top', {
-        opacity: 0,
-        y: 50,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.why .top',
-            start: 'top 95%',
-            toggleActions: 'play none none none',
-        }
-    });
+    const boxes = document.querySelectorAll('.why .why-boxes');
+    if (!boxes.length) return;
 
-    document.querySelectorAll('.why-box-container').forEach(container => {
-        const boxes = container.querySelectorAll('.why-boxes');
+    const reduceMotion = prefersReducedMotion();
 
-        gsap.from(boxes, {
-            opacity: 0,
-            y: 50,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: container,
-                start: 'top 95%',
-                toggleActions: 'play none none none',
-                onEnter: () => {
-                    boxes.forEach(box => {
-                        const revealImage = box.querySelector('.reveal');
-                        const infiniteImage = box.querySelector('.infinite');
+    const showLoopingIcon = (box) => {
+        const reveal = box.querySelector('.reveal');
+        const infinite = box.querySelector('.infinite');
+        if (reveal) reveal.style.display = 'none';
+        if (infinite) infinite.style.display = 'block';
+    };
 
-                        // Reload the .reveal image
-                        if (revealImage) {
-                            const revealSrc = revealImage.src;
-                            revealImage.src = '';
-                            revealImage.src = revealSrc;
+    const playIcon = (box) => {
+        const reveal = box.querySelector('.reveal');
+        const infinite = box.querySelector('.infinite');
+        if (!reveal) return;
 
-                            setTimeout(() => {
-                                if (infiniteImage) {
-                                    // Reload the .infinite image
-                                    const infiniteSrc = infiniteImage.src;
-                                    infiniteImage.src = '';
-                                    infiniteImage.src = infiniteSrc;
-                                }
-                            }, 1200);
+        // Restart the one-shot reveal, then swap to the looping version.
+        const revealSrc = reveal.src;
+        reveal.src = '';
+        reveal.src = revealSrc;
 
-                            setTimeout(() => {
-                                revealImage.style.display = 'none';
-                                infiniteImage.style.display = 'block';
-                            }, 1800);
-                        }
-                    });
-                }
+        setTimeout(() => {
+            if (infinite) {
+                const infiniteSrc = infinite.src;
+                infinite.src = '';
+                infinite.src = infiniteSrc;
             }
+        }, 1200);
+
+        setTimeout(() => showLoopingIcon(box), 1800);
+    };
+
+    if (reduceMotion) {
+        boxes.forEach((box) => {
+            box.classList.add('is-in');
+            showLoopingIcon(box);
         });
-    });
+        return;
+    }
 
-    gsap.from('.why .bottom', {
-        opacity: 0,
-        y: 50,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.why .bottom',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-        }
-    });
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const box = entry.target;
+            box.classList.add('is-in');
+            playIcon(box);
+            obs.unobserve(box);
+        });
+    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+
+    boxes.forEach((box) => observer.observe(box));
 });
-
-shadowCursor('.why');

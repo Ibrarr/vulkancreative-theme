@@ -1,99 +1,108 @@
 .why {
   background: $vc-background-dark;
-  padding: 120px 0;
+  @include vc-section-padding;
   position: relative;
-  z-index: 1;
+  z-index: $z-base;
   overflow: hidden;
   transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    margin-bottom: 32px;
-    padding: 60px 0;
-  }
-
-  h2 {
-    @include vc-h1($vc-text-light);
-
-    span {
-      color: $vc-primary;
-    }
-  }
-
   .top {
-    p {
-      max-width: 768px;
+    max-width: 720px;
+    margin-bottom: $space-6;
+
+    .tag {
+      @include vc-eyebrow($vc-muted-on-dark);
     }
-  }
 
-  h3 {
-    @include vc-h4($vc-text-light);
-  }
+    h2 {
+      @include vc-h1($vc-text-light);
 
+      span {
+        color: $vc-primary;
+      }
+    }
 
-  .sub-heading {
-    @include vc-p($vc-text-light);
-    margin: 0;
-  }
-
-  p {
-    @include vc-body($vc-text-light);
-    margin: 0;
+    .sub-heading {
+      @include vc-p($vc-text-light);
+      color: $vc-muted-on-dark;
+      margin: 0;
+    }
   }
 
   .why-box-container {
-    padding: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-3;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr;
+    }
 
     .why-boxes {
-      @include media-breakpoint-down(lg) {
-        &:not(:last-child) {
-          margin-bottom: 30px;
-        }
+      @include vc-card($vc-grey-dark-surface, $vc-grey-dark-border);
+      display: flex;
+      flex-direction: column;
+      // Always visible; a subtle slide-up plays once via the .is-in class. If JS
+      // never runs, the cards simply sit 14px lower rather than disappearing.
+      opacity: 1;
+      transform: translateY(14px);
+      transition: transform 0.5s ease, border-color 0.3s ease, background-color 0.3s ease;
+
+      &.is-in {
+        transform: translateY(0);
+      }
+
+      &:hover {
+        border-color: $vc-primary;
+        transform: translateY(-4px);
       }
 
       .image-container {
         position: relative;
-        margin-left: -10px;
-        margin-bottom: 10px;
-        width: 100px;
-        height: 100px;
-
-        @include media-breakpoint-down(lg) {
-          width: 60px;
-          height: 60px;
-        }
+        margin-bottom: $space-3;
+        width: 64px;
+        height: 64px;
 
         img {
           position: absolute;
-          width: 100px;
-          height: 100px;
+          top: 0;
+          left: 0;
+          width: 64px;
+          height: 64px;
 
           &.infinite {
             display: none;
-          }
-
-          @include media-breakpoint-down(lg) {
-            width: 60px;
-            height: 60px;
           }
         }
       }
 
       h3 {
-        margin-bottom: 10px;
+        @include vc-h4($vc-text-light);
+        font-size: 22px;
+        margin-bottom: $space-1;
+      }
+
+      p {
+        @include vc-body($vc-text-light);
+        color: $vc-muted-on-dark;
+        margin: 0;
       }
     }
-  }
-
-  .button {
-    @include vc-button-big($vc-primary, $vc-text-light);
-    cursor: pointer !important;
   }
 }
 
 @at-root body.dark-mode .why {
   background: $dark-vc-background-dark-alt !important;
 
-  h1, p {
+  h2 {
     color: $vc-text-light !important;
+  }
+
+  .why-boxes {
+    background: $vc-grey-dark-surface !important;
+
+    p {
+      color: $vc-muted-on-dark !important;
+    }
   }
 }

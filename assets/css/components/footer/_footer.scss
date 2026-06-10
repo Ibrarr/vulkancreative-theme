@@ -78,10 +78,13 @@ footer {
           height: 45px;
           box-shadow: none;
           background: none;
-          border: 1px solid $vc-text-light;
+          border: 1px solid rgba($vc-text-light, 0.4);
           color: $vc-text-light;
           transition: $vc-transition-all;
-          width: 360px;
+          width: 100%;
+          max-width: 360px;
+          min-width: 0;
+          flex: 1 1 auto;
           cursor: text;
 
           &:focus {
@@ -118,12 +121,12 @@ footer {
     }
   }
 
-  .footer-menu {
-    @include media-breakpoint-up(lg) {
-      display: flex;
-      justify-content: flex-end;
-    }
+  .footer-heading {
+    @include vc-eyebrow($vc-muted-on-dark);
+    margin-bottom: $space-3;
+  }
 
+  .footer-menu {
     @include media-breakpoint-down(lg) {
       margin-top: 30px;
     }
@@ -154,11 +157,6 @@ footer {
   }
 
   .socials {
-    @include media-breakpoint-up(lg) {
-      display: flex;
-      justify-content: flex-end;
-    }
-
     @include media-breakpoint-down(lg) {
       margin-top: 30px;
     }
@@ -200,7 +198,7 @@ footer {
   .bottom {
     padding-top: 40px;
     margin-top: 40px;
-    border-top: 1px solid $vc-text-light;
+    border-top: 1px solid $vc-grey-dark-border;
 
     @include media-breakpoint-up(lg) {
       display: flex;

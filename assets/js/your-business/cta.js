@@ -75,16 +75,6 @@ document.fonts.ready.then(() => {
 });
 
 jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
-
-    $('.yb-cta .gform_button.button, .yb-cta input[type="text"], .yb-cta input[type="email"], .yb-cta textarea').on('mouseenter', function() {
-        cursor.classList.add('hidden');
-    });
-
-    $('.yb-cta .gform_button.button, .yb-cta input[type="text"], .yb-cta input[type="email"], .yb-cta textarea').on('mouseleave', function() {
-        cursor.classList.remove('hidden');
-    });
-
     $('.yb-cta input[type="text"], .yb-cta input[type="email"], .yb-cta textarea').focus(function() {
         $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '#FF3B30');
     });

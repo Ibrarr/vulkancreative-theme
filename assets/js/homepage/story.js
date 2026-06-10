@@ -2,11 +2,16 @@ import videojs from 'video.js';
 import 'videojs-youtube';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {SplitText} from "gsap/SplitText";
+import { SplitText } from 'gsap/SplitText';
+import { prefersReducedMotion } from '../components/reduced-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const reduceMotion = prefersReducedMotion();
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (reduceMotion) return;
+
     const heroContentTl = gsap.timeline({
         scrollTrigger: {
             trigger: '.story',
@@ -51,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.fonts.ready.then(() => {
     gsap.set('.split-text-story', { opacity: 1 });
 
+    if (reduceMotion) return;
+
     SplitText.create('.split-text-story', {
         type: 'words,lines',
         linesClass: 'line',
@@ -76,79 +83,28 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
-jQuery(document).ready(function($) {
-    const cursor       = document.querySelector(".custom-cursor");
-    const content      = document.querySelector(".story .content");
-    const videoWrapper = document.querySelector(".story .video-wrapper");
+jQuery(document).ready(function() {
+    const content      = document.querySelector('.story .content');
+    const videoWrapper = document.querySelector('.story .video-wrapper');
 
-    const player = videojs("our-story");
+    // Initialise the video player.
+    videojs('our-story');
 
-    const isTouchDevice = () =>
-        "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        navigator.msMaxTouchPoints > 0;
-
-    if (!isTouchDevice()) {
-        videoWrapper.addEventListener("mouseenter", () => {
-            cursor.classList.add("expanded");
-            cursor.innerHTML = `<span class="learn-more-cursor">${
-                player.paused() ? "Watch" : "Pause"
-            }</span>`;
-        });
-
-        videoWrapper.addEventListener("mouseleave", () => {
-            cursor.classList.remove("expanded");
-            cursor.innerHTML = "";
-        });
-
-        player.on("play", () => {
-            if (cursor.classList.contains("expanded")) {
-                cursor.innerHTML =
-                    '<span class="learn-more-cursor">Pause</span>';
-            }
-        });
-
-        player.on("pause", () => {
-            if (cursor.classList.contains("expanded")) {
-                cursor.innerHTML =
-                    '<span class="learn-more-cursor">Watch</span>';
-            }
-        });
-
-        $('.vjs-control-bar').on('mouseenter', function() {
-            cursor.classList.add('hidden');
-        });
-
-        $('.vjs-control-bar').on('mouseleave', function() {
-            cursor.classList.remove('hidden');
-        });
-
-        // $('.video-js').on('mouseenter', function() {
-        //     cursor.classList.add('hidden');
-        // });
-        //
-        // $('.video-js').on('mouseleave', function() {
-        //     cursor.classList.remove('hidden');
-        // });
+    // Reduced motion: no scroll-linked scaling; keep content visible at full size.
+    if (reduceMotion) {
+        if (content) gsap.set(content, { opacity: 1, clearProps: 'transform' });
+        if (videoWrapper) gsap.set(videoWrapper, { scale: 1 });
+        return;
     }
 
     gsap.timeline({
         scrollTrigger: {
-            trigger: ".story",
-            start: "top top",
-            end: "bottom bottom",
+            trigger: '.story',
+            start: 'top top',
+            end: 'bottom bottom',
             scrub: true,
         },
     })
-        .to(
-            content,
-            { opacity: 0, scale: 0.8, duration: 0.3, ease: "power1.out" },
-            0
-        )
-        .fromTo(
-            videoWrapper,
-            { scale: 0.8 },
-            { scale: 1, duration: 0.8, ease: "power1.out" },
-            0.1
-        );
+        .to(content, { opacity: 0, scale: 0.8, duration: 0.3, ease: 'power1.out' }, 0)
+        .fromTo(videoWrapper, { scale: 0.8 }, { scale: 1, duration: 0.8, ease: 'power1.out' }, 0.1);
 });

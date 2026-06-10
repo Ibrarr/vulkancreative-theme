@@ -30,3 +30,38 @@ $dark-vc-background-dark-alt: #121212;
 
 //Other
 $vc-transition-all: all .3s;
+
+// Supporting neutrals (additive — carry structure/hierarchy, no new brand hues)
+// Light mode
+$vc-grey-100: #ECECEC; // hairline borders / subtle fills on light bg
+$vc-grey-200: #E0E0E0; // dividers on light bg
+$vc-grey-400: #9A9A9A; // meta / large muted text on light (large text only)
+$vc-grey-600: #595959; // muted body text on light (~6.9:1 on #F5F5F5)
+$vc-grey-700: #404040; // strong muted text on light (~9.7:1)
+
+// Dark mode surfaces / muted text
+$vc-grey-dark-surface: #262626; // raised card surface on dark
+$vc-grey-dark-border: rgba(245, 245, 245, 0.10); // hairline on dark
+$vc-muted-on-dark: #B5B5B5; // muted text on #1E1E1E (~7.4:1)
+
+// Accent tints (derived from brand red, no new hue)
+$vc-primary-tint: rgba($vc-primary, 0.08);
+$vc-primary-line: rgba($vc-primary, 0.20);
+
+// Spacing scale (8px base)
+$space-1: 8px;
+$space-2: 16px;
+$space-3: 24px;
+$space-4: 32px;
+$space-5: 40px;
+$space-6: 48px;
+$space-8: 64px;
+$space-10: 80px;
+$space-15: 120px; // matches the existing desktop section rhythm
+
+// Z-index scale (replaces ad-hoc 99/1000/9999)
+$z-base: 1;
+$z-raised: 10;
+$z-sticky: 40;
+$z-header: 100;
+$z-overlay: 1000;

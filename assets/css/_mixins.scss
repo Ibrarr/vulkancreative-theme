@@ -173,3 +173,34 @@
     }
   }
 }
+
+// Consistent section rhythm (matches existing 120px/60px paddings)
+@mixin vc-section-padding {
+  padding: $space-15 0;
+
+  @include media-breakpoint-down(lg) {
+    padding: $space-8 0;
+  }
+}
+
+// Uppercase, letter-spaced label/eyebrow (Swiss-modernist) built on vc-tag
+@mixin vc-eyebrow($color: $vc-primary) {
+  @include vc-tag($color);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// Neutral-led card (hairline border, soft surface) — red reserved for accents
+@mixin vc-card($bg, $border: $vc-grey-200) {
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: 10px;
+  padding: $space-5 $space-4;
+  height: 100%;
+  transition: $vc-transition-all;
+
+  @include media-breakpoint-down(lg) {
+    padding: $space-4 $space-3;
+  }
+}

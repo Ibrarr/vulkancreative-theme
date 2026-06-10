@@ -1,14 +1,10 @@
 .services {
   background: $vc-background-dark;
-  padding: 120px 0;
+  @include vc-section-padding;
   position: relative;
-  z-index: 1;
+  z-index: $z-base;
   overflow: clip;
   transition: background 0.3s;
-
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
 
   .content {
     position: sticky;
@@ -16,16 +12,18 @@
     height: fit-content;
 
     @include media-breakpoint-down(lg) {
-      margin-bottom: 20px;
+      position: static;
+      margin-bottom: $space-5;
     }
 
     .tag {
-      @include vc-tag($vc-text-light);
+      @include vc-eyebrow($vc-muted-on-dark);
     }
 
     .sub-heading {
       @include vc-p($vc-text-light);
-      margin: 0;
+      color: $vc-muted-on-dark;
+      margin: 0 0 $space-4;
     }
 
     .split-text-services {
@@ -45,71 +43,81 @@
         line-height: 55px;
       }
     }
+
+    .button {
+      @include vc-button-big($vc-primary, $vc-text-light);
+    }
   }
 
-  .service-container {
-    position: relative;
-    display: flex;
-    gap: 30px;
-    flex-direction: column;
+  .service-bento {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-3;
 
-    // Sticky config
-    //$sticky-start: 50px;     // first child top
-    //$sticky-step: 10px;      // increment per next child
-    //$child-count: 10;        // how many items you want to cover
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 1fr;
+    }
+
+    // In the lg range the section splits into two columns, so a 2-up grid would
+    // make each card cramped; give the cards the full right column instead.
+    @include media-breakpoint-between(lg, xl) {
+      grid-template-columns: 1fr;
+    }
 
     .service {
-      padding: 50px 32px;
-      border-radius: 10px;
-      border: 2px solid $vc-primary;
-      background: $vc-background-dark;
+      @include vc-card($vc-grey-dark-surface, $vc-grey-dark-border);
       display: flex;
-      align-items: center;
-      gap: 20px;
-      //position: sticky;
+      flex-direction: column;
+      gap: $space-3;
+      cursor: pointer;
 
-      @include media-breakpoint-down(lg) {
-        padding: 30px;
-        align-items: flex-start;
+      &:hover {
+        border-color: $vc-primary;
+        transform: translateY(-4px);
       }
 
-      // Generate incremental top offsets
-      //@for $i from 1 through $child-count {
-      //  &:nth-child(#{$i}) {
-      //    top: $sticky-start + ($sticky-step * ($i - 1));
-      //  }
-      //}
+      .service-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background: $vc-primary-tint;
 
-      img {
-        width: 50px;
-        height: 50px;
-        margin-left: -5px;
-        margin-bottom: 10px;
-
-        @include media-breakpoint-down(lg) {
-          width: 40px;
-          height: 40px;
+        img {
+          width: 28px;
+          height: 28px;
         }
       }
 
       h3 {
         @include vc-h4($vc-text-light);
-        margin-bottom: 20px;
+        font-size: 22px;
+        margin-bottom: $space-1;
       }
 
       p {
         @include vc-body($vc-text-light);
-
-        @include media-breakpoint-up(lg) {
-          margin: 0;
-        }
+        color: $vc-muted-on-dark;
+        margin: 0 0 $space-2;
       }
 
+      // Subtle text link rather than a filled button (keeps red disciplined)
       .button {
-        @include vc-button-big($vc-primary, $vc-text-light);
+        position: relative;
+        display: inline-block;
+        width: fit-content;
+        margin-top: auto;
+        font-family: $vc-font-family;
+        font-weight: $vc-semi-bold;
+        font-size: 14px;
+        color: $vc-text-light;
+        text-decoration: none;
 
-        @include media-breakpoint-up(lg) {
-          display: none;
+        &:hover {
+          color: $vc-primary;
+          text-decoration: underline;
         }
       }
     }
@@ -120,10 +128,6 @@
   background: $dark-vc-background-dark-alt !important;
 
   .service {
-    background: $dark-vc-background-dark-alt !important;
-  }
-
-  .button:hover {
-    color: $vc-text-light !important;
+    background: $vc-grey-dark-surface !important;
   }
 }

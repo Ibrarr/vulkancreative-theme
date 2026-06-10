@@ -30,11 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '../components/reduced-motion';
 gsap.registerPlugin(DrawSVGPlugin);
 
 document.addEventListener('DOMContentLoaded', () => {
+    const logoPaths = "header .logo svg > path:nth-of-type(n+7):nth-of-type(-n+16)";
+
+    // Reduced motion: show the finished (filled) logo with no draw-in animation.
+    if (prefersReducedMotion()) {
+        gsap.set(logoPaths, { visibility: "visible", fillOpacity: 1, strokeOpacity: 0 });
+        return;
+    }
+
     gsap.set(
-        "header .logo svg > path:nth-of-type(n+7):nth-of-type(-n+16)",
+        logoPaths,
         {
             visibility: "visible",
             drawSVG: "0%",

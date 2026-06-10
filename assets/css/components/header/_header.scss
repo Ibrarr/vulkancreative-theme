@@ -3,6 +3,7 @@ header {
   position: fixed;
   z-index: 99;
   background: $vc-background-white;
+  border-bottom: 1px solid $vc-grey-200;
   transition: background 0.3s, top 0.75s;
   top: -102px;
 
@@ -66,6 +67,7 @@ header {
 
 @at-root body.dark-mode header {
   background: $dark-vc-background-dark !important;
+  border-bottom-color: $vc-grey-dark-border !important;
 
   .theme-toggle svg {
     fill: $vc-text-light !important;

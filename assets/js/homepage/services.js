@@ -1,13 +1,15 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {SplitText} from "gsap/SplitText";
-import { shadowCursor } from "../components/shadow-cursor";
+import { SplitText } from 'gsap/SplitText';
+import { prefersReducedMotion } from '../components/reduced-motion';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-shadowCursor('.services');
+const reduceMotion = prefersReducedMotion();
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (reduceMotion) return;
+
     gsap.from('.services .tag', {
         opacity: 0,
         y: 20,
@@ -35,13 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    gsap.from('.service-container', {
+    gsap.from('.service-bento', {
         opacity: 0,
         y: 30,
         duration: 0.8,
         ease: 'power2.out',
         scrollTrigger: {
-            trigger: '.service-container',
+            trigger: '.service-bento',
             start: 'top 95%',
             toggleActions: 'play none none none',
             once: true
@@ -51,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.fonts.ready.then(() => {
     gsap.set('.split-text-services', { opacity: 1 });
+
+    if (reduceMotion) return;
 
     const split = SplitText.create('.split-text-services', {
         type: 'words,lines',
@@ -77,60 +81,27 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
-jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
-
-    // Detect touch devices
-    const isTouchDevice = () => {
-        return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-    };
-
-    if (isTouchDevice()) {
-        return; // Exit the script for touch devices
-    }
-
-    // Track mouse movement
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-    });
-
-    // Handle mouse entering `.service` elements
+// Make each service card clickable (scrolls to its target / enquiry form).
+jQuery(document).ready(function() {
     const services = document.querySelectorAll('.service');
 
     services.forEach(service => {
-        service.addEventListener('mouseenter', () => {
-            cursor.classList.remove('dot');
-            cursor.classList.add('expanded');
-            cursor.innerHTML = '<span class="learn-more-cursor">Enquire<br>Now</span>';
-        });
-
-        service.addEventListener('mouseleave', () => {
-            cursor.classList.remove('expanded');
-            cursor.innerHTML = '';
-            cursor.classList.add('dot');
-        });
-
         service.addEventListener('click', (e) => {
             const link = service.querySelector('a.button');
-            if (link) {
-                const href = link.getAttribute('href');
-                if (href) {
-                    // Check if it's an anchor link (starts with #)
-                    if (href.startsWith('#')) {
-                        const id = href.slice(1);
-                        const target = document.getElementById(id);
-                        if (target) {
-                            e.preventDefault(); // Prevent default anchor behaviour
-                            target.scrollIntoView({ behavior: 'smooth' });
-                            // Optional: clean up URL without the hash
-                            history.replaceState(null, '', window.location.pathname);
-                        }
-                    } else {
-                        // Regular link - navigate normally
-                        window.location.href = href;
-                    }
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            if (!href) return;
+
+            if (href.startsWith('#')) {
+                const target = document.getElementById(href.slice(1));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+                    history.replaceState(null, '', window.location.pathname);
                 }
+            } else {
+                window.location.href = href;
             }
         });
     });

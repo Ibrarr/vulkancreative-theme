@@ -1,10 +1,15 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {SplitText} from "gsap/SplitText";
+import { SplitText } from 'gsap/SplitText';
+import { prefersReducedMotion } from '../components/reduced-motion';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+const reduceMotion = prefersReducedMotion();
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (reduceMotion) return;
+
     gsap.from('.contact .tag', {
         opacity: 0,
         y: 20,
@@ -49,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.fonts.ready.then(() => {
     gsap.set('.split-text-contact', { opacity: 1 });
 
+    if (reduceMotion) return;
+
     const split = SplitText.create('.split-text-contact', {
         type: 'words,lines',
         linesClass: 'line',
@@ -74,26 +81,13 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
+// Highlight the active field label in brand red on focus.
 jQuery(document).ready(function($) {
-    const cursor = document.querySelector('.custom-cursor');
-
-    $('.gform_button.button, input[type="text"], input[type="email"], textarea').on('mouseenter', function() {
-        cursor.classList.add('hidden');
-    });
-
-    // Handle mouse leaving a button
-    $('.gform_button.button, input[type="text"], input[type="email"], textarea').on('mouseleave', function() {
-        cursor.classList.remove('hidden');
-    });
-
-    $('input[type="text"], input[type="email"], textarea').focus(function() {
-        // Find the closest parent div, then find the label associated with this input
+    $('input[type="text"], input[type="email"], textarea').on('focus', function() {
         $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '#FF3B30');
     });
 
-    // When input loses focus
-    $('input[type="text"], input[type="email"], textarea').blur(function() {
-        // Reset label colour
+    $('input[type="text"], input[type="email"], textarea').on('blur', function() {
         $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '');
     });
 });

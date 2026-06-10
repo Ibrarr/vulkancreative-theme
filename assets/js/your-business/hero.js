@@ -76,20 +76,9 @@ function initializeAllAnimations() {
         }
     });
 
-    // Hero form cursor and label handlers
+    // Hero form label handlers
     if (window.jQuery) {
         const $ = window.jQuery;
-        const cursor = document.querySelector('.custom-cursor');
-
-        if (cursor) {
-            $('.yb-hero .hero-form-container .gform_button.button, .yb-hero .hero-form-container input[type="text"], .yb-hero .hero-form-container input[type="email"], .yb-hero .hero-form-container textarea').on('mouseenter', function() {
-                cursor.classList.add('hidden');
-            });
-
-            $('.yb-hero .hero-form-container .gform_button.button, .yb-hero .hero-form-container input[type="text"], .yb-hero .hero-form-container input[type="email"], .yb-hero .hero-form-container textarea').on('mouseleave', function() {
-                cursor.classList.remove('hidden');
-            });
-        }
 
         $('.yb-hero .hero-form-container input[type="text"], .yb-hero .hero-form-container input[type="email"], .yb-hero .hero-form-container textarea').focus(function() {
             $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '#FF3B30');

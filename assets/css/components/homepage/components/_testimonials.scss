@@ -1,0 +1,154 @@
+.testimonials {
+  @include vc-section-padding;
+  background: $vc-background-dark;
+  overflow: hidden;
+  transition: background 0.3s;
+
+  .content {
+    max-width: 680px;
+    margin-bottom: $space-6;
+
+    .tag {
+      @include vc-eyebrow($vc-muted-on-dark);
+    }
+
+    h2 {
+      @include vc-h1($vc-text-light);
+      margin: 0;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .trust-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $space-5;
+    margin-bottom: $space-6;
+
+    .trust-logo {
+      height: 30px;
+      width: auto;
+      opacity: 0.7;
+      filter: grayscale(100%) brightness(2);
+      transition: $vc-transition-all;
+
+      &:hover {
+        opacity: 1;
+        filter: grayscale(0%) brightness(1);
+      }
+    }
+  }
+
+  .testimonial-card {
+    position: relative;
+    background: $vc-grey-dark-surface;
+    border: 1px solid $vc-grey-dark-border;
+    border-radius: 10px;
+    padding: $space-5;
+    height: 100%;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+
+    &:hover {
+      border-color: rgba($vc-primary, 0.6);
+    }
+
+    // Subtle editorial quote mark.
+    &::before {
+      content: '\201C';
+      position: absolute;
+      top: $space-2;
+      right: $space-4;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 72px;
+      line-height: 1;
+      color: $vc-primary;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    @include media-breakpoint-down(lg) {
+      padding: $space-4;
+    }
+
+    blockquote {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: $space-4;
+      height: 100%;
+
+      p {
+        @include vc-p($vc-text-light);
+        font-weight: $vc-medium;
+        margin: 0;
+      }
+
+      cite {
+        font-style: normal;
+        margin-top: auto;
+
+        .t-name {
+          display: block;
+          font-family: $vc-font-family;
+          font-weight: $vc-semi-bold;
+          font-size: 16px;
+          color: $vc-text-light;
+        }
+
+        .t-company {
+          display: block;
+          font-family: $vc-font-family;
+          font-size: 14px;
+          color: $vc-muted-on-dark;
+        }
+      }
+    }
+  }
+
+  .splide__pagination {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $space-1;
+    margin-top: $space-5;
+    padding: 0;
+
+    li {
+      line-height: 0;
+    }
+
+    .splide__pagination__page {
+      display: block;
+      width: 8px;
+      height: 8px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba($vc-text-light, 0.25);
+      opacity: 1;
+      transition: $vc-transition-all;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba($vc-text-light, 0.5);
+      }
+
+      &.is-active {
+        width: 28px;
+        background: $vc-primary;
+        transform: none;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .testimonials {
+  background: $dark-vc-background-dark-alt !important;
+}

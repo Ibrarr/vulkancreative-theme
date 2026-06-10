@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: $dc-background-off-white;
+  background-color: $vc-background-white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,4 +34,8 @@
 
 body.loading {
   overflow: hidden;
+}
+
+@at-root body.dark-mode #preloader {
+  background-color: $dark-vc-background-dark;
 }

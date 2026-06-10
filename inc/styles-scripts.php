@@ -8,6 +8,9 @@ function add_custom_scripts() {
 
     if ( is_front_page() ) {
         wp_enqueue_script( 'homepage', VC_TEMPLATE_URI . mix('/js/homepage.js'), [ 'jquery' ], null, true );
+        // Tell webpack where to load lazily-imported chunks from (the theme's dist dir),
+        // otherwise dynamic imports resolve against the site root on WordPress.
+        wp_add_inline_script( 'homepage', 'window.__vc_public_path=' . wp_json_encode( VC_TEMPLATE_URI . '/dist/' ) . ';', 'before' );
     }
 
     if ( is_single() ) {

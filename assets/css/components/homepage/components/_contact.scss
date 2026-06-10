@@ -16,7 +16,7 @@
     }
 
     .tag {
-      @include vc-tag($vc-primary);
+      @include vc-eyebrow($vc-grey-600);
     }
 
     p {
@@ -56,7 +56,7 @@
       label {
         font-family: $vc-font-family;
         font-size: 14px;
-        color: $vc-disabled;
+        color: $vc-grey-600;
         font-weight: $vc-semi-bold;
         margin: 0;
         transition: $vc-transition-all;
@@ -85,7 +85,7 @@
         font-weight: $vc-medium;
         font-size: 16px !important;
         border: none;
-        border-bottom: 1px solid $vc-disabled;
+        border-bottom: 1px solid $vc-grey-400;
         border-radius: 0;
         background: none;
         box-shadow: none;
@@ -136,6 +136,14 @@
 @at-root body.dark-mode .contact {
   h2, p, input, .gform_confirmation_message, textarea {
     color: $vc-text-light !important;
+  }
+
+  label {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .tag {
+    color: $vc-muted-on-dark !important;
   }
 
   .button:hover {

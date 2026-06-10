@@ -2,14 +2,15 @@
             <footer id="footer" role="contentinfo">
                 <div class="container px-4">
                     <div class="row">
-                        <div class="col-lg-6 left">
+                        <div class="col-lg-5 left">
                             <div class="footer-logo"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?></div>
                             <div class="form">
                                 <p>Subscribe to our newsletter for the latest updates.</p>
                                 <?php echo do_shortcode( '[gravityform id="3" title="false" description="false" ajax="true"]' ); ?>
                             </div>
                         </div>
-                        <div class="col-lg-2 offset-lg-2 footer-menu">
+                        <div class="col-lg-3 offset-lg-1 footer-menu">
+                            <p class="footer-heading">Explore</p>
                             <nav id="footer-menu" role="navigation" itemscope
                                  itemtype="https://schema.org/SiteNavigationElement">
                                 <?php
@@ -25,7 +26,8 @@
                                 ?>
                             </nav>
                         </div>
-                        <div class="col-lg-2 socials">
+                        <div class="col-lg-3 socials">
+                            <p class="footer-heading">Follow us</p>
                             <div class="social-inner">
                                 <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></i> LinkedIn</a>
                                 <a href="https://www.tiktok.com/@vulkancreative" target="_blank"><i><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></i> TikTok</a>

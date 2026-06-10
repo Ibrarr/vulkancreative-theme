@@ -1,23 +1,28 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { fireworkEffect } from '../components/firework-button-effect';
+import { prefersReducedMotion } from '../components/reduced-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Add CSS to prevent initial flash - run immediately
-const hideStyle = document.createElement('style');
-hideStyle.id = 'animation-hide-style';
-hideStyle.textContent = `
-    .hero h1,
-    .hero .bottom,
-    .split-text-hero,
-    .dynamic-text,
-    .spark path {
-        opacity: 0 !important;
-    }
-`;
-document.head.appendChild(hideStyle);
+const reduceMotion = prefersReducedMotion();
+
+// Prevent a flash of un-animated content on load. Skipped under reduced motion,
+// where everything must stay visible from first paint.
+if (!reduceMotion) {
+    const hideStyle = document.createElement('style');
+    hideStyle.id = 'animation-hide-style';
+    hideStyle.textContent = `
+        .hero h1,
+        .hero .bottom,
+        .split-text-hero,
+        .dynamic-text,
+        .spark path {
+            opacity: 0 !important;
+        }
+    `;
+    document.head.appendChild(hideStyle);
+}
 
 // Simple loading state tracker
 let domReady = false;
@@ -25,7 +30,6 @@ let fontsReady = false;
 
 function initializeWhenReady() {
     if (domReady && fontsReady) {
-        // Small delay to ensure everything is settled
         setTimeout(() => {
             initializeAllAnimations();
         }, 100);
@@ -33,11 +37,18 @@ function initializeWhenReady() {
 }
 
 function initializeAllAnimations() {
-    // Remove the specific CSS hiding styles now that we're ready
     const hideStyleElement = document.getElementById('animation-hide-style');
     if (hideStyleElement) hideStyleElement.remove();
 
-    // Hero animations (keep original)
+    // Reduced motion: show everything statically. The first rolling word is shown
+    // by CSS; the remaining words stay in the DOM (for SEO) but out of view.
+    if (reduceMotion) {
+        gsap.set(['.hero h1', '.hero .bottom', '.split-text-hero', '.dynamic-text'], { opacity: 1, y: 0 });
+        document.querySelectorAll('.spark path').forEach((path) => gsap.set(path, { opacity: 1 }));
+        return;
+    }
+
+    // Hero heading
     const heroContentTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.hero',
@@ -47,23 +58,12 @@ function initializeAllAnimations() {
     });
 
     heroContentTimeline.fromTo('.hero h1',
-        {
-            opacity: 0,
-            y: 50
-        },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power2.out'
-        }
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
     );
 
     gsap.fromTo('.hero .bottom',
-        {
-            opacity: 0,
-            y: 30
-        },
+        { opacity: 0, y: 30 },
         {
             opacity: 1,
             y: 0,
@@ -78,7 +78,7 @@ function initializeAllAnimations() {
         }
     );
 
-    // Split text (keep original)
+    // Split text
     gsap.set(".split-text-hero", { opacity: 1 });
 
     let split;
@@ -100,12 +100,11 @@ function initializeAllAnimations() {
         }
     });
 
-    // Rolling words (keep original logic)
+    // Rolling words
     const dynamicText = document.querySelector(".dynamic-text");
     const words = document.querySelectorAll(".dynamic-text .word");
 
     if (dynamicText && words.length > 0) {
-        // Make dynamic text visible now
         gsap.set(dynamicText, { opacity: 1 });
 
         let animationInterval = null;
@@ -173,11 +172,10 @@ function initializeAllAnimations() {
         }, 1000);
     }
 
-    // Spark SVG (keep original)
+    // Spark SVG
     const paths = document.querySelectorAll(".spark path");
 
     paths.forEach((path) => {
-        // Make spark visible now
         gsap.set(path, { opacity: 1 });
 
         const length = path.getTotalLength();
@@ -218,24 +216,6 @@ function initializeAllAnimations() {
 
         animatePath();
     });
-
-    // Button effects (keep original)
-    if (window.jQuery) {
-        const $ = window.jQuery;
-        const cursor = document.querySelector('.custom-cursor');
-
-        if (cursor) {
-            $('.disable-custom-cursor').on('mouseenter', function() {
-                cursor.classList.add('hidden');
-            });
-
-            $('.disable-custom-cursor').on('mouseleave', function() {
-                cursor.classList.remove('hidden');
-            });
-        }
-
-        fireworkEffect('.hero .button');
-    }
 }
 
 // DOM ready

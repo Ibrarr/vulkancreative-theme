@@ -1,5 +1,5 @@
 .main-menu {
-  padding: 25px 0;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@
 
     svg {
       transition: $vc-transition-all;
-      width: 180px;
+      width: 160px;
       height: auto;
 
       > path:nth-of-type(7),

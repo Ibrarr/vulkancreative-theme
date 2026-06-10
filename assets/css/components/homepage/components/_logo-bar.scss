@@ -1,10 +1,16 @@
 .logo-bar {
-  padding: 40px 0;
+  padding: $space-6 0;
   overflow: hidden;
-  background: #262626;
+  background: $vc-grey-dark-surface;
 
   @include media-breakpoint-down(lg) {
-    padding: 35px 0;
+    padding: $space-5 0;
+  }
+
+  .logo-bar-label {
+    @include vc-eyebrow($vc-muted-on-dark);
+    text-align: center;
+    margin-bottom: $space-4;
   }
 
   .splide__slide {

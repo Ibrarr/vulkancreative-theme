@@ -45,8 +45,6 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<div class="custom-cursor"></div>
-
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="<?php if ( is_front_page() ) { echo 'hero-active'; }; ?>">
         <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) { echo 'container '; } ?>px-4">
@@ -72,7 +70,7 @@
                         }
                         ?>
                     </nav>
-                    <div class="theme-toggle disable-custom-cursor" title="Toggle theme">
+                    <div class="theme-toggle" title="Toggle theme">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -127,7 +125,7 @@
                         }
                         ?>
                     </nav>
-                    <div class="theme-toggle disable-custom-cursor" title="Toggle theme">
+                    <div class="theme-toggle" title="Toggle theme">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2em"
