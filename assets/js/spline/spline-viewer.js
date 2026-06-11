@@ -35,13 +35,37 @@ function loadSpline(container) {
     import('@splinetool/viewer')
         .then(() => {
             const splineEl = document.createElement('spline-viewer');
-            splineEl.setAttribute('loading-anim-type', 'spinner-big-dark');
             splineEl.setAttribute('url', SCENE_URL);
             splineEl.className = 'hero-spline';
+
+            // Crossfade: the scene fades in over the poster once it has
+            // genuinely rendered, so there is never a hard pop or a
+            // misaligned double statue.
+            let revealed = false;
+            const reveal = () => {
+                if (revealed) return;
+                revealed = true;
+                container.classList.add('spline-ready');
+            };
+
+            splineEl.addEventListener('load-complete', reveal);
+            splineEl.addEventListener('load', reveal);
+
+            // Fallback: watch for the rendered canvas, then allow a few
+            // frames before the swap.
+            const poll = setInterval(() => {
+                if (splineEl.shadowRoot && splineEl.shadowRoot.querySelector('canvas')) {
+                    clearInterval(poll);
+                    setTimeout(reveal, 500);
+                }
+            }, 250);
+            setTimeout(() => clearInterval(poll), 30000);
+
             container.appendChild(splineEl);
         })
         .catch(() => {
-            /* On failure, the poster (if any) remains. */
+            // Scene failed to load: fall back to the static poster.
+            addPoster(container);
         });
 }
 
@@ -49,10 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.hero .graphic');
     if (!container) return;
 
-    addPoster(container);
+    // Reduced motion or smaller screens never load the 3D scene, so they get
+    // the static poster. Desktop gets no placeholder at all: the scene fades
+    // in over the molten glow once it has rendered.
+    if (prefersReducedMotion() || window.innerWidth < DESKTOP_MIN) {
+        addPoster(container);
+        return;
+    }
 
-    // Reduced motion or smaller screens: keep the static poster only.
-    if (prefersReducedMotion() || window.innerWidth < DESKTOP_MIN) return;
+    // Hold the heavy scene boot until the hero intro has settled. On a warm
+    // reload everything is cached, so an immediate idle callback would land
+    // the ~400ms engine compile in the middle of the headline animation and
+    // visibly freeze it.
+    const INTRO_SETTLE_MS = 2400;
 
     const start = () => {
         if ('requestIdleCallback' in window) {
@@ -62,9 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const afterIntro = () => setTimeout(start, INTRO_SETTLE_MS);
+
     if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(start);
+        document.fonts.ready.then(afterIntro);
     } else {
-        start();
+        afterIntro();
     }
 });

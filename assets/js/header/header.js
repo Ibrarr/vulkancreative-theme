@@ -1,31 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const header        = document.getElementById("header");
+    const header = document.getElementById("header");
 
-    // On the Your Business landing page, keep header fixed at top with no scroll behaviour
+    // On the Your Business landing page, keep header static with no scroll behaviour
     if (document.body.classList.contains('page-template-page-your-business')) {
-        header.style.top = "0";
         return;
     }
 
-    let   prevScrollPos = window.pageYOffset;
+    const SURFACE_AT = 24;  // px scrolled before the bar gains a surface
+    const HIDE_AFTER = 160; // px scrolled before scroll-down hides the bar
 
-    if (prevScrollPos <= 97) {
-        header.style.top = "0";
-    } else {
-        header.style.top = "-102px";
-    }
+    let prevScrollPos = window.pageYOffset;
 
-    window.addEventListener("scroll", () => {
+    // Hide-on-scroll-down only arms after a genuine interaction, so deep
+    // links and other programmatic scrolls (which also fire scroll events)
+    // never hide the bar on arrival.
+    let userHasInteracted = false;
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((type) => {
+        window.addEventListener(type, () => {
+            userHasInteracted = true;
+        }, { once: true, passive: true });
+    });
+
+    const updateHeader = (isScrollEvent) => {
         const currentScrollPos = window.pageYOffset;
 
-        if (prevScrollPos > currentScrollPos || currentScrollPos <= 97) {
-            header.style.top = "0";
-        } else {
-            header.style.top = "-102px";
+        header.classList.toggle('header--scrolled', currentScrollPos > SURFACE_AT);
+
+        if (isScrollEvent && userHasInteracted) {
+            if (currentScrollPos < prevScrollPos || currentScrollPos <= HIDE_AFTER) {
+                header.classList.remove('header--hidden');
+            } else if (currentScrollPos > prevScrollPos) {
+                header.classList.add('header--hidden');
+            }
+        } else if (!isScrollEvent) {
+            header.classList.remove('header--hidden');
         }
 
         prevScrollPos = currentScrollPos;
-    });
+    };
+
+    // Throttle to animation frames: scroll events can fire several times per
+    // frame, and each run touches classes and a CSS variable.
+    let ticking = false;
+    const onScroll = () => {
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(() => {
+                ticking = false;
+                updateHeader(true);
+            });
+        }
+    };
+
+    updateHeader(false);
+    window.addEventListener("scroll", onScroll, { passive: true });
 });
 
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';

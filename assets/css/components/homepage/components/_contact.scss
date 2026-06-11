@@ -1,39 +1,47 @@
+// Closing conversion moment: enquiry form in a raised panel.
 .contact {
-  padding: 120px 0;
-
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
 
   .content {
+    .tag {
+      @include vc-eyebrow-tick($vc-grey-600);
+    }
+
     h2 {
-      @include vc-h1($vc-text-dark);
+      @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
+      opacity: 1;
 
       span {
         color: $vc-primary;
       }
     }
 
-    .tag {
-      @include vc-eyebrow($vc-grey-600);
-    }
-
-    p {
-      @include vc-p($vc-text-dark);
+    .sub-heading {
+      @include vc-p($vc-grey-600);
       margin: 0;
-      max-width: 75%;
+      max-width: 90%;
       transition: color 0.3s;
-
-      @include media-breakpoint-down(lg) {
-        max-width: 85%;
-      }
     }
   }
 
   .form {
     @include media-breakpoint-down(lg) {
-      margin-top: 40px;
+      margin-top: $space-5;
+    }
+
+    .form-container {
+      background: $vc-background-white;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      padding: $space-5;
+      transition: background-color .3s, border-color .3s;
+
+      @include media-breakpoint-down(md) {
+        padding: $space-4 $space-3;
+      }
     }
 
     .gform_wrapper.contact-form_wrapper .contact-form {
@@ -113,9 +121,9 @@
 
       input[type="submit"] {
         margin-top: 10px;
-        @include vc-button-big($vc-primary);
+        @include vc-button-forge;
         cursor: pointer !important;
-        padding: 18px 35px;
+        padding: 16px 35px;
       }
     }
 
@@ -134,19 +142,36 @@
 }
 
 @at-root body.dark-mode .contact {
-  h2, p, input, .gform_confirmation_message, textarea {
+  background: $dark-vc-background-dark-alt !important;
+
+  .content .tag {
+    color: $vc-primary !important;
+  }
+
+  h2, p, input[type="text"], input[type="email"], .gform_confirmation_message, textarea {
     color: $vc-text-light !important;
+  }
+
+  .sub-heading {
+    color: $vc-muted-on-dark !important;
   }
 
   label {
     color: $vc-muted-on-dark !important;
   }
 
-  .tag {
-    color: $vc-muted-on-dark !important;
+  .form .form-container {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
   }
 
-  .button:hover {
-    color: $vc-text-light !important;
+  .form .gform_wrapper.contact-form_wrapper .contact-form {
+    input[type="text"], input[type="email"], textarea {
+      border-bottom-color: rgba($vc-text-light, 0.35) !important;
+
+      &:focus {
+        border-bottom-color: $vc-primary !important;
+      }
+    }
   }
 }

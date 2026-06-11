@@ -1,0 +1,182 @@
+{
+    "key": "group_case_study_a3f81c",
+    "title": "Case Study",
+    "fields": [
+        {
+            "key": "field_cs_0001",
+            "label": "Client Name",
+            "name": "cs_client_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown as the card title on the homepage work section.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Acme Ltd",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cs_0002",
+            "label": "Sector",
+            "name": "cs_sector",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short industry label, for example Property, Events, Ecommerce.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Property",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cs_0003",
+            "label": "Summary",
+            "name": "cs_summary",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One or two sentences on what was done and the outcome.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_cs_0004",
+            "label": "Metric Value",
+            "name": "cs_metric_value",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The headline number, for example 2.4x or 68%.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "2.4x",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cs_0005",
+            "label": "Metric Label",
+            "name": "cs_metric_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "What the number means.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "increase in qualified leads",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cs_0007",
+            "label": "Image",
+            "name": "cs_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Shown at the top of the homepage card. Landscape works best.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_cs_0006",
+            "label": "Featured",
+            "name": "cs_featured",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Featured case studies appear on the homepage work section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "allow_in_bindings": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "case_study"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1781103646
+}

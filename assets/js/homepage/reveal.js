@@ -1,31 +1,75 @@
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText);
 
-// Subtle entrance fade for the headings of sections that don't use SplitText
-// (results, process, testimonials). The data grids (stats, steps, testimonials)
-// stay static so they can never be left hidden if a trigger misfires. Mirrors the
-// proven pattern used by the other homepage modules. Skipped under reduced motion.
+// Section entrances without pops: with motion allowed, the targets are hidden
+// at load (they all sit below the fold) and revealed by IntersectionObserver
+// as they enter the viewport — headings with a SplitText line-mask rise,
+// everything else with a gentle fade. Under reduced motion, without JS, or
+// without IntersectionObserver nothing is ever hidden.
 document.addEventListener('DOMContentLoaded', () => {
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    gsap.utils.toArray('.results .content, .process .content, .testimonials .content').forEach((el) => {
-        gsap.from(el, {
-            opacity: 0,
-            y: 24,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: el,
-                start: 'top 95%',
-                toggleActions: 'play none none none',
+    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .process .content h2, .testimonials .content h2');
+    const fades = gsap.utils.toArray('.results .content .tag, .work .content .tag, .process .content .tag, .process .content .sub-heading, .testimonials .content .tag');
+    const steps = gsap.utils.toArray('.process .process-steps .process-step');
+
+    // Hide up front, before the user can ever see these sections.
+    gsap.set([...headings, ...fades, ...steps], { opacity: 0, y: 24 });
+
+    const showHeading = (el) => {
+        SplitText.create(el, {
+            type: 'lines',
+            linesClass: 'line',
+            mask: 'lines',
+            autoSplit: false,
+            onSplit(self) {
+                gsap.set(el, { opacity: 1, y: 0 });
+                return gsap.from(self.lines, {
+                    yPercent: 110,
+                    opacity: 0,
+                    duration: 0.7,
+                    stagger: 0.09,
+                    ease: 'expo.out',
+                });
             },
         });
-    });
+    };
 
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => ScrollTrigger.refresh());
+    const showFade = (el) => {
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' });
+    };
+
+    const handlers = new Map();
+    headings.forEach((el) => handlers.set(el, showHeading));
+    fades.forEach((el) => handlers.set(el, showFade));
+
+    // The steps stagger in together when the grid enters
+    const stepsGrid = document.querySelector('.process .process-steps');
+    if (stepsGrid && steps.length) {
+        handlers.set(stepsGrid, () => {
+            gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' });
+        });
     }
+
+    // Reveal immediately on intersect. The display fonts are preloaded, so
+    // they are long settled by the time anything below the fold is reached;
+    // waiting on document.fonts here can stall reveals behind unrelated late
+    // font requests and make whole sections pop in together.
+    const fire = (el) => {
+        const fn = handlers.get(el);
+        if (fn) fn(el);
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            fire(entry.target);
+            obs.unobserve(entry.target);
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+
+    handlers.forEach((fn, el) => observer.observe(el));
 });

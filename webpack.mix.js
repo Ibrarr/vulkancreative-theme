@@ -10,6 +10,7 @@ mix.js([
 mix.js([
     'assets/js/header/header.js',
     'assets/js/header/mobile-menu.js',
+    'assets/js/header/scrollspy.js',
 ], 'js/header.js');
 
 mix.js([
@@ -19,10 +20,12 @@ mix.js([
 mix.js([
     'assets/js/spline/spline-viewer.js',
     'assets/js/homepage/hero.js',
-    'assets/js/homepage/logo-bar.js',
+    'assets/js/homepage/marquee.js',
     'assets/js/homepage/why.js',
     'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
+    'assets/js/homepage/work.js',
+    'assets/js/homepage/process.js',
     'assets/js/homepage/testimonials.js',
     'assets/js/homepage/reveal.js',
     'assets/js/homepage/counter.js',

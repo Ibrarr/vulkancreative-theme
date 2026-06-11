@@ -1,108 +1,104 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
-const reduceMotion = prefersReducedMotion();
+// Stop mobile browser address-bar show/hide from forcing full ScrollTrigger
+// refreshes mid-scroll (a common source of jank on phones).
+ScrollTrigger.config({ ignoreMobileResize: true });
 
+// Services: on desktop (with motion allowed) the section grows tall, its
+// inner viewport sticks natively, and the panel track scrubs horizontally
+// with the scroll. Native position: sticky instead of ScrollTrigger pinning,
+// so there is no fixed-position swap (and no layout shift or boundary jump).
+// Below lg, and under reduced motion, it stays a vertical rail.
 document.addEventListener('DOMContentLoaded', () => {
-    if (reduceMotion) return;
+    const section = document.querySelector('.services');
+    if (!section) return;
 
-    gsap.from('.services .tag', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.services .tag',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-            once: true
-        }
-    });
+    const rail = section.querySelector('.service-rail');
+    const track = section.querySelector('.service-track');
+    if (!rail || !track) return;
 
-    gsap.from('.services .sub-heading', {
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        delay: 0.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.services .sub-heading',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-            once: true
-        }
-    });
+    const mm = gsap.matchMedia();
 
-    gsap.from('.service-bento', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.service-bento',
-            start: 'top 95%',
-            toggleActions: 'play none none none',
-            once: true
-        }
-    });
-});
+    mm.add('(min-width: 992px) and (prefers-reduced-motion: no-preference)', () => {
+        const distance = () => Math.max(0, track.scrollWidth - rail.clientWidth);
+        const setHeight = () => {
+            section.style.height = `${window.innerHeight + distance()}px`;
+        };
 
-document.fonts.ready.then(() => {
-    gsap.set('.split-text-services', { opacity: 1 });
+        setHeight();
 
-    if (reduceMotion) return;
-
-    const split = SplitText.create('.split-text-services', {
-        type: 'words,lines',
-        linesClass: 'line',
-        mask: 'lines',
-        autoSplit: true
-    });
-
-    gsap.from(split.lines, {
-        yPercent: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        delay: 0.15,
-        ease: 'expo.out',
-        scrollTrigger: {
-            trigger: '.split-text-services',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-            once: true
-        }
-    });
-
-    ScrollTrigger.refresh();
-});
-
-// Make each service card clickable (scrolls to its target / enquiry form).
-jQuery(document).ready(function() {
-    const services = document.querySelectorAll('.service');
-
-    services.forEach(service => {
-        service.addEventListener('click', (e) => {
-            const link = service.querySelector('a.button');
-            if (!link) return;
-
-            const href = link.getAttribute('href');
-            if (!href) return;
-
-            if (href.startsWith('#')) {
-                const target = document.getElementById(href.slice(1));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-                    history.replaceState(null, '', window.location.pathname);
-                }
-            } else {
-                window.location.href = href;
-            }
+        gsap.to(track, {
+            x: () => -distance(),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onRefreshInit: setHeight,
+            },
         });
+
+        // Keyboard support: when a panel link receives focus, move the page
+        // scroll to the position that brings that panel into view.
+        const onFocus = (e) => {
+            const panel = e.target.closest('.service-row');
+            if (!panel) return;
+            const d = distance();
+            if (!d) return;
+            const sectionTop = section.getBoundingClientRect().top + window.pageYOffset;
+            const progress = Math.min(1, Math.max(0, panel.offsetLeft / d));
+            window.scrollTo({ top: sectionTop + progress * d, behavior: 'auto' });
+        };
+        track.addEventListener('focusin', onFocus);
+
+        return () => {
+            track.removeEventListener('focusin', onFocus);
+            section.style.height = '';
+        };
     });
+
+    // Vertical rail entrance (tablet/mobile, motion allowed): rows are hidden
+    // up front (below the fold) and staggered in, so the reveal never pops.
+    mm.add('(max-width: 991.98px) and (prefers-reduced-motion: no-preference)', () => {
+        if (!('IntersectionObserver' in window)) return;
+
+        const rows = section.querySelectorAll('.service-row');
+        gsap.set(rows, { opacity: 0, y: 24 });
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                gsap.to(rows, { opacity: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'power2.out' });
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -4% 0px' });
+
+        observer.observe(rail);
+
+        return () => {
+            observer.disconnect();
+            gsap.set(rows, { opacity: 1, y: 0 });
+        };
+    });
+
+    if (!prefersReducedMotion()) {
+        gsap.from('.services .services-head', {
+            opacity: 0,
+            y: 24,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.services .services-head',
+                start: 'top 95%',
+                toggleActions: 'play none none none',
+                once: true,
+            },
+        });
+    }
 });

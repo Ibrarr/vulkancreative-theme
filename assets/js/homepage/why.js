@@ -1,8 +1,9 @@
+import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
 
-// The Why cards are visible by default (set in CSS). On scroll-in we add `.is-in`
-// for a subtle slide-up and restart the animated icon. IntersectionObserver is used
-// instead of ScrollTrigger so the cards can never be left stuck hidden.
+// The Why rows are visible by default (set in CSS). On scroll-in each row
+// rises in and restarts its animated icon. IntersectionObserver is used
+// instead of ScrollTrigger so the rows can never be left stuck hidden.
 document.addEventListener('DOMContentLoaded', () => {
     const boxes = document.querySelectorAll('.why .why-boxes');
     if (!boxes.length) return;
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => showLoopingIcon(box), 1800);
     };
 
-    if (reduceMotion) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
         boxes.forEach((box) => {
             box.classList.add('is-in');
             showLoopingIcon(box);
@@ -45,15 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Hidden at load (the section is below the fold) so the reveal never pops.
+    gsap.set(boxes, { opacity: 0, y: 28 });
+
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             const box = entry.target;
             box.classList.add('is-in');
+            gsap.to(box, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
             playIcon(box);
             obs.unobserve(box);
         });
-    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.2, rootMargin: '0px 0px -4% 0px' });
 
     boxes.forEach((box) => observer.observe(box));
 });

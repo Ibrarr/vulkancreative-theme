@@ -4,19 +4,12 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    <script>document.documentElement.classList.add('js');</script>
+
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Archivo-Variable.woff2'; ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Regular.woff2'; ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-SemiBold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-
-    <script>
-        <?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
-            document.documentElement.classList.add('dark-mode');
-        <?php else : ?>
-            if (localStorage.getItem('darkMode') === 'enabled') {
-                document.documentElement.classList.add('dark-mode');
-            }
-        <?php endif; ?>
-    </script>
 
 	<?php wp_head(); ?>
 
@@ -43,6 +36,15 @@
     <!-- End Meta Pixel Code -->
 </head>
 <body <?php body_class(); ?>>
+<?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
+<script>
+    try {
+        if (localStorage.getItem('darkMode') === 'disabled') {
+            document.body.classList.remove('dark-mode');
+        }
+    } catch (e) {}
+</script>
+<?php endif; ?>
 <?php wp_body_open(); ?>
 
 <div id="wrapper" class="hfeed">
@@ -70,7 +72,7 @@
                         }
                         ?>
                     </nav>
-                    <div class="theme-toggle" title="Toggle theme">
+                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -99,19 +101,19 @@
                                 </g>
                             </g>
                         </svg>
-                    </div>
+                    </button>
                 </div>
-                <div class="mobile-menu-icons">
-                    <div class="open"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/menu.svg' ) ?></div>
-                    <div class="close"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/cross.svg' ) ?></div>
-                </div>
+                <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                    <span class="open"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/menu.svg' ) ?></span>
+                    <span class="close"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/icons/cross.svg' ) ?></span>
+                </button>
                 <?php endif; ?>
             </div>
 
             <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
-                    <nav id="nav" role="navigation" itemscope
+                    <nav id="nav-mobile" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
                         if (is_front_page()) {
@@ -125,37 +127,44 @@
                         }
                         ?>
                     </nav>
-                    <div class="theme-toggle" title="Toggle theme">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             aria-hidden="true"
-                             width="2em"
-                             height="2em"
-                             fill="currentColor"
-                             stroke-linecap="round"
-                             class="theme-toggle__classic"
-                             viewBox="0 0 32 32">
-                            <defs>
-                                <clipPath id="clip-path-2">
-                                    <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
-                                </clipPath>
-                            </defs>
-                            <g clip-path="url(#clip-path-2)">
-                                <circle cx="50%" cy="50%" r="9.34" />
-                                <circle cx="50%" cy="50%" r="6.34" />
-                                <g stroke="currentColor" stroke-width="1.5">
-                                    <path d="M16 5.5v-4" />
-                                    <path d="M16 30.5v-4" />
-                                    <path d="M1.5 16h4" />
-                                    <path d="M26.5 16h4" />
-                                    <path d="m23.4 8.6 2.8-2.8" />
-                                    <path d="m5.7 26.3 2.9-2.9" />
-                                    <path d="m5.8 5.8 2.8 2.8" />
-                                    <path d="m23.4 23.4 2.9 2.9" />
+                    <div class="mobile-menu-extras">
+                        <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 aria-hidden="true"
+                                 width="2em"
+                                 height="2em"
+                                 fill="currentColor"
+                                 stroke-linecap="round"
+                                 class="theme-toggle__classic"
+                                 viewBox="0 0 32 32">
+                                <defs>
+                                    <clipPath id="clip-path-2">
+                                        <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+                                    </clipPath>
+                                </defs>
+                                <g clip-path="url(#clip-path-2)">
+                                    <circle cx="50%" cy="50%" r="9.34" />
+                                    <circle cx="50%" cy="50%" r="6.34" />
+                                    <g stroke="currentColor" stroke-width="1.5">
+                                        <path d="M16 5.5v-4" />
+                                        <path d="M16 30.5v-4" />
+                                        <path d="M1.5 16h4" />
+                                        <path d="M26.5 16h4" />
+                                        <path d="m23.4 8.6 2.8-2.8" />
+                                        <path d="m5.7 26.3 2.9-2.9" />
+                                        <path d="m5.8 5.8 2.8 2.8" />
+                                        <path d="m23.4 23.4 2.9 2.9" />
+                                    </g>
                                 </g>
-                            </g>
-                        </svg>
+                            </svg>
+                        </button>
+                        <div class="mobile-socials">
+                            <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank" rel="noopener" aria-label="LinkedIn"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></a>
+                            <a href="https://www.tiktok.com/@vulkancreative" target="_blank" rel="noopener" aria-label="TikTok"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></a>
+                            <a href="https://www.instagram.com/vulkancreative/" target="_blank" rel="noopener" aria-label="Instagram"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/instagram.svg' ) ?></a>
+                            <a href="https://www.youtube.com/@VulkanCreative" target="_blank" rel="noopener" aria-label="YouTube"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/youtube.svg' ) ?></a>
+                        </div>
                     </div>
-
                 </div>
             </div>
             <?php endif; ?>

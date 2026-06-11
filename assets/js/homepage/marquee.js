@@ -1,11 +1,16 @@
 import Splide from '@splidejs/splide';
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+import { prefersReducedMotion } from '../components/reduced-motion';
 
+// Client logo marquee at the base of the hero. Under reduced motion the
+// carousel is left static (draggable, no auto-scroll).
 document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('logo-splide');
     if (!el) return;
 
-    new Splide(el, {
+    const reduceMotion = prefersReducedMotion();
+
+    const options = {
         type: 'loop',
         drag: 'free',
         focus: 'center',
@@ -13,11 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         gap: '60px',
         arrows: false,
         pagination: false,
-        autoScroll: {
-            speed: 0.8,
-            pauseOnHover: false,
-            pauseOnFocus: false,
-        },
         breakpoints: {
             992: {
                 perPage: 4,
@@ -28,5 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 gap: '30px',
             },
         },
-    }).mount({ AutoScroll });
+    };
+
+    if (reduceMotion) {
+        new Splide(el, options).mount();
+        return;
+    }
+
+    options.autoScroll = {
+        speed: 0.8,
+        pauseOnHover: false,
+        pauseOnFocus: false,
+    };
+
+    new Splide(el, options).mount({ AutoScroll });
 });

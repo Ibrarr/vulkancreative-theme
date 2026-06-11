@@ -1,19 +1,19 @@
+// Proof band straight after the hero: oversized red counters on hairline rules.
 .results {
   @include vc-section-padding;
-  background: $vc-background-white;
+  background: $vc-surface-white;
   transition: background 0.3s;
 
   .content {
-    max-width: 680px;
     margin-bottom: $space-6;
 
     .tag {
-      @include vc-eyebrow($vc-grey-600);
+      @include vc-eyebrow-tick($vc-grey-600);
     }
 
     h2 {
-      @include vc-h1($vc-text-dark);
-      margin: 0;
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
 
       span {
         color: $vc-primary;
@@ -21,35 +21,25 @@
     }
   }
 
-  .stats-grid {
-    .stat {
-      padding-top: $space-3;
-      border-top: 2px solid $vc-grey-200;
-      height: 100%;
-    }
+  .stat {
+    border-top: 1px solid $vc-grey-200;
+    padding-top: $space-3;
+    padding-right: $space-3;
+    transition: border-color .3s;
 
     .stat-number {
-      display: block;
-      font-family: $vc-font-family;
-      font-weight: $vc-bold;
-      font-size: 56px;
-      line-height: 1.05;
+      font-family: $vc-display-font;
+      font-weight: $vc-black;
+      font-stretch: $vc-display-stretch;
+      font-size: clamp(2.875rem, 2.75vw + 0.75rem, 4.25rem);
+      line-height: 1;
       color: $vc-primary;
-      margin-bottom: $space-1;
-
-      @include media-breakpoint-down(lg) {
-        font-size: 44px;
-      }
-
-      @include media-breakpoint-down(sm) {
-        font-size: 38px;
-      }
+      display: block;
     }
 
     .stat-label {
-      @include vc-body($vc-text-dark);
-      color: $vc-grey-600;
-      margin: 0;
+      @include vc-body($vc-grey-600);
+      margin: 12px 0 0;
     }
   }
 }
@@ -57,19 +47,19 @@
 @at-root body.dark-mode .results {
   background: $dark-vc-background-dark !important;
 
-  .tag {
-    color: $vc-muted-on-dark !important;
+  .content .tag {
+    color: $vc-primary !important;
   }
 
-  h2 {
+  .content h2 {
     color: $vc-text-light !important;
   }
 
   .stat {
     border-top-color: $vc-grey-dark-border !important;
-  }
 
-  .stat-label {
-    color: $vc-muted-on-dark !important;
+    .stat-label {
+      color: $vc-muted-on-dark !important;
+    }
   }
 }

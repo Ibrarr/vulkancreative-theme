@@ -174,6 +174,114 @@
   }
 }
 
+// Forge button — solid red primary with heat-glow hover (sharper geometry).
+// White label on brand red per client preference (3.6:1 — passes large-text
+// and UI thresholds; bold weight keeps it legible).
+@mixin vc-button-forge {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
+  font-size: 16px;
+  background-color: $vc-primary;
+  color: #FFFFFF;
+  padding: 14px 30px;
+  border: 1px solid $vc-primary;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: box-shadow .3s, background-color .3s, color .3s, border-color .3s;
+  opacity: 1;
+  z-index: 1;
+
+  @include media-breakpoint-down(lg) {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+
+  &:hover {
+    color: #FFFFFF;
+    background-color: $vc-secondary;
+    border-color: $vc-secondary;
+    box-shadow: 0 8px 30px rgba($vc-primary, 0.35);
+  }
+}
+
+// Ghost button — hairline secondary action
+@mixin vc-button-ghost($color) {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  font-family: $vc-font-family;
+  font-weight: $vc-semi-bold;
+  font-size: 16px;
+  background-color: transparent;
+  color: $color;
+  padding: 14px 30px;
+  border: 1px solid rgba($color, 0.45);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: border-color .3s, color .3s, box-shadow .3s;
+  opacity: 1;
+  z-index: 1;
+
+  @include media-breakpoint-down(lg) {
+    font-size: 15px;
+    padding: 12px 24px;
+  }
+
+  &:hover {
+    color: $vc-primary;
+    border-color: $vc-primary;
+  }
+}
+
+// Display type (Archivo variable, expanded width) — hero headlines
+@mixin vc-display-1($color) {
+  font-family: $vc-display-font;
+  font-weight: $vc-black;
+  font-stretch: $vc-display-stretch;
+  font-size: clamp(2.5rem, 4.5vw + 0.625rem, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: $color;
+  margin-bottom: 24px;
+  opacity: 1;
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 14px;
+  }
+}
+
+// Display type — section headings
+@mixin vc-display-2($color) {
+  font-family: $vc-display-font;
+  font-weight: $vc-black;
+  font-stretch: $vc-display-stretch;
+  font-size: clamp(2rem, 3.25vw + 0.75rem, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: $color;
+  margin-bottom: 20px;
+  opacity: 1;
+
+  @include media-breakpoint-down(lg) {
+    margin-bottom: 10px;
+  }
+}
+
+// Display type — card titles / sub-headings
+@mixin vc-display-3($color) {
+  font-family: $vc-display-font;
+  font-weight: $vc-bold;
+  font-stretch: $vc-display-stretch-tight;
+  font-size: clamp(1.375rem, 1.25vw + 0.875rem, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: $color;
+  opacity: 1;
+}
+
 // Consistent section rhythm (matches existing 120px/60px paddings)
 @mixin vc-section-padding {
   padding: $space-15 0;
@@ -189,6 +297,23 @@
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+// Eyebrow with a red tick mark prefix. Use a neutral $color on light surfaces
+// (small red text fails contrast on light backgrounds); the tick carries the
+// brand accent instead.
+@mixin vc-eyebrow-tick($color) {
+  @include vc-eyebrow($color);
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: $vc-primary;
+    vertical-align: middle;
+    margin-right: 12px;
+  }
 }
 
 // Neutral-led card (hairline border, soft surface) — red reserved for accents

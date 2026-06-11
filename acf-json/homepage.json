@@ -11,8 +11,12 @@
             "instructions": "Intro line below the hero headline.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
-            "default_value": "We forge brands and websites that perform. Strategy, design, development and content that turn attention into customers and lasting growth.",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -28,7 +32,11 @@
             "instructions": "Primary hero call to action (links to the contact form).",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "Start a project",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -45,7 +53,11 @@
             "instructions": "Small label shown above the client logo bar.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "Trusted by ambitious brands",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -62,7 +74,11 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "By the numbers",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -79,7 +95,11 @@
             "instructions": "Wrap a word in <span></span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "Results That Matter",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -96,7 +116,11 @@
             "instructions": "Headline stats. Leave empty to show the default placeholders.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "table",
             "pagination": 0,
             "min": 0,
@@ -114,7 +138,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "30", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -132,7 +160,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "70", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -152,7 +184,11 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "How we work",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -169,7 +205,11 @@
             "instructions": "Wrap a word in <span></span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "A Clear Path From Spark to Scale",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -186,7 +226,11 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -203,7 +247,11 @@
             "instructions": "How-we-work steps. Leave empty to show the default placeholders.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "table",
             "pagination": 0,
             "min": 0,
@@ -221,7 +269,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "30", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -239,7 +291,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "70", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -259,7 +315,11 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "What clients say",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -276,7 +336,11 @@
             "instructions": "Wrap a word in <span></span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "Trusted by Ambitious Brands",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -293,7 +357,11 @@
             "instructions": "Client quotes. Leave empty to show the default placeholders.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "block",
             "pagination": 0,
             "min": 0,
@@ -311,7 +379,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -329,7 +401,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -347,7 +423,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "50", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -367,7 +447,11 @@
             "instructions": "Optional client/partner logos shown above the testimonials.",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "layout": "table",
             "pagination": 0,
             "min": 0,
@@ -385,7 +469,11 @@
                     "instructions": "",
                     "required": 1,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "return_format": "array",
                     "library": "all",
                     "min_width": "",
@@ -408,7 +496,11 @@
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
-                    "wrapper": { "width": "", "class": "", "id": "" },
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
                     "default_value": "",
                     "maxlength": "",
                     "allow_in_bindings": 0,
@@ -418,6 +510,321 @@
                     "parent_repeater": "field_hp_0014"
                 }
             ]
+        },
+        {
+            "key": "field_hp_0016",
+            "label": "Hero Secondary Button Text",
+            "name": "hp_hero_secondary_button_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Secondary hero call to action (links to the work section).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "See the results",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0017",
+            "label": "Services Tag",
+            "name": "hp_services_tag",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "What we do",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0018",
+            "label": "Services Heading",
+            "name": "hp_services_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Built around one goal: your growth.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0019",
+            "label": "Services Description",
+            "name": "hp_services_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Six services, one joined-up team. Pick what you need now and scale when you are ready.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0020",
+            "label": "Work Tag",
+            "name": "hp_work_tag",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Recent work",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0021",
+            "label": "Work Heading",
+            "name": "hp_work_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red. Cards come from featured Case Studies.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Forged with our clients.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0022",
+            "label": "Why Tag",
+            "name": "hp_why_tag",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Why Vulkan",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0023",
+            "label": "Why Heading",
+            "name": "hp_why_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Why Choose Vulkan?",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0024",
+            "label": "Why Subheading",
+            "name": "hp_why_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "A dedicated partner, not a distant supplier. Three things we never compromise on.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0025",
+            "label": "Story Tag",
+            "name": "hp_story_tag",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Inside the forge",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0026",
+            "label": "Story Heading",
+            "name": "hp_story_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Our Story",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0027",
+            "label": "Story Description",
+            "name": "hp_story_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "We built Vulkan to do agency work properly: in person, honest about what works and measured by what it returns. Press play to meet the team you would be working with.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0028",
+            "label": "Contact Tag",
+            "name": "hp_contact_tag",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Let’s talk",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0029",
+            "label": "Contact Heading",
+            "name": "hp_contact_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Have a project you want to discuss?",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0030",
+            "label": "Contact Subheading",
+            "name": "hp_contact_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Tell us where you want to be. We will reply within one working day with a clear next step.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
         }
     ],
     "location": [
@@ -443,5 +850,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781400000
+    "modified": 1781135153
 }

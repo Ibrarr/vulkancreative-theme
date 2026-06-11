@@ -1,139 +1,45 @@
+// Full-bleed forge hero: dark in both modes, molten glow, statue layer right,
+// oversized kinetic headline, logo marquee at the base.
 .hero {
   position: relative;
-  overflow: hidden;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: $vc-background-dark;
+  overflow: clip;
 
-  .row {
-    height: 85vh;
-
-    @include media-breakpoint-down(sm) {
-      height: 75vh;
-    }
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    h1 {
-      font-family: $vc-font-family;
-      font-weight: $vc-bold;
-      font-size: 69px;
-      margin-bottom: 20px;
-      color: $vc-text-dark;
-      opacity: 0;
-      transition: color 0.3s;
-
-      @include media-breakpoint-down(xl) {
-        font-size: 50px;
-        margin-bottom: 10px;
-      }
-
-      .spark svg {
-        position: absolute;
-        left: -34px;
-        top: 29px;
-        width: 60px;
-        height: 60px;
-        transform: rotate(352deg);
-
-        @include media-breakpoint-down(xl) {
-          left: -37px;
-          top: 14px;
-        }
-
-        @include media-breakpoint-down(lg) {
-          width: 45px;
-          height: 45px;
-          left: -26px;
-          top: 21px;
-        }
-
-        path {
-          stroke: $vc-primary;
-          stroke-width: 1;
-          fill: transparent;
-          stroke-linecap: round;
-        }
-      }
-
-      span.red {
-        color: $vc-primary;
-        position: relative;
-        display: inline-block;
-      }
-    }
-
-    .dynamic-text {
-      display: inline-block;
-      overflow: hidden;
-      height: 1.25em;
-      line-height: 1.25em;
-      position: relative;
-      margin-bottom: -13px;
-    }
-
-    .word {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      transform: translateY(100%);
-      white-space: nowrap;
-      opacity: 0;
-      visibility: visible;
-      overflow: hidden;
-    }
-
-    .word:first-child {
-      transform: translateY(0);
-    }
-
-    .split-text-hero {
-      @include vc-p($vc-text-dark);
-      margin-bottom: 20px;
-      opacity: 0;
-      will-change: transform;
-      transition: color 0.3s;
-
-      & * {
-        will-change: transform;
-      }
-
-      @include media-breakpoint-up(lg) {
-        width: 75%;
-      }
-    }
-
-    .bottom {
-      opacity: 0;
-    }
-
-    .button {
-      @include vc-button-big($vc-primary);
-      cursor: pointer !important;
-
-      &:hover {
-        background: $vc-background-white;
-      }
-    }
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(52% 62% at 76% 44%, $vc-glow 0%, transparent 70%),
+      radial-gradient(42% 38% at 8% 102%, rgba($vc-secondary, 0.14) 0%, transparent 70%);
   }
 
   .graphic {
-    position: relative;
-    z-index: -1;
-    height: 100%;
-    position: absolute !important;
-    right: -550px;
+    position: absolute;
     top: 0;
-    width: 100%;
+    right: -10%;
+    bottom: 0;
+    width: 62%;
+    z-index: 1;
+    will-change: transform;
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
 
     @include media-breakpoint-down(xl) {
-      right: -450px;
+      width: 68%;
+      right: -12%;
     }
 
     @include media-breakpoint-down(lg) {
-      display: none;
+      width: 100%;
+      right: 0;
+      opacity: 0.28;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 45%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 45%);
     }
 
     .hero-poster,
@@ -146,23 +52,199 @@
     }
 
     .hero-poster {
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+      object-position: center right;
+      opacity: 1;
+      transition: opacity 0.9s ease;
+
+      @include media-breakpoint-down(lg) {
+        object-position: center top;
+      }
     }
 
+    // The interactive scene fades in over the poster once it has rendered,
+    // so the swap is a crossfade rather than a misaligned double image.
     .hero-spline {
       z-index: 1;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+
+    &.spline-ready {
+      .hero-poster {
+        opacity: 0;
+      }
+
+      .hero-spline {
+        opacity: 1;
+      }
+    }
+  }
+
+  .hero-content-wrap {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: $space-6;
+
+    @include media-breakpoint-down(lg) {
+      padding-top: 110px;
+    }
+  }
+
+  .content {
+    h1 {
+      @include vc-display-1($vc-text-light);
+      text-transform: uppercase;
+      margin-top: 0;
+      margin-bottom: $space-3;
+      opacity: 0;
+      transition: none;
+
+      .h1-line {
+        display: block;
+      }
+
+      .dynamic-text {
+        display: block;
+        overflow: hidden;
+        height: 1.02em;
+        line-height: 0.95;
+        position: relative;
+        color: $vc-primary;
+      }
+
+      .word {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(100%);
+        white-space: nowrap;
+        opacity: 0;
+        visibility: visible;
+        overflow: hidden;
+      }
+
+      .word:first-child {
+        transform: translateY(0);
+      }
+
+      .red {
+        color: $vc-primary;
+      }
+    }
+
+    .split-text-hero {
+      @include vc-p($vc-muted-on-dark);
+      max-width: 560px;
+      margin-bottom: $space-4;
+      opacity: 0;
+      will-change: transform;
+
+      & * {
+        will-change: transform;
+      }
+    }
+
+    .bottom {
+      opacity: 0;
+      display: flex;
+      gap: $space-3;
+      flex-wrap: wrap;
+
+      .button {
+        @include vc-button-forge;
+        cursor: pointer !important;
+      }
+
+      .button-ghost {
+        @include vc-button-ghost($vc-text-light);
+        cursor: pointer !important;
+      }
+    }
+  }
+
+  .hero-marquee {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid $vc-grey-dark-border;
+    padding: $space-4 0;
+
+    // Reserve the carousel's height before Splide mounts so the logos never
+    // cause a layout shift, and ease them in once the carousel is live.
+    .splide {
+      height: 30px;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+
+      &.is-active {
+        opacity: 1;
+      }
+
+      &:not(.is-active) {
+        .splide__list {
+          display: flex;
+          align-items: center;
+          gap: 60px;
+        }
+
+        .splide__slide {
+          flex: 0 0 auto;
+        }
+      }
+    }
+
+    .splide__slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 26px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+        filter: grayscale(1) brightness(0) invert(1);
+        opacity: 0.55;
+        transition: opacity .3s;
+      }
+
+      &:hover img {
+        opacity: 0.9;
+      }
     }
   }
 }
 
+// The hero stays dark in both modes; only the body behind it changes.
 @at-root body.dark-mode .hero {
-  h1, p {
-    color: $vc-text-light !important;
-  }
+  background: $dark-vc-background-dark-alt !important;
+}
 
-  .button:hover {
-    background: $dark-vc-background-dark !important;
-    color: $vc-text-light !important;
+// Hide the hero reveal targets from the very first paint (stylesheet-level,
+// so a warm reload can never flash them before the script-injected hiding
+// used to arrive). Gated on html.js, set by an inline pre-paint script; the
+// zero-duration delayed animation is a failsafe that shows everything at
+// 2.8s even if the bundle never runs. Reduced motion is force-shown by
+// misc/_motion.scss with !important.
+@at-root html.js body.home.page .hero {
+  h1,
+  .split-text-hero,
+  .bottom,
+  .dynamic-text {
+    opacity: 0;
+    animation: vc-hero-failsafe 0s 2.8s forwards;
+  }
+}
+
+@keyframes vc-hero-failsafe {
+  to {
+    opacity: 1;
   }
 }

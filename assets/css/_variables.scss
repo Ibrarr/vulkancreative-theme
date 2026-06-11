@@ -5,12 +5,16 @@
 
 // Typography
 $vc-font-family: "Poppins", serif;
+$vc-display-font: "Archivo", "Poppins", sans-serif; // variable font: wght 100-900, wdth 62-125%
+$vc-display-stretch: 125%; // expanded width for display headings
+$vc-display-stretch-tight: 110%; // slightly expanded for sub-display sizes
 
 $vc-light: 300;
 $vc-normal: 400;
 $vc-medium: 500;
 $vc-semi-bold: 600;
 $vc-bold: 700;
+$vc-black: 900;
 
 // Colors Light Mode
 $vc-background-white: #F5F5F5;
@@ -39,6 +43,9 @@ $vc-grey-400: #9A9A9A; // meta / large muted text on light (large text only)
 $vc-grey-600: #595959; // muted body text on light (~6.9:1 on #F5F5F5)
 $vc-grey-700: #404040; // strong muted text on light (~9.7:1)
 
+$vc-surface-white: #FFFFFF; // raised card surface on light bg
+$vc-background-deep: #0D0D0D; // deepest dark band (footer in dark mode)
+
 // Dark mode surfaces / muted text
 $vc-grey-dark-surface: #262626; // raised card surface on dark
 $vc-grey-dark-border: rgba(245, 245, 245, 0.10); // hairline on dark
@@ -47,6 +54,12 @@ $vc-muted-on-dark: #B5B5B5; // muted text on #1E1E1E (~7.4:1)
 // Accent tints (derived from brand red, no new hue)
 $vc-primary-tint: rgba($vc-primary, 0.08);
 $vc-primary-line: rgba($vc-primary, 0.20);
+
+// Molten accents (forge glow system — derived from brand red/orange only)
+$vc-glow: rgba($vc-primary, 0.22); // radial glow centre on dark surfaces
+$vc-glow-soft: rgba($vc-primary, 0.10); // outer glow / light mode heat tint
+$vc-ember-line: rgba($vc-secondary, 0.35); // hot hairline rules on dark
+$vc-ember-line-light: rgba($vc-secondary, 0.25); // hot hairline rules on light
 
 // Spacing scale (8px base)
 $space-1: 8px;

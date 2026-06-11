@@ -1,0 +1,200 @@
+// Featured case studies as an expanding image gallery: image-led panels that
+// grow on hover/focus and reveal the summary. Cards come from the case_study
+// post type (cs_featured). Stacked with everything visible below lg.
+.work {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  .content {
+    margin-bottom: $space-6;
+
+    .tag {
+      @include vc-eyebrow-tick($vc-grey-600);
+    }
+
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .work-gallery {
+    display: flex;
+    gap: $space-2;
+
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+
+  .case-panel {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
+    min-height: 540px;
+    border-radius: 2px;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid $vc-grey-200;
+    transition: flex .55s cubic-bezier(0.4, 0, 0.2, 1), border-color .3s;
+
+    .case-bg {
+      position: absolute;
+      inset: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(0.25);
+        transition: transform .6s ease, filter .5s ease;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(13, 13, 13, 0.92) 0%, rgba(13, 13, 13, 0.4) 55%, rgba(13, 13, 13, 0.15) 100%);
+      }
+    }
+
+    .case-overlay {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: $space-4;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-sector {
+      @include vc-eyebrow(rgba($vc-text-light, 0.85));
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .case-client {
+      @include vc-display-3($vc-text-light);
+      margin-bottom: 4px;
+    }
+
+    .case-summary {
+      display: block;
+      @include vc-body(rgba($vc-text-light, 0.85));
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height .5s ease, opacity .4s ease .05s, color .3s;
+    }
+
+    .case-metric {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-top: $space-2;
+      padding-top: $space-2;
+      border-top: 1px solid rgba($vc-text-light, 0.25);
+
+      .metric-value {
+        font-family: $vc-display-font;
+        font-weight: $vc-black;
+        font-stretch: $vc-display-stretch;
+        font-size: clamp(2rem, 1.75vw + 0.75rem, 2.75rem);
+        line-height: 1;
+        color: $vc-primary;
+      }
+
+      .metric-label {
+        @include vc-body(rgba($vc-text-light, 0.8));
+        font-size: 13px;
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      flex: 1.9;
+      border-color: rgba($vc-primary, 0.55);
+
+      .case-bg img {
+        transform: scale(1.06);
+        filter: grayscale(0);
+      }
+
+      .case-summary {
+        max-height: 200px;
+        opacity: 1;
+      }
+    }
+
+    @include media-breakpoint-down(lg) {
+      min-height: 380px;
+
+      .case-summary {
+        max-height: none;
+        opacity: 1;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .work-outro {
+    @include vc-p($vc-grey-600);
+    margin: $space-6 0 0;
+    transition: color .3s;
+
+    a {
+      color: $vc-text-dark;
+      font-weight: $vc-semi-bold;
+      text-decoration: underline;
+      text-decoration-color: $vc-primary;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      transition: color .3s;
+
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .work {
+  background: $dark-vc-background-dark !important;
+
+  .content .tag {
+    color: $vc-primary !important;
+  }
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .case-panel {
+    border-color: $vc-grey-dark-border !important;
+
+    &:hover,
+    &:focus-visible {
+      border-color: rgba($vc-primary, 0.6) !important;
+    }
+  }
+
+  .work-outro {
+    color: $vc-muted-on-dark !important;
+
+    a {
+      color: $vc-text-light !important;
+
+      &:hover {
+        color: $vc-primary !important;
+      }
+    }
+  }
+}

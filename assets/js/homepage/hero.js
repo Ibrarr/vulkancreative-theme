@@ -7,22 +7,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = prefersReducedMotion();
 
-// Prevent a flash of un-animated content on load. Skipped under reduced motion,
-// where everything must stay visible from first paint.
-if (!reduceMotion) {
-    const hideStyle = document.createElement('style');
-    hideStyle.id = 'animation-hide-style';
-    hideStyle.textContent = `
-        .hero h1,
-        .hero .bottom,
-        .split-text-hero,
-        .dynamic-text,
-        .spark path {
-            opacity: 0 !important;
-        }
-    `;
-    document.head.appendChild(hideStyle);
-}
+// The hero reveal targets are hidden from first paint by the stylesheet
+// (html.js gate in _hero.scss) so a warm reload can never flash them; this
+// module only has to reveal them. A CSS failsafe shows everything at 2.8s
+// if this script never runs, and reduced motion is force-shown in CSS.
 
 // Simple loading state tracker
 let domReady = false;
@@ -30,25 +18,31 @@ let fontsReady = false;
 
 function initializeWhenReady() {
     if (domReady && fontsReady) {
-        setTimeout(() => {
-            initializeAllAnimations();
-        }, 100);
+        initializeAllAnimations();
     }
 }
 
 function initializeAllAnimations() {
-    const hideStyleElement = document.getElementById('animation-hide-style');
-    if (hideStyleElement) hideStyleElement.remove();
-
     // Reduced motion: show everything statically. The first rolling word is shown
     // by CSS; the remaining words stay in the DOM (for SEO) but out of view.
     if (reduceMotion) {
         gsap.set(['.hero h1', '.hero .bottom', '.split-text-hero', '.dynamic-text'], { opacity: 1, y: 0 });
-        document.querySelectorAll('.spark path').forEach((path) => gsap.set(path, { opacity: 1 }));
         return;
     }
 
-    // Hero heading
+    // The statue drifts gently as the hero scrolls away
+    gsap.to('.hero .graphic', {
+        yPercent: 7,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+        },
+    });
+
+    // Hero heading: eyebrow first, then the headline rises in
     const heroContentTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.hero',
@@ -57,10 +51,11 @@ function initializeAllAnimations() {
         }
     });
 
-    heroContentTimeline.fromTo('.hero h1',
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
-    );
+    heroContentTimeline
+        .fromTo('.hero h1',
+            { opacity: 0, y: 60 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
+        );
 
     gsap.fromTo('.hero .bottom',
         { opacity: 0, y: 30 },
@@ -68,7 +63,7 @@ function initializeAllAnimations() {
             opacity: 1,
             y: 0,
             duration: 0.8,
-            delay: 0.75,
+            delay: 0.6,
             ease: 'power2.out',
             scrollTrigger: {
                 trigger: '.hero .bottom',
@@ -93,7 +88,7 @@ function initializeAllAnimations() {
                 yPercent: 100,
                 opacity: 0,
                 stagger: 0.2,
-                delay: 0.2,
+                delay: 0.4,
                 ease: "expo.out",
             });
             return split;
@@ -143,7 +138,7 @@ function initializeAllAnimations() {
 
         function startAnimation() {
             if (!animationInterval) {
-                animationInterval = setInterval(animateWords, 2000);
+                animationInterval = setInterval(animateWords, 2400);
             }
         }
 
@@ -169,53 +164,8 @@ function initializeAllAnimations() {
         setTimeout(() => {
             animateWords();
             startAnimation();
-        }, 1000);
+        }, 1400);
     }
-
-    // Spark SVG
-    const paths = document.querySelectorAll(".spark path");
-
-    paths.forEach((path) => {
-        gsap.set(path, { opacity: 1 });
-
-        const length = path.getTotalLength();
-
-        gsap.set(path, {
-            strokeDasharray: length,
-            strokeDashoffset: length,
-            fill: "transparent"
-        });
-
-        const getRandomDuration = (min, max) => Math.random() * (max - min) + min;
-
-        const animatePath = () => {
-            const timeline = gsap.timeline({
-                onComplete: () => animatePath(),
-            });
-
-            timeline
-                .to(path, {
-                    strokeDashoffset: 0,
-                    duration: getRandomDuration(1, 3),
-                    ease: "power1.inOut",
-                })
-                .to(path, {
-                    fill: "#ff4500",
-                    duration: getRandomDuration(0.5, 1.5),
-                }, "-=1")
-                .to(path, {
-                    strokeDashoffset: length,
-                    duration: getRandomDuration(1, 3),
-                    ease: "power1.inOut",
-                })
-                .to(path, {
-                    fill: "transparent",
-                    duration: getRandomDuration(0.5, 1.5),
-                }, "-=1");
-        };
-
-        animatePath();
-    });
 }
 
 // DOM ready

@@ -1,14 +1,62 @@
 header {
   width: 100%;
   position: fixed;
-  z-index: 99;
-  background: $vc-background-white;
-  border-bottom: 1px solid $vc-grey-200;
-  transition: background 0.3s, top 0.75s;
-  top: -102px;
+  top: 0;
+  left: 0;
+  z-index: $z-header;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transform: translateY(0);
+  transition: transform 0.45s ease, background-color 0.3s, border-color 0.3s;
+
+  // Slide down into place on load. backwards fill holds the bar off-screen
+  // during the delay, then releases after the animation so the scroll
+  // hide/show transitions take over. Killed by the reduced-motion rules.
+  @at-root html.js & {
+    animation: vc-header-in 0.6s ease 0.15s backwards;
+  }
 
   @import "components/desktop";
   @import "components/mobile";
+
+  // Surfaced state: near-solid bar with hairline once scrolled, always on
+  // pages without the full-bleed hero, and while the mobile overlay menu is
+  // open. No backdrop blur: it forces a repaint on every scrolled frame
+  // (especially over the WebGL hero) and wrecks scroll smoothness.
+  &.header--scrolled,
+  &.mobile-menu-active,
+  &:not(.hero-active) {
+    background: rgba($vc-background-white, 0.96);
+    border-bottom-color: $vc-grey-200;
+  }
+
+  // Hide on scroll down, reveal on scroll up
+  &.header--hidden:not(.mobile-menu-active) {
+    transform: translateY(-100%);
+  }
+
+  // Transparent over the dark forge hero: light text regardless of mode
+  &.hero-active:not(.header--scrolled):not(.mobile-menu-active) {
+    nav ul li:not(.menu-button) > a {
+      color: $vc-text-light;
+    }
+
+    .theme-toggle {
+      color: $vc-text-light;
+
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+
+    .mobile-menu-toggle svg {
+      fill: $vc-text-light;
+    }
+
+    .main-menu .logo svg path {
+      fill: $vc-text-light;
+    }
+  }
 
   @include media-breakpoint-down(lg) {
     .main-menu .menu-theme-toggle {
@@ -19,61 +67,64 @@ header {
   .menu-theme-toggle {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
   }
 
+  // Sun/moon morph comes from the theme-toggles library; colour is driven
+  // purely by currentColor so it reads correctly on every surface.
   .theme-toggle {
     cursor: pointer;
-    transition: filter .3s;
-
-    &:not(.theme-toggle--toggled) {
-      circle:nth-of-type(1) {
-        transition: $vc-transition-all;
-        stroke: $vc-text-light;
-        stroke-width: 3;
-      }
-
-      circle:nth-of-type(2) {
-        transition: $vc-transition-all;
-        fill: $vc-text-light;
-      }
-    }
+    background: none;
+    border: 0;
+    padding: 0;
+    line-height: 0;
+    color: $vc-text-dark;
+    transition: color .3s;
 
     svg {
+      fill: currentColor;
       transition: $vc-transition-all;
     }
-  }
 
-  .main-menu {
-    .theme-toggle {
-      &:not(.theme-toggle--toggled):hover circle:nth-of-type(2) {
-        fill: $vc-text-dark;
-      }
-
-      &.theme-toggle--toggled:hover {
-        filter: drop-shadow(0px 0px 10px #FF3B30) drop-shadow(0px 0px 15px #FF3B30);
-      }
+    &:hover {
+      color: $vc-primary;
     }
   }
-
-  //&.scrolled .main-menu {
-  //  padding: 22px 0;
-  //
-  //  .logo svg {
-  //    width: 145px;
-  //  }
-  //}
 }
 
 @at-root body.dark-mode header {
-  background: $dark-vc-background-dark !important;
-  border-bottom-color: $vc-grey-dark-border !important;
+  &.header--scrolled,
+  &.mobile-menu-active,
+  &:not(.hero-active) {
+    background: rgba($vc-background-dark, 0.94) !important;
+    border-bottom-color: $vc-grey-dark-border !important;
+  }
 
-  .theme-toggle svg {
-    fill: $vc-text-light !important;
+  .theme-toggle {
+    color: $vc-text-light !important;
+
+    &:hover {
+      color: $vc-primary !important;
+    }
   }
 
   .menu-button:hover a {
     color: $vc-text-light !important;
   }
+}
+
+@keyframes vc-header-in {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+// The Your Business landing page keeps its own static, chrome-free header.
+@at-root body.page-template-page-your-business header {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
 }

@@ -83,28 +83,36 @@ document.fonts.ready.then(() => {
     ScrollTrigger.refresh();
 });
 
-jQuery(document).ready(function() {
-    const content      = document.querySelector('.story .content');
-    const videoWrapper = document.querySelector('.story .video-wrapper');
+// Lazily initialise the video player just before the story section comes
+// into view: booting it at page load competes with the hero intro and adds
+// a visible stutter on warm reloads. The native poster shows until then.
+document.addEventListener('DOMContentLoaded', () => {
+    const story = document.querySelector('.story');
+    const videoEl = document.getElementById('our-story');
+    if (!videoEl) return;
 
-    // Initialise the video player.
-    videojs('our-story');
+    let initialised = false;
+    const init = () => {
+        if (initialised) return;
+        initialised = true;
+        videojs('our-story');
+    };
 
-    // Reduced motion: no scroll-linked scaling; keep content visible at full size.
-    if (reduceMotion) {
-        if (content) gsap.set(content, { opacity: 1, clearProps: 'transform' });
-        if (videoWrapper) gsap.set(videoWrapper, { scale: 1 });
+    if (!story || !('IntersectionObserver' in window)) {
+        init();
         return;
     }
 
-    gsap.timeline({
-        scrollTrigger: {
-            trigger: '.story',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-        },
-    })
-        .to(content, { opacity: 0, scale: 0.8, duration: 0.3, ease: 'power1.out' }, 0)
-        .fromTo(videoWrapper, { scale: 0.8 }, { scale: 1, duration: 0.8, ease: 'power1.out' }, 0.1);
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            init();
+            obs.disconnect();
+        });
+    }, { rootMargin: '800px 0px' });
+
+    observer.observe(story);
+
+    // Failsafe: make sure the player exists even if the observer never fires.
+    setTimeout(init, 8000);
 });

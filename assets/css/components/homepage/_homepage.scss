@@ -1,11 +1,12 @@
 .home.page {
   @import "components/hero";
-  @import "components/logo-bar";
   @import "components/results";
-  @import "components/why";
   @import "components/services";
+  @import "components/work";
+  @import "components/why";
+  @import "components/story";
+  @import "components/text-marquee";
   @import "components/process";
   @import "components/testimonials";
-  @import "components/story";
   @import "components/contact";
 }

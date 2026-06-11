@@ -1,20 +1,22 @@
+// Testimonial spotlight: one oversized quote at a time from the testimonial
+// post type, with autoplay progress, counter and custom arrows.
 .testimonials {
   @include vc-section-padding;
-  background: $vc-background-dark;
-  overflow: hidden;
+  background: $vc-background-white;
   transition: background 0.3s;
+  overflow: hidden;
 
   .content {
-    max-width: 680px;
+    max-width: 720px;
     margin-bottom: $space-6;
 
     .tag {
-      @include vc-eyebrow($vc-muted-on-dark);
+      @include vc-eyebrow-tick($vc-grey-600);
     }
 
     h2 {
-      @include vc-h1($vc-text-light);
-      margin: 0;
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
 
       span {
         color: $vc-primary;
@@ -30,125 +32,228 @@
     margin-bottom: $space-6;
 
     .trust-logo {
-      height: 30px;
+      height: 26px;
       width: auto;
-      opacity: 0.7;
-      filter: grayscale(100%) brightness(2);
-      transition: $vc-transition-all;
+      max-width: 140px;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: 0.6;
+      transition: opacity .3s, filter .3s;
 
       &:hover {
         opacity: 1;
-        filter: grayscale(0%) brightness(1);
+        filter: grayscale(0);
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      gap: $space-3;
+
+      .trust-logo {
+        height: 20px;
       }
     }
   }
 
-  .testimonial-card {
+  .testimonial-spotlight {
     position: relative;
-    background: $vc-grey-dark-surface;
-    border: 1px solid $vc-grey-dark-border;
-    border-radius: 10px;
-    padding: $space-5;
-    height: 100%;
-    overflow: hidden;
-    transition: border-color 0.3s ease;
+    border-top: 1px solid $vc-grey-200;
+    padding-top: $space-6;
+    transition: border-color .3s;
 
-    &:hover {
-      border-color: rgba($vc-primary, 0.6);
-    }
-
-    // Subtle editorial quote mark.
-    &::before {
-      content: '\201C';
-      position: absolute;
-      top: $space-2;
-      right: $space-4;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 72px;
-      line-height: 1;
+    .spotlight-mark {
+      font-family: $vc-display-font;
+      font-weight: $vc-black;
+      font-stretch: $vc-display-stretch;
+      font-size: clamp(5rem, 7vw, 7.5rem);
+      line-height: 0.5;
+      height: 0.5em;
       color: $vc-primary;
-      opacity: 0.16;
-      pointer-events: none;
+      margin-bottom: $space-4;
+      user-select: none;
     }
 
-    @include media-breakpoint-down(lg) {
-      padding: $space-4;
-    }
-
-    blockquote {
+    // Equal slide heights: quotes differ in length, and without a floor the
+    // track height changes per slide, shifting everything below mid-fade.
+    .splide__slide blockquote {
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: $space-4;
-      height: 100%;
+      max-width: 56rem;
+      min-height: 240px;
 
-      p {
-        @include vc-p($vc-text-light);
+      @include media-breakpoint-down(md) {
+        min-height: 300px;
+      }
+
+      .spotlight-quote {
+        font-family: $vc-font-family;
         font-weight: $vc-medium;
-        margin: 0;
+        font-size: clamp(1.375rem, 1.5vw + 0.75rem, 2rem);
+        line-height: 1.5;
+        color: $vc-text-dark;
+        margin-bottom: $space-4;
+        transition: color 0.3s;
       }
 
       cite {
         font-style: normal;
-        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
 
         .t-name {
-          display: block;
           font-family: $vc-font-family;
           font-weight: $vc-semi-bold;
           font-size: 16px;
-          color: $vc-text-light;
+          color: $vc-text-dark;
+          transition: color 0.3s;
         }
 
         .t-company {
-          display: block;
-          font-family: $vc-font-family;
+          @include vc-body($vc-grey-600);
           font-size: 14px;
-          color: $vc-muted-on-dark;
+          transition: color 0.3s;
         }
       }
     }
-  }
 
-  .splide__pagination {
-    position: static;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: $space-1;
-    margin-top: $space-5;
-    padding: 0;
+    .spotlight-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-4;
+      margin-top: $space-6;
 
-    li {
-      line-height: 0;
-    }
+      .spotlight-progress {
+        flex: 1;
+        height: 2px;
+        background: $vc-grey-200;
+        transition: background .3s;
 
-    .splide__pagination__page {
-      display: block;
-      width: 8px;
-      height: 8px;
-      margin: 0;
-      padding: 0;
-      border: 0;
-      border-radius: 999px;
-      background: rgba($vc-text-light, 0.25);
-      opacity: 1;
-      transition: $vc-transition-all;
-      cursor: pointer;
-
-      &:hover {
-        background: rgba($vc-text-light, 0.5);
+        .spotlight-progress-bar {
+          height: 100%;
+          width: 0;
+          background: $vc-primary;
+        }
       }
 
-      &.is-active {
-        width: 28px;
-        background: $vc-primary;
-        transform: none;
+      .spotlight-controls {
+        display: flex;
+        align-items: center;
+        gap: $space-3;
+        flex: 0 0 auto;
+
+        .spotlight-counter {
+          font-family: $vc-font-family;
+          font-weight: $vc-semi-bold;
+          font-size: 13px;
+          letter-spacing: 0.08em;
+          color: $vc-grey-600;
+          transition: color 0.3s;
+
+          .current {
+            color: $vc-text-dark;
+            transition: color 0.3s;
+          }
+        }
+
+        .splide__arrows {
+          display: flex;
+          gap: 8px;
+
+          .splide__arrow {
+            position: static;
+            transform: none;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid $vc-grey-400;
+            border-radius: 2px;
+            color: $vc-text-dark;
+            opacity: 1;
+            cursor: pointer;
+            transition: border-color .3s, color .3s;
+
+            svg {
+              fill: none;
+              width: 18px;
+              height: 18px;
+            }
+
+            &:hover {
+              border-color: $vc-primary;
+              color: $vc-primary;
+            }
+          }
+        }
       }
     }
   }
 }
 
 @at-root body.dark-mode .testimonials {
-  background: $dark-vc-background-dark-alt !important;
+  background: $dark-vc-background-dark !important;
+
+  .content .tag {
+    color: $vc-primary !important;
+  }
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .trust-logos .trust-logo {
+    filter: grayscale(1) brightness(0) invert(1) !important;
+    opacity: 0.55 !important;
+
+    &:hover {
+      opacity: 0.9 !important;
+    }
+  }
+
+  .testimonial-spotlight {
+    border-top-color: $vc-grey-dark-border !important;
+
+    .splide__slide blockquote {
+      .spotlight-quote {
+        color: $vc-text-light !important;
+      }
+
+      cite {
+        .t-name {
+          color: $vc-text-light !important;
+        }
+
+        .t-company {
+          color: $vc-muted-on-dark !important;
+        }
+      }
+    }
+
+    .spotlight-footer {
+      .spotlight-progress {
+        background: rgba($vc-text-light, 0.15) !important;
+      }
+
+      .spotlight-counter {
+        color: $vc-muted-on-dark !important;
+
+        .current {
+          color: $vc-text-light !important;
+        }
+      }
+
+      .splide__arrows .splide__arrow {
+        border-color: rgba($vc-text-light, 0.35) !important;
+        color: $vc-text-light !important;
+
+        &:hover {
+          border-color: $vc-primary !important;
+          color: $vc-primary !important;
+        }
+      }
+    }
+  }
 }

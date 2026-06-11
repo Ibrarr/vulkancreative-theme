@@ -1,0 +1,98 @@
+{
+    "key": "group_testimonial_b7d24e",
+    "title": "Testimonial",
+    "fields": [
+        {
+            "key": "field_tm_0001",
+            "label": "Quote",
+            "name": "tm_quote",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "The testimonial text, without quote marks.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": { "width": "", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
+            "key": "field_tm_0002",
+            "label": "Name",
+            "name": "tm_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": { "width": "34", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Jane Smith",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_tm_0003",
+            "label": "Role",
+            "name": "tm_role",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": { "width": "33", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Marketing Director",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_tm_0004",
+            "label": "Company",
+            "name": "tm_company",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": { "width": "33", "class": "", "id": "" },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Acme Ltd",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "testimonial"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1781089843
+}

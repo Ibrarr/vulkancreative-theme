@@ -1,123 +1,70 @@
+// The footer is the forge floor: dark in both modes, ember hairline on top,
+// oversized cropped wordmark at the base.
 footer {
   background: $vc-background-dark;
-  padding: 60px 0;
+  border-top: 1px solid $vc-ember-line;
+  padding: 80px 0 0;
   position: relative;
   z-index: 1;
   overflow: hidden;
   transition: background 0.3s;
 
   @include media-breakpoint-down(lg) {
-    padding: 45px 0;
+    padding: 56px 0 0;
+  }
+
+  .footer-cta {
+    align-items: center;
+    padding-bottom: $space-8;
+    margin-bottom: $space-8;
+    border-bottom: 1px solid $vc-grey-dark-border;
+
+    @include media-breakpoint-down(lg) {
+      padding-bottom: $space-5;
+      margin-bottom: $space-5;
+    }
+
+    .footer-eyebrow {
+      @include vc-eyebrow($vc-primary);
+      margin-bottom: $space-2;
+    }
+
+    .footer-cta-heading {
+      @include vc-display-2($vc-text-light);
+      margin-bottom: 0;
+      max-width: 14em;
+    }
+
+    .footer-cta-action {
+      @include media-breakpoint-up(lg) {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .button {
+        @include vc-button-forge;
+
+        @include media-breakpoint-down(lg) {
+          margin-top: $space-4;
+        }
+      }
+    }
   }
 
   .left {
     .footer-logo svg {
+      width: 150px;
+      height: auto;
 
       path {
         fill: $vc-text-light;
       }
     }
 
-    .form {
-      margin-top: 30px;
-
-      h2.gform_submission_error.hide_summary {
-        color: $vc-text-light !important;
-      }
-
-      p {
-        @include vc-body($vc-text-light);
-        font-size: 14px;
-        margin-bottom: 15px;
-      }
-
-      .gform_wrapper.newsletter-form_wrapper .newsletter-form {
-        .gform_heading {
-          display: none;
-        }
-
-        .gform_body:after {
-          content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
-          color: $vc-text-light;
-          font-size: 12px;
-          top: 3px;
-          position: relative;
-        }
-
-        .gform_fields {
-          display: flex;
-          column-gap: 0;
-        }
-
-        .gform_validation_errors {
-          width: fit-content;
-          margin: auto auto 20px;
-        }
-
-        .validation_message {
-          display: none;
-        }
-
-        input:focus {
-          border-color: $vc-primary;
-          --gf-local-shadow: none;
-          --gf-local-outline-color: none;
-          outline: none !important;
-        }
-
-        .gfield--type-submit {
-          margin-left: 10px;
-          display: contents;
-        }
-
-        input[type="email"] {
-          font-family: $vc-font-family;
-          font-size: 14px;
-          border-radius: 10px;
-          padding: 15px;
-          height: 45px;
-          box-shadow: none;
-          background: none;
-          border: 1px solid rgba($vc-text-light, 0.4);
-          color: $vc-text-light;
-          transition: $vc-transition-all;
-          width: 100%;
-          max-width: 360px;
-          min-width: 0;
-          flex: 1 1 auto;
-          cursor: text;
-
-          &:focus {
-            border-color: $vc-primary;
-          }
-        }
-
-        input[type="submit"] {
-          @include vc-button($vc-primary);
-          font-size: 14px;
-          cursor: pointer !important;
-          height: 45px;
-          white-space: nowrap;
-          width: 120px;
-
-          &:hover {
-            color: $vc-text-light;
-          }
-        }
-      }
-
-      .gform_footer {
-        display: none;
-      }
-
-      .gform_confirmation_wrapper {
-        .gform_confirmation_message {
-          font-family: $vc-font-family;
-          font-size: 14px;
-          color: $vc-text-dark;
-          font-weight: $vc-normal;
-        }
-      }
+    .footer-line {
+      @include vc-body($vc-muted-on-dark);
+      max-width: 320px;
+      margin: $space-3 0 0;
     }
   }
 
@@ -128,7 +75,7 @@ footer {
 
   .footer-menu {
     @include media-breakpoint-down(lg) {
-      margin-top: 30px;
+      margin-top: $space-5;
     }
 
     ul {
@@ -138,7 +85,7 @@ footer {
 
       li {
         &:not(:last-child) {
-          margin-bottom: 15px;
+          margin-bottom: 14px;
         }
 
         a {
@@ -147,9 +94,27 @@ footer {
           margin: 0;
           cursor: pointer;
           font-size: 14px;
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: -14px;
+            top: 50%;
+            width: 6px;
+            height: 2px;
+            background: $vc-primary;
+            opacity: 0;
+            transition: opacity .3s, left .3s;
+          }
 
           &:hover {
             color: $vc-primary;
+
+            &::before {
+              opacity: 1;
+              left: -10px;
+            }
           }
         }
       }
@@ -158,7 +123,7 @@ footer {
 
   .socials {
     @include media-breakpoint-down(lg) {
-      margin-top: 30px;
+      margin-top: $space-5;
     }
 
     .social-inner {
@@ -184,8 +149,8 @@ footer {
 
       svg {
         cursor: pointer !important;
-        width: 25px;
-        height: 25px;
+        width: 22px;
+        height: 22px;
 
         path {
           fill: $vc-text-light;
@@ -206,7 +171,7 @@ footer {
     }
 
     p, a {
-      @include vc-body($vc-text-light);
+      @include vc-body($vc-muted-on-dark);
       text-decoration: none;
       margin: 0;
       font-size: 14px;
@@ -239,8 +204,31 @@ footer {
       }
     }
   }
+
+  // Oversized brand moment, cropped by the footer's bottom edge. Decorative.
+  .footer-wordmark {
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(6rem, 19vw, 19rem);
+    line-height: 0.72;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba($vc-text-light, 0.05);
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+    margin-top: $space-6;
+    will-change: transform;
+    transition: color 0.3s;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-4;
+    }
+  }
 }
 
 @at-root body.dark-mode footer {
-  background: $dark-vc-background-dark-alt !important;
+  background: $vc-background-deep !important;
 }

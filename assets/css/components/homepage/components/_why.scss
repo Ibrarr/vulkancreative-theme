@@ -1,3 +1,5 @@
+// Differentiators on a dark slab in both modes (the animated icons are drawn
+// for dark backgrounds). Sticky heading column, numbered editorial rows.
 .why {
   background: $vc-background-dark;
   @include vc-section-padding;
@@ -7,15 +9,17 @@
   transition: background 0.3s;
 
   .top {
-    max-width: 720px;
-    margin-bottom: $space-6;
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 110px;
+    }
 
     .tag {
-      @include vc-eyebrow($vc-muted-on-dark);
+      @include vc-eyebrow($vc-primary);
     }
 
     h2 {
-      @include vc-h1($vc-text-light);
+      @include vc-display-2($vc-text-light);
 
       span {
         color: $vc-primary;
@@ -23,69 +27,118 @@
     }
 
     .sub-heading {
-      @include vc-p($vc-text-light);
-      color: $vc-muted-on-dark;
-      margin: 0;
+      @include vc-p($vc-muted-on-dark);
+      max-width: 420px;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
     }
   }
 
   .why-box-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: $space-3;
-
-    @include media-breakpoint-down(lg) {
-      grid-template-columns: 1fr;
-    }
+    display: flex;
+    flex-direction: column;
 
     .why-boxes {
-      @include vc-card($vc-grey-dark-surface, $vc-grey-dark-border);
-      display: flex;
-      flex-direction: column;
-      // Always visible; a subtle slide-up plays once via the .is-in class. If JS
-      // never runs, the cards simply sit 14px lower rather than disappearing.
-      opacity: 1;
-      transform: translateY(14px);
-      transition: transform 0.5s ease, border-color 0.3s ease, background-color 0.3s ease;
+      display: grid;
+      grid-template-columns: 48px 100px minmax(0, 1fr);
+      gap: $space-3;
+      align-items: center;
+      padding: $space-4 0;
+      border-top: 1px solid $vc-grey-dark-border;
+      position: relative;
+      transition: background-color .3s;
 
-      &.is-in {
-        transform: translateY(0);
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: $vc-primary;
+        transform: scaleY(0);
+        transform-origin: top center;
+        transition: transform .3s ease;
+      }
+
+      &:last-child {
+        border-bottom: 1px solid $vc-grey-dark-border;
       }
 
       &:hover {
-        border-color: $vc-primary;
-        transform: translateY(-4px);
-      }
+        background: rgba($vc-text-light, 0.03);
 
-      .image-container {
-        position: relative;
-        margin-bottom: $space-3;
-        width: 64px;
-        height: 64px;
-
-        img {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 64px;
-          height: 64px;
-
-          &.infinite {
-            display: none;
-          }
+        &::before {
+          transform: scaleY(1);
         }
       }
 
-      h3 {
-        @include vc-h4($vc-text-light);
-        font-size: 22px;
-        margin-bottom: $space-1;
+      .why-index {
+        font-family: $vc-font-family;
+        font-weight: $vc-semi-bold;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        color: $vc-primary;
       }
 
-      p {
-        @include vc-body($vc-text-light);
-        color: $vc-muted-on-dark;
-        margin: 0;
+      @include media-breakpoint-up(lg) {
+        grid-template-columns: 130px 100px minmax(0, 1fr);
+        padding: $space-5 $space-2;
+
+        .why-index {
+          font-family: $vc-display-font;
+          font-weight: $vc-black;
+          font-stretch: $vc-display-stretch;
+          font-size: 64px;
+          line-height: 1;
+          letter-spacing: 0;
+          color: transparent;
+          -webkit-text-stroke: 1.5px $vc-primary;
+        }
+      }
+
+      // Fixed box so the row never grows when the animated icon loads in
+      .image-container {
+        width: 100px;
+        height: 100px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
+        .infinite {
+          display: none;
+        }
+      }
+
+      .why-copy {
+        h3 {
+          @include vc-display-3($vc-text-light);
+          margin-bottom: 10px;
+
+          @include media-breakpoint-up(lg) {
+            font-size: clamp(1.625rem, 1.5vw + 0.75rem, 2.125rem);
+          }
+        }
+
+        p {
+          @include vc-body($vc-muted-on-dark);
+          margin-bottom: 0;
+        }
+      }
+
+      @include media-breakpoint-down(md) {
+        grid-template-columns: 32px 60px minmax(0, 1fr);
+        gap: $space-2;
+
+        .image-container {
+          width: 60px;
+          height: 60px;
+        }
       }
     }
   }
@@ -93,16 +146,4 @@
 
 @at-root body.dark-mode .why {
   background: $dark-vc-background-dark-alt !important;
-
-  h2 {
-    color: $vc-text-light !important;
-  }
-
-  .why-boxes {
-    background: $vc-grey-dark-surface !important;
-
-    p {
-      color: $vc-muted-on-dark !important;
-    }
-  }
 }

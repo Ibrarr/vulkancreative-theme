@@ -1,0 +1,57 @@
+// Kinetic outlined text strip between the story and process sections.
+// Decorative (aria-hidden); the global reduced-motion rules freeze the
+// CSS animation, leaving a static outlined word strip.
+.text-marquee {
+  overflow: clip;
+  padding: $space-6 0;
+  border-top: 1px solid $vc-grey-200;
+  border-bottom: 1px solid $vc-grey-200;
+  background: $vc-background-white;
+  transition: background 0.3s, border-color 0.3s;
+
+  .text-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: vc-marquee 38s linear infinite;
+  }
+
+  .text-marquee-row {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(2.5rem, 4vw, 4.25rem);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba($vc-text-dark, 0.4);
+    padding-right: $space-5;
+    user-select: none;
+
+    em {
+      font-style: normal;
+      font-size: 0.5em;
+      color: $vc-primary;
+      -webkit-text-stroke: 0;
+      margin: 0 $space-5;
+    }
+  }
+}
+
+@keyframes vc-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@at-root body.dark-mode .text-marquee {
+  background: $dark-vc-background-dark !important;
+  border-color: $vc-grey-dark-border !important;
+
+  .text-marquee-row {
+    -webkit-text-stroke-color: rgba($vc-text-light, 0.4) !important;
+  }
+}

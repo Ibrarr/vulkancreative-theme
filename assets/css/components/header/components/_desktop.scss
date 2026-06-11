@@ -1,16 +1,15 @@
 .main-menu {
-  padding: 20px 0;
+  padding: 18px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   max-width: 1600px;
   margin: auto;
-  transition: $vc-transition-all;
+  transition: padding 0.3s;
 
   @include media-breakpoint-down(md) {
-    align-items: flex-start;
-    padding: 10px 0;
+    padding: 12px 0;
   }
 
   .logo {
@@ -18,9 +17,13 @@
     cursor: pointer;
 
     svg {
-      transition: $vc-transition-all;
-      width: 160px;
+      transition: width 0.3s;
+      width: 150px;
       height: auto;
+
+      path {
+        transition: fill 0.3s;
+      }
 
       > path:nth-of-type(7),
       > path:nth-of-type(8),
@@ -33,19 +36,19 @@
       > path:nth-of-type(15),
       > path:nth-of-type(16) {
         visibility: hidden;    /* keep in DOM so DrawSVGPlugin can measure */
-        fill: none;            /* we’ll assign the fill colour in JS */
-        stroke: $vc-primary;       /* outline matches your brand colour */
-        stroke-width: .5;       /* adjust stroke weight as needed */
-        fill-opacity: 0;       /* ensure no fill until JS sets it */
-        stroke-opacity: 1;     /* start fully opaque stroke */
+        fill: none;            /* we'll assign the fill colour in JS */
+        stroke: $vc-primary;   /* outline matches brand colour */
+        stroke-width: .5;
+        fill-opacity: 0;
+        stroke-opacity: 1;
       }
 
       @include media-breakpoint-between(md, lg) {
-        width: 150px;
+        width: 140px;
       }
 
       @include media-breakpoint-down(md) {
-        width: 80px;
+        width: 110px;
       }
     }
   }
@@ -60,64 +63,144 @@
       padding: 0;
       margin: 0;
       display: flex;
-      gap: 20px;
+      gap: 10px;
       align-items: center;
 
       li {
         display: inline-block;
-
-        &.current-menu-item a {
-          color: $vc-primary;
-          font-weight: $vc-semi-bold;
-        }
-
-        &:not(:last-child) {
-          margin-right: 15px;
-        }
+        position: relative;
 
         a {
           text-decoration: none;
           @include vc-body($vc-text-dark);
           font-weight: $vc-semi-bold;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          padding: 8px 12px;
+          display: inline-block;
+          transition: color .3s;
 
           @include media-breakpoint-between(lg, xl) {
-            font-size: 14px;
+            font-size: 12px;
+            padding: 8px 8px;
           }
 
+          // Light surfaces: red 15px text fails contrast, so hover keeps the
+          // text colour and shows a red underline instead. Dark contexts
+          // (dark mode, transparent over the hero) restore red text below.
           &:hover {
-            color: $vc-primary !important;
+            text-decoration: underline;
+            text-decoration-color: $vc-primary;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 6px;
             cursor: pointer;
+          }
+        }
+
+        // Scrollspy / current page indicator: small ember tick under the link
+        &:not(.menu-button)::after {
+          content: '';
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 0;
+          height: 2px;
+          background: $vc-primary;
+          transform: scaleX(0);
+          transform-origin: left center;
+          transition: transform .3s ease;
+        }
+
+        &.current-menu-item,
+        &.current-anchor {
+          &:not(.menu-button)::after {
+            transform: scaleX(1);
           }
         }
       }
     }
 
-    .menu-button a {
-      @include vc-button($vc-primary);
-      cursor: pointer !important;
+    .menu-button {
+      margin-left: 12px;
+
+      a {
+        @include vc-button-forge;
+        cursor: pointer !important;
+        font-size: 15px;
+        text-transform: none;
+        letter-spacing: 0;
+        padding: 11px 24px;
+
+        &::after {
+          content: '\2192';
+          display: inline-block;
+          margin-left: 8px;
+          transition: transform .3s ease;
+        }
+
+        &:hover::after {
+          transform: translateX(4px);
+        }
+      }
+
+      &::after {
+        display: none;
+      }
     }
   }
 
-  .mobile-menu-icons {
+  .mobile-menu-toggle {
+    background: none;
+    border: 0;
+    padding: 8px;
+    line-height: 0;
+    cursor: pointer;
+
     @include media-breakpoint-up(lg) {
       display: none;
     }
 
-    > div {
+    svg {
       height: 24px;
       width: 24px;
+      transition: fill .3s;
     }
 
     @include media-breakpoint-down(md) {
-      > div {
-        height: 20px;
-        width: 20px;
+      svg {
+        height: 22px;
+        width: 22px;
       }
     }
 
     .close {
       display: none;
     }
+  }
+}
+
+// Compact bar once scrolled
+@at-root header.header--scrolled .main-menu {
+  padding: 12px 0;
+
+  .logo svg {
+    width: 130px;
+
+    @include media-breakpoint-down(md) {
+      width: 100px;
+    }
+  }
+}
+
+// Open state: swap burger for cross
+@at-root header.mobile-menu-active .mobile-menu-toggle {
+  .open {
+    display: none;
+  }
+
+  .close {
+    display: inline;
   }
 }
 
@@ -143,11 +226,25 @@
     }
   }
 
-  nav a {
-    color: $vc-text-light !important;
+  nav ul li:not(.menu-button) > a {
+    color: $vc-text-light;
+
+    &:hover {
+      color: $vc-primary !important;
+      text-decoration: none;
+    }
   }
 
-  .mobile-menu-icons svg{
+  nav ul li.current-menu-item > a,
+  nav ul li.current-anchor > a {
+    color: $vc-primary;
+  }
+
+  nav .menu-button a {
+    color: #FFFFFF !important;
+  }
+
+  .mobile-menu-toggle svg {
     fill: $vc-text-light !important;
   }
 }

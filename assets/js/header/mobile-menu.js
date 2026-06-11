@@ -1,40 +1,92 @@
 jQuery(document).ready(function($) {
-    // Scoped handlers for mobile menu
-    $('.mobile-menu-icons .open').on('click.mobileMenu', function() {
-        $('.mobile-menu').slideDown(); // Slide down the mobile menus
-        $(this).hide(); // Hide the open button
-        $('.mobile-menu-icons  .close').show(); // Show the close button
-        $('header').addClass('mobile-menu-active');
-        $('body').addClass('no-scroll'); // Disable scrolling on the body
+    const $header = $('header');
+    const $menu = $('.mobile-menu');
+    const $toggle = $('.mobile-menu-toggle');
+
+    if (!$menu.length || !$toggle.length) {
+        return;
+    }
+
+    const focusableSelector = '.mobile-menu a, .mobile-menu button';
+
+    function openMenu() {
+        $header.addClass('mobile-menu-active');
+        $('body').addClass('no-scroll');
+        $toggle.attr('aria-expanded', 'true').attr('aria-label', 'Close menu');
+
+        // Move focus into the menu for keyboard users, once the overlay's
+        // visibility transition has finished (focus fails while hidden).
+        setTimeout(() => {
+            if (!$header.hasClass('mobile-menu-active')) {
+                return;
+            }
+            const firstLink = $menu.find('a, button').first();
+            if (firstLink.length) {
+                firstLink.trigger('focus');
+            }
+        }, 400);
+    }
+
+    function closeMenu(returnFocus = true) {
+        $header.removeClass('mobile-menu-active');
+        $('body').removeClass('no-scroll');
+        $toggle.attr('aria-expanded', 'false').attr('aria-label', 'Open menu');
+
+        if (returnFocus) {
+            $toggle.trigger('focus');
+        }
+    }
+
+    $toggle.on('click.mobileMenu', function() {
+        if ($header.hasClass('mobile-menu-active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
 
-    $('.mobile-menu-icons .close').on('click.mobileMenu', function() {
-        $('.mobile-menu').slideUp(function() {
-            // Remove the active classes after sliding up the mobile menus
-            $('header').removeClass('mobile-menu-active active-mega-menu');
-            $('.mega-menu-link').removeClass('active');
-            $('body').removeClass('no-scroll'); // Enable scrolling on the body
-        });
+    // Escape closes the menu
+    $(document).on('keydown.mobileMenu', function(e) {
+        if (e.key === 'Escape' && $header.hasClass('mobile-menu-active')) {
+            closeMenu();
+        }
+    });
 
-        $(this).hide(); // Hide the close button
-        $('.mobile-menu-icons .open').show(); // Show the open button
+    // Simple focus trap while the overlay is open
+    $(document).on('keydown.mobileMenuTrap', function(e) {
+        if (e.key !== 'Tab' || !$header.hasClass('mobile-menu-active')) {
+            return;
+        }
+
+        const focusable = $(focusableSelector).filter(':visible').add($toggle);
+        if (!focusable.length) {
+            return;
+        }
+
+        const first = focusable.first()[0];
+        const last = focusable.last()[0];
+
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
     });
 
     // Handler for anchor links within the menu
     $('.mobile-menu a').on('click.mobileMenu', function(e) {
-        const target = $(this).attr('href'); // Get the href attribute of the button
-        if (target.startsWith('#')) { // Check if it's an anchor link
-            e.preventDefault(); // Prevent default link behavior
-            // Close the menu
-            $('.mobile-menu').slideUp();
-            $('.mobile-menu-icons .close').hide();
-            $('.mobile-menu-icons .open').show();
-            $('header').removeClass('mobile-menu-active');
-            $('body').removeClass('no-scroll');
+        const target = $(this).attr('href');
+        if (target && target.startsWith('#')) {
+            e.preventDefault();
+            closeMenu(false);
 
-            // Navigate to the anchor link
-            const offset = $(target).offset().top; // Get the offset position of the target element
-            $('html, body').animate({ scrollTop: offset }); // Smooth scroll to the target
+            const $target = $(target);
+            if ($target.length) {
+                const offset = $target.offset().top;
+                $('html, body').animate({ scrollTop: offset });
+            }
         }
     });
 });

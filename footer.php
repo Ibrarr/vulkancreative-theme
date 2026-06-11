@@ -1,13 +1,19 @@
                 </main>
             <footer id="footer" role="contentinfo">
                 <div class="container px-4">
-                    <div class="row">
+                    <div class="row footer-cta">
+                        <div class="col-lg-8">
+                            <p class="footer-eyebrow">Next step</p>
+                            <p class="footer-cta-heading">Ready to forge something that performs?</p>
+                        </div>
+                        <div class="col-lg-4 footer-cta-action">
+                            <a class="button" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Start a project</a>
+                        </div>
+                    </div>
+                    <div class="row footer-main">
                         <div class="col-lg-5 left">
                             <div class="footer-logo"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?></div>
-                            <div class="form">
-                                <p>Subscribe to our newsletter for the latest updates.</p>
-                                <?php echo do_shortcode( '[gravityform id="3" title="false" description="false" ajax="true"]' ); ?>
-                            </div>
+                            <p class="footer-line">Brand, web and marketing, built in person and measured by results.</p>
                         </div>
                         <div class="col-lg-3 offset-lg-1 footer-menu">
                             <p class="footer-heading">Explore</p>
@@ -46,6 +52,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="footer-wordmark" aria-hidden="true">Vulkan</div>
             </footer>
         </div>
     </div>

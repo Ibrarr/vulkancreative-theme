@@ -1,92 +1,96 @@
+// Cinematic full-width showreel moment.
 .story {
-  padding: 120px 0;
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
+  .story-head {
+    margin-bottom: $space-6;
+    align-items: flex-end;
 
-  .container {
-    position: relative;
-    height: 150vh;
-  }
+    .content {
+      .tag {
+        @include vc-eyebrow-tick($vc-grey-600);
+      }
 
-  .content {
-    max-width: 768px;
-    margin: auto;
-    position: sticky;
-    top: 10%;
-    z-index: 1;
-    text-align: center;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+      h2 {
+        @include vc-display-2($vc-text-dark);
+        margin-bottom: 0;
+        transition: color 0.3s;
 
-    h2 {
-      @include vc-h1($vc-text-dark);
-      transition: color 0.3s;
-
-      span {
-        color: $vc-primary;
+        span {
+          color: $vc-primary;
+        }
       }
     }
 
-    .split-text-story {
-      @include vc-p($vc-text-dark);
-      transition: color 0.3s;
-      will-change: transform;
-
-      & * {
+    .story-intro {
+      .split-text-story {
+        @include vc-p($vc-grey-600);
+        opacity: 0;
         will-change: transform;
-      }
-    }
+        transition: color 0.3s;
 
-    .button {
-      @include vc-button-big($vc-primary);
-      margin: auto;
-      cursor: pointer !important;
+        & * {
+          will-change: transform;
+        }
+      }
+
+      .bottom .button {
+        @include vc-button-ghost($vc-text-dark);
+        cursor: pointer !important;
+        margin-top: $space-2;
+      }
+
+      @include media-breakpoint-down(lg) {
+        margin-top: $space-4;
+      }
     }
   }
 
   .video-wrapper {
-    position: sticky;
-    top: 100px;
-    margin-top: 50px;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(0.8);
-
-    @include media-breakpoint-down(md) {
-      top: 80px;
-    }
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid $vc-grey-200;
+    line-height: 0;
+    transition: border-color .3s;
 
     .video-js {
-      width: 100%;
-      height: 80vh;
-      transition: transform 0.5s ease;
-      border-radius: 10px;
-      overflow: hidden;
-
-      //.vjs-big-play-button {
-      //  display: none;
-      //}
-      //
-      //.vjs-poster {
-      //  display: none !important;
-      //}
-    }
-
-    .vjs-control-bar {
-      cursor: default;
+      width: 100% !important;
+      aspect-ratio: 16 / 9;
+      height: auto !important;
     }
   }
 }
 
 @at-root body.dark-mode .story {
-  h2, p {
+  background: $dark-vc-background-dark !important;
+
+  .story-head .content .tag {
+    color: $vc-primary !important;
+  }
+
+  .story-head .content h2 {
     color: $vc-text-light !important;
   }
 
-  .button:hover {
-    color: $vc-text-light !important;
+  .story-intro {
+    .split-text-story {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .bottom .button {
+      color: $vc-text-light !important;
+      border-color: rgba($vc-text-light, 0.35) !important;
+
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .video-wrapper {
+    border-color: $vc-grey-dark-border !important;
   }
 }

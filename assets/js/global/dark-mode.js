@@ -9,9 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Load user's theme preference from localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
+    // Dark-first: the server renders body.dark-mode and an inline script in
+    // header.php removes it before paint when the visitor chose light mode.
+    // Here we only sync the toggle buttons with the resolved state.
+    if (body.classList.contains('dark-mode')) {
         toggleBtns.forEach(btn => btn.classList.add('theme-toggle--toggled'));
     }
 
@@ -21,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
             body.classList.toggle('dark-mode');
 
             // Persist dark-mode preference
-            localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+            try {
+                localStorage.setItem('darkMode', body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+            } catch (e) {}
 
             // Update all toggle buttons' appearance
             toggleBtns.forEach(b => b.classList.toggle('theme-toggle--toggled'));
