@@ -1,10 +1,25 @@
-// Testimonial spotlight: one oversized quote at a time from the testimonial
-// post type, with autoplay progress, counter and custom arrows.
+// Testimonial spotlight with a face rail: one oversized quote at a time from
+// the testimonial post type beside a crossfading portrait, navigated by the
+// avatar buttons (synced to Splide in testimonials.js), with autoplay
+// progress, counter, custom arrows and an aggregate rating chip.
 .testimonials {
   @include vc-section-padding;
   background: $vc-background-white;
   transition: background 0.3s;
   overflow: hidden;
+
+  .testimonials-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $space-4;
+    margin-bottom: $space-6;
+
+    .content {
+      margin-bottom: 0;
+    }
+  }
 
   .content {
     max-width: 720px;
@@ -20,6 +35,43 @@
 
       span {
         color: $vc-primary;
+      }
+    }
+  }
+
+  .rating-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: $space-2 $space-3;
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    transition: background .3s, border-color .3s;
+
+    .rating-stars {
+      display: flex;
+      gap: 3px;
+      color: $vc-primary;
+
+      svg {
+        display: block;
+      }
+    }
+
+    .rating-text {
+      @include vc-body($vc-grey-600);
+      font-size: 13px;
+      transition: color .3s;
+
+      .rating-value {
+        font-family: $vc-display-font;
+        font-weight: $vc-black;
+        font-stretch: $vc-display-stretch;
+        font-size: 18px;
+        color: $vc-text-dark;
+        margin-right: 2px;
+        transition: color .3s;
       }
     }
   }
@@ -60,6 +112,63 @@
     border-top: 1px solid $vc-grey-200;
     padding-top: $space-6;
     transition: border-color .3s;
+
+    .spotlight-layout {
+      @include media-breakpoint-up(lg) {
+        display: grid;
+        grid-template-columns: 400px minmax(0, 1fr);
+        gap: $space-8;
+      }
+    }
+
+    // Crossfading portrait of the active voice (decorative; the cite carries
+    // the information). Stacked absolutely so height never moves, desaturated
+    // with a brand-red duotone overlay (multiply over greyscale).
+    .spotlight-photo {
+      display: none;
+
+      @include media-breakpoint-up(lg) {
+        display: block;
+        position: relative;
+        min-height: 420px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid $vc-grey-200;
+        background: $vc-text-dark;
+        transition: border-color .3s;
+
+        .spotlight-portrait {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0;
+          filter: grayscale(1);
+          transition: opacity .45s ease;
+
+          &.is-active {
+            opacity: 1;
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background: $vc-primary;
+          mix-blend-mode: soft-light;
+          pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .spotlight-portrait {
+            transition: none;
+          }
+        }
+      }
+    }
 
     .spotlight-mark {
       font-family: $vc-display-font;
@@ -189,6 +298,7 @@
           }
         }
       }
+
     }
   }
 }
@@ -202,6 +312,23 @@
 
   .content h2 {
     color: $vc-text-light !important;
+  }
+
+  .rating-chip {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+
+    .rating-text {
+      color: $vc-muted-on-dark !important;
+
+      .rating-value {
+        color: $vc-text-light !important;
+      }
+    }
+  }
+
+  .testimonial-spotlight .spotlight-photo {
+    border-color: $vc-grey-dark-border !important;
   }
 
   .trust-logos .trust-logo {

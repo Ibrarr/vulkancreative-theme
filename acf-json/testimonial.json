@@ -11,7 +11,11 @@
             "instructions": "The testimonial text, without quote marks.",
             "required": 1,
             "conditional_logic": 0,
-            "wrapper": { "width": "", "class": "", "id": "" },
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -28,7 +32,11 @@
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
-            "wrapper": { "width": "34", "class": "", "id": "" },
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -45,7 +53,11 @@
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
-            "wrapper": { "width": "33", "class": "", "id": "" },
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
@@ -62,13 +74,43 @@
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
-            "wrapper": { "width": "33", "class": "", "id": "" },
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
             "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "Acme Ltd",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_tm_0005",
+            "label": "Photo",
+            "name": "tm_photo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Headshot shown in the homepage spotlight. Square crops work best. Falls back to the theme placeholder when empty.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "preview_size": "thumbnail",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0
         }
     ],
     "location": [
@@ -94,5 +136,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781089843
+    "modified": 1781213073
 }

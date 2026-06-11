@@ -95,8 +95,10 @@ $process_heading     = hp_heading('hp_process_heading', $hp_heading_highlights);
 $process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
 
 // Testimonials
-$testimonials_tag     = get_field('hp_testimonials_tag') ?: 'What clients say';
-$testimonials_heading = hp_heading('hp_testimonials_heading', $hp_heading_highlights);
+$testimonials_tag          = get_field('hp_testimonials_tag') ?: 'What clients say';
+$testimonials_heading      = hp_heading('hp_testimonials_heading', $hp_heading_highlights);
+$testimonials_rating_value = get_field('hp_testimonials_rating_value') ?: '4.9';
+$testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'average client rating';
 
 // Contact
 $contact_tag        = get_field('hp_contact_tag') ?: 'Let’s talk';
@@ -422,9 +424,19 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 <section class="testimonials" id="testimonials">
     <div class="container px-4">
-        <div class="content">
-            <p class="tag"><?php echo esc_html( $testimonials_tag ); ?></p>
-            <h2><?php echo wp_kses_post( $testimonials_heading ); ?></h2>
+        <div class="testimonials-head">
+            <div class="content">
+                <p class="tag"><?php echo esc_html( $testimonials_tag ); ?></p>
+                <h2><?php echo wp_kses_post( $testimonials_heading ); ?></h2>
+            </div>
+            <div class="rating-chip">
+                <span class="rating-stars" aria-hidden="true">
+                    <?php for ( $star_i = 0; $star_i < 5; $star_i++ ) : ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2l2.92 6.26 6.83.62-5.17 4.56 1.54 6.7L12 16.67 5.88 20.14l1.54-6.7L2.25 8.88l6.83-.62L12 2z"/></svg>
+                    <?php endfor; ?>
+                </span>
+                <span class="rating-text"><span class="rating-value"><?php echo esc_html( $testimonials_rating_value ); ?></span> <?php echo esc_html( $testimonials_rating_label ); ?></span>
+            </div>
         </div>
         <?php if ( have_rows('hp_testimonials_logos') ) : ?>
             <div class="trust-logos">
@@ -443,35 +455,57 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
             'posts_per_page' => 6,
             'no_found_rows'  => true,
         ]);
-        if ( $testimonial_posts->have_posts() ) : ?>
+        $testimonial_items = [];
+        if ( $testimonial_posts->have_posts() ) {
+            while ( $testimonial_posts->have_posts() ) { $testimonial_posts->the_post();
+                $tm_photo = get_field('tm_photo');
+                $testimonial_items[] = [
+                    'quote'   => get_field('tm_quote'),
+                    'name'    => get_field('tm_name'),
+                    'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
+                    'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+                ];
+            }
+            wp_reset_postdata();
+        }
+        if ( $testimonial_items ) : ?>
             <div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">
-                <div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
-                <div class="splide__track">
-                    <ul class="splide__list">
-                        <?php while ( $testimonial_posts->have_posts() ) : $testimonial_posts->the_post(); ?>
-                            <li class="splide__slide">
-                                <blockquote>
-                                    <p class="spotlight-quote"><?php echo esc_html( get_field('tm_quote') ); ?></p>
-                                    <cite>
-                                        <span class="t-name"><?php echo esc_html( get_field('tm_name') ); ?></span>
-                                        <span class="t-company"><?php echo esc_html( trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ) ); ?></span>
-                                    </cite>
-                                </blockquote>
-                            </li>
-                        <?php endwhile; wp_reset_postdata(); ?>
-                    </ul>
-                </div>
-                <div class="spotlight-footer">
-                    <div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
-                    <div class="spotlight-controls">
-                        <span class="spotlight-counter" aria-hidden="true"><span class="current">01</span>&nbsp;/&nbsp;<span class="total"><?php echo str_pad( $testimonial_posts->post_count, 2, '0', STR_PAD_LEFT ); ?></span></span>
-                        <div class="splide__arrows">
-                            <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-                            </button>
-                            <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                            </button>
+                <div class="spotlight-layout">
+                    <div class="spotlight-photo" aria-hidden="true">
+                        <?php foreach ( $testimonial_items as $tm_i => $tm_item ) : ?>
+                            <img class="spotlight-portrait<?php echo $tm_i === 0 ? ' is-active' : ''; ?>" loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="spotlight-main">
+                        <div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                <?php foreach ( $testimonial_items as $tm_item ) : ?>
+                                    <li class="splide__slide">
+                                        <blockquote>
+                                            <p class="spotlight-quote"><?php echo esc_html( $tm_item['quote'] ); ?></p>
+                                            <cite>
+                                                <span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
+                                                <span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
+                                            </cite>
+                                        </blockquote>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="spotlight-footer">
+                            <div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
+                            <div class="spotlight-controls">
+                                <span class="spotlight-counter" aria-hidden="true"><span class="current">01</span>&nbsp;/&nbsp;<span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
+                                <div class="splide__arrows">
+                                    <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                                    </button>
+                                    <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
