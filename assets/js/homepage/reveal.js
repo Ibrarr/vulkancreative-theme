@@ -12,8 +12,8 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .process .content h2, .testimonials .content h2');
-    const fades = gsap.utils.toArray('.results .content .tag, .work .content .tag, .process .content .tag, .process .content .sub-heading, .testimonials .content .tag');
+    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .why .content h2, .process .content h2, .testimonials .content h2');
+    const fades = gsap.utils.toArray('.results .content .tag, .work .content .tag, .why .content .tag, .why .content .sub-heading, .process .content .tag, .process .content .sub-heading, .testimonials .content .tag');
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
 
     // Hide up front, before the user can ever see these sections.
@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     duration: 0.7,
                     stagger: 0.09,
                     ease: 'expo.out',
+                    // The display headings run line-height 1, so the overflow
+                    // mask clips descenders; restore the intact heading once
+                    // the reveal has finished.
+                    onComplete: () => self.revert(),
                 });
             },
         });

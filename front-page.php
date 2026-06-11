@@ -47,6 +47,43 @@ $why_tag        = get_field('hp_why_tag') ?: 'Why Vulkan';
 $why_heading    = hp_heading('hp_why_heading', $hp_heading_highlights);
 $why_subheading = get_field('hp_why_subheading') ?: 'A dedicated partner, not a distant supplier. Three things we never compromise on.';
 
+$why_items_default = [
+	[
+		'title'       => 'Hands-On, In Person',
+		'description' => 'We sit down with you and learn how the business actually runs. You deal with the people doing the work, not an account queue.',
+		'proof'       => '10+ years combined experience',
+	],
+	[
+		'title'       => 'Bespoke, Never Templated',
+		'description' => 'We build every brand, website and campaign around your audience, from the ground up. Nothing off the shelf, nothing recycled.',
+		'proof'       => '120+ bespoke projects delivered',
+	],
+	[
+		'title'       => 'Results You Can Measure',
+		'description' => 'We tie every engagement to numbers that matter: enquiries, rankings, revenue. You always know what is working and why.',
+		'proof'       => '4.9 average client rating',
+	],
+];
+$why_items = [];
+if ( have_rows('hp_why_items') ) {
+	while ( have_rows('hp_why_items') ) {
+		the_row();
+		$why_items[] = [
+			'title'       => get_sub_field('title'),
+			'description' => get_sub_field('description'),
+			'proof'       => get_sub_field('proof'),
+		];
+	}
+}
+$why_items = array_slice( $why_items ?: $why_items_default, 0, 3 );
+
+$why_stat_value = get_field('hp_why_stat_value') ?: '2.3x';
+$why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients. The number we hold ourselves to.';
+$why_note_title = get_field('hp_why_note_title') ?: 'Not the cheapest. The most accountable.';
+$why_note_text  = get_field('hp_why_note_text') ?: 'One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.';
+$why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partner?';
+$why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a project';
+
 // Story
 $story_tag         = get_field('hp_story_tag') ?: 'Inside the forge';
 $story_heading     = hp_heading('hp_story_heading', $hp_heading_highlights);
@@ -222,33 +259,50 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
             'meta_key'       => 'cs_featured',
             'meta_value'     => '1',
         ]);
-        if ( $case_studies->have_posts() ) : ?>
-            <div class="work-gallery">
-                <?php while ( $case_studies->have_posts() ) : $case_studies->the_post();
-                    $cs_client = get_field('cs_client_name') ?: get_the_title();
-                    $cs_sector = get_field('cs_sector');
-                    $cs_summary = get_field('cs_summary');
-                    $cs_value = get_field('cs_metric_value');
-                    $cs_label = get_field('cs_metric_label');
-                    $cs_image = get_field('cs_image');
-                    ?>
-                    <a class="case-panel" href="#contact" aria-label="Discuss a project like <?php echo esc_attr( $cs_client ); ?>">
-                        <?php if ( $cs_image ) : ?>
-                            <span class="case-bg" aria-hidden="true">
-                                <img loading="lazy" src="<?php echo esc_url( $cs_image['sizes']['large'] ?? $cs_image['url'] ); ?>" alt="">
+        if ( $case_studies->have_posts() ) :
+            $work_cases = [];
+            while ( $case_studies->have_posts() ) { $case_studies->the_post();
+                $work_cases[] = [
+                    'client'  => get_field('cs_client_name') ?: get_the_title(),
+                    'sector'  => get_field('cs_sector'),
+                    'summary' => get_field('cs_summary'),
+                    'value'   => get_field('cs_metric_value'),
+                    'label'   => get_field('cs_metric_label'),
+                    'image'   => get_field('cs_image'),
+                ];
+            }
+            wp_reset_postdata(); ?>
+            <div class="work-showcase">
+                <div class="case-list">
+                    <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
+                        <a class="case-row<?php echo $work_i === 0 ? ' is-active' : ''; ?>" href="#contact" data-case="<?php echo (int) $work_i; ?>" aria-label="Discuss a project like <?php echo esc_attr( $work_case['client'] ); ?>">
+                            <?php if ( $work_case['image'] ) : ?>
+                                <span class="case-bg" aria-hidden="true">
+                                    <img loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
+                                </span>
+                            <?php endif; ?>
+                            <span class="case-overlay">
+                                <span class="case-index" aria-hidden="true"><?php echo esc_html( str_pad( $work_i + 1, 2, '0', STR_PAD_LEFT ) ); ?></span>
+                                <span class="case-text">
+                                    <?php if ( $work_case['sector'] ) : ?><span class="case-sector"><?php echo esc_html( $work_case['sector'] ); ?></span><?php endif; ?>
+                                    <h3 class="case-client"><?php echo esc_html( $work_case['client'] ); ?></h3>
+                                    <span class="case-summary"><?php echo esc_html( $work_case['summary'] ); ?></span>
+                                </span>
+                                <span class="case-metric">
+                                    <span class="metric-value"><?php echo esc_html( $work_case['value'] ); ?></span>
+                                    <span class="metric-label"><?php echo esc_html( $work_case['label'] ); ?></span>
+                                </span>
                             </span>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+                <div class="case-stage" aria-hidden="true">
+                    <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
+                        <?php if ( $work_case['image'] ) : ?>
+                            <img class="stage-img<?php echo $work_i === 0 ? ' is-active' : ''; ?>" data-case="<?php echo (int) $work_i; ?>" loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
                         <?php endif; ?>
-                        <span class="case-overlay">
-                            <?php if ( $cs_sector ) : ?><span class="case-sector"><?php echo esc_html( $cs_sector ); ?></span><?php endif; ?>
-                            <h3 class="case-client"><?php echo esc_html( $cs_client ); ?></h3>
-                            <span class="case-summary"><?php echo esc_html( $cs_summary ); ?></span>
-                            <span class="case-metric">
-                                <span class="metric-value"><?php echo esc_html( $cs_value ); ?></span>
-                                <span class="metric-label"><?php echo esc_html( $cs_label ); ?></span>
-                            </span>
-                        </span>
-                    </a>
-                <?php endwhile; wp_reset_postdata(); ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
             <p class="work-outro">Your project could be next. <a href="#contact">Start a project</a></p>
         <?php endif; ?>
@@ -257,86 +311,33 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 <section class="why" id="why">
     <div class="container px-4">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="top">
-                    <p class="tag"><?php echo esc_html( $why_tag ); ?></p>
-                    <h2><?php echo wp_kses_post( $why_heading ); ?></h2>
-                    <p class="sub-heading"><?php echo esc_html( $why_subheading ); ?></p>
+        <div class="content">
+            <p class="tag"><?php echo esc_html( $why_tag ); ?></p>
+            <h2><?php echo wp_kses_post( $why_heading ); ?></h2>
+            <p class="sub-heading"><?php echo esc_html( $why_subheading ); ?></p>
+        </div>
+        <div class="why-grid">
+            <?php $why_i = 1; foreach ( $why_items as $why_item ) : ?>
+                <div class="why-cell why-cell-diff why-cell-diff-<?php echo (int) $why_i; ?>">
+                    <span class="why-index" aria-hidden="true"><?php echo esc_html( str_pad( $why_i, 2, '0', STR_PAD_LEFT ) ); ?></span>
+                    <h3><?php echo esc_html( $why_item['title'] ); ?></h3>
+                    <p><?php echo esc_html( $why_item['description'] ); ?></p>
+                    <?php if ( ! empty( $why_item['proof'] ) ) : ?>
+                        <span class="why-proof"><?php echo esc_html( $why_item['proof'] ); ?></span>
+                    <?php endif; ?>
                 </div>
+            <?php $why_i++; endforeach; ?>
+            <div class="why-cell why-cell-stat">
+                <span class="why-stat-value"><?php echo esc_html( $why_stat_value ); ?></span>
+                <p class="why-stat-label"><?php echo esc_html( $why_stat_label ); ?></p>
             </div>
-            <div class="col-lg-7">
-                <div class="why-box-container">
-                    <div class="why-boxes">
-                        <span class="why-index">01</span>
-                        <div class="image-container">
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person-reveal.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="In-Person Approach reveal"
-                                class="reveal"
-                            >
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/in-person.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="In-Person Approach"
-                                class="infinite"
-                            >
-                        </div>
-                        <div class="why-copy">
-                            <h3>In-Person Approach</h3>
-                            <p>We work closely with you, offering a personal touch that builds trust and drives success.</p>
-                        </div>
-                    </div>
-                    <div class="why-boxes">
-                        <span class="why-index">02</span>
-                        <div class="image-container">
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions-reveal.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="Tailored Solutions reveal"
-                                class="reveal"
-                            >
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/tailored-solutions.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="Tailored Solutions"
-                                class="infinite"
-                            >
-                        </div>
-                        <div class="why-copy">
-                            <h3>Tailored Solutions</h3>
-                            <p>Every strategy is customised to fit your unique brand and goals, with no one-size-fits-all here.</p>
-                        </div>
-                    </div>
-                    <div class="why-boxes">
-                        <span class="why-index">03</span>
-                        <div class="image-container">
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results-reveal.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="Proven Results reveal"
-                                class="reveal"
-                            >
-                            <img
-                                loading="lazy"
-                                src="<?php echo VC_TEMPLATE_URI . '/assets/images/animated-icons/proven-results.webp'; ?>"
-                                sizes="(max-width: 991px) 60px, 100px"
-                                alt="Proven Results"
-                                class="infinite"
-                            >
-                        </div>
-                        <div class="why-copy">
-                            <h3>Proven Results</h3>
-                            <p>Our track record speaks for itself, delivering impactful outcomes that grow your business.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="why-cell why-cell-note">
+                <h3><?php echo esc_html( $why_note_title ); ?></h3>
+                <p><?php echo esc_html( $why_note_text ); ?></p>
+            </div>
+            <div class="why-cell why-cell-cta">
+                <p class="why-cta-text"><?php echo esc_html( $why_cta_text ); ?></p>
+                <a class="button" href="#contact"><?php echo esc_html( $why_cta_label ); ?></a>
             </div>
         </div>
     </div>

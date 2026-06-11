@@ -1,64 +1,37 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
 
-// The Why rows are visible by default (set in CSS). On scroll-in each row
-// rises in and restarts its animated icon. IntersectionObserver is used
-// instead of ScrollTrigger so the rows can never be left stuck hidden.
+// Bento cells are visible by default (set in CSS). With motion allowed they
+// are hidden at load (the section sits below the fold) and staggered in once
+// the grid first intersects. IntersectionObserver is used instead of
+// ScrollTrigger so the cells can never be left stuck hidden.
 document.addEventListener('DOMContentLoaded', () => {
-    const boxes = document.querySelectorAll('.why .why-boxes');
-    if (!boxes.length) return;
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const reduceMotion = prefersReducedMotion();
+    const grid = document.querySelector('.why .why-grid');
+    if (!grid) return;
 
-    const showLoopingIcon = (box) => {
-        const reveal = box.querySelector('.reveal');
-        const infinite = box.querySelector('.infinite');
-        if (reveal) reveal.style.display = 'none';
-        if (infinite) infinite.style.display = 'block';
-    };
+    const cells = grid.querySelectorAll('.why-cell');
+    if (!cells.length) return;
 
-    const playIcon = (box) => {
-        const reveal = box.querySelector('.reveal');
-        const infinite = box.querySelector('.infinite');
-        if (!reveal) return;
-
-        // Restart the one-shot reveal, then swap to the looping version.
-        const revealSrc = reveal.src;
-        reveal.src = '';
-        reveal.src = revealSrc;
-
-        setTimeout(() => {
-            if (infinite) {
-                const infiniteSrc = infinite.src;
-                infinite.src = '';
-                infinite.src = infiniteSrc;
-            }
-        }, 1200);
-
-        setTimeout(() => showLoopingIcon(box), 1800);
-    };
-
-    if (reduceMotion || !('IntersectionObserver' in window)) {
-        boxes.forEach((box) => {
-            box.classList.add('is-in');
-            showLoopingIcon(box);
-        });
-        return;
-    }
-
-    // Hidden at load (the section is below the fold) so the reveal never pops.
-    gsap.set(boxes, { opacity: 0, y: 28 });
+    gsap.set(cells, { opacity: 0, y: 28 });
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
-            const box = entry.target;
-            box.classList.add('is-in');
-            gsap.to(box, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
-            playIcon(box);
-            obs.unobserve(box);
+            // clearProps drops GSAP's inline transform once the entrance is
+            // done, leaving the cells with clean computed styles.
+            gsap.to(cells, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.07,
+                ease: 'power2.out',
+                clearProps: 'transform',
+            });
+            obs.unobserve(entry.target);
         });
-    }, { threshold: 0.2, rootMargin: '0px 0px -4% 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
 
-    boxes.forEach((box) => observer.observe(box));
+    observer.observe(grid);
 });

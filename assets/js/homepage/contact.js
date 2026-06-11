@@ -70,6 +70,9 @@ document.fonts.ready.then(() => {
         stagger: 0.1,
         delay: 0.15,
         ease: 'expo.out',
+        // The h2 runs line-height 1, so the overflow mask clips descenders;
+        // restore the intact heading once the reveal has finished.
+        onComplete: () => split.revert(),
         scrollTrigger: {
             trigger: '.split-text-contact',
             start: 'top 100%',

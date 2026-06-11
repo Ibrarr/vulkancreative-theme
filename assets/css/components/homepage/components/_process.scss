@@ -1,4 +1,6 @@
-// From spark to scale: four numbered steps on a horizontal rail.
+// From spark to scale: four numbered steps on a horizontal rail (desktop) or
+// a vertical timeline with a left-hand rail (below lg). The ember line is
+// scrubbed by process.js in both orientations.
 .process {
   @include vc-section-padding;
   background: $vc-surface-white;
@@ -33,16 +35,25 @@
     gap: $space-4;
     position: relative;
 
+    // Vertical timeline below lg: steps stack beside a left-hand rail.
+    // The static track sits at the border edge; the ember fill draws over it.
     @include media-breakpoint-down(lg) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    @include media-breakpoint-down(sm) {
       grid-template-columns: 1fr;
+      padding-left: $space-4;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: $vc-grey-200;
+      }
     }
 
-    // Ember line that draws across the top of the steps with the scroll
-    // (process.js scrubs the scaleX; desktop only).
+    // Ember line that draws with the scroll (process.js scrubs the scale):
+    // across the top of the steps on desktop, down the left rail below lg.
     .process-progress {
       position: absolute;
       top: -1px;
@@ -57,7 +68,13 @@
       will-change: transform;
 
       @include media-breakpoint-down(lg) {
-        display: none;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, $vc-primary, $vc-secondary);
+        transform: scaleY(0);
+        transform-origin: top center;
       }
     }
 
@@ -67,23 +84,9 @@
       position: relative;
       transition: border-color .3s;
 
-      &::before {
-        content: '';
-        position: absolute;
-        top: -1px;
-        left: 0;
-        height: 2px;
-        width: 48px;
-        background: $vc-primary;
-        transition: width .4s ease;
-
-        @include media-breakpoint-up(lg) {
-          width: 0;
-        }
-      }
-
-      &:hover::before {
-        width: 100%;
+      @include media-breakpoint-down(lg) {
+        border-top: 0;
+        padding-top: 0;
       }
 
       .step-number {
@@ -121,6 +124,10 @@
 
 @at-root body.dark-mode .process {
   background: $dark-vc-background-dark-alt !important;
+
+  .process-steps::before {
+    background: $vc-grey-dark-border !important;
+  }
 
   .content {
     .tag {

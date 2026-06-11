@@ -701,6 +701,222 @@
             "new_lines": ""
         },
         {
+            "key": "field_hp_0031",
+            "label": "Why Items",
+            "name": "hp_why_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Three differentiators. Leave empty to show the defaults.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 3,
+            "collapsed": "",
+            "button_label": "Add Differentiator",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_hp_0031a",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "Hands-On, In Person",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_hp_0031"
+                },
+                {
+                    "key": "field_hp_0031b",
+                    "label": "Description",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "rows": 2,
+                    "new_lines": "",
+                    "parent_repeater": "field_hp_0031"
+                },
+                {
+                    "key": "field_hp_0031c",
+                    "label": "Proof",
+                    "name": "proof",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "One-line proof point shown at the foot of the cell.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "10+ years combined experience",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_hp_0031"
+                }
+            ]
+        },
+        {
+            "key": "field_hp_0032",
+            "label": "Why Stat Value",
+            "name": "hp_why_stat_value",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "2.3x",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "2.3x",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0033",
+            "label": "Why Stat Label",
+            "name": "hp_why_stat_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Average lead growth across our clients. The number we hold ourselves to.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0034",
+            "label": "Why Note Title",
+            "name": "hp_why_note_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Not the cheapest. The most accountable.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0035",
+            "label": "Why Note Text",
+            "name": "hp_why_note_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0036",
+            "label": "Why CTA Text",
+            "name": "hp_why_cta_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Sound like your kind of partner?",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0037",
+            "label": "Why CTA Label",
+            "name": "hp_why_cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Start a project",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_hp_0025",
             "label": "Story Tag",
             "name": "hp_story_tag",
@@ -850,5 +1066,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781135153
+    "modified": 1781195599
 }
