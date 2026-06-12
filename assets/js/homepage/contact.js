@@ -10,19 +10,6 @@ const reduceMotion = prefersReducedMotion();
 document.addEventListener('DOMContentLoaded', () => {
     if (reduceMotion) return;
 
-    gsap.from('.contact .tag', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.contact .tag',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-            once: true
-        }
-    });
-
     gsap.from('.contact .sub-heading', {
         opacity: 0,
         y: 20,

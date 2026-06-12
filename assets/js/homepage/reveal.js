@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
     const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .why .content h2, .process .content h2, .testimonials .content h2');
-    const fades = gsap.utils.toArray('.results .content .tag, .work .content .tag, .why .content .tag, .why .content .sub-heading, .process .content .tag, .process .content .sub-heading, .testimonials .content .tag');
+    const fades = gsap.utils.toArray('.why .content .sub-heading, .process .content .sub-heading');
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
 
     // Hide up front, before the user can ever see these sections.

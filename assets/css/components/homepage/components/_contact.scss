@@ -5,10 +5,6 @@
   transition: background 0.3s;
 
   .content {
-    .tag {
-      @include vc-eyebrow-tick($vc-grey-600);
-    }
-
     h2 {
       @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
@@ -143,10 +139,6 @@
 
 @at-root body.dark-mode .contact {
   background: $dark-vc-background-dark-alt !important;
-
-  .content .tag {
-    color: $vc-primary !important;
-  }
 
   h2, p, input[type="text"], input[type="email"], .gform_confirmation_message, textarea {
     color: $vc-text-light !important;

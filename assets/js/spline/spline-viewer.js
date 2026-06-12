@@ -10,22 +10,26 @@ if (typeof window !== 'undefined' && window.__vc_public_path) {
 const BASE = `${window.location.origin}/wp-content/themes/vulkancreative-theme/assets`;
 const SCENE_URL = `${BASE}/spline/scene.splinecode`;
 const POSTER_URL = `${BASE}/images/hero/statue-poster.webp`;
+// Below lg the poster is a forward-facing transparent cut-out (face and
+// hammer to camera) rather than the bowed-head scene render.
+const POSTER_MOBILE_URL = `${BASE}/images/hero/statue-forward.webp`;
 const DESKTOP_MIN = 992;
 
 // Show a lightweight poster if one exists, so there is an instant visual while
 // the heavier interactive scene loads (and a fallback if it never does).
 function addPoster(container) {
+    const url = window.innerWidth < DESKTOP_MIN ? POSTER_MOBILE_URL : POSTER_URL;
     const probe = new Image();
     probe.onload = () => {
         if (container.querySelector('.hero-poster')) return;
         const img = document.createElement('img');
-        img.src = POSTER_URL;
+        img.src = url;
         img.alt = '';
         img.className = 'hero-poster';
         img.setAttribute('aria-hidden', 'true');
         container.prepend(img);
     };
-    probe.src = POSTER_URL;
+    probe.src = url;
 }
 
 // Code-split: the viewer and its WebGL runtime only download on capable desktop

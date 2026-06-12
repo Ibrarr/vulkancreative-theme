@@ -12,7 +12,7 @@ $hp_heading_highlights = [
 	'hp_story_heading'        => [ 'Our Story',                            'Our <span>Story</span>' ],
 	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
 	'hp_testimonials_heading' => [ 'Trusted by Ambitious Brands',          'Trusted by <span>Ambitious Brands</span>' ],
-	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you want to discuss?' ],
+	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you want to&nbsp;discuss?' ],
 ];
 function hp_heading( $field_name, $highlights ) {
 	$val = get_field( $field_name );
@@ -30,20 +30,16 @@ $hero_button           = get_field('hp_hero_button_text') ?: 'Start a project';
 $hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the results';
 
 // Results
-$results_tag     = get_field('hp_results_tag') ?: 'By the numbers';
 $results_heading = hp_heading('hp_results_heading', $hp_heading_highlights);
 
 // Services
-$services_tag         = get_field('hp_services_tag') ?: 'What we do';
 $services_heading     = hp_heading('hp_services_heading', $hp_heading_highlights);
 $services_description = get_field('hp_services_description') ?: 'Six services, one joined-up team. Pick what you need now and scale when you are ready.';
 
 // Work
-$work_tag     = get_field('hp_work_tag') ?: 'Recent work';
 $work_heading = hp_heading('hp_work_heading', $hp_heading_highlights);
 
 // Why
-$why_tag        = get_field('hp_why_tag') ?: 'Why Vulkan';
 $why_heading    = hp_heading('hp_why_heading', $hp_heading_highlights);
 $why_subheading = get_field('hp_why_subheading') ?: 'A dedicated partner, not a distant supplier. Three things we never compromise on.';
 
@@ -85,23 +81,19 @@ $why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partn
 $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a project';
 
 // Story
-$story_tag         = get_field('hp_story_tag') ?: 'Inside the forge';
 $story_heading     = hp_heading('hp_story_heading', $hp_heading_highlights);
 $story_description = get_field('hp_story_description') ?: 'We built Vulkan to do agency work properly: in person, honest about what works and measured by what it returns. Press play to meet the team you would be working with.';
 
 // Process
-$process_tag         = get_field('hp_process_tag') ?: 'How we work';
 $process_heading     = hp_heading('hp_process_heading', $hp_heading_highlights);
 $process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
 
 // Testimonials
-$testimonials_tag          = get_field('hp_testimonials_tag') ?: 'What clients say';
 $testimonials_heading      = hp_heading('hp_testimonials_heading', $hp_heading_highlights);
 $testimonials_rating_value = get_field('hp_testimonials_rating_value') ?: '4.9';
 $testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'average client rating';
 
 // Contact
-$contact_tag        = get_field('hp_contact_tag') ?: 'Let’s talk';
 $contact_heading    = hp_heading('hp_contact_heading', $hp_heading_highlights);
 $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you want to be. We will reply within one working day with a clear next step.';
 ?>
@@ -153,7 +145,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="results" id="results">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html( $results_tag ); ?></p>
             <h2><?php echo wp_kses_post( $results_heading ); ?></h2>
         </div>
         <div class="row gx-4 gy-4 stats-grid">
@@ -192,7 +183,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
         <div class="row services-head">
             <div class="col-lg-7">
                 <div class="content">
-                    <p class="tag"><?php echo esc_html( $services_tag ); ?></p>
                     <h2><?php echo wp_kses_post( $services_heading ); ?></h2>
                 </div>
             </div>
@@ -250,7 +240,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="work" id="work">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html( $work_tag ); ?></p>
             <h2><?php echo wp_kses_post( $work_heading ); ?></h2>
         </div>
         <?php
@@ -284,7 +273,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
                                 </span>
                             <?php endif; ?>
                             <span class="case-overlay">
-                                <span class="case-index" aria-hidden="true"><?php echo esc_html( str_pad( $work_i + 1, 2, '0', STR_PAD_LEFT ) ); ?></span>
                                 <span class="case-text">
                                     <?php if ( $work_case['sector'] ) : ?><span class="case-sector"><?php echo esc_html( $work_case['sector'] ); ?></span><?php endif; ?>
                                     <h3 class="case-client"><?php echo esc_html( $work_case['client'] ); ?></h3>
@@ -314,14 +302,12 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="why" id="why">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html( $why_tag ); ?></p>
             <h2><?php echo wp_kses_post( $why_heading ); ?></h2>
             <p class="sub-heading"><?php echo esc_html( $why_subheading ); ?></p>
         </div>
         <div class="why-grid">
             <?php $why_i = 1; foreach ( $why_items as $why_item ) : ?>
                 <div class="why-cell why-cell-diff why-cell-diff-<?php echo (int) $why_i; ?>">
-                    <span class="why-index" aria-hidden="true"><?php echo esc_html( str_pad( $why_i, 2, '0', STR_PAD_LEFT ) ); ?></span>
                     <h3><?php echo esc_html( $why_item['title'] ); ?></h3>
                     <p><?php echo esc_html( $why_item['description'] ); ?></p>
                     <?php if ( ! empty( $why_item['proof'] ) ) : ?>
@@ -350,7 +336,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
         <div class="row story-head">
             <div class="col-lg-6">
                 <div class="content">
-                    <p class="tag"><?php echo esc_html( $story_tag ); ?></p>
                     <h2><?php echo wp_kses_post( $story_heading ); ?></h2>
                 </div>
             </div>
@@ -384,7 +369,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="process" id="process">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html( $process_tag ); ?></p>
             <h2><?php echo wp_kses_post( $process_heading ); ?></h2>
             <p class="sub-heading"><?php echo esc_html( $process_description ); ?></p>
         </div>
@@ -426,7 +410,6 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
     <div class="container px-4">
         <div class="testimonials-head">
             <div class="content">
-                <p class="tag"><?php echo esc_html( $testimonials_tag ); ?></p>
                 <h2><?php echo wp_kses_post( $testimonials_heading ); ?></h2>
             </div>
             <div class="rating-chip">
@@ -485,8 +468,13 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
                                         <blockquote>
                                             <p class="spotlight-quote"><?php echo esc_html( $tm_item['quote'] ); ?></p>
                                             <cite>
-                                                <span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
-                                                <span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
+                                                <span class="cite-avatar" aria-hidden="true">
+                                                    <img loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
+                                                </span>
+                                                <span class="cite-text">
+                                                    <span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
+                                                    <span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
+                                                </span>
                                             </cite>
                                         </blockquote>
                                     </li>
@@ -517,14 +505,13 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="contact" id="contact">
     <div class="container px-4">
         <div class="row gx-5">
-            <div class="col-lg-5">
+            <div class="col-lg-7">
                 <div class="content">
-                    <p class="tag"><?php echo esc_html( $contact_tag ); ?></p>
                     <h2 class="split-text-contact"><?php echo wp_kses_post( $contact_heading ); ?></h2>
                     <p class="sub-heading"><?php echo esc_html( $contact_subheading ); ?></p>
                 </div>
             </div>
-            <div class="col-lg-7 form">
+            <div class="col-lg-5 form">
                 <div class="form-container">
                     <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
                 </div>

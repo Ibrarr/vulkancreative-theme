@@ -10,10 +10,6 @@
     max-width: 720px;
     margin-bottom: $space-6;
 
-    .tag {
-      @include vc-eyebrow-tick($vc-grey-600);
-    }
-
     h2 {
       @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
@@ -130,10 +126,6 @@
   }
 
   .content {
-    .tag {
-      color: $vc-primary !important;
-    }
-
     h2 {
       color: $vc-text-light !important;
     }

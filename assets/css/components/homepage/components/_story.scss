@@ -9,10 +9,6 @@
     align-items: flex-end;
 
     .content {
-      .tag {
-        @include vc-eyebrow-tick($vc-grey-600);
-      }
-
       h2 {
         @include vc-display-2($vc-text-dark);
         margin-bottom: 0;
@@ -65,10 +61,6 @@
 
 @at-root body.dark-mode .story {
   background: $dark-vc-background-dark !important;
-
-  .story-head .content .tag {
-    color: $vc-primary !important;
-  }
 
   .story-head .content h2 {
     color: $vc-text-light !important;

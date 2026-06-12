@@ -26,20 +26,23 @@
     width: 62%;
     z-index: 1;
     will-change: transform;
-    mask-image: linear-gradient(to right, transparent 0%, black 30%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    mask-image: linear-gradient(to right, transparent 0%, black 65%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 65%);
 
     @include media-breakpoint-down(xl) {
       width: 68%;
       right: -12%;
     }
 
+    // Below lg the poster is the forward-facing transparent cut-out, so no
+    // blend mask is needed; the crop keeps the face and raised hammer in
+    // frame behind the headline.
     @include media-breakpoint-down(lg) {
       width: 100%;
       right: 0;
-      opacity: 0.28;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 45%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 45%);
+      opacity: 0.4;
+      mask-image: none;
+      -webkit-mask-image: none;
     }
 
     .hero-poster,
@@ -58,7 +61,7 @@
       transition: opacity 0.9s ease;
 
       @include media-breakpoint-down(lg) {
-        object-position: center top;
+        object-position: 15% top;
       }
     }
 

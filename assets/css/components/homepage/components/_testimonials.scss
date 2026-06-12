@@ -25,10 +25,6 @@
     max-width: 720px;
     margin-bottom: $space-6;
 
-    .tag {
-      @include vc-eyebrow-tick($vc-grey-600);
-    }
-
     h2 {
       @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
@@ -184,14 +180,12 @@
 
     // Equal slide heights: quotes differ in length, and without a floor the
     // track height changes per slide, shifting everything below mid-fade.
+    // testimonials.js measures the tallest blockquote and applies it as a
+    // min-height to all of them (re-measured on resize), so the section is
+    // never taller than its longest quote.
     .splide__slide blockquote {
       margin: 0;
       max-width: 56rem;
-      min-height: 240px;
-
-      @include media-breakpoint-down(md) {
-        min-height: 300px;
-      }
 
       .spotlight-quote {
         font-family: $vc-font-family;
@@ -206,8 +200,48 @@
       cite {
         font-style: normal;
         display: flex;
-        flex-direction: column;
-        gap: 4px;
+        align-items: center;
+        gap: 14px;
+
+        // Small duotone headshot beside the attribution; the big portrait
+        // panel takes over from lg up.
+        .cite-avatar {
+          position: relative;
+          width: 52px;
+          height: 52px;
+          flex: 0 0 auto;
+          border-radius: 8px;
+          overflow: hidden;
+          border: 1px solid $vc-grey-200;
+          background: $vc-text-dark;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(1);
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: $vc-primary;
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+          }
+
+          @include media-breakpoint-up(lg) {
+            display: none;
+          }
+        }
+
+        .cite-text {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
 
         .t-name {
           font-family: $vc-font-family;
@@ -306,10 +340,6 @@
 @at-root body.dark-mode .testimonials {
   background: $dark-vc-background-dark !important;
 
-  .content .tag {
-    color: $vc-primary !important;
-  }
-
   .content h2 {
     color: $vc-text-light !important;
   }
@@ -344,6 +374,10 @@
     border-top-color: $vc-grey-dark-border !important;
 
     .splide__slide blockquote {
+      cite .cite-avatar {
+        border-color: $vc-grey-dark-border !important;
+      }
+
       .spotlight-quote {
         color: $vc-text-light !important;
       }

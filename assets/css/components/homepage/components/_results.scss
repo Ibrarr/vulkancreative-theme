@@ -7,10 +7,6 @@
   .content {
     margin-bottom: $space-6;
 
-    .tag {
-      @include vc-eyebrow-tick($vc-grey-600);
-    }
-
     h2 {
       @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
@@ -46,10 +42,6 @@
 
 @at-root body.dark-mode .results {
   background: $dark-vc-background-dark !important;
-
-  .content .tag {
-    color: $vc-primary !important;
-  }
 
   .content h2 {
     color: $vc-text-light !important;

@@ -12,10 +12,6 @@
   .content {
     margin-bottom: $space-6;
 
-    .tag {
-      @include vc-eyebrow-tick($vc-grey-600);
-    }
-
     h2 {
       @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
@@ -87,10 +83,6 @@
         flex-direction: column;
       }
 
-      .case-index {
-        display: none;
-      }
-
       .case-sector {
         @include vc-eyebrow(rgba($vc-text-light, 0.85));
         font-size: 11px;
@@ -110,7 +102,7 @@
 
       .case-metric {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         gap: 12px;
         margin-top: $space-2;
         padding-top: $space-2;
@@ -148,20 +140,9 @@
 
       .case-overlay {
         display: grid;
-        grid-template-columns: 64px minmax(0, 1fr) auto;
+        grid-template-columns: minmax(0, 1fr) auto;
         gap: $space-3;
         align-items: center;
-      }
-
-      .case-index {
-        font-family: $vc-display-font;
-        font-weight: $vc-black;
-        font-stretch: $vc-display-stretch;
-        font-size: 34px;
-        line-height: 1;
-        color: transparent;
-        -webkit-text-stroke: 1.5px $vc-primary;
-        transition: color .3s ease;
       }
 
       .case-text {
@@ -226,10 +207,6 @@
       &:focus-visible,
       &.is-active {
         background-color: rgba($vc-text-dark, 0.03);
-
-        .case-index {
-          color: $vc-primary;
-        }
       }
     }
   }
@@ -296,10 +273,6 @@
 
 @at-root body.dark-mode .work {
   background: $dark-vc-background-dark !important;
-
-  .content .tag {
-    color: $vc-primary !important;
-  }
 
   .content h2 {
     color: $vc-text-light !important;

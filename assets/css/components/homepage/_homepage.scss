@@ -1,4 +1,9 @@
 .home.page {
+  // Section headings run all-caps to match the hero headline.
+  section .content h2 {
+    text-transform: uppercase;
+  }
+
   @import "components/hero";
   @import "components/results";
   @import "components/services";

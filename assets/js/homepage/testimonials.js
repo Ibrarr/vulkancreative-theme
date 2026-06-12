@@ -26,6 +26,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const counter = el.querySelector('.spotlight-counter .current');
     const bar = el.querySelector('.spotlight-progress-bar');
     const portraits = Array.from(el.querySelectorAll('.spotlight-portrait'));
+    const blockquotes = Array.from(el.querySelectorAll('.splide__slide blockquote'));
+
+    // Equalise slide heights to the tallest quote so the crossfade never
+    // shifts the layout below, without reserving more space than needed.
+    const equaliseQuotes = () => {
+        blockquotes.forEach((quote) => { quote.style.minHeight = ''; });
+        const tallest = Math.max(...blockquotes.map((quote) => quote.offsetHeight));
+        blockquotes.forEach((quote) => { quote.style.minHeight = `${tallest}px`; });
+    };
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(equaliseQuotes, 150);
+    });
+
+    splide.on('mounted', equaliseQuotes);
+
+    // Re-measure once webfonts settle (metrics can change line counts);
+    // nothing is hidden behind this, it only refines the reserved height.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(equaliseQuotes);
+    }
 
     splide.on('mounted move', () => {
         if (counter) {
