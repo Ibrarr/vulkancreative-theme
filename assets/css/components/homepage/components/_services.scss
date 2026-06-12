@@ -55,7 +55,17 @@
       border-bottom: 1px solid $vc-grey-200;
       text-decoration: none;
       position: relative;
+      overflow: hidden;
       transition: background-color .3s, border-color .3s;
+
+      // The icon sits as a big faded watermark in the bottom-right corner;
+      // the content stacks above it.
+      .service-index,
+      .service-main,
+      .service-arrow {
+        position: relative;
+        z-index: 1;
+      }
 
       &::before {
         content: '';
@@ -78,20 +88,27 @@
         color: $vc-grey-600;
       }
 
+      .service-icon {
+        position: absolute;
+        right: -12px;
+        bottom: -16px;
+        width: 110px;
+        height: 110px;
+        object-fit: contain;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 0;
+        transition: opacity .3s;
+
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+
       .service-title-row {
         display: flex;
         align-items: center;
         gap: 14px;
-
-        .service-icon {
-          width: 30px;
-          height: 30px;
-          object-fit: contain;
-
-          @include media-breakpoint-down(md) {
-            display: none;
-          }
-        }
 
         .service-title {
           @include vc-display-3($vc-text-dark);
@@ -121,6 +138,10 @@
 
         &::before {
           transform: scaleY(1);
+        }
+
+        .service-icon {
+          opacity: 0.14;
         }
 
         .service-title {
@@ -212,13 +233,15 @@
         transition: color .3s;
       }
 
+      .service-icon {
+        right: -28px;
+        bottom: -28px;
+        width: 240px;
+        height: 240px;
+      }
+
       .service-title-row {
         align-items: center;
-
-        .service-icon {
-          width: 34px;
-          height: 34px;
-        }
 
         .service-title {
           font-size: clamp(1.5rem, 1.4vw + 0.75rem, 1.875rem);

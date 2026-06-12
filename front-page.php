@@ -225,10 +225,10 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
                 $icon_url = trailingslashit( home_url('/wp-content/themes/vulkancreative-theme/assets/images/icons/services') ) . ltrim($icon, '/');
                 ?>
                 <a class="service-row" href="#contact" aria-label="Enquire about <?php echo esc_attr( $title ); ?>">
+                    <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
                     <span class="service-index"><?php echo str_pad( $service_i, 2, '0', STR_PAD_LEFT ); ?></span>
                     <span class="service-main">
                         <span class="service-title-row">
-                            <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
                             <h3 class="service-title"><?php echo esc_html( $title ); ?></h3>
                         </span>
                         <span class="service-desc"><?php echo esc_html( $description ); ?></span>
