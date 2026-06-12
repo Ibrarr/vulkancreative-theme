@@ -74,17 +74,26 @@
         }
       }
 
+      // The caption carries its own gradient, sized to itself, so however
+      // many lines it runs to the text always sits on a dark backdrop (the
+      // fixed scrim above is only a depth wash); the extra top padding gives
+      // the fade room to clear the first line. Same pattern as the Our Work
+      // wheel cards in _our-work.scss, with the knee held higher (70%)
+      // because these captions run much taller (summary plus metric rows).
       .case-overlay {
         position: relative;
         z-index: 1;
         width: 100%;
-        padding: $space-4;
+        padding: $space-5 $space-4 $space-4;
         display: flex;
         flex-direction: column;
+        background: linear-gradient(to top, rgba(13, 13, 13, 0.92) 0%, rgba(13, 13, 13, 0.88) 70%, rgba(13, 13, 13, 0) 100%);
       }
 
+      // Full-opacity white: the eyebrow sits highest up the caption, so it
+      // has the least gradient behind it and must survive bright uploads.
       .case-sector {
-        @include vc-eyebrow(rgba($vc-text-light, 0.85));
+        @include vc-eyebrow($vc-text-light);
         font-size: 11px;
         margin-bottom: 6px;
       }
@@ -211,6 +220,26 @@
     }
   }
 
+  .work-outro {
+    @include vc-p($vc-grey-600);
+    margin: $space-6 0 0;
+    transition: color .3s;
+
+    a {
+      color: $vc-text-dark;
+      font-weight: $vc-semi-bold;
+      text-decoration: underline;
+      text-decoration-color: $vc-primary;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      transition: color .3s;
+
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+  }
+
   .case-stage {
     display: none;
 
@@ -250,25 +279,6 @@
     }
   }
 
-  .work-outro {
-    @include vc-p($vc-grey-600);
-    margin: $space-6 0 0;
-    transition: color .3s;
-
-    a {
-      color: $vc-text-dark;
-      font-weight: $vc-semi-bold;
-      text-decoration: underline;
-      text-decoration-color: $vc-primary;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
-      transition: color .3s;
-
-      &:hover {
-        color: $vc-primary;
-      }
-    }
-  }
 }
 
 @at-root body.dark-mode .work {

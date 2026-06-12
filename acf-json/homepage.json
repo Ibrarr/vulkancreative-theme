@@ -680,6 +680,80 @@
             "append": ""
         },
         {
+            "key": "field_hp_0040",
+            "label": "Our Work Heading",
+            "name": "hp_our_work_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span></span> to highlight it in red. Tiles come from featured Projects (Our Work).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "More of our work.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0041",
+            "label": "Our Work Subheading",
+            "name": "hp_our_work_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0042",
+            "label": "Our Work Projects",
+            "name": "hp_our_work_projects",
+            "aria-label": "",
+            "type": "relationship",
+            "instructions": "Pick the projects shown in the Our Work shelf and drag to set their order. Up to 8.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "project"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "return_format": "id",
+            "min": "",
+            "max": 8,
+            "elements": [],
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "bidirectional_target": []
+        },
+        {
             "key": "field_hp_0022",
             "label": "Why Tag",
             "name": "hp_why_tag",
@@ -1108,5 +1182,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781213073
+    "modified": 1781306585
 }

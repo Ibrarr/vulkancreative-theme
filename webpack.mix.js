@@ -25,6 +25,7 @@ mix.js([
     'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
     'assets/js/homepage/work.js',
+    'assets/js/homepage/our-work.js',
     'assets/js/homepage/process.js',
     'assets/js/homepage/testimonials.js',
     'assets/js/homepage/reveal.js',

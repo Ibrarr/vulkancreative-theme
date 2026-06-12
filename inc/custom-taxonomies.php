@@ -39,5 +39,5 @@ function services_taxonomy() {
             'hierarchical'  => true,
         ),
     );
-    register_taxonomy( 'service', array( 'post' ), $args );
+    register_taxonomy( 'service', array( 'post', 'project' ), $args );
 }

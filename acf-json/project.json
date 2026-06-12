@@ -1,0 +1,137 @@
+{
+    "key": "group_project_e58c2a",
+    "title": "Project",
+    "fields": [
+        {
+            "key": "field_pj_0001",
+            "label": "Client Name",
+            "name": "pj_client_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown as the tile title on the homepage Our Work section.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Acme Ltd",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_pj_0002",
+            "label": "Sector",
+            "name": "pj_sector",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short industry label, for example Property, Events, Ecommerce.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "Property",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_pj_0003",
+            "label": "Description",
+            "name": "pj_description",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One sentence on what was made, for example: Brand and website for a Kent property developer.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_pj_0004",
+            "label": "Image",
+            "name": "pj_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Shown as the tile image. Landscape works best.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png,webp",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_pj_0005",
+            "label": "Live Site Link",
+            "name": "pj_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Optional link to the live site, opened in a new tab. Tiles without a link are not clickable.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": "https://"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1781293089
+}

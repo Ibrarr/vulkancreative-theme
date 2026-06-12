@@ -12,8 +12,8 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .why .content h2, .process .content h2, .testimonials .content h2');
-    const fades = gsap.utils.toArray('.why .content .sub-heading, .process .content .sub-heading');
+    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .our-work .content h2, .why .content h2, .process .content h2, .testimonials .content h2');
+    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading');
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
 
     // Hide up front, before the user can ever see these sections.

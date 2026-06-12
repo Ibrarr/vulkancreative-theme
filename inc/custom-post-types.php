@@ -83,3 +83,46 @@ function testimonial_post_type() {
     );
     register_post_type( 'testimonial', $args );
 }
+
+/**
+ * Register Project Post Type ("Our Work")
+ *
+ * The lighter portfolio tier under Case Studies. Admin-only content
+ * consumed by the homepage Our Work section. No single pages or archive
+ * for now; the key stays stable so they can be added in a later round.
+ */
+add_action( 'init', 'project_post_type', 0 );
+function project_post_type() {
+    $labels = array(
+        'name'               => _x( 'Our Work', 'Post Type General Name', 'vc' ),
+        'singular_name'      => _x( 'Project', 'Post Type Singular Name', 'vc' ),
+        'menu_name'          => __( 'Our Work', 'vc' ),
+        'all_items'          => __( 'All projects', 'vc' ),
+        'add_new'            => __( 'Add new', 'vc' ),
+        'add_new_item'       => __( 'Add new project', 'vc' ),
+        'edit_item'          => __( 'Edit project', 'vc' ),
+        'update_item'        => __( 'Update project', 'vc' ),
+        'view_item'          => __( 'View project', 'vc' ),
+        'search_items'       => __( 'Search projects', 'vc' ),
+        'not_found'          => __( 'Not Found', 'vc' ),
+        'not_found_in_trash' => __( 'Not found in Trash', 'vc' ),
+    );
+
+    $args = array(
+        'labels'              => $labels,
+        'public'              => false,
+        'publicly_queryable'  => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'show_in_nav_menus'   => false,
+        'show_in_rest'        => true,
+        'exclude_from_search' => true,
+        'has_archive'         => false,
+        'rewrite'             => false,
+        'hierarchical'        => false,
+        'menu_position'       => 22,
+        'menu_icon'           => 'dashicons-hammer',
+        'supports'            => array( 'title' ),
+    );
+    register_post_type( 'project', $args );
+}

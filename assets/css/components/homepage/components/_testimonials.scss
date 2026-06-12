@@ -156,6 +156,7 @@
           background: $vc-primary;
           mix-blend-mode: soft-light;
           pointer-events: none;
+          opacity: 0.75;
         }
 
         @media (prefers-reduced-motion: reduce) {

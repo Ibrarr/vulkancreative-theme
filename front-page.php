@@ -8,6 +8,7 @@ $hp_heading_highlights = [
 	'hp_results_heading'      => [ 'Results That Matter',                  'Results That <span>Matter</span>' ],
 	'hp_services_heading'     => [ 'Built around one goal: your growth.',  'Built around one goal: <span>your growth</span>.' ],
 	'hp_work_heading'         => [ 'Forged with our clients.',             'Forged with <span>our clients</span>.' ],
+	'hp_our_work_heading'     => [ 'More of our work.',                    'More of <span>our work</span>.' ],
 	'hp_why_heading'          => [ 'Why Choose Vulkan?',                   'Why Choose <span>Vulkan</span>?' ],
 	'hp_story_heading'        => [ 'Our Story',                            'Our <span>Story</span>' ],
 	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
@@ -38,6 +39,10 @@ $services_description = get_field('hp_services_description') ?: 'Six services, o
 
 // Work
 $work_heading = hp_heading('hp_work_heading', $hp_heading_highlights);
+
+// Our Work
+$our_work_heading    = hp_heading('hp_our_work_heading', $hp_heading_highlights);
+$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.';
 
 // Why
 $why_heading    = hp_heading('hp_why_heading', $hp_heading_highlights);
@@ -296,6 +301,113 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
             </div>
             <p class="work-outro">Your project could be next. <a href="#contact">Start a project</a></p>
         <?php endif; ?>
+    </div>
+</section>
+
+<section class="our-work" id="our-work">
+    <div class="container px-4">
+        <?php
+        // Curated on the homepage: the hp_our_work_projects relationship field
+        // sets both the selection and the order of the shelf.
+        $our_work_ids  = get_field('hp_our_work_projects');
+        $work_projects = [];
+        if ( $our_work_ids ) {
+            foreach ( array_slice( (array) $our_work_ids, 0, 8 ) as $project_id ) {
+                $project_image = get_field('pj_image', $project_id);
+                if ( empty( $project_image ) ) { continue; }
+
+                // Service label: Yoast's primary term wins, then the first assigned term.
+                $service_label = '';
+                if ( function_exists('yoast_get_primary_term_id') ) {
+                    $primary_id = yoast_get_primary_term_id( 'service', $project_id );
+                    if ( $primary_id ) {
+                        $primary_term = get_term( $primary_id, 'service' );
+                        if ( $primary_term && ! is_wp_error( $primary_term ) ) {
+                            $service_label = $primary_term->name;
+                        }
+                    }
+                }
+                if ( ! $service_label ) {
+                    $project_terms = get_the_terms( $project_id, 'service' );
+                    if ( $project_terms && ! is_wp_error( $project_terms ) ) {
+                        $service_label = $project_terms[0]->name;
+                    }
+                }
+
+                $work_projects[] = [
+                    'client'      => get_field('pj_client_name', $project_id) ?: get_the_title( $project_id ),
+                    'sector'      => get_field('pj_sector', $project_id),
+                    'description' => get_field('pj_description', $project_id),
+                    'image'       => $project_image,
+                    'link'        => get_field('pj_link', $project_id),
+                    'service'     => $service_label,
+                ];
+            }
+        }
+
+        // Wheel order: the first pick takes the centre slot and later picks
+        // alternate right then left around it, so the curated order radiates
+        // outwards from the middle of the wheel.
+        $wheel_slots = [];
+        foreach ( $work_projects as $pick_i => $work_project ) {
+            $slot = ( $pick_i % 2 ) ? intdiv( $pick_i, 2 ) + 1 : -intdiv( $pick_i, 2 );
+            $wheel_slots[ $slot ] = $work_project;
+        }
+        ksort( $wheel_slots );
+        $work_projects = array_values( $wheel_slots );
+        ?>
+        <div class="work-wheel" id="work-wheel">
+            <div class="shelf-head">
+                <div class="content">
+                    <h2><?php echo wp_kses_post( $our_work_heading ); ?></h2>
+                    <p class="sub-heading"><?php echo esc_html( $our_work_subheading ); ?></p>
+                </div>
+                <?php if ( count( $work_projects ) > 1 ) : ?>
+                    <div class="wheel-controls">
+                        <p class="wheel-hint" aria-hidden="true">Drag to spin</p>
+                        <div class="wheel-arrows">
+                            <button class="wheel-arrow wheel-arrow--prev" type="button" aria-label="Previous projects" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                            </button>
+                            <button class="wheel-arrow wheel-arrow--next" type="button" aria-label="Next projects">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php if ( ! empty( $work_projects ) ) : ?>
+                <div class="wheel-stage" role="group" aria-roledescription="carousel" aria-label="Selected projects">
+                    <ul class="wheel-track">
+                        <?php foreach ( $work_projects as $work_project ) :
+                            $tile_tag   = $work_project['link'] ? 'a' : 'div';
+                            $tile_attrs = $work_project['link'] ? ' href="' . esc_url( $work_project['link'] ) . '" target="_blank" rel="noopener"' : '';
+                            // Keep the live-site arrow glued to the last word of the name.
+                            $client_words = explode( ' ', $work_project['client'] );
+                            $client_last  = array_pop( $client_words );
+                            $client_head  = implode( ' ', $client_words );
+                            ?>
+                            <li class="wheel-card">
+                                <<?php echo $tile_tag; ?> class="tile-media"<?php echo $tile_attrs; ?>>
+                                    <img class="tile-img" loading="lazy" src="<?php echo esc_url( $work_project['image']['sizes']['large'] ?? $work_project['image']['url'] ); ?>" alt="">
+                                    <span class="tile-scrim" aria-hidden="true"></span>
+                                    <?php if ( $work_project['service'] ) : ?><span class="tile-service"><?php echo esc_html( $work_project['service'] ); ?></span><?php endif; ?>
+                                    <span class="tile-caption">
+                                        <?php if ( $work_project['sector'] ) : ?><span class="tile-sector"><?php echo esc_html( $work_project['sector'] ); ?></span><?php endif; ?>
+                                        <?php if ( $work_project['link'] ) : ?>
+                                            <h3 class="tile-client"><?php echo $client_head ? esc_html( $client_head ) . ' ' : ''; ?><span class="tile-client-end"><?php echo esc_html( $client_last ); ?><svg class="tile-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden">(opens the live site in a new tab)</span></span></h3>
+                                        <?php else : ?>
+                                            <h3 class="tile-client"><?php echo esc_html( $work_project['client'] ); ?></h3>
+                                        <?php endif; ?>
+                                        <?php if ( $work_project['description'] ) : ?><span class="tile-line"><?php echo esc_html( $work_project['description'] ); ?></span><?php endif; ?>
+                                    </span>
+                                </<?php echo $tile_tag; ?>>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 
