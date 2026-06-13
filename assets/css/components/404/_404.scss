@@ -1,47 +1,80 @@
-.error404 {
-  font-family: $vc-font-family;
+// 404: a forge moment. A full-dark band in both modes (like the hero and why
+// sections), the giant Archivo error code with a red zero over a soft radial
+// glow, and the standard forge/ghost CTA pair. Static by design: no JS bundle,
+// nothing hidden, identical in light and dark mode.
+//
+// Styled on .error-section directly (not under a body class) so the same
+// markup renders identically on 404.php and the "404 Preview" page template.
+// The class is unique to this design, so there is no leakage risk.
+.error-section {
+  @include vc-section-padding;
+  position: relative;
+  overflow: hidden;
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  background: $vc-background-dark;
 
-  .error-section {
+  .error-glow {
+    position: absolute;
+    left: 4%;
+    top: 12%;
+    width: min(60vw, 700px);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: $z-base;
+  }
+
+  .error-code {
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(8rem, 20vw, 17rem);
+    line-height: 0.85;
+    color: $vc-text-light;
+    margin: 0 0 $space-2;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  h1 {
+    @include vc-display-2($vc-text-light);
+    text-transform: uppercase;
+    margin-bottom: $space-2;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .sub-heading {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 56ch;
+    margin: 0 0 $space-4;
+  }
+
+  .bottom {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    height: 90vh;
-
-    h1 {
-      font-size: clamp(7.5rem, -1.7308rem + 25.641vw, 17.5rem);
-      line-height: clamp(7.5rem, -1.7308rem + 25.641vw, 17.5rem);
-      font-weight: $vc-semi-bold;
-      margin-bottom: 0;
-    }
-
-    h2 {
-      font-size: clamp(1rem, 0.6538rem + 0.9615vw, 1.375rem);
-      color: $vc-text-dark;
-      margin-bottom: 20px;
-    }
-
-    p {
-      @include vc-body($vc-text-dark);
-      margin-bottom: 20px;
-    }
+    flex-wrap: wrap;
+    gap: $space-2;
 
     .button {
-      @include vc-button-big($vc-primary);
-      margin: auto;
-      cursor: pointer !important;
+      @include vc-button-forge;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
     }
   }
 }
 
-@at-root body.dark-mode.error404 {
-  h1, h2, p {
-    color: $vc-text-light !important;
-  }
-
-  .button:hover {
-    background: $dark-vc-background-dark !important;
-    color: $vc-text-light !important;
-  }
+@at-root body.dark-mode .error-section {
+  background: $dark-vc-background-dark-alt !important;
 }

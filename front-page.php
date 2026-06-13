@@ -13,7 +13,7 @@ $hp_heading_highlights = [
 	'hp_story_heading'        => [ 'Our Story',                            'Our <span>Story</span>' ],
 	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
 	'hp_testimonials_heading' => [ 'Trusted by Ambitious Brands',          'Trusted by <span>Ambitious Brands</span>' ],
-	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you want to&nbsp;discuss?' ],
+	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' ],
 ];
 function hp_heading( $field_name, $highlights ) {
 	$val = get_field( $field_name );
@@ -617,13 +617,13 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 <section class="contact" id="contact">
     <div class="container px-4">
         <div class="row gx-5">
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="content">
                     <h2 class="split-text-contact"><?php echo wp_kses_post( $contact_heading ); ?></h2>
                     <p class="sub-heading"><?php echo esc_html( $contact_subheading ); ?></p>
                 </div>
             </div>
-            <div class="col-lg-5 form">
+            <div class="col-lg-6 form">
                 <div class="form-container">
                     <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
                 </div>

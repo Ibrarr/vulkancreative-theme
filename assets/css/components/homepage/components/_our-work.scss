@@ -19,7 +19,7 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: $space-3;
-    margin-bottom: $space-4;
+    margin-bottom: $space-8;
 
     .content {
       h2 {
@@ -100,6 +100,7 @@
       flex-direction: column;
       align-items: flex-start;
       gap: $space-2;
+      margin-bottom: $space-6;
 
       .wheel-controls {
         align-items: flex-start;

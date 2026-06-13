@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let geo = geometry();
     let anglePer = Math.asin(geo.spacing / geo.radius);
 
-    // The wheel stays flanked on both sides: the centre slot only travels
-    // between the second and second-to-last cards, so the stage never shows
-    // a dead half. Edge cards remain fully visible (and clickable) at the
-    // flank slots either side of centre.
-    const minProgress = count > 3 ? 1 : 0;
-    const maxProgress = count > 3 ? count - 2 : count - 1;
+    // Every card can come to centre, including the first and last — the wheel
+    // travels the full range so nothing is ever stranded off the end (on
+    // small screens the end cards were otherwise unreachable). At the ends one
+    // side of the arc is naturally emptier; that reads fine for a carousel.
+    const minProgress = 0;
+    const maxProgress = count - 1;
 
     // The template orders the cards centre-out (first pick in the middle),
     // so the wheel starts on the middle card with flanks both sides.
