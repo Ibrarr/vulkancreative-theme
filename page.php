@@ -1,14 +1,31 @@
 <?php
 get_header();
-?>
 
-<section class="content">
-    <div class="container px-4">
-        <h1 class="title"><?php the_title(); ?></h1>
-        <div class="content-area"><?php the_content(); ?></div>
-    </div>
-</section>
+while ( have_posts() ) : the_post(); ?>
 
-<?php
+    <article class="default-page">
+        <div class="page-header">
+            <div class="container px-4">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <h1 class="page-title"><?php the_title(); ?></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="page-body">
+            <div class="container px-4">
+                <div class="row">
+                    <div class="col-lg-8 content-area">
+                        <?php the_content(); ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+<?php endwhile;
+
 get_footer();
 ?>

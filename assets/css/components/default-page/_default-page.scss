@@ -1,27 +1,170 @@
-.page-template-default:not(.home) {
-  font-family: $vc-font-family;
-
-  #smooth-wrapper {
-    margin-top: 120px;
+// Default page template (page.php): long-form utility/legal pages such as
+// Privacy Policy and Cookie Policy. A dark forge title band (same family as
+// the 404 top band, and its top padding clears the fixed header) over a clean,
+// high-contrast prose body constrained to a readable measure. Scoped to
+// .default-page so it never touches the homepage or blog.
+.default-page {
+  .page-header {
+    padding: $space-15 0 $space-8;
+    background: $vc-background-dark;
 
     @include media-breakpoint-down(lg) {
-      margin-top: 70px;
+      padding: $space-10 0 $space-6;
     }
 
-    .title {
+    .page-title {
+      @include vc-display-2($vc-text-light);
+      text-transform: uppercase;
+      margin: 0;
+    }
+  }
+
+  .page-body {
+    padding: $space-10 0 $space-15;
+    background: $vc-surface-white;
+    transition: background 0.3s;
+
+    @include media-breakpoint-down(lg) {
+      padding: $space-8 0;
+    }
+  }
+
+  // Prose: predictable per-element bottom margins, brand-red list markers and
+  // links, Archivo section headings, near-black body for legal readability.
+  .content-area {
+    @include vc-p($vc-grey-700);
+    line-height: 1.7;
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    h2 {
+      @include vc-display-3($vc-text-dark);
+      margin: $space-8 0 $space-3;
+    }
+
+    h3 {
+      font-family: $vc-font-family;
       font-weight: $vc-semi-bold;
-      margin-bottom: 20px;
+      font-size: 20px;
+      line-height: 1.4;
+      color: $vc-text-dark;
+      margin: $space-5 0 $space-2;
     }
 
-    .content-area {
-      margin-bottom: 60px;
+    p {
+      color: $vc-grey-700;
+      margin: 0 0 $space-3;
+    }
 
-      @include vc-body($vc-text-dark);
+    ul,
+    ol {
+      margin: 0 0 $space-3;
+      padding-left: $space-3;
 
-      a {
-        cursor: pointer;
-        color: $vc-primary;
+      li {
+        color: $vc-grey-700;
+        margin-bottom: $space-1;
+
+        &::marker {
+          color: $vc-primary;
+        }
       }
+    }
+
+    a {
+      color: $vc-primary;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $vc-secondary;
+      }
+    }
+
+    strong {
+      font-weight: $vc-semi-bold;
+      color: $vc-text-dark;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 $space-3;
+
+      th,
+      td {
+        @include vc-body($vc-grey-700);
+        border: 1px solid $vc-grey-200;
+        padding: $space-2;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        font-weight: $vc-semi-bold;
+        color: $vc-text-dark;
+      }
+    }
+
+    blockquote {
+      border-left: 2px solid $vc-primary;
+      padding-left: $space-3;
+      margin: 0 0 $space-3;
+      color: $vc-grey-600;
+    }
+  }
+}
+
+@at-root body.dark-mode .default-page {
+  .page-header {
+    background: $dark-vc-background-dark-alt !important;
+  }
+
+  .page-body {
+    background: $dark-vc-background-dark !important;
+  }
+
+  .content-area {
+    color: $vc-muted-on-dark !important;
+
+    h2,
+    h3,
+    strong {
+      color: $vc-text-light !important;
+    }
+
+    p,
+    li {
+      color: $vc-muted-on-dark !important;
+    }
+
+    a {
+      color: $vc-primary !important;
+
+      &:hover {
+        color: $vc-secondary !important;
+      }
+    }
+
+    table {
+
+      th,
+      td {
+        border-color: $vc-grey-dark-border !important;
+        color: $vc-muted-on-dark !important;
+      }
+
+      th {
+        color: $vc-text-light !important;
+      }
+    }
+
+    blockquote {
+      color: $vc-muted-on-dark !important;
     }
   }
 }
