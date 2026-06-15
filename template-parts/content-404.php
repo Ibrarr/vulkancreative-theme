@@ -18,8 +18,8 @@
                 <h1>Page <span>not found</span>.</h1>
                 <p class="sub-heading">The link may be broken or the page may have moved. Head back to the homepage, or tell us what you were looking for and we will point you the right way.</p>
                 <div class="bottom">
-                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button">Back to the homepage</a>
-                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="button-ghost">Start a project</a>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button">Back to the Homepage</a>
+                    <a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" class="button-ghost">Start a Project</a>
                 </div>
             </div>
         </div>

@@ -92,7 +92,7 @@
             "name": "hp_results_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -202,7 +202,7 @@
             "name": "hp_process_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -333,7 +333,7 @@
             "name": "hp_testimonials_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -444,7 +444,7 @@
             "name": "hp_testimonials_logos",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Optional client/partner logos shown above the testimonials.",
+            "instructions": "Optional client\/partner logos shown above the testimonials.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -601,7 +601,7 @@
             "name": "hp_services_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -664,7 +664,7 @@
             "name": "hp_work_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red. Cards come from featured Case Studies.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red. Cards come from featured Case Studies.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -685,7 +685,7 @@
             "name": "hp_our_work_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red. Tiles come from featured Projects (Our Work).",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red. Tiles come from featured Projects (Our Work).",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -780,7 +780,7 @@
             "name": "hp_why_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -815,138 +815,6 @@
             "placeholder": "",
             "rows": 3,
             "new_lines": ""
-        },
-        {
-            "key": "field_hp_0031",
-            "label": "Why Items",
-            "name": "hp_why_items",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Three differentiators. Leave empty to show the defaults.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 3,
-            "collapsed": "",
-            "button_label": "Add Differentiator",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_hp_0031a",
-                    "label": "Title",
-                    "name": "title",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "Hands-On, In Person",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_hp_0031"
-                },
-                {
-                    "key": "field_hp_0031b",
-                    "label": "Description",
-                    "name": "description",
-                    "aria-label": "",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "rows": 2,
-                    "new_lines": "",
-                    "parent_repeater": "field_hp_0031"
-                },
-                {
-                    "key": "field_hp_0031c",
-                    "label": "Proof",
-                    "name": "proof",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "One-line proof point shown at the foot of the cell.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "25",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "10+ years combined experience",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_hp_0031"
-                }
-            ]
-        },
-        {
-            "key": "field_hp_0032",
-            "label": "Why Stat Value",
-            "name": "hp_why_stat_value",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "2.3x",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "2.3x",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_hp_0033",
-            "label": "Why Stat Label",
-            "name": "hp_why_stat_label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Average lead growth across our clients. The number we hold ourselves to.",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         },
         {
             "key": "field_hp_0034",
@@ -1059,7 +927,7 @@
             "name": "hp_story_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -1122,7 +990,7 @@
             "name": "hp_contact_heading",
             "aria-label": "",
             "type": "text",
-            "instructions": "Wrap a word in <span></span> to highlight it in red.",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -1157,6 +1025,69 @@
             "placeholder": "",
             "rows": 3,
             "new_lines": ""
+        },
+        {
+            "key": "field_hp_0031",
+            "label": "Latest Insights Heading",
+            "name": "hp_latest_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Latest insights.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0032",
+            "label": "Latest Insights Subheading",
+            "name": "hp_latest_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Intro line beside the heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Fresh thinking on brand, web and marketing — what we’re learning, building and watching.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_hp_0033",
+            "label": "Latest Insights Button Label",
+            "name": "hp_latest_cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Text on the button that links to the blog.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "View All Insights",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -1182,5 +1113,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781306585
+    "modified": 1781566541
 }

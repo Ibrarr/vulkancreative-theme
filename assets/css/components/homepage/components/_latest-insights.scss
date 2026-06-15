@@ -1,0 +1,72 @@
+// Latest insights: a closing row of the three newest posts, below the contact
+// form. Reuses the global .insight-card; sits on the alternate light surface
+// ($vc-background-white) in light. In dark it uses the lighter $dark-vc-background-dark
+// (#1E1E1E) so it reads as its own band against the #121212 contact above and the
+// #0D0D0D footer below.
+.latest-insights {
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  .latest-insights-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: $space-3;
+    margin-bottom: $space-8;
+
+    .content {
+      h2 {
+        @include vc-display-2($vc-text-dark);
+        transition: color 0.3s;
+
+        span {
+          color: $vc-primary;
+        }
+      }
+
+      .sub-heading {
+        @include vc-p($vc-grey-600);
+        max-width: 56ch;
+        margin: $space-2 0 0;
+        transition: color 0.3s;
+      }
+    }
+
+    .latest-insights-all {
+      @include vc-button-ghost($vc-text-dark);
+      flex: 0 0 auto;
+    }
+
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: $space-6;
+    }
+  }
+}
+
+@at-root body.dark-mode .latest-insights {
+  background: $dark-vc-background-dark !important;
+
+  .latest-insights-head .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .latest-insights-head .content .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .latest-insights-head .latest-insights-all {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    // The resting colour above is !important (homepage specificity), so the
+    // ghost-button mixin's non-important :hover never wins. Restate it here.
+    &:hover,
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+}

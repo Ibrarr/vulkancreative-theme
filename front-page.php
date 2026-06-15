@@ -14,6 +14,7 @@ $hp_heading_highlights = [
 	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
 	'hp_testimonials_heading' => [ 'Trusted by Ambitious Brands',          'Trusted by <span>Ambitious Brands</span>' ],
 	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' ],
+	'hp_latest_heading'       => [ 'Latest insights.',                     'Latest <span>insights</span>.' ],
 ];
 function hp_heading( $field_name, $highlights ) {
 	$val = get_field( $field_name );
@@ -27,8 +28,8 @@ function hp_heading( $field_name, $highlights ) {
 
 // Hero
 $hero_subheading       = get_field('hp_hero_subheading') ?: 'Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.';
-$hero_button           = get_field('hp_hero_button_text') ?: 'Start a project';
-$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the results';
+$hero_button           = get_field('hp_hero_button_text') ?: 'Start a Project';
+$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the Results';
 
 // Results
 $results_heading = hp_heading('hp_results_heading', $hp_heading_highlights);
@@ -83,7 +84,7 @@ $why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across 
 $why_note_title = get_field('hp_why_note_title') ?: 'Not the cheapest. The most accountable.';
 $why_note_text  = get_field('hp_why_note_text') ?: 'One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.';
 $why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partner?';
-$why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a project';
+$why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 
 // Story
 $story_heading     = hp_heading('hp_story_heading', $hp_heading_highlights);
@@ -101,6 +102,11 @@ $testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'avera
 // Contact
 $contact_heading    = hp_heading('hp_contact_heading', $hp_heading_highlights);
 $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you want to be. We will reply within one working day with a clear next step.';
+
+// Latest insights
+$latest_heading    = hp_heading('hp_latest_heading', $hp_heading_highlights);
+$latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing — what we’re learning, building and watching.';
+$latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>
 
 <section class="hero" id="top">
@@ -193,7 +199,7 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
             </div>
             <div class="col-lg-4 offset-lg-1 services-intro">
                 <p class="sub-heading"><?php echo esc_html( $services_description ); ?></p>
-                <a href="#contact" class="button">Start a project</a>
+                <a href="#contact" class="button">Start a Project</a>
             </div>
         </div>
         <div class="service-rail">
@@ -453,7 +459,7 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
             </div>
             <div class="col-lg-5 offset-lg-1 story-intro">
                 <p class="split-text-story"><?php echo esc_html( $story_description ); ?></p>
-                <div class="bottom"><a href="#watch" class="button">Watch the film</a></div>
+                <div class="bottom"><a href="#watch" class="button">Watch the Film</a></div>
             </div>
         </div>
         <div class="video-wrapper" id="watch">
@@ -633,5 +639,39 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 </section>
 
 <?php
+$latest_insights = new WP_Query( [
+    'post_type'           => 'post',
+    'posts_per_page'      => 3,
+    'ignore_sticky_posts' => true,
+    'no_found_rows'       => true,
+] );
+
+if ( $latest_insights->have_posts() ) :
+    $latest_insights_blog = get_permalink( (int) get_option( 'page_for_posts' ) );
+    if ( ! $latest_insights_blog ) {
+        $latest_insights_blog = home_url( '/blog/' );
+    }
+    ?>
+    <section class="latest-insights" id="latest-insights">
+        <div class="container px-4">
+            <div class="latest-insights-head">
+                <div class="content">
+                    <h2><?php echo wp_kses_post( $latest_heading ); ?></h2>
+                    <p class="sub-heading"><?php echo esc_html( $latest_subheading ); ?></p>
+                </div>
+                <a class="latest-insights-all" href="<?php echo esc_url( $latest_insights_blog ); ?>"><?php echo esc_html( $latest_cta_label ); ?></a>
+            </div>
+
+            <div class="row g-4">
+                <?php while ( $latest_insights->have_posts() ) : $latest_insights->the_post(); ?>
+                    <?php get_template_part( 'template-parts/content', 'card' ); ?>
+                <?php endwhile; ?>
+            </div>
+        </div>
+    </section>
+    <?php
+    wp_reset_postdata();
+endif;
+
 get_footer();
 ?>

@@ -147,7 +147,7 @@ $related = new WP_Query( [
                         </div>
                         <?php if ( $author_bio ) : ?>
                             <p class="insight-author-desc"><?php echo esc_html( $author_bio ); ?></p>
-                            <a class="insight-author-more" href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>">Read more<span class="visually-hidden"> about <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?></span><span class="insight-author-more-arrow" aria-hidden="true">&rarr;</span></a>
+                            <a class="insight-author-more" href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>">Read More<span class="visually-hidden"> about <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?></span><span class="insight-author-more-arrow" aria-hidden="true">&rarr;</span></a>
                         <?php endif; ?>
                     </div>
                 </div>

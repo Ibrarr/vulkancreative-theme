@@ -12,12 +12,13 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .our-work .content h2, .why .content h2, .process .content h2, .testimonials .content h2');
-    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading');
+    const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .our-work .content h2, .why .content h2, .process .content h2, .testimonials .content h2, .latest-insights .content h2');
+    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading, .latest-insights .content .sub-heading, .latest-insights .latest-insights-all');
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
+    const latestCards = gsap.utils.toArray('.latest-insights .insight-card');
 
     // Hide up front, before the user can ever see these sections.
-    gsap.set([...headings, ...fades, ...steps], { opacity: 0, y: 24 });
+    gsap.set([...headings, ...fades, ...steps, ...latestCards], { opacity: 0, y: 24 });
 
     const showHeading = (el) => {
         SplitText.create(el, {
@@ -55,6 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stepsGrid && steps.length) {
         handlers.set(stepsGrid, () => {
             gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' });
+        });
+    }
+
+    // Latest insights cards stagger in when their grid enters
+    const latestGrid = document.querySelector('.latest-insights .row');
+    if (latestGrid && latestCards.length) {
+        handlers.set(latestGrid, () => {
+            gsap.to(latestCards, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
         });
     }
 
