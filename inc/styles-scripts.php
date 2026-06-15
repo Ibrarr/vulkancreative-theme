@@ -17,8 +17,12 @@ function add_custom_scripts() {
         wp_enqueue_script( 'single-blog', VC_TEMPLATE_URI . mix('/js/single-blog.js'), [ 'jquery' ], null, true );
     }
 
-    if ( is_home() || is_category() ) {
+    if ( is_home() || is_category() || is_search() ) {
         wp_enqueue_script( 'archive-blog', VC_TEMPLATE_URI . mix('/js/archive-blog.js'), [ 'jquery' ], null, true );
+        wp_localize_script( 'archive-blog', 'vcInsights', [
+            'rest'    => esc_url_raw( rest_url( 'vc/v1/insights' ) ),
+            'blogUrl' => get_permalink( (int) get_option( 'page_for_posts' ) ) ?: home_url( '/blog/' ),
+        ] );
     }
 
     if ( is_author() ) {

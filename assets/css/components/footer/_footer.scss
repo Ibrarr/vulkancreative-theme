@@ -24,15 +24,14 @@ footer {
       margin-bottom: $space-5;
     }
 
-    .footer-eyebrow {
-      @include vc-eyebrow($vc-primary);
-      margin-bottom: $space-2;
-    }
-
     .footer-cta-heading {
       @include vc-display-2($vc-text-light);
       margin-bottom: 0;
       max-width: 14em;
+
+      span {
+        color: $vc-primary;
+      }
     }
 
     .footer-cta-action {

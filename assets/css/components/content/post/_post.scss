@@ -1,46 +1,23 @@
-.single-post {
-  color: $vc-text-dark;
-  font-family: $vc-font-family;
+// Single article (forge redesign): a dark hero title band + a 10px media panel
+// over a light reading body with a sticky TOC/author/newsletter sidebar and a
+// related-posts row. Scoped to the article's .insight-single class.
+.insight-single {
+  @import "components/heading"; // .insight-hero (dark band) + .insight-media panel
+  @import "components/content"; // .insight-content prose
+  @import "components/faqs";    // .insight-faqs
+  @import "components/sidebar"; // .insight-sidebar + .insight-related
 
-  @import "components/heading";
+  .insight-body {
+    padding: $space-10 0 $space-15;
+    background: $vc-surface-white;
+    transition: background 0.3s;
 
-  .content-area {
-    margin: 50px 0;
-
-    @include media-breakpoint-down(md) {
-      margin: 30px 0;
+    @include media-breakpoint-down(lg) {
+      padding: $space-8 0;
     }
-
-    .left, .right {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .left {
-      padding: 0 20px 0 0;
-      border-right: 1px solid rgba(0, 0, 0, 0.25);
-      @import "components/content";
-      @import "components/faqs";
-
-      @include media-breakpoint-down(lg) {
-        border: 0;
-        padding: 0;
-      }
-    }
-
-    @import "components/sidebar";
   }
 }
 
-@at-root body.dark-mode.single-post {
-  color: $vc-text-light;
-
-  .content-area .left {
-    border-right: 1px solid rgba(255, 255, 255, 0.25);
-
-    @include media-breakpoint-down(lg) {
-      border: 0;
-      padding: 0;
-    }
-  }
+@at-root body.dark-mode .insight-single .insight-body {
+  background: $dark-vc-background-dark !important;
 }

@@ -1,211 +1,355 @@
-.sidebar.right {
-  padding: 0 0 0 20px;
+// Article sidebar: sticky TOC + newsletter (the author moved to a card at the
+// foot of the article so the newsletter is never pushed off the sticky pane).
+// Labels are forge eyebrows; TOC links carry the brand red on hover/focus and
+// while their section is in view (scrollspy adds .is-active); rules are ember
+// hairlines.
+.insight-sidebar {
+  margin-top: $space-8;
 
+  @include media-breakpoint-up(lg) {
+    margin-top: 0;
+    padding-left: $space-4;
+  }
+}
+
+.insight-sticky {
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    top: 120px;
+  }
+}
+
+.insight-sidebar-label {
+  @include vc-eyebrow($vc-grey-600);
+  margin: 0 0 $space-2;
+}
+
+.insight-rule {
+  border: 0;
+  border-top: 1px solid $vc-ember-line-light;
+  margin: $space-4 0;
+}
+
+.insight-toc {
+  // Supplementary on small screens; the in-content headings carry it there.
   @include media-breakpoint-down(lg) {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
     padding: 0;
   }
 
-  .sticky-container {
-    @include media-breakpoint-up(lg) {
-      position: sticky;
-      top: 105px;
+  li {
+    margin: 0;
+  }
+
+  a {
+    display: block;
+    @include vc-body($vc-grey-700);
+    text-decoration: none;
+    padding: 8px 0 8px $space-2;
+    border-left: 2px solid transparent;
+    transition: color 0.3s, border-color 0.3s;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+        border-left-color: $vc-primary;
+      }
     }
 
-    .heading-label {
-      margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: $vc-semi-bold;
+    &:focus-visible {
+      color: $vc-primary;
+      border-left-color: $vc-primary;
     }
 
-    .table-of-contents {
+    &.is-active {
+      color: $vc-primary;
+      border-left-color: $vc-primary;
+    }
+  }
+}
 
-      @include media-breakpoint-down(lg) {
+// Author card at the foot of the article body (under the FAQs). Compact
+// spacing, a larger portrait.
+.insight-author-card {
+  margin-top: $space-8;
+  padding-top: $space-5;
+  border-top: 1px solid $vc-ember-line-light;
+
+  .insight-sidebar-label {
+    margin-bottom: $space-3;
+  }
+
+  .insight-author-head {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+  }
+
+  .insight-author-avatar {
+    flex: 0 0 auto;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    overflow: hidden;
+    line-height: 0;
+
+    img {
+      display: block;
+      width: 104px;
+      height: 104px;
+      // The card sits inside .insight-content, so reset the prose image margin
+      // ($space-4) that would otherwise push the avatar down inside its circle.
+      margin: 0;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .insight-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .insight-author-name {
+    @include vc-display-3($vc-text-dark);
+    text-decoration: none;
+    transition: color 0.3s;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary;
+    }
+  }
+
+  .insight-author-role {
+    @include vc-body($vc-grey-600);
+    font-size: 14px;
+  }
+
+  .insight-author-desc {
+    @include vc-body($vc-grey-700);
+    line-height: 1.7;
+    margin: $space-3 0 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .insight-author-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: $space-2;
+    @include vc-body($vc-primary);
+    font-weight: $vc-semi-bold;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.3s, gap 0.3s;
+
+    .insight-author-more-arrow {
+      transition: transform 0.3s;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-secondary;
+
+        .insight-author-more-arrow {
+          transform: translateX(3px);
+        }
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-secondary;
+    }
+  }
+}
+
+// Newsletter (Gravity Form id=3): forge inputs, a full-width forge submit
+// stacked below the email so it fits the narrow sidebar column.
+.insight-newsletter {
+  .form {
+    .gform_wrapper.newsletter-form_wrapper {
+      .gform_heading {
         display: none;
       }
 
-
-      ul {
-        list-style: square;
-
-        padding-left: 1.4rem;
-
-        li {
-          &:not(:last-child) {
-            margin-bottom: 10px;
-          }
-
-          &::marker {
-            color: $vc-primary;
-          }
-
-          a {
-            text-decoration: none;
-            color: $vc-text-dark;
-            font-weight: $vc-semi-bold;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-
-    .author-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      .author-avatar {
-        border-radius: 100%;
-        overflow: hidden;
+      .gform_body:after {
+        content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
+        display: block;
+        color: $vc-grey-600;
+        font-size: 12px;
+        margin-top: $space-2;
       }
 
-      .author-info {
-        .author-name {
-          margin-bottom: 0;
-
-          a {
-            text-decoration: none;
-            color: $vc-text-dark;
-            font-weight: $vc-semi-bold;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-
-        .author-title {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-    .form {
-      h2.gform_submission_error.hide_summary {
-        color: $vc-text-dark !important;
+      .gform_fields {
+        display: flex;
+        flex-direction: column;
+        gap: $space-2;
       }
 
-      p {
-        @include vc-body($vc-text-dark);
+      .gform_validation_errors {
+        width: fit-content;
+        margin-bottom: $space-3 !important;
+      }
+
+      .validation_message {
+        display: none;
+      }
+
+      input[type="email"] {
+        font-family: $vc-font-family;
         font-size: 14px;
-        margin-bottom: 15px;
-      }
+        width: 100%;
+        height: 48px;
+        padding: 12px 15px;
+        border: 1px solid $vc-grey-200;
+        border-radius: 2px;
+        background: none;
+        box-shadow: none;
+        color: $vc-text-dark;
+        transition: $vc-transition-all;
+        cursor: text;
 
-      .gform_wrapper.newsletter-form_wrapper {
-        .gform_heading {
-          display: none;
-        }
-
-        .gform_body:after {
-          content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
-          color: $vc-text-dark;
-          font-size: 12px;
-          top: 3px;
-          position: relative;
-        }
-
-        .gform_fields {
-          display: flex;
-          column-gap: 0;
-        }
-
-        .gform_validation_errors {
-          width: fit-content;
-          margin-bottom: 20px !important;
-        }
-
-        .validation_message {
-          display: none;
-        }
-
-        input:focus {
+        &:focus {
           border-color: $vc-primary;
           --gf-local-shadow: none;
           --gf-local-outline-color: none;
           outline: none !important;
         }
-
-        .gfield--type-submit {
-          margin-left: 10px;
-          display: contents;
-        }
-
-        input[type="email"] {
-          font-family: $vc-font-family;
-          font-size: 14px;
-          border-radius: 10px;
-          padding: 15px;
-          height: 45px;
-          box-shadow: none;
-          background: none;
-          border: 1px solid $vc-text-dark;
-          color: $vc-text-dark;
-          transition: $vc-transition-all;
-          width: 360px;
-          cursor: text;
-
-          &:focus {
-            border-color: $vc-primary;
-          }
-        }
-
-        input[type="submit"] {
-          @include vc-button($vc-primary);
-          font-size: 14px;
-          cursor: pointer !important;
-          height: 45px;
-          white-space: nowrap;
-          width: 120px;
-
-          @include media-breakpoint-between(lg, xl) {
-            padding: 0;
-          }
-
-          &:hover {
-            color: $vc-primary;
-          }
-        }
       }
 
-      .gform_footer {
-        display: none;
+      .gfield--type-submit {
+        margin: 0;
       }
 
-      .gform_confirmation_wrapper {
-        .gform_confirmation_message {
-          font-family: $vc-font-family;
-          font-size: 14px;
-          font-weight: $vc-normal;
+      input[type="submit"] {
+        @include vc-button-forge;
+        width: 100%;
+        text-align: center;
+        cursor: pointer !important;
+      }
+    }
 
-          p {
-            color: $vc-text-dark !important;
-          }
-        }
+    .gform_footer {
+      display: none;
+    }
+
+    .gform_confirmation_wrapper {
+      .gform_confirmation_message {
+        @include vc-body($vc-grey-700);
       }
     }
   }
 }
 
-@at-root body.dark-mode.single-post .content-area .sidebar.right .sticky-container {
-  .table-of-contents ul li a, .author-box .author-info .author-name a {
-    color: $vc-text-light;
+// "More insights" — its own band on the alternate surface, with a section-
+// scale heading (matches the homepage section headings).
+.insight-related {
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  .insight-related-heading {
+    @include vc-display-2($vc-text-dark);
+    text-transform: uppercase;
+    margin: 0 0 $space-6;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+}
+
+@at-root body.dark-mode .insight-single {
+  .insight-sidebar-label {
+    color: $vc-muted-on-dark !important;
   }
 
-  .form {
-    .gform_wrapper.newsletter-form_wrapper {
-      .gform_body:after {
-        color: $vc-text-light;
-      }
+  .insight-rule {
+    border-top-color: $vc-ember-line !important;
+  }
 
-      input[type="email"] {
-        color: $vc-text-light;
-        border-color: $vc-text-light;
+  .insight-toc a {
+    color: $vc-muted-on-dark !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-left-color: $vc-primary !important;
       }
     }
 
-    .gform_confirmation_wrapper .gform_confirmation_message p {
+    &:focus-visible,
+    &.is-active {
+      color: $vc-primary !important;
+      border-left-color: $vc-primary !important;
+    }
+  }
+
+  .insight-author-card {
+    border-top-color: $vc-ember-line !important;
+
+    .insight-author-name {
+      color: $vc-text-light !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+      }
+    }
+
+    .insight-author-role {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .insight-author-desc {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+
+  .insight-newsletter .form .gform_wrapper.newsletter-form_wrapper {
+    .gform_body:after {
+      color: $vc-muted-on-dark !important;
+    }
+
+    input[type="email"] {
+      color: $vc-text-light !important;
+      border-color: $vc-grey-dark-border !important;
+
+      &:focus {
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .insight-newsletter .form .gform_confirmation_wrapper .gform_confirmation_message {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .insight-related {
+    background: $dark-vc-background-dark-alt !important;
+
+    .insight-related-heading {
       color: $vc-text-light !important;
     }
   }

@@ -1,31 +1,88 @@
-.faqs {
-  margin-top: 60px;
+// Article FAQs: forge Q/A blocks separated by ember hairlines. The answer
+// reuses the prose link/marker treatment.
+.insight-faqs {
+  margin-top: $space-10;
 
   h2 {
-    font-weight: $vc-bold;
+    @include vc-display-3($vc-text-dark);
+    margin: 0 0 $space-4;
   }
 
-  .faq {
-    border-top: 1px solid rgba(0, 0, 0, 0.25);
-    padding-top: 20px;
-    margin-top: 20px;
+  .insight-faq {
+    border-top: 1px solid $vc-ember-line-light;
+    padding-top: $space-4;
+    margin-top: $space-4;
 
     h3 {
-      font-weight: $vc-bold;
-      font-size: 1.25rem;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 20px;
+      line-height: 1.4;
+      color: $vc-text-dark;
+      margin: 0 0 $space-2;
     }
+  }
+
+  .insight-faq-answer {
+    @include vc-body($vc-grey-700);
+    line-height: 1.7;
 
     p {
-      margin-bottom: 0;
+      margin: 0 0 $space-2;
 
-      a {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul,
+    ol {
+      margin: 0 0 $space-2;
+      padding-left: $space-3;
+
+      li::marker {
         color: $vc-primary;
-        text-decoration: none;
+      }
+    }
+
+    a {
+      color: $vc-primary;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $vc-secondary;
       }
     }
   }
 }
 
-@at-root body.dark-mode.single-post .content-area .left .faqs .faq {
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+@at-root body.dark-mode .insight-single .insight-faqs {
+  h2,
+  .insight-faq h3 {
+    color: $vc-text-light !important;
+  }
+
+  .insight-faq {
+    border-top-color: $vc-ember-line !important;
+  }
+
+  .insight-faq-answer {
+    color: $vc-muted-on-dark !important;
+
+    p,
+    li {
+      color: $vc-muted-on-dark !important;
+    }
+
+    a {
+      color: $vc-primary !important;
+
+      &:hover {
+        color: $vc-secondary !important;
+      }
+    }
+  }
 }

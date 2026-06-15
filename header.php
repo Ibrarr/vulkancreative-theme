@@ -48,7 +48,7 @@
 <?php wp_body_open(); ?>
 
 <div id="wrapper" class="hfeed">
-    <header id="header" role="banner" class="<?php if ( is_front_page() ) { echo 'hero-active'; }; ?>">
+    <header id="header" role="banner" class="<?php if ( is_front_page() || is_home() || is_archive() || is_search() || is_singular( 'post' ) ) { echo 'hero-active'; }; ?>">
         <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) { echo 'container '; } ?>px-4">
             <div class="main-menu">
                 <div class="logo">

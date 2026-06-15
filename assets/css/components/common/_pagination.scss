@@ -1,60 +1,76 @@
+// Insights pagination (paginate_links output). Forge restyle: square 2px
+// targets with hairline borders, a solid red current plate, ghost hover and a
+// keyboard focus ring. 44px minimum targets. Defined globally; used by the
+// blog index, category/author archives and search.
 .pagination {
-  margin: 60px 0;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  opacity: 0;
-  visibility: hidden;
+  align-items: center;
+  gap: 8px;
+  margin: $space-10 0 0;
+  padding: 0;
+  list-style: none;
 
   .page-numbers {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 12px;
+    @include vc-body($vc-text-dark);
     text-decoration: none;
-    color: $vc-text-dark;
-    width: 25px;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    transition: border-color 0.3s, color 0.3s, background-color 0.3s;
 
-    &.next, &.prev {
-      margin: 0;
+    &.dots {
+      border-color: transparent;
     }
 
-    &:not(.dots) {
-      height: 40px;
-      width: 40px;
-      border-radius: 5px;
-      border: 1px solid $vc-text-dark;
-      margin: 0 5px;
-      transition: $vc-transition-all;
-
-      &:hover {
-        border-color: $vc-primary !important;
-        color: $vc-primary !important;
+    @media (hover: hover) {
+      &:hover:not(.dots):not(.current) {
+        border-color: $vc-primary;
+        color: $vc-primary;
       }
     }
 
-    @include media-breakpoint-down(sm) {
-      font-size: 14px;
-      width: 18px;
-
-      &:not(.dots) {
-        height: 33px;
-        width: 33px;
-      }
+    &:focus-visible {
+      border-color: $vc-primary;
+      color: $vc-primary;
     }
   }
 
-  span.current {
-    background: $vc-primary !important;
-    font-weight: $vc-bold;
-    color: $vc-text-light !important;
-    border: none !important;
+  .page-numbers.current {
+    background: $vc-primary;
+    border-color: $vc-primary;
+    color: #FFFFFF;
+    font-weight: $vc-semi-bold;
   }
 }
 
 @at-root body.dark-mode .pagination {
   .page-numbers {
     color: $vc-text-light !important;
+    border-color: $vc-grey-dark-border !important;
 
-    &:not(.dots) {
-      border-color: $vc-text-light !important;
+    @media (hover: hover) {
+      &:hover:not(.dots):not(.current) {
+        border-color: $vc-primary !important;
+        color: $vc-primary !important;
+      }
     }
+
+    &:focus-visible {
+      border-color: $vc-primary !important;
+      color: $vc-primary !important;
+    }
+  }
+
+  .page-numbers.current {
+    background: $vc-primary !important;
+    border-color: $vc-primary !important;
+    color: #FFFFFF !important;
   }
 }

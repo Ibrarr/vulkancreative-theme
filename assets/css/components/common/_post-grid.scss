@@ -1,72 +1,200 @@
-article {
-  opacity: 0;
-  visibility: hidden;
+// Shared Insights card (template-parts/content-card.php). One editorial card
+// for the blog index, category/author archives, search and the single-post
+// "More insights" row: a desaturated 16:9 media frame with a solid category
+// plate, then a clean card body on a raised surface. The whole card is one
+// link; hover/focus heats the frame and saturates the image but never moves
+// the card. Defined globally (unique class names) so it works under every
+// body class and inside the single article.
+.insight-card {
+  display: flex; // the Bootstrap column is the article; keep the link full-height
+  position: relative; // anchors the category plate (a sibling link) over the media
+}
 
-  &:hover {
-    .post-title a {
-      text-decoration: underline;
-    }
+.insight-card-link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: $vc-surface-white;
+  border: 1px solid $vc-grey-200;
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.3s, box-shadow 0.35s;
 
-    img {
-      scale: 1.1;
-    }
-  }
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
-  .img-cat-container {
-    position: relative;
-
-    .post-thumb {
-      overflow: hidden;
-      display: block;
-      border-radius: 10px;
-
-      img {
-        border-radius: 10px;
-        transition: scale .5s;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-        object-position: top;
+      .insight-card-img {
+        filter: grayscale(0);
+        transform: scale(1.06);
       }
-    }
 
-    .post-primary-cat {
-      margin-top: 10px;
-      //position: absolute;
-      //top: 20px;
-      //left: 20px;
-
-      a {
-        font-family: $vc-font-family;
-        color: $vc-text-light;
-        background: $vc-primary;
-        text-decoration: none;
+      .insight-card-title {
+        color: $vc-primary;
       }
     }
   }
 
-  .post-title {
-    margin-top: 10px;
-    font-family: $vc-font-family;
-    font-weight: $vc-semi-bold;
+  &:focus-visible {
+    border-color: rgba($vc-secondary, 0.55);
+    box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
-    a {
-      text-decoration: none;
-      color: $vc-text-dark;
+    .insight-card-img {
+      filter: grayscale(0);
+      transform: scale(1.06);
     }
-  }
 
-  .post-excerpt {
-    font-family: $vc-font-family;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
+    .insight-card-title {
+      color: $vc-primary;
+    }
   }
 }
 
-@at-root body.dark-mode article {
-  h3, p, .post-title a {
+.insight-card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid $vc-grey-200;
+
+  .insight-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(0.25);
+    transform: scale(1);
+    transition: filter 0.45s ease, transform 0.6s ease;
+  }
+
+  .insight-card-media-empty {
+    position: absolute;
+    inset: 0;
+    background: $vc-grey-100;
+  }
+}
+
+// Faint depth wash so the plate seats on bright uploads.
+.insight-card-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: $z-base;
+  background: linear-gradient(to bottom, rgba(13, 13, 13, 0.35) 0%, rgba(13, 13, 13, 0) 42%);
+  pointer-events: none;
+}
+
+// Primary category as a clean solid plate (sharp 2px corners, no tick/border).
+.insight-card-cat {
+  position: absolute;
+  top: $space-2;
+  // The plate is positioned against the Bootstrap column, so add the column's
+  // gutter padding back in to sit $space-2 from the image edge (not the column).
+  left: calc(var(--bs-gutter-x, 1.5rem) * 0.5 + #{$space-2});
+  z-index: $z-raised;
+  @include vc-eyebrow($vc-text-light);
+  font-size: 11px;
+  line-height: 1;
+  padding: 8px 12px;
+  background: rgba(13, 13, 13, 0.85);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+
+  // It's a link to the category archive; heat to brand red on hover/focus.
+  @media (hover: hover) {
+    &:hover {
+      background: $vc-primary;
+      color: #FFFFFF;
+    }
+  }
+
+  &:focus-visible {
+    background: $vc-primary;
+    color: #FFFFFF;
+  }
+}
+
+.insight-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  flex: 1;
+  padding: $space-4 $space-3;
+}
+
+.insight-card-title {
+  @include vc-display-3($vc-text-dark);
+  margin: 0;
+  transition: color 0.3s;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.insight-card-excerpt {
+  @include vc-body($vc-grey-600);
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.insight-card-meta {
+  @include vc-eyebrow($vc-grey-600);
+  font-size: 12px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@at-root body.dark-mode {
+  .insight-card-link {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55) !important;
+        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+        .insight-card-title {
+          color: $vc-primary !important;
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55) !important;
+      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+      .insight-card-title {
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  .insight-card-media {
+    border-bottom-color: $vc-grey-dark-border !important;
+  }
+
+  .insight-card-media-empty {
+    background: $vc-background-dark !important;
+  }
+
+  .insight-card-title {
     color: $vc-text-light !important;
+  }
+
+  .insight-card-excerpt,
+  .insight-card-meta {
+    color: $vc-muted-on-dark !important;
   }
 }

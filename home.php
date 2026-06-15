@@ -14,80 +14,33 @@ $query = new WP_Query( [
 get_header();
 ?>
 
-<section class="heading">
+<section class="insights-header">
     <div class="container px-4">
-        <div class="content">
-            <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]') ?></div>
-            <h1>News, Insights & What We’re Building at Vulkan Creative</h1>
-        </div>
+        <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
+        <h1 class="insights-title">News, Insights &amp; What We&rsquo;re Building at Vulkan Creative</h1>
+        <p class="insights-standfirst">Sharp takes on brand, web and marketing &mdash; what we&rsquo;re learning, building and watching in the industry.</p>
     </div>
 </section>
 
-<section class="posts">
+<section class="insights-grid">
     <div class="container px-4">
-        <?php if ( $query->have_posts() ) : ?>
-            <div class="row g-4">
+        <?php get_template_part( 'template-parts/insights-filter' ); ?>
+
+        <h2 class="visually-hidden">Latest insights</h2>
+
+        <div class="row g-4" data-insights-grid>
+            <?php if ( $query->have_posts() ) : ?>
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-                    <article <?php post_class( 'post-card col-lg-4 col-md-6 col-12' ); ?>>
-
-                        <div class="img-cat-container">
-                            <a class="post-thumb" href="<?php the_permalink(); ?>">
-                                <?php
-                                the_post_thumbnail( 'large', [
-                                    'alt'   => esc_attr( get_the_title() ),
-                                    'class' => 'img-fluid w-100',
-                                ] );
-                                ?>
-                            </a>
-
-                            <div class="post-primary-cat">
-                                <?php
-                                // Yoast Primary Category with fallback
-                                $primary_term = null;
-
-                                if ( class_exists( 'WPSEO_Primary_Term' ) ) {
-                                    $wpseo_primary_term = new WPSEO_Primary_Term( 'category', get_the_ID() );
-                                    $primary_term_id    = $wpseo_primary_term->get_primary_term();
-
-                                    if ( $primary_term_id && ! is_wp_error( $primary_term_id ) ) {
-                                        $term = get_term( $primary_term_id );
-                                        if ( $term && ! is_wp_error( $term ) ) {
-                                            $primary_term = $term;
-                                        }
-                                    }
-                                }
-
-                                if ( ! $primary_term ) {
-                                    $cats = get_the_category();
-                                    if ( ! empty( $cats ) ) {
-                                        $primary_term = $cats[0];
-                                    }
-                                }
-
-                                if ( $primary_term ) {
-                                    $term_link = get_term_link( $primary_term );
-                                    if ( ! is_wp_error( $term_link ) ) {
-                                        echo '<a class="post-cat badge" href="' . esc_url( $term_link ) . '">' . esc_html( $primary_term->name ) . '</a>';
-                                    }
-                                }
-                                ?>
-                            </div>
-                        </div>
-
-                        <h3 class="post-title">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h3>
-
-                        <p class="post-excerpt">
-                            <?php echo esc_html( wp_trim_words( get_the_excerpt(), 32, '…' ) ); ?>
-                        </p>
-
-                    </article>
+                    <?php get_template_part( 'template-parts/content', 'card' ); ?>
                 <?php endwhile; ?>
-            </div>
+            <?php else : ?>
+                <p class="insights-empty">No insights published yet.</p>
+            <?php endif; ?>
+        </div>
 
-            <nav class="pagination">
-                <?php
+        <nav class="pagination" aria-label="Insights pages" data-insights-pagination>
+            <?php
+            if ( (int) $query->max_num_pages > 1 ) {
                 $big = 999999999;
                 echo paginate_links( [
                     'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
@@ -95,16 +48,12 @@ get_header();
                     'current'   => max( 1, $paged ),
                     'total'     => (int) $query->max_num_pages,
                     'mid_size'  => 1,
-                    'prev_text' => '<',
-                    'next_text' => '>',
+                    'prev_text' => '<span aria-hidden="true">&lsaquo;</span><span class="visually-hidden">Previous page</span>',
+                    'next_text' => '<span aria-hidden="true">&rsaquo;</span><span class="visually-hidden">Next page</span>',
                 ] );
-                ?>
-            </nav>
-
-        <?php else : ?>
-            <p>No posts yet. Someone should write one.</p>
-        <?php endif; ?>
-
+            }
+            ?>
+        </nav>
     </div>
 </section>
 

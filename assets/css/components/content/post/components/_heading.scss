@@ -1,84 +1,126 @@
-.heading {
+// Article hero: the featured image fills the band, with a dark veil so the
+// breadcrumb, kicker, title, excerpt and meta read over any upload. Content is
+// anchored to the bottom. Without a featured image it falls back to the dark
+// forge band. The fixed header floats over it (hero-active) like the homepage.
+.insight-hero {
   position: relative;
   overflow: hidden;
-  min-height: 50vh;
-  margin: 105px 20px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: center;
-  color: $vc-text-light;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  background-size: cover !important;
-  border-radius: 25px;
+  align-items: flex-end;
+  min-height: clamp(340px, 44vh, 460px);
+  // Top padding clears the fixed nav (~84px) with comfortable breathing room
+  // so the bottom-anchored content never crowds the header; bottom keeps the
+  // text off the band's lower edge.
+  padding: calc(#{$space-15} + #{$space-4}) 0 $space-8;
+  background: $vc-background-dark;
 
   @include media-breakpoint-down(lg) {
-    margin-top: 97px;
+    min-height: clamp(300px, 50vh, 420px);
+    padding: $space-15 0 $space-6;
   }
 
-  @include media-breakpoint-down(md) {
-    margin-top: 60px;
-  }
+  .insight-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
 
-  @include media-breakpoint-down(sm) {
-    min-height: fit-content;
-  }
-
-  .content {
-    z-index: 1;
-
-    @include media-breakpoint-down(lg) {
-      padding: 60px 40px !important
+    .insight-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(0.25);
     }
 
-    .breadcrumbs {
-      @include vc-breadcrumbs($vc-primary, $vc-text-light);
+    // Veil: two layers. A top scrim keeps the floating (transparent) header's
+    // logo and nav legible over a bright image, and a bottom ramp keeps the
+    // breadcrumb/title/excerpt/meta at 4.5:1; the image shows through the
+    // middle band.
+    .insight-hero-veil {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(13, 13, 13, 0.88) 0%, rgba(13, 13, 13, 0.72) 13%, rgba(13, 13, 13, 0) 32%),
+        linear-gradient(to top, rgba(13, 13, 13, 0.95) 0%, rgba(13, 13, 13, 0.78) 55%, rgba(13, 13, 13, 0.25) 82%, rgba(13, 13, 13, 0) 100%);
     }
+  }
 
-    h1 {
-      @include vc-general-h1($vc-text-light);
-      opacity: 0;
-      visibility: hidden;
+  .container {
+    position: relative;
+    z-index: $z-base;
+  }
 
-      .line {
-        padding-bottom: 0.1em;
+  // Content spans the full container width so the headline uses the whole
+  // width and wraps to fewer lines; the excerpt keeps its own readable measure.
+
+  // The breadcrumb is the top eyebrow tag. Text sits over imagery here, so it
+  // stays light (white links, not red) to hold contrast over a bright upload;
+  // red is reserved for hover.
+  .breadcrumbs {
+    font-family: $vc-font-family;
+    font-size: 12px;
+    font-weight: $vc-semi-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba($vc-text-light, 0.7);
+    margin: 0 0 $space-3;
+
+    a {
+      color: $vc-text-light;
+      text-decoration: none;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $vc-primary;
+        text-decoration: underline;
+        text-underline-offset: 3px;
       }
     }
+  }
 
-    .terms {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+  .insight-hero-title {
+    @include vc-display-2($vc-text-light);
+    margin: 0;
+  }
 
-      .term {
-        margin-bottom: 0;
-        width: fit-content;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        padding: 2px 15px;
-        border-radius: 10px;
-        font-size: 14px;
-        color: $vc-text-light;
-        font-weight: $vc-normal;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: $vc-transition-all;
+  .insight-hero-excerpt {
+    @include vc-p(rgba($vc-text-light, 0.92));
+    max-width: 60ch;
+    margin: $space-3 0 0;
+  }
 
-        &.link:hover {
+  .insight-hero-meta {
+    @include vc-body(rgba($vc-text-light, 0.8));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: $space-3;
+
+    a {
+      color: $vc-text-light;
+      text-decoration: none;
+      transition: color 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
           color: $vc-primary;
-          border-color: $vc-primary;
         }
       }
+
+      &:focus-visible {
+        color: $vc-primary;
+      }
+    }
+
+    .meta-dot {
+      color: rgba($vc-text-light, 0.4);
     }
   }
+}
 
-  .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 25px;
-    background: rgba(0, 0, 0, 0.7);
-  }
+@at-root body.dark-mode .insight-single .insight-hero:not(.has-image) {
+  background: $dark-vc-background-dark-alt !important;
 }

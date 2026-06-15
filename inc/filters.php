@@ -117,3 +117,10 @@ add_filter(
         return $link_output;
     }
 );
+
+// Indexing policy (categories indexed as topic hubs; author/date/search out of
+// the index) is governed by Yoast's own Search Appearance settings, so robots
+// meta, the XML sitemap and canonicals stay consistent — see the wpseo_titles
+// options noindex-tax-category=false and noindex-author-wpseo=true. A theme
+// robots filter is deliberately NOT used: it would flip the meta tag but leave
+// the sitemap out of sync.

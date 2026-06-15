@@ -3,8 +3,7 @@
                 <div class="container px-4">
                     <div class="row footer-cta">
                         <div class="col-lg-8">
-                            <p class="footer-eyebrow">Next step</p>
-                            <p class="footer-cta-heading">Ready to forge something that performs?</p>
+                            <p class="footer-cta-heading">Ready to forge something that <span>performs</span>?</p>
                         </div>
                         <div class="col-lg-4 footer-cta-action">
                             <a class="button" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Start a project</a>

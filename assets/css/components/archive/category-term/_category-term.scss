@@ -1,7 +1,3 @@
-.archive.category {
-  font-family: $vc-font-family;
-
-  @import "../components/heading";
-  @import "../components/posts";
-  @import "../components/pagination";
-}
+// Superseded by the global Insights components (forge redesign). Category
+// archives reuse .insights-header / .insights-grid / .insight-card. This file
+// is intentionally empty.

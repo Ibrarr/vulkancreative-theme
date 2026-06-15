@@ -23,7 +23,22 @@
   .hero .bottom,
   .dynamic-text,
   .dynamic-text .word:first-child,
-  .spark path {
+  .spark path,
+  // Insights (blog) reveal targets
+  .insights-title,
+  .insights-standfirst,
+  .insights-filter,
+  .author-bio,
+  .insight-hero-title,
+  .insight-hero-excerpt,
+  .insight-hero-meta,
+  .insight-content,
+  .insight-sidebar,
+  .insight-related-heading,
+  .insight-faqs h2,
+  .insight-card,
+  .breadcrumbs,
+  .pagination {
     opacity: 1 !important;
     transform: none !important;
   }

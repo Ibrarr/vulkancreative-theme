@@ -212,21 +212,6 @@
       transition: filter 0.45s ease, transform 0.6s ease;
     }
 
-    // Ember sheen for the hover sweep: sits above the imagery, below the
-    // caption and pill (which carry $z-raised).
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: $z-base;
-      background: linear-gradient(115deg, transparent 30%, rgba($vc-secondary, 0.16) 50%, transparent 70%);
-      background-size: 260% 100%;
-      background-position: 120% 0;
-      opacity: 0;
-      transition: opacity 0.3s, background-position 0.8s ease;
-      pointer-events: none;
-    }
-
     // Depth wash only; the caption carries its own backdrop below.
     .tile-scrim {
       position: absolute;
@@ -274,6 +259,7 @@
     .tile-client {
       @include vc-display-3($vc-text-light);
       margin: 0;
+      transition: color 0.3s;
 
       // The last word and the arrow wrap together, so the arrow is never
       // orphaned on its own line (inline-blocks break lines on their own).
@@ -301,9 +287,9 @@
   }
 
   // Layered hover on linked tiles only: the image saturates and breathes
-  // inside the card, an ember sheen sweeps across, the border heats up and a
-  // red glow lifts the card off the page. The card itself never moves, so
-  // the wheel stays steady; focus-visible carries the identical affordance.
+  // inside the card, the border heats up and a red glow lifts the card off the
+  // page. The card itself never moves, so the wheel stays steady; focus-visible
+  // carries the identical affordance.
   a.tile-media {
     @media (hover: hover) {
       &:hover {
@@ -315,9 +301,8 @@
           transform: scale(1.06);
         }
 
-        &::after {
-          opacity: 1;
-          background-position: -60% 0;
+        .tile-client {
+          color: $vc-primary;
         }
 
         .tile-arrow {
@@ -336,9 +321,8 @@
         transform: scale(1.06);
       }
 
-      &::after {
-        opacity: 1;
-        background-position: -60% 0;
+      .tile-client {
+        color: $vc-primary;
       }
 
       .tile-arrow {

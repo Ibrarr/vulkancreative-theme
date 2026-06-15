@@ -1,41 +1,58 @@
-.heading {
-  margin-top: 155px;
-  margin-bottom: 60px;
+// Insights header band (blog index, category/author archives, search). A dark
+// forge title band in the family of .page-header and the 404 — its top padding
+// clears the fixed site header. Defined globally; the author variant adds the
+// identity row in author/components/_heading.scss.
+.insights-header {
+  padding: $space-15 0 $space-10;
+  background: $vc-background-dark;
+  position: relative;
 
   @include media-breakpoint-down(lg) {
-    margin-top: 147px;
+    padding: $space-10 0 $space-8;
   }
 
-  @include media-breakpoint-down(md) {
-    margin-top: 110px;
-    margin-bottom: 40px;
-  }
+  // The breadcrumb doubles as the section's top eyebrow tag: small, uppercase
+  // and letter-spaced, with red links and muted separators on the dark band.
+  .breadcrumbs {
+    font-family: $vc-font-family;
+    font-size: 12px;
+    font-weight: $vc-semi-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $vc-muted-on-dark;
+    margin: 0 0 $space-3;
 
-  .content {
-    max-width: 1000px;
-    margin: auto;
-    text-align: center;
+    a {
+      color: $vc-primary;
+      text-decoration: none;
+      transition: color 0.3s;
 
-    .breadcrumbs {
-      @include vc-breadcrumbs($vc-primary, $vc-text-dark);
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    h1 {
-      @include vc-general-h1($vc-text-dark);
-      opacity: 0;
-      visibility: hidden;
-
-      .line {
-        padding-bottom: 0.1em;
+      &:hover {
+        color: $vc-secondary;
+        text-decoration: underline;
+        text-underline-offset: 3px;
       }
     }
   }
+
+  .insights-eyebrow {
+    @include vc-eyebrow($vc-primary);
+    margin: 0 0 $space-2;
+  }
+
+  .insights-title {
+    @include vc-display-2($vc-text-light);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .insights-standfirst {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 64ch;
+    margin: $space-3 0 0;
+  }
 }
 
-@at-root body.dark-mode .heading {
-  h1, .breadcrumbs span {
-    color: $vc-text-light !important;
-  }
+@at-root body.dark-mode .insights-header {
+  background: $dark-vc-background-dark-alt !important;
 }

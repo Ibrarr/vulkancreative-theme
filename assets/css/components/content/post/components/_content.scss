@@ -1,30 +1,194 @@
-.content {
+// Long-form article prose. Same forge reading treatment as the default page
+// (.content-area): Archivo section headings, near-black body, brand-red links
+// and list markers, plus the extras a blog body needs (figures, captions,
+// code). Constrained to col-lg-8 for a comfortable measure.
+.insight-content {
+  @include vc-p($vc-grey-700);
+  line-height: 1.7;
 
-  a {
-    color: $vc-primary;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  > *:first-child {
+    margin-top: 0;
   }
 
-  h2, h3, h4, h5, h6 {
-    font-weight: $vc-bold;
-    scroll-margin-top: 105px;
+  h2 {
+    @include vc-display-3($vc-text-dark);
+    margin: $space-8 0 $space-3;
+    scroll-margin-top: 120px;
   }
 
   h3 {
-    font-size: 1.25rem;
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-size: 20px;
+    line-height: 1.4;
+    color: $vc-text-dark;
+    margin: $space-5 0 $space-2;
+    scroll-margin-top: 120px;
   }
 
-  ul {
-    list-style: square;
+  h4 {
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-size: 18px;
+    line-height: 1.4;
+    color: $vc-text-dark;
+    margin: $space-4 0 $space-2;
+  }
+
+  p {
+    color: $vc-grey-700;
+    margin: 0 0 $space-3;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 $space-3;
+    padding-left: $space-3;
 
     li {
+      color: $vc-grey-700;
+      margin-bottom: $space-1;
+
       &::marker {
         color: $vc-primary;
       }
     }
+  }
+
+  a {
+    color: $vc-primary;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $vc-secondary;
+    }
+  }
+
+  strong {
+    font-weight: $vc-semi-bold;
+    color: $vc-text-dark;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin: $space-4 0;
+  }
+
+  figure {
+    margin: $space-4 0;
+
+    img {
+      margin: 0;
+    }
+  }
+
+  figcaption {
+    @include vc-body($vc-grey-600);
+    font-size: 13px;
+    margin-top: $space-1;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 $space-3;
+
+    th,
+    td {
+      @include vc-body($vc-grey-700);
+      border: 1px solid $vc-grey-200;
+      padding: $space-2;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: $vc-semi-bold;
+      color: $vc-text-dark;
+    }
+  }
+
+  blockquote {
+    border-left: 2px solid $vc-primary;
+    padding-left: $space-3;
+    margin: 0 0 $space-3;
+    color: $vc-grey-600;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background: $vc-grey-100;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  pre {
+    background: $vc-grey-100;
+    border-radius: 2px;
+    padding: $space-3;
+    margin: 0 0 $space-3;
+    overflow-x: auto;
+
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+}
+
+@at-root body.dark-mode .insight-single .insight-content {
+  color: $vc-muted-on-dark !important;
+
+  h2,
+  h3,
+  h4,
+  strong {
+    color: $vc-text-light !important;
+  }
+
+  p,
+  li {
+    color: $vc-muted-on-dark !important;
+  }
+
+  a {
+    color: $vc-primary !important;
+
+    &:hover {
+      color: $vc-secondary !important;
+    }
+  }
+
+  figcaption {
+    color: $vc-muted-on-dark !important;
+  }
+
+  table {
+
+    th,
+    td {
+      border-color: $vc-grey-dark-border !important;
+      color: $vc-muted-on-dark !important;
+    }
+
+    th {
+      color: $vc-text-light !important;
+    }
+  }
+
+  blockquote {
+    color: $vc-muted-on-dark !important;
+  }
+
+  code,
+  pre {
+    background: $vc-grey-dark-surface !important;
+    color: $vc-text-light !important;
   }
 }

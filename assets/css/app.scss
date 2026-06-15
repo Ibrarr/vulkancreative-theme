@@ -65,10 +65,14 @@ body {
 @import "components/404/404";
 @import "components/contact-us/contact-us";
 
-@import "components/content/post/post";
+// Insights (blog) — shared global components, used by the index, category and
+// author archives, search results and the single article's related row.
+@import "components/common/post-grid";          // .insight-card
+@import "components/common/pagination";         // .pagination
+@import "components/archive/components/heading"; // .insights-header + filter
+@import "components/archive/author/components/heading"; // .insights-header--author
+@import "components/archive/components/posts";   // .insights-grid band + empty state
 
-@import "components/archive/blog/blog";
-@import "components/archive/category-term/category-term";
-@import "components/archive/author/author";
+@import "components/content/post/post";          // .insight-single
 
 @import "components/footer/footer";

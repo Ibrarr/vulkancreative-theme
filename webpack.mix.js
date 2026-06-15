@@ -34,16 +34,22 @@ mix.js([
 ], 'js/homepage.js');
 
 mix.js([
-    'assets/js/archive-blog/loading.js',
+    'assets/js/blog/reveal.js',
+    'assets/js/blog/filter.js',
+    'assets/js/blog/toc.js',
 ], 'js/archive-blog.js');
 
 mix.js([
-    'assets/js/archive-author/loading.js',
+    'assets/js/blog/reveal.js',
+    'assets/js/blog/filter.js',
+    'assets/js/blog/toc.js',
 ], 'js/archive-author.js');
 
 
 mix.js([
-    'assets/js/single-blog/loading.js',
+    'assets/js/blog/reveal.js',
+    'assets/js/blog/filter.js',
+    'assets/js/blog/toc.js',
 ], 'js/single-blog.js');
 
 mix.js([

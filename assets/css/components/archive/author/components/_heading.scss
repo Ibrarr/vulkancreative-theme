@@ -1,76 +1,62 @@
-.heading {
-  margin-top: 155px;
-  margin-bottom: 60px;
+// Author archive header: the shared .insights-header band plus an identity row
+// (avatar + name + role) and an optional bio. The author's name reads at a
+// more measured size than a section title, balanced against a larger avatar.
+.insights-header--author {
+  .author-identity {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
 
-  @include media-breakpoint-down(lg) {
-    margin-top: 147px;
-  }
-
-  @include media-breakpoint-down(md) {
-    margin-top: 110px;
-    margin-bottom: 40px;
-  }
-
-  .content {
-    max-width: 1000px;
-    margin: auto;
-    text-align: center;
-
-    .author-avatar {
-      margin-bottom: 30px;
-
-      @include media-breakpoint-down(lg) {
-        margin-bottom: 20px;
-      }
-
-      @include media-breakpoint-up(lg) {
-        img {
-          width: 130px !important;
-          height: 130px !important;
-        }
-      }
-    }
-
-    .breadcrumbs {
-      @include vc-breadcrumbs($vc-primary, $vc-text-dark);
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    h1 {
-      @include vc-general-h1($vc-text-dark);
-      margin-bottom: 20px;
-      opacity: 0;
-      visibility: hidden;
-
-      @include media-breakpoint-down(lg) {
-        margin-bottom: 10px;
-      }
-
-      .line {
-        padding-bottom: 0.1em;
-      }
-    }
-
-    .author-meta {
-      .author-text {
-        opacity: 0;
-        visibility: hidden;
-
-        p {
-          @include vc-general-p($vc-text-dark);
-
-          &:last-child {
-            margin: 0;
-          }
-        }
-      }
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-3;
     }
   }
-}
 
-@at-root body.dark-mode .heading {
-  h1, .breadcrumbs span, .author-text p {
-    color: $vc-text-light !important;
+  .author-avatar {
+    flex: 0 0 auto;
+    display: block;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid $vc-grey-dark-border;
+
+    .author-avatar-img {
+      width: 112px;
+      height: 112px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .author-identity-text {
+    min-width: 0;
+  }
+
+  .insights-eyebrow {
+    margin: 0 0 $space-1;
+  }
+
+  // A person's name doesn't want the full section-title scale.
+  .insights-title {
+    font-size: clamp(1.875rem, 2.5vw + 0.75rem, 2.875rem);
+    line-height: 1.05;
+  }
+
+  .author-role {
+    @include vc-p($vc-muted-on-dark);
+    margin: $space-2 0 0;
+  }
+
+  .author-bio {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 64ch;
+    margin: $space-5 0 0;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 }
