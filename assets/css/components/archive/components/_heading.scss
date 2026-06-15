@@ -44,6 +44,10 @@
     @include vc-display-2($vc-text-light);
     text-transform: uppercase;
     margin: 0;
+
+    span {
+      color: $vc-primary;
+    }
   }
 
   .insights-standfirst {

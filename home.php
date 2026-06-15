@@ -17,7 +17,7 @@ get_header();
 <section class="insights-header">
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
-        <h1 class="insights-title">News, Insights &amp; What We&rsquo;re Building at Vulkan Creative</h1>
+        <h1 class="insights-title">News, Insights &amp; What We&rsquo;re Building at <span>Vulkan Creative</span>.</h1>
         <p class="insights-standfirst">Sharp takes on brand, web and marketing &mdash; what we&rsquo;re learning, building and watching in the industry.</p>
     </div>
 </section>
