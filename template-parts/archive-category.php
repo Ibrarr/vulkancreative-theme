@@ -20,7 +20,7 @@ get_header();
 <section class="insights-header">
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
-        <h1 class="insights-title"><?php single_cat_title(); ?></h1>
+        <h1 class="insights-title"><?php single_cat_title(); ?> News &amp; Insights</h1>
         <?php if ( $cat_description ) : ?>
             <p class="insights-standfirst"><?php echo esc_html( $cat_description ); ?></p>
         <?php endif; ?>
