@@ -6,6 +6,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
+## Git: never commit on my behalf
+
+**Do not commit, push, or rewrite git history under any circumstances. I manage all git operations myself.**
+
+- NEVER run `git commit`, `git push`, `git merge`, `git rebase`, `git reset`, `git revert`, `git cherry-pick`, `git tag`, `git stash`, or any other command that creates, moves, or removes commits — even if I previously approved a plan, even as the final step of a task, and even if it seems obviously helpful.
+- Make your file changes and stop. Leave everything as uncommitted working-tree changes for me to review.
+- `git add`/staging also counts: do not stage unless I explicitly ask in that message.
+- Read-only git is fine (`git status`, `git diff`, `git log`, `git show`).
+- If you believe a commit is warranted, say so in your summary and let me do it. Do not ask for permission to commit and then do it — just leave it to me.
+
+---
+
 ## Workflow conventions (read before any design work)
 
 These apply to every section, element, page or component you design or redesign in this theme.
