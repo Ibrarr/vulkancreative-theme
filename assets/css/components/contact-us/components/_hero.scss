@@ -1,0 +1,109 @@
+// Contact hero: a full-dark forge band in both modes (same family as the 404
+// and homepage hero). The top padding clears the fixed site header. Page <h1>.
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+  background: $vc-background-dark;
+  padding: $space-15 0;
+
+  @include media-breakpoint-down(lg) {
+    padding: $space-10 0 $space-8;
+  }
+
+  .contact-hero-glow {
+    position: absolute;
+    right: -6%;
+    top: 6%;
+    width: min(60vw, 720px);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: $z-base;
+  }
+
+  // Breadcrumb doubles as the top eyebrow, matching the insights header band.
+  .breadcrumbs {
+    font-family: $vc-font-family;
+    font-size: 12px;
+    font-weight: $vc-semi-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $vc-muted-on-dark;
+    margin: 0 0 $space-3;
+
+    a {
+      color: $vc-primary;
+      text-decoration: none;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $vc-secondary;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  h1 {
+    @include vc-display-2($vc-text-light);
+    text-transform: uppercase;
+    margin-bottom: $space-3;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .sub-heading {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 60ch;
+    margin: 0 0 $space-5;
+  }
+
+  .contact-hero-points {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: $space-2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      @include vc-body($vc-text-light);
+      font-weight: $vc-medium;
+      display: inline-flex;
+      align-items: center;
+
+      // Thin hairline separator between items (no leading dash).
+      &:not(:last-child)::after {
+        content: '';
+        width: 1px;
+        height: 16px;
+        margin: 0 $space-4;
+        background: rgba($vc-text-light, 0.22);
+      }
+    }
+
+    // Stack cleanly on smaller screens, without the separators.
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: $space-1;
+
+      li::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// The hero stays dark in both modes; only its hue swaps with the body.
+@at-root body.dark-mode .contact-hero {
+  background: $dark-vc-background-dark-alt !important;
+}

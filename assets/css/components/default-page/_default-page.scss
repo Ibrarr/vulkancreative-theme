@@ -12,6 +12,29 @@
       padding: $space-10 0 $space-6;
     }
 
+    // Breadcrumb doubles as the top eyebrow, matching the insights header band.
+    .breadcrumbs {
+      font-family: $vc-font-family;
+      font-size: 12px;
+      font-weight: $vc-semi-bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $vc-muted-on-dark;
+      margin: 0 0 $space-3;
+
+      a {
+        color: $vc-primary;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+          color: $vc-secondary;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+        }
+      }
+    }
+
     .page-title {
       @include vc-display-2($vc-text-light);
       text-transform: uppercase;

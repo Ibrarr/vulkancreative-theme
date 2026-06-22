@@ -62,6 +62,10 @@ mix.js([
     'assets/js/your-business/cta.js',
 ], 'js/your-business.js');
 
+mix.js([
+    'assets/js/contact/reveal.js',
+], 'js/contact.js');
+
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({
         processCssUrls: false

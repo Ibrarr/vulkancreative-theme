@@ -77,10 +77,18 @@
         min-height: 180px;
       }
 
+      // Active field turns its label red, and only the underline colour
+      // transitions, so there is no animated focus box between fields.
+      .gfield:focus-within > label,
+      .gfield:focus-within .gfield_label {
+        color: $vc-primary !important;
+      }
+
       input:focus, textarea:focus {
         border-color: $vc-primary;
         --gf-local-shadow: none;
         --gf-local-outline-color: none;
+        box-shadow: none !important;
         outline: none !important;
       }
 
@@ -92,11 +100,11 @@
         border-bottom: 1px solid $vc-grey-400;
         border-radius: 0;
         background: none;
-        box-shadow: none;
+        box-shadow: none !important;
         padding: 0;
         height: 50px;
         min-height: 50px;
-        transition: $vc-transition-all;
+        transition: border-color 0.3s;
         cursor: text;
 
         &:focus {

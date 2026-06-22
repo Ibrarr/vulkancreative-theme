@@ -3,6 +3,120 @@
     "title": "Global Fields",
     "fields": [
         {
+            "key": "field_company_tab",
+            "label": "Company info",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_company_email",
+            "label": "Email Address",
+            "name": "company_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Public enquiry email. Used on the Contact page and in the footer.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "info@vulkancreative.com",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_company_phone",
+            "label": "Phone Number",
+            "name": "company_phone",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Public phone number. Clear it to hide the phone line.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "020 3576 7525",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_company_location",
+            "label": "Location \/ Address",
+            "name": "company_location",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short address line shown on the Contact page. Clear it to hide the location.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Dawson House, 5 Jewry Street, London, EC3N 2EX",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_company_map",
+            "label": "Map Link",
+            "name": "company_map_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Optional. The Contact-page address links here (opens in a new tab). Clear it to show the address as plain text.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "https:\/\/maps.app.goo.gl\/gSBBfZt45iUbm2UH7",
+            "placeholder": ""
+        },
+        {
+            "key": "field_logos_tab",
+            "label": "Hero logos",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_6a02fd6d79054",
             "label": "Worked with logos",
             "name": "worked_with_logos",
@@ -75,5 +189,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1778580961
+    "modified": 1782071670
 }

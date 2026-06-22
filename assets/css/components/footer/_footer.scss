@@ -120,6 +120,42 @@ footer {
     }
   }
 
+  .footer-contact {
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-5;
+    }
+
+    .footer-contact-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        @include vc-body($vc-muted-on-dark);
+        font-size: 14px;
+        line-height: 1.5;
+
+        &:not(:last-child) {
+          margin-bottom: 14px;
+        }
+
+        a {
+          color: $vc-text-light;
+          text-decoration: none;
+          transition: color 0.3s;
+
+          &:hover {
+            color: $vc-primary;
+          }
+
+          &:focus-visible {
+            color: $vc-primary;
+          }
+        }
+      }
+    }
+  }
+
   .socials {
     @include media-breakpoint-down(lg) {
       margin-top: $space-5;

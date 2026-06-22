@@ -4,16 +4,163 @@ Template Name: Contact us
 */
 get_header();
 
-$thumbnail_id = get_post_thumbnail_id( get_the_ID() );
-$image_srcset = wp_get_attachment_image_srcset( $thumbnail_id );
+// Heading highlight default: map a plain-text default to a span-highlighted
+// version. If the ACF value is empty or matches the plain default, use the
+// highlighted version; otherwise the editor's own text is used as-is.
+$ct_heading_highlights = [
+	'ct_hero_heading' => [ "Let's build something that performs.", "Let's build something that <span>performs</span>." ],
+];
+function ct_heading( $field_name, $highlights ) {
+	$val = get_field( $field_name );
+	if ( isset( $highlights[ $field_name ] ) ) {
+		if ( ! $val || $val === $highlights[ $field_name ][0] ) {
+			return $highlights[ $field_name ][1];
+		}
+	}
+	return $val ?: '';
+}
+
+// Hero
+$hero_heading    = ct_heading( 'ct_hero_heading', $ct_heading_highlights );
+$hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to be. We reply within one working day with a clear next step, no pitch decks and no hard sell.';
+
+$hero_points_default = [
+	'Reply within one working day',
+	'Talk to the people doing the work',
+	'No obligation, no hard sell',
+];
+$hero_points = [];
+if ( have_rows('ct_hero_points') ) {
+	while ( have_rows('ct_hero_points') ) { the_row(); $hero_points[] = get_sub_field('text'); }
+}
+$hero_points = array_filter( $hero_points ) ?: $hero_points_default;
+
+// Details — company contact info lives in Global Settings (options), so the
+// Contact page and the footer share one source of truth.
+$email           = get_field('company_email', 'options') ?: 'info@vulkancreative.com';
+$phone           = get_field('company_phone', 'options') ?: '020 3576 7525';
+$location        = get_field('company_location', 'options') ?: 'Dawson House, 5 Jewry Street, London, EC3N 2EX';
+$map_url         = get_field('company_map_url', 'options') ?: 'https://maps.app.goo.gl/gSBBfZt45iUbm2UH7';
+// Strip everything but digits and a leading + for the tel: href.
+$phone_href      = $phone ? preg_replace( '/[^0-9+]/', '', $phone ) : '';
+
+$next_heading = get_field('ct_next_heading') ?: 'What happens next';
+$next_steps_default = [
+	[ 'title' => 'We reply within one working day', 'description' => 'A real person reads your message and comes back with first thoughts, not an auto-responder.' ],
+	[ 'title' => 'A short discovery call',          'description' => 'We learn how your business runs and what good looks like for you. No charge, no obligation.' ],
+	[ 'title' => 'A clear plan and price',          'description' => 'You get a straightforward proposal with scope, timings and cost. You decide if it is a fit.' ],
+];
+$next_steps = [];
+if ( have_rows('ct_next_steps') ) {
+	while ( have_rows('ct_next_steps') ) {
+		the_row();
+		$next_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
+	}
+}
+$next_steps = $next_steps ?: $next_steps_default;
+
+// Form
+$form_heading = get_field('ct_form_heading') ?: 'Tell us about your project';
+
+// Inline line icons for the contact channels (consistent stroke, SVG only).
+$ct_icons = [
+	'email'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
+	'phone'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+	'location' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+];
 ?>
 
-<section class="header">
-    <div class="container px-4">
+<section class="contact-hero" id="top">
+	<div class="contact-hero-glow" aria-hidden="true"></div>
+	<div class="container px-4">
+		<div class="row">
+			<div class="col-lg-9 content">
+				<div class="breadcrumbs"><?php echo do_shortcode( '[wpseo_breadcrumb]' ); ?></div>
+				<h1><?php echo wp_kses_post( $hero_heading ); ?></h1>
+				<p class="sub-heading"><?php echo esc_html( $hero_subheading ); ?></p>
+				<?php if ( $hero_points ) : ?>
+					<ul class="contact-hero-points">
+						<?php foreach ( $hero_points as $point ) : ?>
+							<li><?php echo esc_html( $point ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</section>
 
-    </div>
+<section class="contact-main" id="contact">
+	<div class="container px-4">
+		<div class="row gx-5">
+			<div class="col-lg-6 offset-lg-1 contact-form-col form order-1 order-lg-2">
+				<h2><?php echo esc_html( $form_heading ); ?></h2>
+				<div class="form-container">
+					<?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+				</div>
+			</div>
+
+			<div class="col-lg-5 contact-details order-2 order-lg-1">
+				<ul class="contact-channels">
+					<?php if ( $email ) : ?>
+						<li>
+							<a class="channel" href="mailto:<?php echo esc_attr( $email ); ?>">
+								<span class="channel-icon" aria-hidden="true"><?php echo $ct_icons['email']; ?></span>
+								<span class="channel-text">
+									<span class="channel-label">Email</span>
+									<span class="channel-value"><?php echo esc_html( $email ); ?></span>
+								</span>
+							</a>
+						</li>
+					<?php endif; ?>
+					<?php if ( $phone ) : ?>
+						<li>
+							<a class="channel" href="tel:<?php echo esc_attr( $phone_href ); ?>">
+								<span class="channel-icon" aria-hidden="true"><?php echo $ct_icons['phone']; ?></span>
+								<span class="channel-text">
+									<span class="channel-label">Phone</span>
+									<span class="channel-value"><?php echo esc_html( $phone ); ?></span>
+								</span>
+							</a>
+						</li>
+					<?php endif; ?>
+					<?php if ( $location ) : ?>
+						<li>
+							<?php if ( $map_url ) : ?>
+								<a class="channel" href="<?php echo esc_url( $map_url ); ?>" target="_blank" rel="noopener">
+							<?php else : ?>
+								<div class="channel channel--static">
+							<?php endif; ?>
+								<span class="channel-icon" aria-hidden="true"><?php echo $ct_icons['location']; ?></span>
+								<span class="channel-text">
+									<span class="channel-label">Where we are</span>
+									<span class="channel-value"><?php echo esc_html( $location ); ?></span>
+								</span>
+							<?php echo $map_url ? '</a>' : '</div>'; ?>
+						</li>
+					<?php endif; ?>
+				</ul>
+
+				<?php if ( $next_steps ) : ?>
+					<div class="contact-next">
+						<h3><?php echo esc_html( $next_heading ); ?></h3>
+						<ol class="contact-next-steps">
+							<?php foreach ( $next_steps as $i => $step ) : ?>
+								<li class="next-step">
+									<span class="step-index" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
+									<span class="step-body">
+										<span class="step-title"><?php echo esc_html( $step['title'] ); ?></span>
+										<span class="step-desc"><?php echo esc_html( $step['description'] ); ?></span>
+									</span>
+								</li>
+							<?php endforeach; ?>
+						</ol>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
 </section>
 
 <?php
 get_footer();
-?>

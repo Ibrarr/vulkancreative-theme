@@ -1,0 +1,380 @@
+// Contact main: the enquiry form beside the direct contact details and the
+// "what happens next" steps. The form panel reuses the homepage .contact form
+// treatment so the two read identically.
+.contact-main {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  // ----- Details column (no heading — the channels lead; the form is the
+  // titled, primary action) -----
+
+  // On mobile the form comes first (order classes in the template), so the
+  // gap to the details below sits on the form column.
+  .contact-form-col {
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-8;
+    }
+  }
+
+  .contact-channels {
+    list-style: none;
+    margin: 0 0 $space-5;
+    padding: 0;
+    display: grid;
+    gap: $space-2;
+
+    li {
+      margin: 0;
+    }
+
+    .channel {
+      display: flex;
+      align-items: center;
+      gap: $space-2;
+      width: fit-content;
+      text-decoration: none;
+    }
+
+    .channel-icon {
+      flex: 0 0 auto;
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      color: $vc-primary;
+      transition: border-color 0.3s, color 0.3s;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .channel-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .channel-label {
+      @include vc-eyebrow($vc-grey-600);
+      margin: 0;
+    }
+
+    .channel-value {
+      @include vc-body($vc-text-dark);
+      font-weight: $vc-medium;
+      transition: color 0.3s;
+    }
+
+    a.channel {
+      @media (hover: hover) {
+        &:hover {
+          .channel-icon {
+            border-color: $vc-primary;
+          }
+
+          .channel-value {
+            color: $vc-primary;
+          }
+        }
+      }
+
+      &:focus-visible {
+        .channel-icon {
+          border-color: $vc-primary;
+        }
+
+        .channel-value {
+          color: $vc-primary;
+        }
+      }
+    }
+  }
+
+  .contact-next {
+    border-top: 1px solid $vc-grey-200;
+    padding-top: $space-4;
+    transition: border-color 0.3s;
+
+    h3 {
+      @include vc-eyebrow($vc-grey-600);
+      margin: 0 0 $space-3;
+    }
+  }
+
+  .contact-next-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: $space-3;
+
+    .next-step {
+      display: flex;
+      gap: $space-2;
+    }
+
+    .step-index {
+      font-family: $vc-display-font;
+      font-weight: $vc-black;
+      font-stretch: $vc-display-stretch-tight;
+      font-size: 18px;
+      line-height: 1.5;
+      color: $vc-primary;
+      flex: 0 0 auto;
+    }
+
+    .step-body {
+      display: block;
+    }
+
+    .step-title {
+      display: block;
+      @include vc-body($vc-text-dark);
+      font-weight: $vc-semi-bold;
+    }
+
+    .step-desc {
+      display: block;
+      @include vc-body($vc-grey-600);
+      margin-top: 2px;
+      transition: color 0.3s;
+    }
+  }
+
+  // ----- Form column -----
+  .contact-form-col {
+    h2 {
+      @include vc-display-3($vc-text-dark);
+      margin: 0 0 $space-3;
+      transition: color 0.3s;
+    }
+  }
+
+  .form .form-container {
+    background: $vc-background-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    padding: $space-5;
+    transition: background-color .3s, border-color .3s;
+
+    @include media-breakpoint-down(md) {
+      padding: $space-4 $space-3;
+    }
+  }
+
+  // Gravity Forms (id 2) — lifted from the homepage .contact .form block so the
+  // enquiry form is styled identically on both pages.
+  .form .gform_wrapper.contact-form_wrapper .contact-form {
+    .gform_heading {
+      display: none;
+    }
+
+    .gform_validation_errors {
+      margin-bottom: 30px;
+    }
+
+    .gform_fields {
+      row-gap: 20px !important;
+    }
+
+    .ginput_container_consent {
+      cursor: pointer;
+    }
+
+    label {
+      font-family: $vc-font-family;
+      font-size: 14px;
+      color: $vc-grey-600;
+      font-weight: $vc-semi-bold;
+      margin: 0;
+      transition: $vc-transition-all;
+
+      .gfield_required {
+        display: none;
+      }
+    }
+
+    textarea {
+      font-family: $vc-font-family;
+      font-size: 16px !important;
+      color: $vc-text-dark;
+      min-height: 180px;
+    }
+
+    // Active field turns its label red, and only the underline colour
+    // transitions, so there is no animated focus box jumping between fields.
+    .gfield:focus-within > label,
+    .gfield:focus-within .gfield_label {
+      color: $vc-primary !important;
+    }
+
+    input:focus, textarea:focus {
+      border-color: $vc-primary;
+      --gf-local-shadow: none;
+      --gf-local-outline-color: none;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    input[type="text"], input[type="email"], textarea {
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 16px !important;
+      border: none;
+      border-bottom: 1px solid $vc-grey-400;
+      border-radius: 0;
+      background: none;
+      box-shadow: none !important;
+      padding: 0;
+      height: 50px;
+      min-height: 50px;
+      transition: border-color 0.3s;
+      cursor: text;
+
+      &:focus {
+        border-bottom: 1px solid $vc-primary;
+      }
+    }
+
+    .gfield--type-textarea {
+      label {
+        margin-bottom: 10px;
+      }
+
+      textarea {
+        height: 100px;
+        min-height: 100px;
+      }
+    }
+
+    input[type="submit"] {
+      margin-top: 10px;
+      @include vc-button-forge;
+      cursor: pointer !important;
+      padding: 16px 35px;
+    }
+  }
+
+  .form .gform_confirmation_wrapper {
+    .gform_confirmation_message {
+      font-family: $vc-font-family;
+      font-size: 16px;
+      color: $vc-text-dark;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .contact-main {
+  background: $dark-vc-background-dark !important;
+
+  .contact-form-col h2 {
+    color: $vc-text-light !important;
+  }
+
+  .channel-label,
+  .contact-next h3 {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .channel-value,
+  .step-title {
+    color: $vc-text-light !important;
+  }
+
+  .step-desc {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .contact-next {
+    border-top-color: $vc-grey-dark-border !important;
+  }
+
+  .channel-icon {
+    border-color: $vc-grey-dark-border !important;
+    color: $vc-primary !important;
+  }
+
+  a.channel:focus-visible {
+    color: $vc-primary !important;
+
+    .channel-icon {
+      border-color: $vc-primary !important;
+    }
+
+    .channel-value {
+      color: $vc-primary !important;
+    }
+  }
+
+  @media (hover: hover) {
+    a.channel:hover {
+      color: $vc-primary !important;
+
+      .channel-icon {
+        border-color: $vc-primary !important;
+      }
+
+      .channel-value {
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  .form .form-container {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .form .gform_confirmation_message,
+  .form .contact-form input[type="text"],
+  .form .contact-form input[type="email"],
+  .form .contact-form textarea {
+    color: $vc-text-light !important;
+  }
+
+  .form .contact-form label {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .form .gform_wrapper.contact-form_wrapper .contact-form {
+    input[type="text"], input[type="email"], textarea {
+      border-bottom-color: rgba($vc-text-light, 0.35) !important;
+
+      &:focus {
+        border-bottom-color: $vc-primary !important;
+      }
+    }
+  }
+}
+
+// Pre-hide the reveal targets before first paint so they never flash at their
+// final position before reveal.js runs — they start hidden and only ever fade
+// up into place. Gated on html.js; a failsafe shows them at 2.5s if the script
+// never runs, and the reduced-motion / no-JS paths keep them visible (the
+// misc/_motion.scss safety net forces opacity:1).
+@at-root html.js body.page-template-page-contact-us {
+  .contact-hero h1,
+  .contact-hero .sub-heading,
+  .contact-hero-points,
+  .contact-main .contact-details,
+  .contact-main .contact-form-col {
+    opacity: 0;
+    animation: vc-contact-reveal-failsafe 0s 2.5s forwards;
+  }
+}
+
+@keyframes vc-contact-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

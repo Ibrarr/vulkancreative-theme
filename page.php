@@ -8,6 +8,7 @@ while ( have_posts() ) : the_post(); ?>
             <div class="container px-4">
                 <div class="row">
                     <div class="col-lg-9">
+                        <div class="breadcrumbs"><?php echo do_shortcode( '[wpseo_breadcrumb]' ); ?></div>
                         <h1 class="page-title"><?php the_title(); ?></h1>
                     </div>
                 </div>

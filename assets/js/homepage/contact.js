@@ -70,14 +70,3 @@ document.fonts.ready.then(() => {
 
     ScrollTrigger.refresh();
 });
-
-// Highlight the active field label in brand red on focus.
-jQuery(document).ready(function($) {
-    $('input[type="text"], input[type="email"], textarea').on('focus', function() {
-        $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '#FF3B30');
-    });
-
-    $('input[type="text"], input[type="email"], textarea').on('blur', function() {
-        $(this).closest('div.ginput_container').parent().find('label.gfield_label').css('color', '');
-    });
-});
