@@ -20,6 +20,7 @@
       padding: 0 20px 0 0;
       border-right: 1px solid rgba(0, 0, 0, 0.25);
       @import "components/content";
+      @import "components/media";
       @import "components/faqs";
 
       @include media-breakpoint-down(lg) {

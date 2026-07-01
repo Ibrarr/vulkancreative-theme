@@ -1,0 +1,126 @@
+// Blog media: figures, images, tables, lightbox
+// Imported inside `.content-area .left`, so everything below is scoped to the
+// article body `.content` (not the hero header, which shares the same class).
+
+figure {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 2rem 0;
+
+  img {
+    flex: 1 1 320px; // 1 image fills the column; 2 images share the row, wrapping < ~660px
+    min-width: 0; // allow flex items to shrink below intrinsic width so 2 images sit side by side
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+  }
+
+  figcaption {
+    flex-basis: 100%; // caption drops below the image(s)
+    font-size: 0.875rem;
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+}
+
+// Bare images not wrapped in a <figure> still get rounded corners + spacing
+> img,
+p > img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  margin: 2rem auto;
+}
+
+img {
+  cursor: zoom-in; // affordance for the lightbox
+}
+
+// Tables. The .table-scroll wrapper is added in template-parts/content-blog.php.
+.table-scroll {
+  margin: 2rem 0;
+  overflow-x: auto;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  }
+
+  thead th {
+    font-weight: $vc-bold;
+    background: rgba($vc-primary, 0.08);
+    border-bottom: 2px solid rgba($vc-primary, 0.35);
+  }
+
+  tbody tr:nth-child(even) {
+    background: rgba(128, 128, 128, 0.06);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+// Lightbox overlay. JS appends it to <body>, so escape the `.left`/`.content`
+// nesting with @at-root and style it at the document root.
+@at-root {
+  .vc-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1100; // above the sticky header and the custom cursor
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    cursor: zoom-out; // "minimise" cursor across the whole overlay; clicking anywhere closes
+    transition: opacity 0.25s ease;
+
+    &.is-open {
+      opacity: 1;
+    }
+
+    img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+      cursor: zoom-out;
+    }
+
+    .vc-lightbox__close {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      font-size: 2rem;
+      line-height: 1;
+      color: #fff;
+      background: none;
+      border: 0;
+      cursor: pointer; // pointer over the X
+    }
+  }
+
+  // While the lightbox is open, hide the site's custom cursor so the native
+  // zoom-out / pointer cursor shows instead of the red circle sitting behind the overlay.
+  body.lightbox-open .custom-cursor {
+    display: none;
+  }
+}

@@ -38,6 +38,7 @@ mix.js([
 
 mix.js([
     'assets/js/single-blog/loading.js',
+    'assets/js/single-blog/lightbox.js',
 ], 'js/single-blog.js');
 
 mix.js([

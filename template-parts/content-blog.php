@@ -76,6 +76,12 @@ $image_srcset = wp_get_attachment_image_srcset( $thumbnail_id );
                             },
                             $full_content
                         );
+
+                        // Wrap tables so they can scroll horizontally on small
+                        // screens and take a rounded frame (see _media.scss).
+                        $full_content = preg_replace('/<table(.*?)>/is', '<div class="table-scroll"><table$1>', $full_content);
+                        $full_content = str_replace('</table>', '</table></div>', $full_content);
+
                         echo $full_content;
                     }
                     ?>
