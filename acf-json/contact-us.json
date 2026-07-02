@@ -45,52 +45,6 @@
             "new_lines": ""
         },
         {
-            "key": "field_ct003",
-            "label": "Hero Reassurance Points",
-            "name": "ct_hero_points",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "Three short reassurance facts shown under the hero heading.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 4,
-            "collapsed": "",
-            "button_label": "Add Point",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_ct004",
-                    "label": "Text",
-                    "name": "text",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_ct003"
-                }
-            ]
-        },
-        {
             "key": "field_ct009",
             "label": "Next Steps Heading",
             "name": "ct_next_heading",
@@ -224,5 +178,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781000500
+    "modified": 1782000100
 }

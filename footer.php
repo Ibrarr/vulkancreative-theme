@@ -7,7 +7,7 @@
                             <p class="footer-cta-heading">Ready to forge something that <span>performs</span>?</p>
                         </div>
                         <div class="col-lg-4 footer-cta-action">
-                            <a class="button" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Start a Project</a>
+                            <a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
                         </div>
                     </div>
                     <?php endif; ?>

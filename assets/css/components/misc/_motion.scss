@@ -42,11 +42,23 @@
   // Contact page reveal targets
   .contact-hero h1,
   .contact-hero .sub-heading,
-  .contact-hero-points,
-  .contact-main .contact-details,
-  .contact-main .contact-form-col {
+  .contact-main .contact-channels li,
+  .contact-main .contact-next,
+  .contact-main .contact-next .next-step,
+  .contact-main .contact-form-col h2,
+  .contact-main .contact-form-col .form-container {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  // Contact next-steps rail: show the finished state — rail fully drawn,
+  // indices hot — instead of animating towards it.
+  .contact-main .next-progress {
+    transform: none !important;
+  }
+
+  .contact-main .contact-next-steps .step-index {
+    color: $vc-primary !important;
   }
 
   // The rolling-word container is normally sized by JS. With motion off, show

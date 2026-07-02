@@ -46,7 +46,7 @@
       border: 1px solid $vc-grey-200;
       border-radius: 2px;
       color: $vc-primary;
-      transition: border-color 0.3s, color 0.3s;
+      transition: border-color 0.3s, color 0.3s, background 0.3s, box-shadow 0.3s;
 
       svg {
         width: 20px;
@@ -71,11 +71,15 @@
       transition: color 0.3s;
     }
 
+    // Forge hover: the icon plate heats (border, tint fill, soft red glow) and
+    // the value warms. Colour/surface only — the row itself never moves.
     a.channel {
       @media (hover: hover) {
         &:hover {
           .channel-icon {
             border-color: $vc-primary;
+            background: $vc-primary-tint;
+            box-shadow: 0 0 24px 0 $vc-glow-soft;
           }
 
           .channel-value {
@@ -87,6 +91,8 @@
       &:focus-visible {
         .channel-icon {
           border-color: $vc-primary;
+          background: $vc-primary-tint;
+          box-shadow: 0 0 24px 0 $vc-glow-soft;
         }
 
         .channel-value {
@@ -104,6 +110,37 @@
     h3 {
       @include vc-eyebrow($vc-grey-600);
       margin: 0 0 $space-3;
+    }
+  }
+
+  // Ember rail beside the steps: a static track that next-steps.js draws an
+  // ember fill down, heating each step index as it passes (process-section kin).
+  .next-rail-wrap {
+    position: relative;
+    padding-left: $space-4;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: $vc-grey-200;
+      transition: background 0.3s;
+    }
+
+    .next-progress {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, $vc-primary, $vc-secondary);
+      transform: scaleY(0);
+      transform-origin: top center;
+      pointer-events: none;
+      will-change: transform;
     }
   }
 
@@ -147,25 +184,76 @@
     }
   }
 
+  // The cold (pre-heat) index state exists only with JS: grey-400 is below the
+  // large-text contrast floor, so it may only be the transient state the ember
+  // draw heats within a second. No-JS and reduced motion render red throughout.
+  @at-root html.js body.page-template-page-contact-us .contact-main .contact-next-steps {
+    .step-index {
+      color: $vc-grey-400;
+      transition: color 0.4s ease;
+    }
+
+    .next-step.is-passed .step-index {
+      color: $vc-primary;
+    }
+  }
+
   // ----- Form column -----
   .contact-form-col {
     h2 {
       @include vc-display-3($vc-text-dark);
       margin: 0 0 $space-3;
       transition: color 0.3s;
+
+      // Highlight-map span (large display text, so red passes on light).
+      span {
+        color: $vc-primary;
+      }
     }
   }
 
   .form .form-container {
+    position: relative; // anchors the .form-progress hairline
     background: $vc-background-white;
     border: 1px solid $vc-grey-200;
     border-radius: 2px;
     padding: $space-5;
-    transition: background-color .3s, border-color .3s;
+    transition: background-color .3s, border-color .3s, box-shadow .3s;
 
     @include media-breakpoint-down(md) {
       padding: $space-4 $space-3;
     }
+
+    // The panel heats while any field inside has focus.
+    &:focus-within {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 0 0 1px rgba($vc-secondary, 0.25), 0 12px 40px rgba($vc-primary, 0.07);
+    }
+  }
+
+  // Decorative ember hairline on the panel's top edge; form-progress.js fills it
+  // per completed required field. JS-driven only, so hidden without JS.
+  .form .form-progress {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    overflow: hidden;
+    pointer-events: none;
+
+    .form-progress-fill {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, $vc-primary, $vc-secondary);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.35s ease;
+    }
+  }
+
+  @at-root html:not(.js) body.page-template-page-contact-us .form-progress {
+    display: none;
   }
 
   // Gravity Forms (id 2) — lifted from the homepage .contact .form block so the
@@ -309,6 +397,8 @@
 
     .channel-icon {
       border-color: $vc-primary !important;
+      background: $vc-primary-tint !important;
+      box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
     }
 
     .channel-value {
@@ -322,6 +412,8 @@
 
       .channel-icon {
         border-color: $vc-primary !important;
+        background: $vc-primary-tint !important;
+        box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
       }
 
       .channel-value {
@@ -330,9 +422,28 @@
     }
   }
 
+  .next-rail-wrap::before {
+    background: $vc-grey-dark-border !important;
+  }
+
+  @at-root html.js body.dark-mode .contact-main .contact-next-steps {
+    .step-index {
+      color: rgba($vc-text-light, 0.35) !important;
+    }
+
+    .next-step.is-passed .step-index {
+      color: $vc-primary !important;
+    }
+  }
+
   .form .form-container {
     background: $vc-grey-dark-surface !important;
     border-color: $vc-grey-dark-border !important;
+
+    &:focus-within {
+      border-color: rgba($vc-secondary, 0.55) !important;
+      box-shadow: 0 0 32px rgba($vc-primary, 0.12) !important;
+    }
   }
 
   .form .gform_confirmation_message,
@@ -365,9 +476,10 @@
 @at-root html.js body.page-template-page-contact-us {
   .contact-hero h1,
   .contact-hero .sub-heading,
-  .contact-hero-points,
-  .contact-main .contact-details,
-  .contact-main .contact-form-col {
+  .contact-main .contact-channels li,
+  .contact-main .contact-next,
+  .contact-main .contact-form-col h2,
+  .contact-main .contact-form-col .form-container {
     opacity: 0;
     animation: vc-contact-reveal-failsafe 0s 2.5s forwards;
   }

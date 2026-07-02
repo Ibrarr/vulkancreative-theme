@@ -12,12 +12,22 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.contact-hero h1');
-    const fades = gsap.utils.toArray('.contact-hero .sub-heading, .contact-hero-points, .contact-main .contact-details, .contact-main .contact-form-col');
+    const headings = gsap.utils.toArray('.contact-hero h1, .contact-main .contact-form-col h2');
+    const fades = gsap.utils.toArray('.contact-hero .sub-heading, .contact-main .contact-form-col .form-container');
+    // Staggered groups: the observer watches the list, the items cascade in.
+    // (.contact-next is owned by next-steps.js so the rail draw and the step
+    // stagger sequence as one timeline.)
+    const groups = gsap.utils.toArray('.contact-main .contact-channels');
 
-    if (!headings.length && !fades.length) return;
+    if (!headings.length && !fades.length && !groups.length) return;
 
-    gsap.set([...headings, ...fades], { opacity: 0, y: 24 });
+    // animation:none cancels the CSS 2.5s failsafe once JS owns the reveal —
+    // its `forwards` fill outranks inline styles, so left alive it would force
+    // below-fold targets visible early and swallow their entrance.
+    gsap.set([...headings, ...fades], { opacity: 0, y: 24, animation: 'none' });
+    groups.forEach((group) => {
+        gsap.set(group.querySelectorAll('li'), { opacity: 0, y: 16, animation: 'none' });
+    });
 
     const showHeading = (el) => {
         SplitText.create(el, {
@@ -45,9 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.to(el, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' });
     };
 
+    const showGroup = (el) => {
+        gsap.to(el.querySelectorAll('li'), {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.09,
+            ease: 'power2.out',
+        });
+    };
+
     const handlers = new Map();
     headings.forEach((el) => handlers.set(el, showHeading));
     fades.forEach((el) => handlers.set(el, showFade));
+    groups.forEach((el) => handlers.set(el, showGroup));
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {

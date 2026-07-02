@@ -9,6 +9,7 @@ get_header();
 // highlighted version; otherwise the editor's own text is used as-is.
 $ct_heading_highlights = [
 	'ct_hero_heading' => [ "Let's build something that performs.", "Let's build something that <span>performs</span>." ],
+	'ct_form_heading' => [ 'Tell us about your project', 'Tell us about <span>your project</span>' ],
 ];
 function ct_heading( $field_name, $highlights ) {
 	$val = get_field( $field_name );
@@ -23,17 +24,6 @@ function ct_heading( $field_name, $highlights ) {
 // Hero
 $hero_heading    = ct_heading( 'ct_hero_heading', $ct_heading_highlights );
 $hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to be. We reply within one working day with a clear next step, no pitch decks and no hard sell.';
-
-$hero_points_default = [
-	'Reply within one working day',
-	'Talk to the people doing the work',
-	'No obligation, no hard sell',
-];
-$hero_points = [];
-if ( have_rows('ct_hero_points') ) {
-	while ( have_rows('ct_hero_points') ) { the_row(); $hero_points[] = get_sub_field('text'); }
-}
-$hero_points = array_filter( $hero_points ) ?: $hero_points_default;
 
 // Details — company contact info lives in Global Settings (options), so the
 // Contact page and the footer share one source of truth.
@@ -60,7 +50,7 @@ if ( have_rows('ct_next_steps') ) {
 $next_steps = $next_steps ?: $next_steps_default;
 
 // Form
-$form_heading = get_field('ct_form_heading') ?: 'Tell us about your project';
+$form_heading = ct_heading( 'ct_form_heading', $ct_heading_highlights );
 
 // Inline line icons for the contact channels (consistent stroke, SVG only).
 $ct_icons = [
@@ -78,13 +68,6 @@ $ct_icons = [
 				<div class="breadcrumbs"><?php echo do_shortcode( '[wpseo_breadcrumb]' ); ?></div>
 				<h1><?php echo wp_kses_post( $hero_heading ); ?></h1>
 				<p class="sub-heading"><?php echo esc_html( $hero_subheading ); ?></p>
-				<?php if ( $hero_points ) : ?>
-					<ul class="contact-hero-points">
-						<?php foreach ( $hero_points as $point ) : ?>
-							<li><?php echo esc_html( $point ); ?></li>
-						<?php endforeach; ?>
-					</ul>
-				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -94,8 +77,10 @@ $ct_icons = [
 	<div class="container px-4">
 		<div class="row gx-5">
 			<div class="col-lg-6 offset-lg-1 contact-form-col form order-1 order-lg-2">
-				<h2><?php echo esc_html( $form_heading ); ?></h2>
+				<h2><?php echo wp_kses_post( $form_heading ); ?></h2>
 				<div class="form-container">
+					<?php // Progress hairline sits outside .gform_wrapper so GF ajax re-renders never remove it. ?>
+					<span class="form-progress" aria-hidden="true"><span class="form-progress-fill"></span></span>
 					<?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
 				</div>
 			</div>
@@ -144,17 +129,21 @@ $ct_icons = [
 				<?php if ( $next_steps ) : ?>
 					<div class="contact-next">
 						<h3><?php echo esc_html( $next_heading ); ?></h3>
-						<ol class="contact-next-steps">
-							<?php foreach ( $next_steps as $i => $step ) : ?>
-								<li class="next-step">
-									<span class="step-index" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
-									<span class="step-body">
-										<span class="step-title"><?php echo esc_html( $step['title'] ); ?></span>
-										<span class="step-desc"><?php echo esc_html( $step['description'] ); ?></span>
-									</span>
-								</li>
-							<?php endforeach; ?>
-						</ol>
+						<?php // The wrapper keeps the ember rail's coordinate space aligned with the list. ?>
+						<div class="next-rail-wrap">
+							<span class="next-progress" aria-hidden="true"></span>
+							<ol class="contact-next-steps">
+								<?php foreach ( $next_steps as $i => $step ) : ?>
+									<li class="next-step">
+										<span class="step-index" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
+										<span class="step-body">
+											<span class="step-title"><?php echo esc_html( $step['title'] ); ?></span>
+											<span class="step-desc"><?php echo esc_html( $step['description'] ); ?></span>
+										</span>
+									</li>
+								<?php endforeach; ?>
+							</ol>
+						</div>
 					</div>
 				<?php endif; ?>
 			</div>

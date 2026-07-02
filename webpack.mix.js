@@ -64,6 +64,8 @@ mix.js([
 
 mix.js([
     'assets/js/contact/reveal.js',
+    'assets/js/contact/next-steps.js',
+    'assets/js/contact/form-progress.js',
 ], 'js/contact.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')

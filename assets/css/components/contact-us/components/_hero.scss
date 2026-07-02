@@ -10,13 +10,14 @@
     padding: $space-10 0 $space-8;
   }
 
+  // Two-gradient forge glow, same composition as the homepage hero: the main
+  // heat top-right plus a lower secondary bloom so the band reads molten, not flat.
   .contact-hero-glow {
     position: absolute;
-    right: -6%;
-    top: 6%;
-    width: min(60vw, 720px);
-    aspect-ratio: 1;
-    background: radial-gradient(circle, $vc-glow 0%, transparent 65%);
+    inset: 0;
+    background:
+      radial-gradient(46% 56% at 82% 30%, $vc-glow 0%, transparent 68%),
+      radial-gradient(38% 34% at 6% 104%, rgba($vc-secondary, 0.14) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
   }
@@ -62,48 +63,13 @@
   .sub-heading {
     @include vc-p($vc-muted-on-dark);
     max-width: 60ch;
-    margin: 0 0 $space-5;
-  }
-
-  .contact-hero-points {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    row-gap: $space-2;
     margin: 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-      @include vc-body($vc-text-light);
-      font-weight: $vc-medium;
-      display: inline-flex;
-      align-items: center;
-
-      // Thin hairline separator between items (no leading dash).
-      &:not(:last-child)::after {
-        content: '';
-        width: 1px;
-        height: 16px;
-        margin: 0 $space-4;
-        background: rgba($vc-text-light, 0.22);
-      }
-    }
-
-    // Stack cleanly on smaller screens, without the separators.
-    @include media-breakpoint-down(lg) {
-      flex-direction: column;
-      align-items: flex-start;
-      row-gap: $space-1;
-
-      li::after {
-        display: none;
-      }
-    }
   }
 }
 
-// The hero stays dark in both modes; only its hue swaps with the body.
+// The hero stays dark in both modes; only its hue swaps with the body. In dark
+// mode the two dark bands meet, so the seam takes the house ember hairline.
 @at-root body.dark-mode .contact-hero {
   background: $dark-vc-background-dark-alt !important;
+  border-bottom: 1px solid $vc-ember-line !important;
 }

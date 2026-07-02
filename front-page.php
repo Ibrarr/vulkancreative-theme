@@ -128,7 +128,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     </h1>
                     <p class="split-text-hero"><?php echo esc_html( $hero_subheading ); ?></p>
                     <div class="bottom">
-                        <a href="#contact" class="button"><?php echo esc_html( $hero_button ); ?></a>
+                        <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button"><?php echo esc_html( $hero_button ); ?></a>
                         <a href="#work" class="button-ghost"><?php echo esc_html( $hero_secondary_button ); ?></a>
                     </div>
                 </div>
@@ -199,7 +199,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             </div>
             <div class="col-lg-4 offset-lg-1 services-intro">
                 <p class="sub-heading"><?php echo esc_html( $services_description ); ?></p>
-                <a href="#contact" class="button">Start a Project</a>
+                <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button">Start a Project</a>
             </div>
         </div>
         <div class="service-rail">
@@ -305,7 +305,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     <?php endforeach; ?>
                 </div>
             </div>
-            <p class="work-outro">Your project could be next. <a href="#contact">Start a project</a></p>
+            <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a></p>
         <?php endif; ?>
     </div>
 </section>
@@ -443,7 +443,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             </div>
             <div class="why-cell why-cell-cta">
                 <p class="why-cta-text"><?php echo esc_html( $why_cta_text ); ?></p>
-                <a class="button" href="#contact"><?php echo esc_html( $why_cta_label ); ?></a>
+                <a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html( $why_cta_label ); ?></a>
             </div>
         </div>
     </div>
