@@ -18,6 +18,7 @@ get_header();
 ?>
 
 <section class="insights-header">
+	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
         <h1 class="insights-title"><?php single_cat_title(); ?> <span>News &amp; Insights</span>.</h1>

@@ -14,18 +14,6 @@
     padding: $space-10 0 $space-8;
   }
 
-  // Two-gradient forge glow, same composition as the homepage hero: the main
-  // heat top-right plus a lower secondary bloom so the band reads molten, not flat.
-  .page-hero-glow {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(46% 56% at 82% 30%, $vc-glow 0%, transparent 68%),
-      radial-gradient(38% 34% at 6% 104%, rgba($vc-secondary, 0.14) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .container {
     position: relative;
     z-index: $z-base;
@@ -76,4 +64,19 @@
 @at-root body.dark-mode .page-hero {
   background: $dark-vc-background-dark-alt !important;
   border-bottom: 1px solid $vc-ember-line !important;
+}
+
+// Two-gradient forge glow, same composition as the homepage hero: the main
+// heat top-right plus a lower secondary bloom so a dark band reads molten,
+// not flat. Standalone so any dark title band can host it (the page hero and
+// the insights header bands both do); the host needs position: relative and
+// its content wrapper raised above z 0.
+.page-hero-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(46% 56% at 82% 30%, $vc-glow 0%, transparent 68%),
+    radial-gradient(38% 34% at 6% 104%, rgba($vc-secondary, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }

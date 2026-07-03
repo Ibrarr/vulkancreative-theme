@@ -61,15 +61,9 @@
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
-                        if (is_front_page()) {
-                            wp_nav_menu( array(
-                                'theme_location' => 'main-menu-home',
-                            ) );
-                        } else {
-                            wp_nav_menu( array(
-                                'theme_location' => 'main-menu-other',
-                            ) );
-                        }
+                        wp_nav_menu( array(
+                            'theme_location' => 'main-menu',
+                        ) );
                         ?>
                     </nav>
                     <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
@@ -116,15 +110,9 @@
                     <nav id="nav-mobile" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
-                        if (is_front_page()) {
-                            wp_nav_menu( array(
-                                'theme_location' => 'main-menu-home',
-                            ) );
-                        } else {
-                            wp_nav_menu( array(
-                                'theme_location' => 'main-menu-other',
-                            ) );
-                        }
+                        wp_nav_menu( array(
+                            'theme_location' => 'main-menu',
+                        ) );
                         ?>
                     </nav>
                     <div class="mobile-menu-extras">

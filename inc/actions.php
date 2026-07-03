@@ -17,8 +17,9 @@ function vc_setup() {
 	if ( ! isset( $content_width ) ) {
 		$content_width = 1920;
 	}
-	register_nav_menus( array( 'main-menu-home' => esc_html__( 'Main Menu - Home', 'vc' ) ) );
-	register_nav_menus( array( 'main-menu-other' => esc_html__( 'Main Menu - Other', 'vc' ) ) );
+	// One menu serves every page; anchor items ("/#why") are flattened to
+	// in-page anchors on the front page by a filter in inc/filters.php.
+	register_nav_menus( array( 'main-menu' => esc_html__( 'Main Menu', 'vc' ) ) );
 }
 
 /**
@@ -85,8 +86,7 @@ function vc_pingback_header() {
 /**
  * Register menus
  */
-register_nav_menus( array( 'footer-menu-home' => esc_html__( 'Footer Menu  - Home', 'vc' ) ) );
-register_nav_menus( array( 'footer-menu-other' => esc_html__( 'Footer Menu  - Other', 'vc' ) ) );
+register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) );
 
 /**
  * Setup 404 page

@@ -13,6 +13,7 @@ $query = new WP_Query( [
 ?>
 
 <section class="insights-header">
+	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
         <h1 class="insights-title">Results for &ldquo;<?php echo esc_html( $term ); ?>&rdquo;</h1>

@@ -22,6 +22,7 @@ get_header();
 ?>
 
 <section class="insights-header insights-header--author">
+	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
 

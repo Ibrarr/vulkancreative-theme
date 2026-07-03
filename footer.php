@@ -21,15 +21,9 @@
                             <nav id="footer-menu" role="navigation" itemscope
                                  itemtype="https://schema.org/SiteNavigationElement">
                                 <?php
-                                if (is_front_page()) {
-                                    wp_nav_menu( array(
-                                        'theme_location' => 'footer-menu-home',
-                                    ) );
-                                } else {
-                                    wp_nav_menu( array(
-                                        'theme_location' => 'footer-menu-other',
-                                    ) );
-                                }
+                                wp_nav_menu( array(
+                                    'theme_location' => 'footer-menu',
+                                ) );
                                 ?>
                             </nav>
                         </div>

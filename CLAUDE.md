@@ -393,7 +393,7 @@ Defined in `functions.php`:
 | `content-blog.php` | `single.php` | Full blog post layout: hero with featured image, breadcrumbs, title, excerpt, category badges, read time; main content from ACF `intro_key_takeaways` + `content` fields with auto-generated heading IDs; FAQs repeater with schema.org JSON-LD; sidebar with auto-generated TOC, author info, newsletter form (Gravity Form id=3). |
 | `archive-category.php` | `archive.php` | Category archive: heading with breadcrumbs, 12 posts per page filtered by current category, post card grid, pagination. |
 | `content-404.php` | `404.php`, `page-404-preview.php` | The forge 404 section (`.error-section`): error code, heading, copy and the forge/ghost CTA pair. Shared so the real error response and the preview page render identically. |
-| `page-hero.php` | `page-contact-us.php`, `page-about-us.php` | The shared dark page-hero band: `[wpseo_breadcrumb]` breadcrumbs eyebrow, display `<h1>` with the red `<span>` highlight, optional muted sub-line, two-gradient forge glow. Called with `get_template_part()` `$args` (`heading`, `subheading`, `class`, `id` defaulting to `top`); each consumer passes an alias class (`contact-hero` / `about-hero`) for its own pre-hide and reveal selectors. Styles in `common/_page-hero.scss`, keyed off `.page-hero` (the content-404 sharing pattern); dark in both modes, with a `$vc-ember-line` seam under it in dark mode. |
+| `page-hero.php` | `page-contact-us.php`, `page-about-us.php` | The shared dark page-hero band: `[wpseo_breadcrumb]` breadcrumbs eyebrow, display `<h1>` with the red `<span>` highlight, optional muted sub-line, two-gradient forge glow. Called with `get_template_part()` `$args` (`heading`, `subheading`, `class`, `id` defaulting to `top`); each consumer passes an alias class (`contact-hero` / `about-hero`) for its own pre-hide and reveal selectors. Styles in `common/_page-hero.scss`, keyed off `.page-hero` (the content-404 sharing pattern); dark in both modes, with a `$vc-ember-line` seam under it in dark mode. The `.page-hero-glow` layer is a standalone selector in the same partial, so the insights header bands (`home.php`, `archive-category.php`, `author.php`, `search.php`) host the identical forge glow. |
 
 #### `get_template_part()` pattern
 
@@ -411,7 +411,7 @@ get_template_part('template-parts/content', 'blog');
 - Logo: inline SVG via `file_get_contents()`.
 - Fixed header bar. The `hero-active` class is now on **every page** (every nav-showing page opens on a dark forge band), so the header behaves the same site-wide: transparent over the dark top band (light logo/nav), then surfaced once scrolled. `header.js` adds `header--scrolled`/`header--hidden` as the visitor scrolls. The surfaced state is a clean white bar in light mode (`rgba($vc-surface-white, .96)`) / near-black in dark, with **no hairline under the header** — a soft blurred shadow gives the separation instead. (The your-business template still hides the nav and keeps its own transparent static header.)
 - Navigation and theme toggle are **hidden** on the your-business template (`is_page_template('page-templates/page-your-business.php')`).
-- Conditional menu: `main-menu-home` on front page, `main-menu-other` elsewhere. `scrollspy.js` highlights the in-view section's item with `.current-anchor`.
+- One `main-menu` location on every page (desktop bar + mobile overlay); anchor items flatten to in-page anchors on the front page via the filter described in the Menus section. `scrollspy.js` highlights the in-view section's item with `.current-anchor`.
 - Theme toggle: `<button class="theme-toggle">` with an inline sun SVG (styled by the theme-toggles "classic" CSS), present in the desktop bar and inside the mobile menu.
 - Mobile menu: full-screen overlay (`.mobile-menu`) holding the same conditional menu plus a theme toggle and social links. The toggle button carries `aria-expanded`/`aria-controls` and open/close SVG icons.
 - Schema.org: `<nav>` has `itemscope itemtype="https://schema.org/SiteNavigationElement"`.
@@ -419,23 +419,19 @@ get_template_part('template-parts/content', 'blog');
 **`footer.php`:**
 - CTA row (`.footer-cta`): "Next step" eyebrow, heading and a Start a project button linking to `/#contact`. Hidden on the Contact template (redundant there).
 - Main row also carries a `.footer-contact` column (email `mailto:`, phone `tel:`) beside the Explore menu and the socials. Both pull from Global Settings (`get_field('company_email'|'company_phone', 'options')`), the same source the Contact page uses.
-- Main row (`.footer-main`), Bootstrap grid: logo + newsletter form (Gravity Form id=3); "Explore" menu column (conditional `footer-menu-home`/`footer-menu-other` based on `is_front_page()`); socials column (LinkedIn, TikTok, Instagram, YouTube, inline SVGs with labels); bottom bar with copyright year + legal links (Privacy Policy, Cookie Settings).
+- Main row (`.footer-main`), Bootstrap grid: logo + newsletter form (Gravity Form id=3); "Explore" menu column (the single `footer-menu` location); socials column (LinkedIn, TikTok, Instagram, YouTube, inline SVGs with labels); bottom bar with copyright year + legal links (Privacy Policy, Cookie Settings).
 - `.footer-wordmark` (aria-hidden): oversized Archivo "Vulkan" wordmark at 5% opacity, cropped by the footer's `overflow: hidden` as a closing brand moment.
 
 ### Menus
 
-4 registered menu locations:
+2 registered menu locations (consolidated from the old home/other pairs in July 2026 at Ibrar's request):
 
 | Location slug | Purpose | Registered in |
 |---|---|---|
-| `main-menu-home` | Header nav on front page | `actions.php` |
-| `main-menu-other` | Header nav on all other pages | `actions.php` |
-| `footer-menu-home` | Footer nav on front page | `actions.php` |
-| `footer-menu-other` | Footer nav on all other pages | `actions.php` |
+| `main-menu` | Header nav, every page | `actions.php` |
+| `footer-menu` | Footer "Explore" nav, every page | `actions.php` |
 
-Display logic: `is_front_page()` selects the `*-home` variant; all other pages use `*-other`.
-
-The former "Our Story" items in all four locations now read "About" and link to `/about/` (the story section moved from the homepage to the About page).
+One menu serves the whole site per location. Section-anchor items are stored as absolute URLs (`/#why`, `/#services`; the Home item is `/#top`) so they navigate correctly from inner pages; a `nav_menu_link_attributes` filter in `inc/filters.php` flattens any homepage-target link to its in-page anchor (`#why`, and the bare Home link to `#top`) on the front page only, so the smooth-scroll interception and `scrollspy.js` keep their original one-page behaviour there. The former "Our Story" items read "About" and link to `/about/`.
 
 ### Dark Mode
 

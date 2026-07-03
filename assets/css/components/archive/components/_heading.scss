@@ -6,9 +6,17 @@
   padding: $space-15 0 $space-10;
   background: $vc-background-dark;
   position: relative;
+  overflow: hidden;
 
   @include media-breakpoint-down(lg) {
     padding: $space-10 0 $space-8;
+  }
+
+  // The band hosts the shared forge glow (common/_page-hero.scss), matching
+  // the About and Contact page heroes; content rides above it.
+  .container {
+    position: relative;
+    z-index: $z-base;
   }
 
   // The breadcrumb doubles as the section's top eyebrow tag: small, uppercase

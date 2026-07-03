@@ -162,3 +162,28 @@ add_filter(
 		return $data;
 	}
 );
+
+// One menu serves every page. Section-anchor items are stored as absolute
+// URLs ("/#why") so they navigate correctly from inner pages; on the front
+// page itself they flatten to in-page anchors ("#why") so the smooth-scroll
+// interception and the scrollspy keep working exactly as before.
+add_filter(
+	'nav_menu_link_attributes',
+	function ( $atts ) {
+		if ( ! is_front_page() || empty( $atts['href'] ) ) {
+			return $atts;
+		}
+		$parts     = wp_parse_url( $atts['href'] );
+		$path      = isset( $parts['path'] ) ? untrailingslashit( $parts['path'] ) : '';
+		$home_path = untrailingslashit( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ) );
+		$host      = isset( $parts['host'] ) ? $parts['host'] : '';
+		$home_host = wp_parse_url( home_url(), PHP_URL_HOST );
+		if ( ( $host !== '' && $host !== $home_host ) || ( $path !== '' && $path !== $home_path ) ) {
+			return $atts;
+		}
+		// A fragment flattens to its in-page anchor; the bare homepage link
+		// (the Home item) becomes the #top anchor.
+		$atts['href'] = '#' . ( ! empty( $parts['fragment'] ) ? $parts['fragment'] : 'top' );
+		return $atts;
+	}
+);
