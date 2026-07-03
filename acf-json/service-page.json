@@ -543,12 +543,75 @@
             ]
         },
         {
+            "key": "field_680b0222",
+            "label": "Work Heading Start",
+            "name": "sv_work_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Leave all three blank for the default: Recent work with work in red. The section only shows when projects carry this service.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0223",
+            "label": "Work Heading (Red)",
+            "name": "sv_work_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0224",
+            "label": "Work Heading End",
+            "name": "sv_work_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_680b0213",
             "label": "Insights Heading Start",
             "name": "sv_insights_heading_start",
             "aria-label": "",
             "type": "text",
-            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Leave all three blank for the default: Insights on [service name] with the name in red.",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Leave all three blank for the default: Related insights with insights in red.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -774,5 +837,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783080655
+    "modified": 1783103486
 }

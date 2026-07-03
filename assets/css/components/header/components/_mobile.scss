@@ -46,7 +46,9 @@
           font-family: $vc-display-font;
           font-weight: $vc-black;
           font-stretch: $vc-display-stretch;
-          font-size: clamp(2rem, 8vw, 3.25rem);
+          // Sized so the longest item ("WHAT WE DO" plus its numeral and
+          // 44px disclosure chevron) always holds one line down to 320px.
+          font-size: clamp(1.125rem, 6.2vw, 3.25rem);
           line-height: 1.15;
           letter-spacing: -0.015em;
           text-transform: uppercase;
@@ -94,15 +96,30 @@
         // "What We Do" accordion: the parent link and the injected disclosure
         // chevron share the row; the service sub-list expands beneath. Without
         // JS there is no .has-disclosure class and the sub-list is simply
-        // visible, so nothing is ever unreachable.
+        // visible, so nothing is ever unreachable. The server-rendered
+        // .menu-caret inside the link is hidden here — the disclosure button
+        // is the dropdown icon in the overlay, and two chevrons on one row
+        // would read as noise.
         &.menu-item-has-children {
           display: flex;
-          flex-wrap: wrap;
           align-items: center;
           column-gap: $space-2;
 
+          // The label and the chevron always share one line (Ibrar review);
+          // the sub-list wraps beneath via its full-width .submenu-wrap.
+          flex-wrap: wrap;
+
           > a {
-            flex: 0 1 auto;
+            flex: 0 0 auto;
+            white-space: nowrap;
+
+            .menu-caret {
+              display: none;
+            }
+          }
+
+          .submenu-toggle {
+            flex: 0 0 auto;
           }
 
           .submenu-toggle {
@@ -112,29 +129,30 @@
             align-items: center;
             justify-content: center;
             background: transparent;
-            border: 1px solid $vc-grey-200;
+            border: 1px solid $vc-grey-400;
             border-radius: 2px;
-            color: $vc-text-dark;
+            // The brand-red chevron makes the disclosure unmissable beside
+            // the display-size link; red is fine on an interactive control.
+            color: $vc-primary;
             cursor: pointer;
             padding: 0;
             transition: border-color 0.3s, color 0.3s;
 
             svg {
-              width: 18px;
-              height: 18px;
+              width: 22px;
+              height: 22px;
+              fill: none;
               transition: transform 0.3s ease;
             }
 
             @media (hover: hover) {
               &:hover {
                 border-color: $vc-primary;
-                color: $vc-primary;
               }
             }
 
             &:focus-visible {
               border-color: $vc-primary;
-              color: $vc-primary;
             }
           }
 
@@ -154,18 +172,21 @@
               opacity: 1;
               transform: none;
 
+              // Smaller, airier service labels (Ibrar review): the type sits
+              // well under the top-level items, and the taller row padding
+              // keeps the 44px tap target while giving each item room.
               a {
                 font-family: $vc-font-family;
                 font-weight: $vc-semi-bold;
                 font-stretch: 100%;
-                font-size: 18px;
+                font-size: 15px;
                 line-height: 1.3;
                 letter-spacing: 0.06em;
                 color: $vc-grey-600;
                 display: flex;
                 align-items: center;
                 min-height: 44px;
-                padding: 10px 0;
+                padding: 14px 0;
 
                 // No index numeral on sub-items; the counter belongs to the
                 // top-level items only.
@@ -282,18 +303,17 @@
   nav li.menu-item-has-children {
     .submenu-toggle {
       border-color: $vc-grey-dark-border;
-      color: $vc-text-light;
+      // The chevron stays brand red in both modes (interactive control).
+      color: $vc-primary !important;
 
       @media (hover: hover) {
         &:hover {
           border-color: $vc-primary;
-          color: $vc-primary;
         }
       }
 
       &:focus-visible {
         border-color: $vc-primary;
-        color: $vc-primary;
       }
     }
 

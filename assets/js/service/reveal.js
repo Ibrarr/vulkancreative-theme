@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // (.service-deliverables is absent on purpose: the welded lattice owns
     // every entrance inside its section, heading included.)
-    const headings = gsap.utils.toArray('.service-hero h1, .service-journey .content h2, .service-results .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2');
+    const headings = gsap.utils.toArray('.service-hero h1, .service-journey .content h2, .service-results .content h2, .service-work .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2');
     const fades = gsap.utils.toArray('.service-hero .sub-heading, .service-hero .hero-actions, .service-journey .content .sub-heading, .service-cta .content .sub-heading, .service-cta .cta-actions');
     // Staggered groups: the observer watches the container, the items cascade
     // in. Each group carries its own child selector. (The journey plates and

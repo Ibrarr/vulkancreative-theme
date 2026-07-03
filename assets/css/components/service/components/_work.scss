@@ -1,0 +1,9 @@
+// Recent work in this service: the shared work wheel
+// (common/_work-wheel.scss + template-parts/work-wheel.php) inside an
+// alternating-surface section. This file is only the section chrome; the
+// wheel carries its own head, tiles and dark-mode rules. overflow: hidden
+// clips the arc's off-screen cards, exactly as the homepage section does.
+.service-work {
+  @include vc-section-padding;
+  overflow: hidden;
+}

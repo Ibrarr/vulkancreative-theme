@@ -95,9 +95,11 @@ mix.js([
     'assets/js/service/deliverables.js',
     'assets/js/service/journey.js',
     // Shared modules: grid.js staggers the related-services cards
-    // (.services-grid), counter.js binds .results .stat-number.
+    // (.services-grid), counter.js binds .results .stat-number, our-work.js
+    // drives the recent-work wheel (#work-wheel).
     'assets/js/services-hub/grid.js',
     'assets/js/homepage/counter.js',
+    'assets/js/homepage/our-work.js',
 ], 'js/service.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')

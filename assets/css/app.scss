@@ -78,6 +78,9 @@ body {
 // Shared red-ruled intro lead (services hub head, service deliverables head).
 @import "components/common/intro-lead";
 
+// Shared work wheel (homepage Our Work, service pages' recent work).
+@import "components/common/work-wheel";
+
 @import "components/homepage/homepage";
 @import "components/your-business/your-business";
 @import "components/default-page/default-page";

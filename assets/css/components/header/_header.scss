@@ -42,9 +42,11 @@ header {
     transform: translateY(-100%);
   }
 
-  // Transparent over the dark forge hero: light text regardless of mode
+  // Transparent over the dark forge hero: light text regardless of mode.
+  // Top-level items only (.menu > li) — the dropdown panel carries its own
+  // solid surface and must keep its own text colours in every header state.
   &.hero-active:not(.header--scrolled):not(.mobile-menu-active) {
-    nav ul li:not(.menu-button) > a {
+    nav .menu > li:not(.menu-button) > a {
       color: $vc-text-light;
     }
 

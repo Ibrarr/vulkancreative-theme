@@ -93,9 +93,42 @@ usort( $related_terms, function ( $a, $b ) {
 } );
 $related_terms = array_slice( $related_terms, 0, 3 );
 
-// Insights + related: editable three-part headings with dynamic fallbacks.
-$insights_heading = vc_heading_parts( 'sv_insights_heading', $acf_id, 'Insights on <span>' . esc_html( $term->name ) . '</span>' );
+// Work + insights + related: editable three-part headings. Fallbacks stay
+// short and generic — long service names made per-name headings unwieldy.
+$work_heading     = vc_heading_parts( 'sv_work_heading', $acf_id, 'Recent <span>work</span>' );
+$insights_heading = vc_heading_parts( 'sv_insights_heading', $acf_id, 'Related <span>insights</span>' );
 $related_heading  = vc_heading_parts( 'sv_related_heading', $acf_id, 'More ways we can <span>help</span>.' );
+
+// Recent work: projects carrying this service term, shown on the shared
+// homepage work wheel (the project CPT is admin-only content, queried
+// directly). Tiles need an image; the section hides with no projects.
+$work_query = new WP_Query([
+	'post_type'      => 'project',
+	'posts_per_page' => 8,
+	'no_found_rows'  => true,
+	'tax_query'      => [ [ 'taxonomy' => 'service', 'field' => 'term_id', 'terms' => $term_id ] ],
+]);
+$work_items = [];
+if ( $work_query->have_posts() ) {
+	while ( $work_query->have_posts() ) {
+		$work_query->the_post();
+		$pj_image = get_field( 'pj_image' );
+		if ( ! $pj_image ) {
+			continue;
+		}
+		$work_items[] = [
+			'client'      => get_field( 'pj_client_name' ) ?: get_the_title(),
+			'sector'      => get_field( 'pj_sector' ),
+			'description' => get_field( 'pj_description' ),
+			'image'       => $pj_image,
+			'link'        => get_field( 'pj_link' ),
+			// No service plate here: every tile is this service, so the
+			// plates would all repeat the page title (Ibrar review).
+			'service'     => '',
+		];
+	}
+	wp_reset_postdata();
+}
 
 // CTA
 $cta_heading    = vc_heading_parts( 'sv_cta_heading', $acf_id, 'Ready to <span>start</span>?' );
@@ -256,6 +289,23 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 		<div class="anchor-actions">
 			<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
 		</div>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php if ( $work_items ) : ?>
+<section class="service-work <?php echo esc_attr( $sv_surface() ); ?>" id="work">
+	<div class="container px-4">
+		<?php
+		// Recent work in this service: the shared homepage work wheel
+		// (template-parts/work-wheel.php + homepage/our-work.js, shipped in
+		// the service bundle), fed by the term-filtered projects above.
+		get_template_part( 'template-parts/work-wheel', null, [
+			'projects'    => $work_items,
+			'heading'     => $work_heading,
+			'stage_label' => 'Recent ' . $term->name . ' projects',
+		] );
+		?>
 	</div>
 </section>
 <?php endif; ?>

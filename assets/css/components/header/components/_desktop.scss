@@ -181,28 +181,58 @@
 }
 
 // "What We Do" dropdown: the WP sub-menu rendered as a forge panel under the
-// bar. The panel carries its own solid surface so it reads identically over
-// the transparent-on-dark header state and the surfaced scrolled bar. Opens
-// on hover (hover-capable devices) and on :focus-within, so tabbing through
-// the children keeps it open; dropdown.js syncs aria-expanded and closes on
-// Escape. Scoped to the bar's nav — the mobile overlay accordion lives in
-// _mobile.scss.
+// bar. The parent link carries a server-rendered caret (.menu-caret, from
+// the nav_menu_item_title filter) that rotates while the panel is open. The
+// panel carries its own solid surface so it reads identically over the
+// transparent-on-dark header state and the surfaced scrolled bar; items are
+// plain labels whose hover/focus/current state simply turns red (no
+// numerals, ticks or row fills — Ibrar review, July 2026). Opens on hover
+// (hover-capable devices) and on :focus-within, so tabbing through the
+// children keeps it open; dropdown.js syncs aria-expanded and closes on
+// Escape. The panel hangs 18px below the bar to clear the Let's Talk CTA;
+// the invisible ::before bridge spans the full offset so the hover never
+// drops crossing the gap. Scoped to the bar's nav — the mobile overlay
+// accordion lives in _mobile.scss.
 .menu-theme-toggle nav ul {
   li.menu-item-has-children {
+    > a .menu-caret {
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: -3px;
+      transition: transform 0.25s ease;
+
+      svg {
+        display: block;
+        width: 14px;
+        height: 14px;
+        fill: none;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover > a .menu-caret {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:focus-within > a .menu-caret {
+      transform: rotate(180deg);
+    }
+
     > .sub-menu {
       position: absolute;
       top: 100%;
       left: -4px;
-      margin-top: 8px;
-      min-width: 280px;
-      max-width: 320px;
+      margin-top: 18px;
+      min-width: 300px;
+      max-width: 360px;
       width: max-content;
       display: block;
-      padding: $space-1 0;
+      padding: $space-2 0;
       background: $vc-surface-white;
       border: 1px solid $vc-grey-200;
       border-radius: 2px;
-      box-shadow: 0 20px 48px rgba(18, 18, 18, 0.14);
+      box-shadow: 0 24px 56px rgba(18, 18, 18, 0.16);
       z-index: $z-header;
       opacity: 0;
       visibility: hidden;
@@ -210,15 +240,15 @@
       transform: translateY(8px);
       transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
 
-      // Invisible bridge over the 8px offset so the hover never drops while
+      // Invisible bridge over the full offset so the hover never drops while
       // the pointer crosses from the item to the panel.
       &::before {
         content: '';
         position: absolute;
-        top: -9px;
+        top: -19px;
         left: 0;
         right: 0;
-        height: 9px;
+        height: 19px;
       }
 
       // Ember seam along the panel's top edge.
@@ -235,9 +265,7 @@
       li {
         display: block;
 
-        // No scrollspy tick inside the panel; the red tick sits before the
-        // label instead (small red text is banned on light surfaces, so the
-        // tick carries the accent).
+        // No scrollspy tick inside the panel.
         &::after {
           display: none;
         }
@@ -245,39 +273,25 @@
         a {
           display: flex;
           align-items: center;
-          min-height: 44px;
-          padding: 12px 16px;
+          min-height: 48px;
+          padding: 12px $space-3;
           color: $vc-text-dark;
-
-          &::before {
-            content: '';
-            width: 20px;
-            height: 2px;
-            flex-shrink: 0;
-            background: $vc-primary;
-            margin-right: 12px;
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 0.25s ease;
-          }
+          transition: color 0.3s;
 
           @media (hover: hover) {
             &:hover {
               text-decoration: none;
-
-              &::before {
-                transform: scaleX(1);
-              }
+              color: $vc-primary;
             }
           }
 
-          &:focus-visible::before {
-            transform: scaleX(1);
+          &:focus-visible {
+            color: $vc-primary;
           }
         }
 
-        &.current-menu-item a::before {
-          transform: scaleX(1);
+        &.current-menu-item a {
+          color: $vc-primary;
         }
       }
     }
@@ -305,7 +319,7 @@
 @at-root body.dark-mode .menu-theme-toggle nav ul li.menu-item-has-children > .sub-menu {
   background: $dark-vc-background-dark !important;
   border-color: $vc-grey-dark-border !important;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55) !important;
 
   &::after {
     background: $vc-ember-line !important;
