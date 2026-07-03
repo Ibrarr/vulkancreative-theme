@@ -29,6 +29,9 @@ require VC_INC_PATH . '/custom-post-types.php';
 // Custom Taxonomies
 require VC_INC_PATH . '/custom-taxonomies.php';
 
+// Service content seeder (Settings > Seed Services)
+require VC_INC_PATH . '/service-seed.php';
+
 // ACF
 require VC_INC_PATH . '/acf.php';
 

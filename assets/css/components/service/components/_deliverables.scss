@@ -1,173 +1,303 @@
-// Intro + deliverables: sticky left head (h2 + shared intro-lead) beside the
-// deliverables ledger — rows on a scroll-scrubbed vertical ember rail whose
-// numerals heat as the line passes (deliverables.js). Rows are non-interactive:
-// no hover states anywhere. Base markup renders the finished state (numerals
-// red) so no-JS never shows a half-drawn ledger; an html.js-gated rule swaps
-// numerals to their resting outline until the rail reaches them.
+// "What you get": the welded lattice — one fused OPEN hairline lattice,
+// unique to this section: internal rules only (no outer frame, no boxes, no
+// gaps, NO shadows), content flush to the container edges. The heading
+// composition lives INSIDE the plate (first cell, two columns wide, with its
+// own ember underline instead of the shared intro-lead), six deliverable
+// cells follow (tick + title + full copy) and a CTA cell closes the plate.
+// The weld rules are real elements so deliverables.js can scrub the plate
+// assembling itself on scroll (lg+); the default state is fully assembled
+// (no JS, reduced motion). No numerals; every cell is always visible and
+// cells are non-interactive (no hover states). Cell edge rules are keyed to
+// the 3x3 plate (head spanning two columns + six deliverables + CTA), the
+// seeded shape on every term.
 .service-deliverables {
   @include vc-section-padding;
 
-  .deliv-head {
-    @include media-breakpoint-up(lg) {
-      position: sticky;
-      top: 120px;
+  .deliv-lattice {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lattice-cell {
+    position: relative;
+    padding: $space-5 $space-4;
+    min-height: 280px;
+  }
+
+  // Open lattice: internal rules only. DOM order — head(1) d1(2) / d2(3)
+  // d3(4) d4(5) / d5(6) d6(7) cta(8). First-row cells lose their top weld,
+  // first-column cells their left weld; container-facing padding zeroes so
+  // content aligns to the section edges.
+  .lattice-cell:nth-child(1),
+  .lattice-cell:nth-child(2) {
+    padding-top: 0;
+
+    .weld-x,
+    .weld-hot-x {
+      display: none;
     }
+  }
+
+  .lattice-cell:nth-child(1),
+  .lattice-cell:nth-child(3),
+  .lattice-cell:nth-child(6) {
+    padding-left: 0;
+
+    .weld-y,
+    .weld-hot-y {
+      display: none;
+    }
+  }
+
+  .lattice-cell:nth-child(2),
+  .lattice-cell:nth-child(5),
+  .lattice-cell:nth-child(8) {
+    padding-right: 0;
+  }
+
+  .lattice-cell:nth-child(6),
+  .lattice-cell:nth-child(7),
+  .lattice-cell:nth-child(8) {
+    padding-bottom: 0;
+  }
+
+  .lattice-cell--head {
+    grid-column: span 2;
 
     .content h2 {
       @include vc-display-2($vc-text-dark);
+      margin: 0;
       transition: color 0.3s;
     }
 
-    .intro-lead {
-      margin-top: $space-4;
+    // The ember underline: no other section underlines its h2.
+    .head-weld {
+      display: block;
+      width: 120px;
+      height: 2px;
+      background: $vc-ember-line-light;
+      margin: $space-2 0 $space-3;
+      transform-origin: left center;
+      transition: background-color 0.3s;
+    }
 
-      @include media-breakpoint-up(lg) {
-        margin-bottom: 0;
+    .lattice-statement {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 20px;
+      line-height: 1.5;
+      color: $vc-text-dark;
+      max-width: 46ch;
+      margin: 0;
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+        white-space: nowrap;
+      }
+
+      @include media-breakpoint-down(lg) {
+        font-size: 18px;
       }
     }
-  }
 
-  .deliv-rail-wrap {
-    position: relative;
-    padding-left: $space-4;
-
-    @include media-breakpoint-down(lg) {
-      margin-top: $space-6;
-      padding-left: $space-3;
-    }
-
-    // Static grey track; the ember fill draws over it with the scroll.
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: $vc-grey-200;
-    }
-
-    .deliv-progress {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, $vc-primary, $vc-secondary);
-      transform: scaleY(0);
-      transform-origin: top center;
-      will-change: transform;
-      pointer-events: none;
-      z-index: $z-base;
+    .lattice-support {
+      @include vc-p($vc-grey-600);
+      max-width: 56ch;
+      margin: $space-2 0 0;
+      transition: color 0.3s;
     }
   }
 
-  .deliv-rows {
-    list-style: none;
+  .cell-title {
+    @include vc-display-3($vc-text-dark);
+    font-size: clamp(1.375rem, 0.6vw + 1.1rem, 1.75rem);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 0 0 $space-1;
+    transition: color 0.3s;
+  }
+
+  .cell-desc {
+    @include vc-body($vc-grey-600);
+    line-height: 1.55;
+    max-width: 46ch;
     margin: 0;
-    padding: 0;
+    transition: color 0.3s;
   }
 
-  .deliv-row {
-    display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: $space-3;
-    padding: $space-4 0;
+  .lattice-cell--cta {
+    .cell-nudge {
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 18px;
+      line-height: 1.45;
+      color: $vc-text-dark;
+      margin: 0 0 $space-3;
+      transition: color 0.3s;
 
-    &:first-child {
+      @include media-breakpoint-down(lg) {
+        font-size: 16px;
+      }
+    }
+
+    .button {
+      @include vc-button-forge;
+    }
+  }
+
+  // The weld rules: the plate's internal structure, drawn by the assembly
+  // scrub on lg+.
+  .weld {
+    position: absolute;
+    background: $vc-grey-200;
+    pointer-events: none;
+    z-index: $z-base;
+    transition: background-color 0.3s;
+  }
+
+  .weld-x {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: left center;
+  }
+
+  .weld-y {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    transform-origin: top center;
+  }
+
+  // The hot layer rides each weld while it draws: the leading end glows
+  // ember (the torch), the trail fades to reveal the cooled grey line
+  // beneath, and the whole layer fades out once its weld lands. Invisible by
+  // default, so the assembled state (no JS, reduced motion, mobile) shows
+  // only the calm grey lattice.
+  .weld-hot {
+    opacity: 0;
+    background: none;
+  }
+
+  .weld-hot-x {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba($vc-primary, 0) 0%, rgba($vc-primary, 0.55) 78%, $vc-secondary 100%);
+  }
+
+  .weld-hot-y {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    transform-origin: top center;
+    background: linear-gradient(180deg, rgba($vc-primary, 0) 0%, rgba($vc-primary, 0.55) 78%, $vc-secondary 100%);
+  }
+
+  // Welded joints: small red marks where the internal lines cross, ignited as
+  // the assembly completes — the section's quiet resting red (the ticks above
+  // every heading are gone by standing decision).
+  .weld-joint {
+    display: none;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background: $vc-primary;
+    pointer-events: none;
+    z-index: $z-raised;
+  }
+
+  // Only the four true crossings carry a joint (the 3x3 plate's internal
+  // intersections: cells 4, 5, 7 and 8's top-left corners).
+  .lattice-cell:nth-child(4) .weld-joint,
+  .lattice-cell:nth-child(5) .weld-joint,
+  .lattice-cell:nth-child(7) .weld-joint,
+  .lattice-cell:nth-child(8) .weld-joint {
+    display: block;
+  }
+
+  // Below lg the plate degrades to a single-column ruled list: a top rule per
+  // cell (never doubled), open at the sides, no scrub.
+  @include media-breakpoint-down(lg) {
+    .deliv-lattice {
+      grid-template-columns: 1fr;
+    }
+
+    .lattice-cell,
+    .lattice-cell--head,
+    .lattice-cell:nth-child(n) {
+      grid-column: auto;
+      padding: $space-4 0;
+      min-height: 0;
+    }
+
+    .lattice-cell:first-child {
       padding-top: 0;
     }
 
-    & + .deliv-row {
-      border-top: 1px solid $vc-grey-100;
+    .lattice-cell:last-child {
+      padding-bottom: 0;
     }
 
-    @include media-breakpoint-down(lg) {
-      grid-template-columns: 48px 1fr;
-      gap: $space-2;
-      padding: $space-3 0;
+    .weld-y,
+    .weld-hot,
+    .weld-joint {
+      display: none !important;
+    }
+
+    .weld-x {
+      display: block;
+    }
+
+    .lattice-cell:first-child .weld-x {
+      display: none;
     }
   }
-
-  // Numeral: smaller and tighter than the process band's (28px at 110%
-  // stretch vs 48px at 125%), so the two ledgers read as siblings, not twins.
-  .deliv-index {
-    font-family: $vc-display-font;
-    font-weight: $vc-black;
-    font-stretch: $vc-display-stretch-tight;
-    font-size: 28px;
-    line-height: 1.2;
-    color: $vc-primary;
-
-    @include media-breakpoint-down(lg) {
-      font-size: 24px;
-    }
-  }
-
-  .deliv-title {
-    font-family: $vc-font-family;
-    font-weight: $vc-semi-bold;
-    font-size: 20px;
-    line-height: 1.35;
-    color: $vc-text-dark;
-    margin: 0 0 $space-1;
-    transition: color 0.3s;
-
-    @include media-breakpoint-down(lg) {
-      font-size: 18px;
-    }
-  }
-
-  .deliv-desc {
-    @include vc-body($vc-grey-600);
-    max-width: 58ch;
-    margin: 0;
-    transition: color 0.3s;
-  }
-}
-
-// Resting state once JS owns the ledger: numerals sit as quiet outlines and
-// heat to solid red as the rail passes (is-passed, toggled by deliverables.js).
-// Without JS the base red above stands; under reduced motion misc/_motion.scss
-// forces the finished state.
-@at-root html.js .tax-service .service-deliverables .deliv-index {
-  color: transparent;
-  -webkit-text-stroke: 1.25px $vc-grey-400;
-  transition: color 0.4s ease, -webkit-text-stroke-color 0.4s ease;
-}
-
-@at-root html.js .tax-service .service-deliverables .deliv-row.is-passed .deliv-index {
-  color: $vc-primary;
-  -webkit-text-stroke-color: $vc-primary;
 }
 
 @at-root body.dark-mode.tax-service .service-deliverables {
-  .deliv-head .content h2 {
+  .lattice-cell--head {
+    .content h2 {
+      color: $vc-text-light !important;
+    }
+
+    .head-weld {
+      background: $vc-ember-line !important;
+    }
+
+    .lattice-statement {
+      color: $vc-text-light !important;
+    }
+
+    .lattice-support {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+
+  .cell-title {
     color: $vc-text-light !important;
   }
 
-  .deliv-rail-wrap::before {
-    background: $vc-grey-dark-border !important;
-  }
-
-  .deliv-row + .deliv-row {
-    border-top-color: $vc-grey-dark-border !important;
-  }
-
-  .deliv-title {
-    color: $vc-text-light !important;
-  }
-
-  .deliv-desc {
+  .cell-desc {
     color: $vc-muted-on-dark !important;
   }
-}
 
-@at-root html.js body.dark-mode.tax-service .service-deliverables .deliv-index {
-  -webkit-text-stroke-color: rgba($vc-text-light, 0.35);
-}
+  .lattice-cell--cta .cell-nudge {
+    color: $vc-text-light !important;
+  }
 
-@at-root html.js body.dark-mode.tax-service .service-deliverables .deliv-row.is-passed .deliv-index {
-  color: $vc-primary;
-  -webkit-text-stroke-color: $vc-primary;
+  // Base welds only: the hot layers keep their ember gradients in dark mode.
+  .weld-x,
+  .weld-y {
+    background: $vc-grey-dark-border !important;
+  }
 }

@@ -51,8 +51,7 @@
 @at-root html.js body.tax-service {
   .service-hero h1,
   .service-hero .sub-heading,
-  .service-deliverables .content h2,
-  .service-deliverables .intro-lead {
+  .service-hero .hero-actions {
     opacity: 0;
     animation: vc-service-reveal-failsafe 0s 2.5s forwards;
   }

@@ -3,16 +3,58 @@
     "title": "Service Page",
     "fields": [
         {
-            "key": "field_680b0002",
-            "label": "Hero Heading",
-            "name": "sv_hero_heading",
+            "key": "field_680b0201",
+            "label": "Hero Heading Start",
+            "name": "sv_hero_heading_start",
             "aria-label": "",
             "type": "text",
-            "instructions": "Leave blank to use the service name with the standard red highlight.",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Leave all three blank to use the service name with the standard red highlight.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0202",
+            "label": "Hero Heading (Red)",
+            "name": "sv_hero_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0203",
+            "label": "Hero Heading End",
+            "name": "sv_hero_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
                 "class": "",
                 "id": ""
             },
@@ -87,20 +129,62 @@
             "new_lines": ""
         },
         {
-            "key": "field_680b0011",
-            "label": "Deliverables Heading",
-            "name": "sv_deliverables_heading",
+            "key": "field_680b0204",
+            "label": "Deliverables Heading Start",
+            "name": "sv_deliverables_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "What you",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0205",
+            "label": "Deliverables Heading (Red)",
+            "name": "sv_deliverables_heading_red",
             "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "What you get.",
+            "default_value": "get",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0206",
+            "label": "Deliverables Heading End",
+            "name": "sv_deliverables_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": ".",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -176,20 +260,62 @@
             ]
         },
         {
-            "key": "field_680b0017",
-            "label": "Process Heading",
-            "name": "sv_process_heading",
+            "key": "field_680b0207",
+            "label": "Process Heading Start",
+            "name": "sv_process_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "How this",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0208",
+            "label": "Process Heading (Red)",
+            "name": "sv_process_heading_red",
             "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "How this engagement runs.",
+            "default_value": "engagement",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0209",
+            "label": "Process Heading End",
+            "name": "sv_process_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "runs.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -286,20 +412,62 @@
             ]
         },
         {
-            "key": "field_680b0022",
-            "label": "Results Heading",
-            "name": "sv_results_heading",
+            "key": "field_680b0210",
+            "label": "Results Heading Start",
+            "name": "sv_results_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "The",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0211",
+            "label": "Results Heading (Red)",
+            "name": "sv_results_heading_red",
             "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "The numbers behind it.",
+            "default_value": "numbers",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0212",
+            "label": "Results Heading End",
+            "name": "sv_results_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "behind it.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -375,20 +543,188 @@
             ]
         },
         {
-            "key": "field_680b0028",
-            "label": "CTA Heading",
-            "name": "sv_cta_heading",
+            "key": "field_680b0213",
+            "label": "Insights Heading Start",
+            "name": "sv_insights_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Leave all three blank for the default: Insights on [service name] with the name in red.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0214",
+            "label": "Insights Heading (Red)",
+            "name": "sv_insights_heading_red",
             "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "Ready to start?",
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0215",
+            "label": "Insights Heading End",
+            "name": "sv_insights_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0216",
+            "label": "Related Heading Start",
+            "name": "sv_related_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Shown above the related services.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "More ways we can",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0217",
+            "label": "Related Heading (Red)",
+            "name": "sv_related_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "help",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0218",
+            "label": "Related Heading End",
+            "name": "sv_related_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": ".",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0219",
+            "label": "CTA Heading Start",
+            "name": "sv_cta_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Ready to",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0220",
+            "label": "CTA Heading (Red)",
+            "name": "sv_cta_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "start",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0221",
+            "label": "CTA Heading End",
+            "name": "sv_cta_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "?",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -438,5 +774,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783075234
+    "modified": 1783080655
 }

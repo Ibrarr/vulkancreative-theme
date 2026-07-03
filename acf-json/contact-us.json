@@ -3,20 +3,62 @@
     "title": "Contact us",
     "fields": [
         {
-            "key": "field_ct001",
-            "label": "Hero Heading",
-            "name": "ct_hero_heading",
+            "key": "field_ct101",
+            "label": "Hero Heading Start",
+            "name": "ct_hero_heading_start",
             "aria-label": "",
             "type": "text",
-            "instructions": "The main contact heading. Leave as the default to keep the red highlight on \"performs\".",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "Let's build something that performs.",
+            "default_value": "Let's build something that",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ct102",
+            "label": "Hero Heading (Red)",
+            "name": "ct_hero_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "performs",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ct103",
+            "label": "Hero Heading End",
+            "name": "ct_hero_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": ".",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -134,20 +176,62 @@
             ]
         },
         {
-            "key": "field_ct013",
-            "label": "Form Heading",
-            "name": "ct_form_heading",
+            "key": "field_ct104",
+            "label": "Form Heading Start",
+            "name": "ct_form_heading_start",
             "aria-label": "",
             "type": "text",
-            "instructions": "Heading above the enquiry form.",
+            "instructions": "The red part carries the emphasis. Leave start or end blank if the heading begins or ends with the red words. Shown above the enquiry form.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "33",
                 "class": "",
                 "id": ""
             },
-            "default_value": "Tell us about your project",
+            "default_value": "Tell us about",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ct105",
+            "label": "Form Heading (Red)",
+            "name": "ct_form_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "your project",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_ct106",
+            "label": "Form Heading End",
+            "name": "ct_form_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -178,5 +262,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1782000100
+    "modified": 1783080655
 }

@@ -4,25 +4,13 @@ Template Name: Contact us
 */
 get_header();
 
-// Heading highlight default: map a plain-text default to a span-highlighted
-// version. If the ACF value is empty or matches the plain default, use the
-// highlighted version; otherwise the editor's own text is used as-is.
-$ct_heading_highlights = [
-	'ct_hero_heading' => [ "Let's build something that performs.", "Let's build something that <span>performs</span>." ],
-	'ct_form_heading' => [ 'Tell us about your project', 'Tell us about <span>your project</span>' ],
-];
-function ct_heading( $field_name, $highlights ) {
-	$val = get_field( $field_name );
-	if ( isset( $highlights[ $field_name ] ) ) {
-		if ( ! $val || $val === $highlights[ $field_name ][0] ) {
-			return $highlights[ $field_name ][1];
-		}
-	}
-	return $val ?: '';
-}
+// Headings are composed from three editable parts (start, red, end) by
+// vc_heading_parts() in inc/template-functions.php; the red part renders as
+// the standard <span> highlight. The fallbacks only apply when all three
+// parts are blank.
 
 // Hero
-$hero_heading    = ct_heading( 'ct_hero_heading', $ct_heading_highlights );
+$hero_heading    = vc_heading_parts( 'ct_hero_heading', false, "Let's build something that <span>performs</span>." );
 $hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to be. We reply within one working day with a clear next step, no pitch decks and no hard sell.';
 
 // Details — company contact info lives in Global Settings (options), so the
@@ -50,7 +38,7 @@ if ( have_rows('ct_next_steps') ) {
 $next_steps = $next_steps ?: $next_steps_default;
 
 // Form
-$form_heading = ct_heading( 'ct_form_heading', $ct_heading_highlights );
+$form_heading = vc_heading_parts( 'ct_form_heading', false, 'Tell us about <span>your project</span>' );
 
 // Inline line icons for the contact channels (consistent stroke, SVG only).
 $ct_icons = [

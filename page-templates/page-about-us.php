@@ -4,38 +4,25 @@ Template Name: About Us
 */
 get_header();
 
-// Heading highlight defaults: map a plain-text default to a span-highlighted
-// version. If the ACF value is empty or matches the plain default, use the
-// highlighted version; otherwise the editor's own text is used as-is.
-$ab_heading_highlights = [
-	'ab_hero_heading'     => [ "The people you'll actually work with.", "The people you'll <span>actually</span> work with." ],
-	'ab_intro_statement'  => [ 'Everything in-house. Everyone accountable.', 'Everything <span>in-house</span>. Everyone accountable.' ],
-	'ab_founders_heading' => [ "Who you'll work with.", "Who you'll <span>work with</span>." ],
-	'ab_story_heading'    => [ 'Our Story', 'Our <span>Story</span>' ],
-	'ab_values_heading'   => [ 'What we stand by.', 'What we <span>stand by</span>.' ],
-	'ab_how_heading'      => [ 'How we work.', 'How we <span>work</span>.' ],
-	'ab_proof_heading'    => [ "Don't take our word for it.", "Don't take <span>our word</span> for it." ],
-];
-function ab_heading( $field_name, $highlights ) {
-	$val = get_field( $field_name );
-	if ( isset( $highlights[ $field_name ] ) ) {
-		if ( ! $val || $val === $highlights[ $field_name ][0] ) {
-			return $highlights[ $field_name ][1];
-		}
-	}
-	return $val ?: '';
-}
+// Section headings are composed from three editable parts (start, red, end)
+// by vc_heading_parts() in inc/template-functions.php; the red part renders
+// as the standard <span> highlight. The fallbacks only apply when all three
+// parts are blank. The intro statement stays a single field: if it is empty
+// or still the plain default, the span-highlighted version is used.
 
 // Hero
-$hero_heading    = ab_heading( 'ab_hero_heading', $ab_heading_highlights );
+$hero_heading    = vc_heading_parts( 'ab_hero_heading', false, "The people you'll <span>actually</span> work with." );
 $hero_subheading = get_field('ab_hero_subheading') ?: 'Vulkan is an in-house agency run by its two founders. You deal with us from the first call to the final build, and nothing gets handed off or watered down.';
 
 // Intro
-$intro_statement = ab_heading( 'ab_intro_statement', $ab_heading_highlights );
+$intro_statement = get_field('ab_intro_statement');
+if ( ! $intro_statement || 'Everything in-house. Everyone accountable.' === $intro_statement ) {
+	$intro_statement = 'Everything <span>in-house</span>. Everyone accountable.';
+}
 $intro_support   = get_field('ab_intro_support') ?: 'Most agencies put layers between you and the people doing the work. We built Vulkan to remove them. Strategy, design, development, content, SEO and paid media all happen in-house, led by the two of us, so decisions move quickly, standards stay ours and nobody can pass the buck.';
 
 // Founders
-$founders_heading  = ab_heading( 'ab_founders_heading', $ab_heading_highlights );
+$founders_heading  = vc_heading_parts( 'ab_founders_heading', false, "Who you'll <span>work with</span>." );
 $founders_fallback = [
 	[
 		'name'      => 'Flynn Forster',
@@ -89,7 +76,7 @@ $ab_icons = [
 ];
 
 // Values
-$values_heading  = ab_heading( 'ab_values_heading', $ab_heading_highlights );
+$values_heading  = vc_heading_parts( 'ab_values_heading', false, 'What we <span>stand by</span>.' );
 $values_fallback = [
 	[ 'word' => 'Honesty', 'line' => 'We tell you what will work and what will not, before you spend a penny.' ],
 	[ 'word' => 'Craft',   'line' => 'Design and build happen in-house, to a standard we are happy to put our name on.' ],
@@ -106,7 +93,7 @@ if ( have_rows('ab_values') ) {
 $values = $values ?: $values_fallback;
 
 // How we work
-$how_heading  = ab_heading( 'ab_how_heading', $ab_heading_highlights );
+$how_heading  = vc_heading_parts( 'ab_how_heading', false, 'How we <span>work</span>.' );
 $how_intro    = get_field('ab_how_intro') ?: 'No mystery and no theatre: this is what working with Vulkan looks like.';
 $how_fallback = [
 	[ 'title' => 'You talk to the founders',       'description' => 'Every call, plan and build decision involves one of us directly. Nothing is delegated to a team you have never met.' ],
@@ -126,7 +113,7 @@ $how_items = $how_items ?: $how_fallback;
 // Proof: testimonials from the CPT (the homepage spotlight component) plus
 // the client logo marquee from Global Settings. The rating chip reads the
 // homepage's fields so the site has one aggregate rating, edited in one place.
-$proof_heading      = ab_heading( 'ab_proof_heading', $ab_heading_highlights );
+$proof_heading      = vc_heading_parts( 'ab_proof_heading', false, "Don't take <span>our word</span> for it." );
 $front_page_id      = (int) get_option( 'page_on_front' );
 $proof_rating_value = get_field( 'hp_testimonials_rating_value', $front_page_id ) ?: '4.9';
 $proof_rating_label = get_field( 'hp_testimonials_rating_label', $front_page_id ) ?: 'average client rating';
@@ -150,7 +137,7 @@ if ( $testimonial_posts->have_posts() ) {
 }
 
 // Story (migrated from the homepage)
-$story_heading     = ab_heading( 'ab_story_heading', $ab_heading_highlights );
+$story_heading     = vc_heading_parts( 'ab_story_heading', false, 'Our <span>Story</span>' );
 $story_description = get_field('ab_story_description') ?: "We started Vulkan because agency work had drifted: bloated teams, vague reports and clients kept at arm's length. We do it differently: in person, honest about what works and measured by what it returns. Press play for the story in our own words.";
 $story_button      = get_field('ab_story_button_label') ?: 'Watch the Film';
 $story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.com/wp-content/VulkanTrailer.mp4';

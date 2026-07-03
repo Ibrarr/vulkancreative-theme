@@ -29,6 +29,15 @@
     }
   }
 
+  // The proof moment converts: a ghost enquiry button under the counters.
+  .anchor-actions {
+    margin-top: $space-6;
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
+    }
+  }
+
   // Vertical hairline dividers between the counters on desktop; below lg the
   // 2-up grid takes a top rule per stat instead.
   @include media-breakpoint-up(lg) {
@@ -47,7 +56,9 @@
 }
 
 @at-root body.dark-mode.tax-service .results-anchor {
-  background: radial-gradient(48% 64% at 15% 92%, $vc-glow 0%, transparent 62%), $dark-vc-background-dark-alt !important;
+  // A step darker than the #121212 journey band above (the footer tone), so
+  // the anchor always reads as its own slab in dark mode too.
+  background: radial-gradient(48% 64% at 15% 92%, $vc-glow 0%, transparent 62%), #0D0D0D !important;
 
   .content h2 {
     color: $vc-text-light !important;

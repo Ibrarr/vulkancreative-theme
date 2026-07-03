@@ -66,25 +66,27 @@
   // Service page reveal targets
   .service-hero h1,
   .service-hero .sub-heading,
-  .service-deliverables .content h2,
-  .service-deliverables .intro-lead {
+  .service-hero .hero-actions {
     opacity: 1 !important;
     transform: none !important;
   }
 
-  // Service deliverables rail: show the finished state — rail fully drawn,
-  // numerals hot — instead of animating towards it.
-  .service-deliverables .deliv-progress {
+  // Welded lattice: the assembly scrub never runs (matchMedia), so the plate
+  // stays in its assembled default — welds drawn, joints lit, content shown
+  // (the hot layers stay at their invisible default).
+  .service-deliverables .weld,
+  .service-deliverables .head-weld,
+  .service-deliverables .weld-joint {
     transform: none !important;
   }
 
-  .service-deliverables .deliv-index {
-    color: $vc-primary !important;
-    -webkit-text-stroke-color: $vc-primary !important;
+  .service-deliverables .cell-inner {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
-  // Service journey: the finished state — line drawn, numerals and nodes
-  // forged, counter complete (server-rendered).
+  // Service journey: the finished state — line drawn, numerals forged,
+  // counter complete (server-rendered).
   .service-journey .journey-progress {
     transform: none !important;
   }
@@ -92,10 +94,6 @@
   .service-journey .step-index {
     color: $vc-primary !important;
     -webkit-text-stroke-color: $vc-primary !important;
-  }
-
-  .service-journey .step-node {
-    background: $vc-primary !important;
   }
 
   // Contact next-steps rail: show the finished state — rail fully drawn,

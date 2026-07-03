@@ -57,6 +57,16 @@
     max-width: 60ch;
     margin: 0;
   }
+
+  // Optional forge CTA under the sub-line (cta_label/cta_url args; the
+  // service pages pass it so the enquiry action is available from the top).
+  .hero-actions {
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+  }
 }
 
 // The hero stays dark in both modes; only its hue swaps with the body. In dark

@@ -1,7 +1,34 @@
 // Closing CTA: forge button to the Contact page, ghost back to the hub. The
 // spokes stay lean — the enquiry form itself lives on the hub and Contact.
+// The oversized outlined service name closes the page as a brand moment (the
+// footer wordmark recipe), cropped by the section's overflow.
 .service-cta {
   @include vc-section-padding;
+  position: relative;
+  overflow: hidden;
+
+  .cta-wordmark {
+    position: absolute;
+    right: -0.05em;
+    bottom: -0.18em;
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(5rem, 12vw, 13rem);
+    line-height: 1;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px $vc-grey-200;
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+    z-index: $z-base;
+  }
+
+  .container {
+    position: relative;
+    z-index: $z-raised;
+  }
 
   .content {
     h2 {
@@ -34,6 +61,10 @@
 }
 
 @at-root body.dark-mode.tax-service .service-cta {
+  .cta-wordmark {
+    -webkit-text-stroke-color: $vc-grey-dark-border;
+  }
+
   .content h2 {
     color: $vc-text-light !important;
   }

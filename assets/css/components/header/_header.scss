@@ -19,14 +19,22 @@ header {
   @import "components/desktop";
   @import "components/mobile";
 
-  // Surfaced state: a clean white bar once scrolled (and while the mobile
-  // overlay menu is open). No hairline under the header — a soft shadow gives
-  // the separation instead. No backdrop blur: it forces a repaint on every
-  // scrolled frame (especially over the WebGL hero) and wrecks scroll smoothness.
+  // Surfaced state: a frosted bar once scrolled (and while the mobile overlay
+  // menu is open) — blurred by standing decision (July 2026, "make the menu
+  // bar blurred so you can't just read text behind it"), which supersedes the
+  // earlier no-blur performance call; the blur only applies in the scrolled
+  // state, and browsers without backdrop-filter keep the solid fallback. No
+  // hairline under the header — a soft shadow gives the separation instead.
   &.header--scrolled,
   &.mobile-menu-active {
     background: rgba($vc-surface-white, 0.96);
     box-shadow: 0 8px 30px rgba($vc-text-dark, 0.06);
+
+    @supports (backdrop-filter: blur(1px)) {
+      background: rgba($vc-surface-white, 0.82);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
   }
 
   // Hide on scroll down, reveal on scroll up
@@ -96,6 +104,10 @@ header {
   &.mobile-menu-active {
     background: rgba($vc-background-dark, 0.94) !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35) !important;
+
+    @supports (backdrop-filter: blur(1px)) {
+      background: rgba($vc-background-dark, 0.78) !important;
+    }
   }
 
   .theme-toggle {

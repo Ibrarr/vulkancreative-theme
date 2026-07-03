@@ -1,10 +1,11 @@
 // Shared service card (template-parts/service-card.php): one taxonomy term as
 // a linked card. Two variants: --grid (services hub, 6-up) and --related
-// (service pages' related strip, 3-up, compact). Global like the insight card
-// so it renders identically under every body class. Forge hover: the border
-// heats, an ember sheen sweeps beneath the content, a red glow lifts the card
-// and the index numeral fills solid — the card itself never moves, and the
-// flat SVG watermark only shifts opacity (no tint or saturation changes).
+// (service pages' related strip, 3-up, compact, no index numeral). Global
+// like the insight card so it renders identically under every body class.
+// Forge hover: the border heats, a red glow lifts the card and the index
+// numeral fills solid — the card itself never moves, the flat SVG watermark
+// drifts inside the clipped card (allowed inner-media motion), and gradient
+// sheen sweeps are banned outright (standing decision, July 2026).
 .service-card {
   position: relative;
   display: flex;
@@ -17,20 +18,6 @@
   overflow: hidden;
   text-decoration: none;
   transition: border-color 0.3s, box-shadow 0.35s ease, background-color 0.3s;
-
-  // Ember sheen, swept across on hover/focus beneath the content.
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: $z-base;
-    pointer-events: none;
-    opacity: 0;
-    background: linear-gradient(115deg, transparent 38%, rgba($vc-secondary, 0.10) 48%, rgba($vc-primary, 0.14) 52%, transparent 64%);
-    background-size: 220% 100%;
-    background-position: 120% 0;
-    transition: opacity 0.3s ease, background-position 0.5s ease;
-  }
 
   // Flat single-colour SVG watermark, bottom-right, behind everything. On
   // hover/focus the glyph drifts up out of its cropped corner (allowed
@@ -121,11 +108,6 @@
       border-color: rgba($vc-secondary, 0.55);
       box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
-      &::after {
-        opacity: 1;
-        background-position: 0% 0;
-      }
-
       .service-card-icon {
         opacity: 0.14;
         transform: translate(-6px, -6px) scale(1.05);
@@ -151,11 +133,6 @@
     border-color: rgba($vc-secondary, 0.55);
     box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
-    &::after {
-      opacity: 1;
-      background-position: 0% 0;
-    }
-
     .service-card-icon {
       opacity: 0.14;
       transform: translate(-6px, -6px) scale(1.05);
@@ -176,7 +153,10 @@
     }
   }
 
-  // Compact variant for the related strip on service pages.
+  // Related-strip variant (service pages): the same bordered card as the hub
+  // grid — matching by standing decision — just compact, without the index
+  // numeral (the partial skips it via show_index), and its surface colour
+  // never changes on hover (Ibrar: "it should stay as it is always for these").
   &--related {
     padding: $space-3;
 
@@ -187,25 +167,16 @@
       height: 120px;
     }
 
-    .service-card-index {
-      font-size: 44px;
-      margin-bottom: $space-2;
-    }
-
     .service-card-desc {
       -webkit-line-clamp: 2;
     }
 
     @include media-breakpoint-up(md) {
-      min-height: 224px;
+      min-height: 200px;
     }
 
     @include media-breakpoint-up(lg) {
-      min-height: 248px;
-    }
-
-    @include media-breakpoint-up(xl) {
-      min-height: 256px;
+      min-height: 216px;
     }
   }
 }
@@ -254,6 +225,19 @@
 
     .service-card-index {
       color: $vc-primary !important;
+    }
+  }
+
+  // The related variant's surface never changes on hover or focus.
+  &.service-card--related {
+    @media (hover: hover) {
+      &:hover {
+        background: transparent !important;
+      }
+    }
+
+    &:focus-visible {
+      background: transparent !important;
     }
   }
 }

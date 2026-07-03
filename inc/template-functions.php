@@ -40,3 +40,40 @@ function register_custom_page_templates() {
 		) );
 	}
 }
+
+/**
+ * Compose a section heading from its three editable parts (start, red, end).
+ * The red part renders as the standard <span> highlight. Joining is
+ * punctuation-aware, so an end part of '.' or '?' attaches without a space.
+ * When every part is blank (or the fields do not exist), $fallback — an
+ * already-highlighted HTML string — is returned instead.
+ */
+function vc_heading_parts( $base, $acf_id = false, $fallback = '' ) {
+	$start = trim( (string) get_field( $base . '_start', $acf_id ) );
+	$red   = trim( (string) get_field( $base . '_red', $acf_id ) );
+	$end   = trim( (string) get_field( $base . '_end', $acf_id ) );
+
+	if ( '' === $start && '' === $red && '' === $end ) {
+		return $fallback;
+	}
+
+	$join = function ( $a, $b ) {
+		if ( '' === $a ) {
+			return $b;
+		}
+		if ( '' === $b ) {
+			return $a;
+		}
+		$space = preg_match( '/^[.,!?:;]/', wp_strip_all_tags( $b ) ) ? '' : ' ';
+		return $a . $space . $b;
+	};
+
+	$out = esc_html( $start );
+	if ( '' !== $red ) {
+		$out = $join( $out, '<span>' . esc_html( $red ) . '</span>' );
+	}
+	if ( '' !== $end ) {
+		$out = $join( $out, esc_html( $end ) );
+	}
+	return $out;
+}

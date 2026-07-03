@@ -76,13 +76,18 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
+        // The travel takes 1.75x its own distance in scroll, so the journey
+        // reads as a passage rather than a flick: the scrollbar stays the only
+        // driver, the track just moves a little slower than the thumb.
+        const SCROLL_RATIO = 1.75;
         const setHeight = () => {
-            section.style.height = window.innerHeight + distance() + 'px';
+            section.style.height = window.innerHeight + Math.round(distance() * SCROLL_RATIO) + 'px';
         };
         setHeight();
 
         gsap.set(fill, { scaleX: 0 });
         steps.forEach((step) => step.classList.remove('is-forged'));
+        section.classList.remove('is-complete');
         setCounter(1);
 
         const travel = gsap.to(track, {
@@ -97,17 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 onRefreshInit: setHeight,
                 onUpdate(self) {
                     // The tip has swept this far along the track; a plate is
-                    // forged once the tip passes its node (180px into the
-                    // plate: the node sits at half the 360px width's left
-                    // column — index over node over body).
+                    // forged the instant the tip strikes its node (the marker
+                    // row's first child, at the plate's left edge).
                     const swept = self.progress * track.scrollWidth;
                     let forged = 0;
                     steps.forEach((step) => {
-                        const on = swept >= step.offsetLeft + 180;
+                        const on = swept >= step.offsetLeft + 5;
                         step.classList.toggle('is-forged', on);
                         if (on) forged++;
                     });
                     setCounter(forged);
+                    // The terminus ignites once the whole line is swept.
+                    section.classList.toggle('is-complete', self.progress >= 0.995);
                 },
             },
         });
@@ -124,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             fillTween.kill();
             gsap.set([track, fill], { clearProps: 'transform' });
             section.style.height = '';
-            section.classList.remove('is-journey');
+            section.classList.remove('is-journey', 'is-complete');
             steps.forEach((step) => step.classList.add('is-forged'));
             setCounter(steps.length);
         };

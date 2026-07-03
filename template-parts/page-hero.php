@@ -7,17 +7,21 @@
  * class (the content-404 sharing pattern).
  *
  * $args:
- *  - 'heading'    Pre-highlighted heading HTML (see the ct_heading() pattern).
+ *  - 'heading'    Pre-highlighted heading HTML (see vc_heading_parts()).
  *  - 'subheading' Plain-text sub-line. Optional.
  *  - 'class'      Extra section class (e.g. 'contact-hero') kept as an alias
  *                 for page-specific pre-hide and reveal selectors.
  *  - 'id'         Section id. Defaults to 'top'.
+ *  - 'cta_label'  Optional forge button under the sub-line (service pages).
+ *  - 'cta_url'    The button's target. Both must be set to render.
  */
 
 $hero_heading    = isset( $args['heading'] ) ? $args['heading'] : '';
 $hero_subheading = isset( $args['subheading'] ) ? $args['subheading'] : '';
 $hero_class      = trim( 'page-hero ' . ( isset( $args['class'] ) ? $args['class'] : '' ) );
 $hero_id         = isset( $args['id'] ) ? $args['id'] : 'top';
+$hero_cta_label  = isset( $args['cta_label'] ) ? $args['cta_label'] : '';
+$hero_cta_url    = isset( $args['cta_url'] ) ? $args['cta_url'] : '';
 ?>
 
 <section class="<?php echo esc_attr( $hero_class ); ?>" id="<?php echo esc_attr( $hero_id ); ?>">
@@ -29,6 +33,11 @@ $hero_id         = isset( $args['id'] ) ? $args['id'] : 'top';
 				<h1><?php echo wp_kses_post( $hero_heading ); ?></h1>
 				<?php if ( $hero_subheading ) : ?>
 					<p class="sub-heading"><?php echo esc_html( $hero_subheading ); ?></p>
+				<?php endif; ?>
+				<?php if ( $hero_cta_label && $hero_cta_url ) : ?>
+					<div class="hero-actions">
+						<a class="button" href="<?php echo esc_url( $hero_cta_url ); ?>"><?php echo esc_html( $hero_cta_label ); ?></a>
+					</div>
 				<?php endif; ?>
 			</div>
 		</div>

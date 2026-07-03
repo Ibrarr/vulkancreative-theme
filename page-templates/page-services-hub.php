@@ -4,38 +4,26 @@ Template Name: Services Hub
 */
 get_header();
 
-// Heading highlight defaults: map a plain-text default to a span-highlighted
-// version. If the ACF value is empty or matches the plain default, use the
-// highlighted version; otherwise the editor's own text is used as-is.
-$sh_heading_highlights = [
-	'sh_hero_heading'    => [ 'What we do.',                                  'What we <span>do</span>.' ],
-	'sh_grid_heading'    => [ 'Six services. One team.',                      'Six services. <span>One team</span>.' ],
-	'sh_grid_statement'  => [ 'Everything you need to grow, under one roof.', 'Everything you need to grow, <span>under one roof</span>.' ],
-	'sh_process_heading' => [ 'From brief to results.',                       'From brief to <span>results</span>.' ],
-	'sh_proof_heading'   => [ 'Proof, not promises.',                         '<span>Proof</span>, not promises.' ],
-	'sh_cta_heading'     => [ 'Start a project.',                             'Start a <span>project</span>.' ],
-];
-function sh_heading( $field_name, $highlights ) {
-	$val = get_field( $field_name );
-	if ( isset( $highlights[ $field_name ] ) ) {
-		if ( ! $val || $val === $highlights[ $field_name ][0] ) {
-			return $highlights[ $field_name ][1];
-		}
-	}
-	return $val ?: '';
-}
+// Section headings are composed from three editable parts (start, red, end)
+// by vc_heading_parts() in inc/template-functions.php; the red part renders
+// as the standard <span> highlight. The fallbacks only apply when all three
+// parts are blank. The grid statement stays a single field: if it is empty
+// or still the plain default, the span-highlighted version is used.
 
 // The homepage is the single source for the sitewide process steps and the
 // aggregate rating chip (the About proof section reads them the same way).
 $front_page_id = (int) get_option( 'page_on_front' );
 
 // Hero
-$hero_heading    = sh_heading( 'sh_hero_heading', $sh_heading_highlights );
+$hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'What we <span>do</span>.' );
 $hero_subheading = get_field('sh_hero_subheading') ?: 'Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.';
 
 // Services grid
-$grid_heading   = sh_heading( 'sh_grid_heading', $sh_heading_highlights );
-$grid_statement = sh_heading( 'sh_grid_statement', $sh_heading_highlights );
+$grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'Six services. <span>One team</span>.' );
+$grid_statement = get_field('sh_grid_statement');
+if ( ! $grid_statement || 'Everything you need to grow, under one roof.' === $grid_statement ) {
+	$grid_statement = 'Everything you need to grow, <span>under one roof</span>.';
+}
 $grid_support   = get_field('sh_grid_support') ?: 'Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.';
 
 // The grid is taxonomy-driven: every service term gets a card, sorted by the
@@ -55,7 +43,7 @@ usort( $services, function ( $a, $b ) {
 } );
 
 // Process (steps cross-read from the homepage so the site keeps one process)
-$process_heading    = sh_heading( 'sh_process_heading', $sh_heading_highlights );
+$process_heading    = vc_heading_parts( 'sh_process_heading', false, 'From brief to <span>results</span>.' );
 $process_subheading = get_field('sh_process_subheading') ?: 'The same clear process behind every service, with one partner accountable the whole way.';
 
 $process_steps = [];
@@ -75,7 +63,7 @@ if ( ! $process_steps ) {
 }
 
 // Proof
-$proof_heading      = sh_heading( 'sh_proof_heading', $sh_heading_highlights );
+$proof_heading      = vc_heading_parts( 'sh_proof_heading', false, '<span>Proof</span>, not promises.' );
 $proof_rating_value = get_field( 'hp_testimonials_rating_value', $front_page_id ) ?: '4.9';
 $proof_rating_label = get_field( 'hp_testimonials_rating_label', $front_page_id ) ?: 'average client rating';
 
@@ -99,7 +87,7 @@ if ( $testimonial_posts->have_posts() ) {
 }
 
 // CTA
-$cta_heading    = sh_heading( 'sh_cta_heading', $sh_heading_highlights );
+$cta_heading    = vc_heading_parts( 'sh_cta_heading', false, 'Start a <span>project</span>.' );
 $cta_subheading = get_field('sh_cta_subheading') ?: "Tell us what you're trying to achieve and we'll come back within one working day with an honest view on how we'd approach it.";
 ?>
 

@@ -1,29 +1,10 @@
 <?php
 get_header();
 
-// Heading highlight defaults: map a plain-text default to a span-highlighted version.
-// If the ACF value is empty or matches the plain default, use the highlighted version;
-// otherwise the editor's own text is used as-is (they may include their own <span>).
-$hp_heading_highlights = [
-	'hp_results_heading'      => [ 'Results That Matter',                  'Results That <span>Matter</span>' ],
-	'hp_services_heading'     => [ 'Built around one goal: your growth.',  'Built around one goal: <span>your growth</span>.' ],
-	'hp_work_heading'         => [ 'Forged with our clients.',             'Forged with <span>our clients</span>.' ],
-	'hp_our_work_heading'     => [ 'More of our work.',                    'More of <span>our work</span>.' ],
-	'hp_why_heading'          => [ 'Why Choose Vulkan?',                   'Why Choose <span>Vulkan</span>?' ],
-	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
-	'hp_testimonials_heading' => [ 'Trusted by Ambitious Brands',          'Trusted by <span>Ambitious Brands</span>' ],
-	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' ],
-	'hp_latest_heading'       => [ 'Latest insights.',                     'Latest <span>insights</span>.' ],
-];
-function hp_heading( $field_name, $highlights ) {
-	$val = get_field( $field_name );
-	if ( isset( $highlights[ $field_name ] ) ) {
-		if ( ! $val || $val === $highlights[ $field_name ][0] ) {
-			return $highlights[ $field_name ][1];
-		}
-	}
-	return $val ?: '';
-}
+// Section headings are composed from three editable parts (start, red, end)
+// by vc_heading_parts() in inc/template-functions.php; the red part renders
+// as the standard <span> highlight. The fallback strings below only apply
+// when all three parts are blank.
 
 // Hero
 $hero_subheading       = get_field('hp_hero_subheading') ?: 'Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.';
@@ -31,21 +12,21 @@ $hero_button           = get_field('hp_hero_button_text') ?: 'Start a Project';
 $hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the Results';
 
 // Results
-$results_heading = hp_heading('hp_results_heading', $hp_heading_highlights);
+$results_heading = vc_heading_parts( 'hp_results_heading', false, 'Results That <span>Matter</span>' );
 
 // Services
-$services_heading     = hp_heading('hp_services_heading', $hp_heading_highlights);
+$services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Built around one goal: <span>your growth</span>.' );
 $services_description = get_field('hp_services_description') ?: 'Six services, one joined-up team. Pick what you need now and scale when you are ready.';
 
 // Work
-$work_heading = hp_heading('hp_work_heading', $hp_heading_highlights);
+$work_heading = vc_heading_parts( 'hp_work_heading', false, 'Forged with <span>our clients</span>.' );
 
 // Our Work
-$our_work_heading    = hp_heading('hp_our_work_heading', $hp_heading_highlights);
+$our_work_heading    = vc_heading_parts( 'hp_our_work_heading', false, 'More of <span>our work</span>.' );
 $our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.';
 
 // Why
-$why_heading    = hp_heading('hp_why_heading', $hp_heading_highlights);
+$why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Why Choose <span>Vulkan</span>?' );
 $why_subheading = get_field('hp_why_subheading') ?: 'A dedicated partner, not a distant supplier. Three things we never compromise on.';
 
 $why_items_default = [
@@ -86,20 +67,24 @@ $why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partn
 $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 
 // Process
-$process_heading     = hp_heading('hp_process_heading', $hp_heading_highlights);
+$process_heading     = vc_heading_parts( 'hp_process_heading', false, 'A Clear Path From <span>Spark to Scale</span>' );
 $process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
 
 // Testimonials
-$testimonials_heading      = hp_heading('hp_testimonials_heading', $hp_heading_highlights);
+$testimonials_heading      = vc_heading_parts( 'hp_testimonials_heading', false, 'Trusted by <span>Ambitious Brands</span>' );
 $testimonials_rating_value = get_field('hp_testimonials_rating_value') ?: '4.9';
 $testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'average client rating';
 
 // Contact
-$contact_heading    = hp_heading('hp_contact_heading', $hp_heading_highlights);
+$contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' );
+// Non-breaking spaces keep "you want" and "to discuss" together once the
+// SplitText reveal reverts (the nbsp only holds after the revert, not during
+// the split). The fallback above already carries them, so this is a no-op there.
+$contact_heading    = str_replace( array( 'you want', 'to discuss' ), array( 'you&nbsp;want', 'to&nbsp;discuss' ), $contact_heading );
 $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you want to be. We will reply within one working day with a clear next step.';
 
 // Latest insights
-$latest_heading    = hp_heading('hp_latest_heading', $hp_heading_highlights);
+$latest_heading    = vc_heading_parts( 'hp_latest_heading', false, 'Latest <span>insights</span>.' );
 $latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing — what we’re learning, building and watching.';
 $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>

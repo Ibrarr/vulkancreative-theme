@@ -18,8 +18,10 @@ $term_desc = wp_strip_all_tags( term_description( $term_id ) );
 // The homepage is the single source for the sitewide process steps.
 $front_page_id = (int) get_option( 'page_on_front' );
 
-// Heading highlight map, keyed by term slug: used when the editor has not
-// set their own hero heading (the ct_heading()/ab_heading() pattern).
+// Section headings are composed from three editable parts (start, red, end)
+// by vc_heading_parts() in inc/template-functions.php; the red part renders
+// as the standard <span> highlight. The hero fallback comes from the per-slug
+// highlight map below, used when all three hero parts are blank.
 $sv_heading_highlights = [
 	'web-design-development' => 'Web Design & <span>Development</span>',
 	'seo-ai-search'          => 'SEO & <span>AI Search</span>',
@@ -28,16 +30,14 @@ $sv_heading_highlights = [
 	'content-creation'       => 'Content <span>Creation</span>',
 	'branding'               => '<span>Branding</span>',
 ];
-$hero_heading = get_field( 'sv_hero_heading', $acf_id );
-if ( ! $hero_heading || $hero_heading === $term->name ) {
-	$hero_heading = isset( $sv_heading_highlights[ $term->slug ] ) ? $sv_heading_highlights[ $term->slug ] : esc_html( $term->name );
-}
-$hero_subheading = get_field( 'sv_hero_subheading', $acf_id ) ?: $term_desc;
+$sv_hero_fallback = isset( $sv_heading_highlights[ $term->slug ] ) ? $sv_heading_highlights[ $term->slug ] : esc_html( $term->name );
+$hero_heading     = vc_heading_parts( 'sv_hero_heading', $acf_id, $sv_hero_fallback );
+$hero_subheading  = get_field( 'sv_hero_subheading', $acf_id ) ?: $term_desc;
 
 // Intro + deliverables
 $intro_statement      = get_field( 'sv_intro_statement', $acf_id );
 $intro_support        = get_field( 'sv_intro_support', $acf_id );
-$deliverables_heading = get_field( 'sv_deliverables_heading', $acf_id ) ?: 'What you get.';
+$deliverables_heading = vc_heading_parts( 'sv_deliverables_heading', $acf_id, 'What you <span>get</span>.' );
 $deliverables         = [];
 if ( have_rows( 'sv_deliverables', $acf_id ) ) {
 	while ( have_rows( 'sv_deliverables', $acf_id ) ) {
@@ -47,7 +47,7 @@ if ( have_rows( 'sv_deliverables', $acf_id ) ) {
 }
 
 // Process: per-term steps, falling back to the sitewide homepage steps.
-$process_heading    = get_field( 'sv_process_heading', $acf_id ) ?: 'How this engagement runs.';
+$process_heading    = vc_heading_parts( 'sv_process_heading', $acf_id, 'How this <span>engagement</span> runs.' );
 $process_subheading = get_field( 'sv_process_subheading', $acf_id );
 $process_steps      = [];
 if ( have_rows( 'sv_process_steps', $acf_id ) ) {
@@ -64,7 +64,7 @@ if ( ! $process_steps && have_rows( 'hp_process_steps', $front_page_id ) ) {
 }
 
 // Results: real figures only; the section renders only when rows exist.
-$results_heading = get_field( 'sv_results_heading', $acf_id ) ?: 'The numbers behind it.';
+$results_heading = vc_heading_parts( 'sv_results_heading', $acf_id, 'The <span>numbers</span> behind it.' );
 $results_stats   = [];
 if ( have_rows( 'sv_results_stats', $acf_id ) ) {
 	while ( have_rows( 'sv_results_stats', $acf_id ) ) {
@@ -93,17 +93,13 @@ usort( $related_terms, function ( $a, $b ) {
 } );
 $related_terms = array_slice( $related_terms, 0, 3 );
 
-// CTA (default heading gets the red highlight via the usual map pattern)
-$cta_heading = get_field( 'sv_cta_heading', $acf_id );
-if ( ! $cta_heading || 'Ready to start?' === $cta_heading ) {
-	$cta_heading = 'Ready to <span>start</span>?';
-}
-$cta_subheading = get_field( 'sv_cta_subheading', $acf_id ) ?: "Tell us about your project and we'll reply within one working day with a clear next step.";
+// Insights + related: editable three-part headings with dynamic fallbacks.
+$insights_heading = vc_heading_parts( 'sv_insights_heading', $acf_id, 'Insights on <span>' . esc_html( $term->name ) . '</span>' );
+$related_heading  = vc_heading_parts( 'sv_related_heading', $acf_id, 'More ways we can <span>help</span>.' );
 
-$insights_blog_url = get_permalink( (int) get_option( 'page_for_posts' ) );
-if ( ! $insights_blog_url ) {
-	$insights_blog_url = home_url( '/blog/' );
-}
+// CTA
+$cta_heading    = vc_heading_parts( 'sv_cta_heading', $acf_id, 'Ready to <span>start</span>?' );
+$cta_subheading = get_field( 'sv_cta_subheading', $acf_id ) ?: "Tell us about your project and we'll reply within one working day with a clear next step.";
 
 // Alternating surface classes: every rendered section consumes a slot, so the
 // pairing rule (first section after the hero is the lighter pair) survives
@@ -121,49 +117,67 @@ get_template_part( 'template-parts/page', 'hero', [
 	'heading'    => $hero_heading,
 	'subheading' => $hero_subheading,
 	'class'      => 'service-hero',
+	'cta_label'  => 'Start a project',
+	'cta_url'    => home_url( '/contact/' ),
 ] );
 ?>
 
 <?php if ( $deliverables || $intro_statement || $intro_support ) : ?>
+<?php
+// The welded lattice: the whole section is one fused hairline spec plate that
+// assembles as you scroll — deliverables.js scrubs the weld rules drawing in,
+// the red ticks igniting and the cell content rising, and scrolling back
+// unwinds it. The heading composition lives INSIDE the plate (first cell,
+// spanning two columns, with its own ember underline — unique to this
+// section by standing decision). Every cell is always visible: the default
+// state (no JS, reduced motion) is the fully assembled plate. No numerals —
+// the journey below owns numbers.
+?>
 <section class="service-deliverables <?php echo esc_attr( $sv_surface() ); ?>" id="deliverables">
 	<div class="container px-4">
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="deliv-head">
-					<div class="content">
-						<h2><?php echo esc_html( $deliverables_heading ); ?></h2>
-					</div>
-					<?php if ( $intro_statement || $intro_support ) : ?>
-						<div class="intro-lead">
-							<?php if ( $intro_statement ) : ?>
-								<p class="intro-statement"><?php echo wp_kses_post( $intro_statement ); ?></p>
-							<?php endif; ?>
-							<?php if ( $intro_support ) : ?>
-								<p class="intro-support"><?php echo esc_html( $intro_support ); ?></p>
-							<?php endif; ?>
-						</div>
+		<div class="deliv-lattice">
+			<div class="lattice-cell lattice-cell--head">
+				<span class="weld weld-x" aria-hidden="true"></span>
+				<span class="weld weld-hot weld-hot-x" aria-hidden="true"></span>
+				<span class="weld weld-y" aria-hidden="true"></span>
+				<span class="weld weld-hot weld-hot-y" aria-hidden="true"></span>
+				<span class="weld-joint" aria-hidden="true"></span>
+				<div class="cell-inner content">
+					<h2><?php echo wp_kses_post( $deliverables_heading ); ?></h2>
+					<span class="head-weld" aria-hidden="true"></span>
+					<?php if ( $intro_statement ) : ?>
+						<p class="lattice-statement"><?php echo wp_kses_post( $intro_statement ); ?></p>
+					<?php endif; ?>
+					<?php if ( $intro_support ) : ?>
+						<p class="lattice-support"><?php echo esc_html( $intro_support ); ?></p>
 					<?php endif; ?>
 				</div>
 			</div>
-			<div class="col-lg-7 offset-lg-1">
-				<?php if ( $deliverables ) : ?>
-					<div class="deliv-rail-wrap">
-						<span class="deliv-progress" aria-hidden="true"></span>
-						<ul class="deliv-rows">
-							<?php foreach ( $deliverables as $deliv_i => $deliv ) : ?>
-								<li class="deliv-row">
-									<span class="deliv-index" aria-hidden="true"><?php echo esc_html( str_pad( $deliv_i + 1, 2, '0', STR_PAD_LEFT ) ); ?></span>
-									<span class="deliv-body">
-										<h3 class="deliv-title"><?php echo esc_html( $deliv['title'] ); ?></h3>
-										<?php if ( $deliv['description'] ) : ?>
-											<p class="deliv-desc"><?php echo esc_html( $deliv['description'] ); ?></p>
-										<?php endif; ?>
-									</span>
-								</li>
-							<?php endforeach; ?>
-						</ul>
+			<?php foreach ( $deliverables as $deliv ) : ?>
+				<div class="lattice-cell">
+					<span class="weld weld-x" aria-hidden="true"></span>
+					<span class="weld weld-hot weld-hot-x" aria-hidden="true"></span>
+					<span class="weld weld-y" aria-hidden="true"></span>
+					<span class="weld weld-hot weld-hot-y" aria-hidden="true"></span>
+					<span class="weld-joint" aria-hidden="true"></span>
+					<div class="cell-inner">
+						<h3 class="cell-title"><?php echo esc_html( $deliv['title'] ); ?></h3>
+						<?php if ( $deliv['description'] ) : ?>
+							<p class="cell-desc"><?php echo esc_html( $deliv['description'] ); ?></p>
+						<?php endif; ?>
 					</div>
-				<?php endif; ?>
+				</div>
+			<?php endforeach; ?>
+			<div class="lattice-cell lattice-cell--cta">
+				<span class="weld weld-x" aria-hidden="true"></span>
+				<span class="weld weld-hot weld-hot-x" aria-hidden="true"></span>
+				<span class="weld weld-y" aria-hidden="true"></span>
+				<span class="weld weld-hot weld-hot-y" aria-hidden="true"></span>
+				<span class="weld-joint" aria-hidden="true"></span>
+				<div class="cell-inner">
+					<p class="cell-nudge">Scoped to your goals, priced before we start.</p>
+					<a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -186,7 +200,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 		<div class="container px-4">
 			<div class="journey-head">
 				<div class="content">
-					<h2><?php echo esc_html( $process_heading ); ?></h2>
+					<h2><?php echo wp_kses_post( $process_heading ); ?></h2>
 					<?php if ( $process_subheading ) : ?>
 						<p class="sub-heading"><?php echo esc_html( $process_subheading ); ?></p>
 					<?php endif; ?>
@@ -196,10 +210,13 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 			<div class="journey-rail">
 				<div class="journey-track">
 					<span class="journey-progress" aria-hidden="true"></span>
+					<span class="journey-terminus" aria-hidden="true"></span>
 					<?php $step_i = 1; foreach ( $process_steps as $step ) : ?>
 						<div class="journey-step">
-							<span class="step-index" aria-hidden="true"><?php echo str_pad( $step_i, 2, '0', STR_PAD_LEFT ); ?></span>
-							<span class="step-node" aria-hidden="true"></span>
+							<?php // The numeral is the point: it sits on a knockout plate on the line. ?>
+							<span class="step-marker" aria-hidden="true">
+								<span class="step-index"><?php echo str_pad( $step_i, 2, '0', STR_PAD_LEFT ); ?></span>
+							</span>
 							<div class="step-body">
 								<h3><?php echo esc_html( $step['title'] ); ?></h3>
 								<p><?php echo esc_html( $step['description'] ); ?></p>
@@ -215,15 +232,15 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 
 <?php if ( $results_stats ) : ?>
 <?php
-// Full-dark forge anchor (#121212 in both modes, the homepage why-band
-// precedent): it punctuates the page rather than taking an alternation slot,
-// so it deliberately does not consume $sv_surface(). counter.js binds the
-// .results / .stat-number classes unchanged.
+// Full-dark forge anchor (#121212 light, #0D0D0D dark so it always differs
+// from the #121212 journey above): it punctuates the page rather than taking
+// an alternation slot, so it deliberately does not consume $sv_surface().
+// counter.js binds the .results / .stat-number classes unchanged.
 ?>
 <section class="results service-results results-anchor" id="results">
 	<div class="container px-4">
 		<div class="content">
-			<h2><?php echo esc_html( $results_heading ); ?></h2>
+			<h2><?php echo wp_kses_post( $results_heading ); ?></h2>
 		</div>
 		<div class="row gx-4 gy-4 stats-grid">
 			<?php $stat_col = count( $results_stats ) > 3 ? 'col-lg-3' : 'col-lg-4'; ?>
@@ -236,6 +253,9 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 				</div>
 			<?php endforeach; ?>
 		</div>
+		<div class="anchor-actions">
+			<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
+		</div>
 	</div>
 </section>
 <?php endif; ?>
@@ -245,10 +265,10 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 	<div class="container px-4">
 		<div class="service-insights-head">
 			<div class="content">
-				<h2>Insights on <?php echo esc_html( $term->name ); ?></h2>
+				<h2><?php echo wp_kses_post( $insights_heading ); ?></h2>
 			</div>
-			<a class="insights-all-link" href="<?php echo esc_url( $insights_blog_url ); ?>">All insights</a>
 		</div>
+		<?php // The shared insight cards — the homepage latest-insights pattern. ?>
 		<div class="row g-4 insights-row">
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'template-parts/content', 'card' ); ?>
@@ -262,7 +282,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 <section class="service-related <?php echo esc_attr( $sv_surface() ); ?>" id="related">
 	<div class="container px-4">
 		<div class="content">
-			<h2>More ways we can help.</h2>
+			<h2><?php echo wp_kses_post( $related_heading ); ?></h2>
 		</div>
 		<div class="row g-4 services-grid">
 			<?php
@@ -270,9 +290,10 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 			foreach ( $related_terms as $related_term ) {
 				echo '<div class="col-lg-4 col-md-6 col-12 service-card-col">';
 				get_template_part( 'template-parts/service', 'card', [
-					'term'    => $related_term,
-					'index'   => $related_i,
-					'variant' => 'related',
+					'term'       => $related_term,
+					'index'      => $related_i,
+					'variant'    => 'related',
+					'show_index' => false,
 				] );
 				echo '</div>';
 				$related_i++;
@@ -284,6 +305,8 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 <?php endif; ?>
 
 <section class="service-cta <?php echo esc_attr( $sv_surface() ); ?>" id="enquire">
+	<?php // Oversized outlined service name as the closing brand moment (the footer wordmark recipe). ?>
+	<span class="cta-wordmark" aria-hidden="true"><?php echo esc_html( $term->name ); ?></span>
 	<div class="container px-4">
 		<div class="row">
 			<div class="col-lg-8">
