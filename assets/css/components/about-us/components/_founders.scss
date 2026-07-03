@@ -175,6 +175,47 @@
     }
   }
 
+  // Below md the overlay caption buries the face on a narrow near-square card
+  // (Ibrar review), so the panel stacks: the duotone portrait sits on top with
+  // the face fully visible, and the caption drops beneath it as a solid dark
+  // block. The duotone/scrim pseudos are pinned to the image box (matching its
+  // 4/5 aspect) so they never reach the caption below.
+  @include media-breakpoint-down(md) {
+    .founder-media {
+      display: flex;
+      flex-direction: column;
+      aspect-ratio: auto;
+
+      // A square portrait keeps the card compact; the face is framed with
+      // object-position (pulled up so the crown is not clipped).
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-position: center 25%;
+        flex: 0 0 auto;
+      }
+
+      &::after,
+      &::before {
+        inset: 0 0 auto 0;
+        height: auto;
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    .founder-caption {
+      position: static;
+      z-index: auto;
+      padding: $space-4;
+      background: $vc-text-dark;
+
+      .caption-inner {
+        max-width: none;
+      }
+    }
+  }
+
   // The "closed tab" view: a vertical name and an icon toggle over the veiled
   // portrait. Hidden entirely outside duo mode; founders.js crossfades it.
   .founder-spine {
