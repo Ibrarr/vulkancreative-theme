@@ -1,6 +1,8 @@
-// From spark to scale: four numbered steps on a horizontal rail (desktop) or
-// a vertical timeline with a left-hand rail (below lg). The ember line is
-// scrubbed by process.js in both orientations.
+// From spark to scale: numbered steps on a horizontal rail (desktop) or a
+// vertical timeline with a left-hand rail (below lg). The ember line is
+// scrubbed by process.js in both orientations. Shared component (hoisted out
+// of the .home.page scope July 2026): used by the homepage, the services hub
+// and the service pages, imported globally from app.scss.
 .process {
   @include vc-section-padding;
   background: $vc-surface-white;

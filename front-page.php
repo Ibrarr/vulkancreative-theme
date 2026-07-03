@@ -220,7 +220,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 $icon = get_field('icon', 'service_' . $service->term_id);
                 $icon_url = trailingslashit( home_url('/wp-content/themes/vulkancreative-theme/assets/images/icons/services') ) . ltrim($icon, '/');
                 ?>
-                <a class="service-row" href="#contact" aria-label="Enquire about <?php echo esc_attr( $title ); ?>">
+                <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>" aria-label="Explore <?php echo esc_attr( $title ); ?>">
                     <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
                     <span class="service-index"><?php echo str_pad( $service_i, 2, '0', STR_PAD_LEFT ); ?></span>
                     <span class="service-main">

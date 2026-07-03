@@ -33,8 +33,13 @@ function services_taxonomy() {
         'show_in_nav_menus' => true,
         'show_tagcloud'     => true,
         'show_in_rest'      => true,
+        // Terms live under the Services hub page: /services/{term}/. The hub
+        // itself is the page at /services/ (the pagename rule catches the
+        // bare path; the tax rule wins for anything deeper, so never create
+        // child pages under the Services page). Old /service/{term} URLs 301
+        // via vc_service_slug_redirect() in inc/actions.php.
         'rewrite'           => array(
-            'slug'          => 'service',
+            'slug'          => 'services',
             'with_front'    => false,
             'hierarchical'  => true,
         ),

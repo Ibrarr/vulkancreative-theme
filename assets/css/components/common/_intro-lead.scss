@@ -1,0 +1,46 @@
+// Red-ruled lead line (statement + support) beside a section heading — the
+// About founders-head recipe, shared: services hub grid head and the service
+// pages' deliverables head use this global version. (The About page keeps its
+// own scoped copy, which outranks this one where they overlap.)
+.intro-lead {
+  border-left: 2px solid $vc-primary;
+  padding-left: $space-3;
+  margin-top: $space-5;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 0;
+    margin-bottom: 6px;
+    padding-left: $space-4;
+  }
+
+  .intro-statement {
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-size: clamp(1.25rem, 0.8vw + 0.95rem, 1.625rem);
+    line-height: 1.4;
+    color: $vc-text-dark;
+    margin: 0 0 $space-2;
+    transition: color 0.3s;
+
+    span {
+      color: $vc-primary;
+      white-space: nowrap;
+    }
+  }
+
+  .intro-support {
+    @include vc-body($vc-grey-600);
+    margin: 0;
+    transition: color 0.3s;
+  }
+}
+
+@at-root body.dark-mode .intro-lead {
+  .intro-statement {
+    color: $vc-text-light !important;
+  }
+
+  .intro-support {
+    color: $vc-muted-on-dark !important;
+  }
+}

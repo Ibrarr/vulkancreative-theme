@@ -15,6 +15,8 @@ function vc_schema_type() {
 		$type = 'SearchResultsPage';
 	} elseif ( is_page_template( 'page-templates/page-about-us.php' ) ) {
 		$type = 'AboutPage';
+	} elseif ( is_page_template( 'page-templates/page-services-hub.php' ) ) {
+		$type = 'CollectionPage';
 	} else {
 		$type = 'WebPage';
 	}

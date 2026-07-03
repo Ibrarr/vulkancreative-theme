@@ -1,0 +1,24 @@
+// Related services: three compact shared service cards (the hub grid's
+// sibling strip), reinforcing the hub-and-spoke internal linking.
+.service-related {
+  @include vc-section-padding;
+
+  .content {
+    margin-bottom: $space-6;
+
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+    }
+  }
+
+  .service-card-col {
+    display: flex;
+  }
+}
+
+@at-root body.dark-mode.tax-service .service-related {
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+}

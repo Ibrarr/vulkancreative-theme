@@ -41,6 +41,14 @@ function add_custom_scripts() {
         wp_enqueue_script( 'about', VC_TEMPLATE_URI . mix('/js/about.js'), [ 'jquery' ], null, true );
     }
 
+    if ( is_page_template( 'page-templates/page-services-hub.php' ) ) {
+        wp_enqueue_script( 'services-hub', VC_TEMPLATE_URI . mix('/js/services-hub.js'), [ 'jquery' ], null, true );
+    }
+
+    if ( is_tax( 'service' ) ) {
+        wp_enqueue_script( 'service', VC_TEMPLATE_URI . mix('/js/service.js'), [ 'jquery' ], null, true );
+    }
+
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/js/global.js'), [ 'jquery' ], null, true );
 
     wp_enqueue_script( 'header', VC_TEMPLATE_URI . mix('/js/header.js'), [ 'jquery' ], null, true );

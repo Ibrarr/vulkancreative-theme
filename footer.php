@@ -1,7 +1,16 @@
                 </main>
             <footer id="footer" role="contentinfo">
                 <div class="container px-4">
-                    <?php if ( ! is_page_template( 'page-templates/page-contact-us.php' ) ) : ?>
+                    <?php
+                    // No CTA band where the page already ends on its own
+                    // conversion moment: the Contact page and the services
+                    // hub end in the enquiry form, service pages end in
+                    // their own CTA band.
+                    $vc_hide_footer_cta = is_page_template( 'page-templates/page-contact-us.php' )
+                        || is_page_template( 'page-templates/page-services-hub.php' )
+                        || is_tax( 'service' );
+                    ?>
+                    <?php if ( ! $vc_hide_footer_cta ) : ?>
                     <div class="row footer-cta">
                         <div class="col-lg-8">
                             <p class="footer-cta-heading">Ready to forge something that <span>performs</span>?</p>

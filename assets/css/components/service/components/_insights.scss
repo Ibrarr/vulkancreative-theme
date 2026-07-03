@@ -1,0 +1,47 @@
+// Insights on this service: the newest posts carrying the term (the capped
+// main query), rendered with the shared insight cards (common/_post-grid.scss).
+.service-insights {
+  @include vc-section-padding;
+
+  .service-insights-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $space-3;
+    margin-bottom: $space-6;
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      margin: 0;
+      transition: color 0.3s;
+    }
+  }
+
+  .insights-all-link {
+    @include vc-button-ghost($vc-text-dark);
+  }
+}
+
+@at-root body.dark-mode.tax-service .service-insights {
+  .service-insights-head .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .insights-all-link {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+}

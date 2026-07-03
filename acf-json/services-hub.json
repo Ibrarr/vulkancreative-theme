@@ -1,0 +1,240 @@
+{
+    "key": "group_680a1b3c4d5e1",
+    "title": "Services Hub",
+    "fields": [
+        {
+            "key": "field_680a0002",
+            "label": "Hero Heading",
+            "name": "sh_hero_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Leave as the default to keep the red highlight on \"do\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "What we do.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0003",
+            "label": "Hero Subheading",
+            "name": "sh_hero_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_680a0007",
+            "label": "Grid Heading",
+            "name": "sh_grid_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading above the services grid.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Six services. One team.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0101",
+            "label": "Grid Statement",
+            "name": "sh_grid_statement",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The short positioning line beside the grid heading. Leave as the default to keep the red highlight on \"under one roof\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Everything you need to grow, under one roof.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0102",
+            "label": "Grid Support",
+            "name": "sh_grid_support",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_680a0013",
+            "label": "Process Heading",
+            "name": "sh_process_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "From brief to results.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0014",
+            "label": "Process Subheading",
+            "name": "sh_process_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "The steps themselves are edited once, on the homepage (Process Steps), and shown here automatically.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "The same clear process behind every service, with one partner accountable the whole way.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 2,
+            "new_lines": ""
+        },
+        {
+            "key": "field_680a0103",
+            "label": "Proof Heading",
+            "name": "sh_proof_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Heading above the testimonials. The quotes and rating come from the Testimonials post type and the homepage rating fields.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Proof, not promises.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0022",
+            "label": "CTA Heading",
+            "name": "sh_cta_heading",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Leave as the default to keep the red highlight on \"project\".",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Start a project.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680a0023",
+            "label": "CTA Subheading",
+            "name": "sh_cta_subheading",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Tell us what you're trying to achieve and we'll come back within one working day with an honest view on how we'd approach it.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-templates\/page-services-hub.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1783075234
+}

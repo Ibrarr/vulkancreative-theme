@@ -89,6 +89,38 @@ function vc_pingback_header() {
 register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) );
 
 /**
+ * The service taxonomy moved from /service/{slug} to /services/{slug} (under
+ * the Services hub page), so the old base 301s to the same term's new home.
+ * Priority 0 so it runs ahead of any other template_redirect handling.
+ */
+add_action( 'template_redirect', 'vc_service_slug_redirect', 0 );
+function vc_service_slug_redirect() {
+	$path = wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
+	if ( ! $path || ! preg_match( '#^/service/([^/]+)/?$#', $path, $matches ) ) {
+		return;
+	}
+	$term = get_term_by( 'slug', sanitize_title( $matches[1] ), 'service' );
+	if ( $term && ! is_wp_error( $term ) ) {
+		wp_safe_redirect( get_term_link( $term ), 301 );
+		exit;
+	}
+}
+
+/**
+ * Service term pages: the main archive query only feeds the small "insights"
+ * grid, so cap it to the three newest posts and skip the pagination count.
+ */
+add_action( 'pre_get_posts', 'vc_service_archive_query' );
+function vc_service_archive_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() || ! $query->is_tax( 'service' ) ) {
+		return;
+	}
+	$query->set( 'posts_per_page', 3 );
+	$query->set( 'ignore_sticky_posts', true );
+	$query->set( 'no_found_rows', true );
+}
+
+/**
  * Setup 404 page
  */
 add_filter( 'template_include', 'custom_404_redirect' );

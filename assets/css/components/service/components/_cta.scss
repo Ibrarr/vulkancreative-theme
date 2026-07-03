@@ -1,0 +1,61 @@
+// Closing CTA: forge button to the Contact page, ghost back to the hub. The
+// spokes stay lean — the enquiry form itself lives on the hub and Contact.
+.service-cta {
+  @include vc-section-padding;
+
+  .content {
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+    }
+
+    .sub-heading {
+      @include vc-p($vc-grey-600);
+      max-width: 56ch;
+      margin: $space-2 0 0;
+      transition: color 0.3s;
+    }
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-dark);
+    }
+  }
+}
+
+@at-root body.dark-mode.tax-service .service-cta {
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .content .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .cta-actions .button-ghost {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+}

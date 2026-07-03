@@ -1,0 +1,30 @@
+// The services grid: split section head (h2 left, red-ruled intro-lead right,
+// the About founders-head pattern) over the six taxonomy-driven service cards
+// (common/_service-card.scss). Cards stagger in via grid.js.
+.hub-services {
+  @include vc-section-padding;
+
+  .hub-services-head {
+    align-items: flex-end;
+    margin-bottom: $space-6;
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      margin: 0;
+      transition: color 0.3s;
+    }
+  }
+
+  // The red-ruled intro-lead beside the heading is the shared component in
+  // common/_intro-lead.scss.
+
+  .service-card-col {
+    display: flex;
+  }
+}
+
+@at-root body.dark-mode.page-template-page-services-hub .hub-services {
+  .hub-services-head .content h2 {
+    color: $vc-text-light !important;
+  }
+}

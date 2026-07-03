@@ -57,9 +57,45 @@
   .contact-main .contact-next,
   .contact-main .contact-next .next-step,
   .contact-main .contact-form-col h2,
-  .contact-main .contact-form-col .form-container {
+  .contact-main .contact-form-col .form-container,
+  // Services hub reveal targets
+  .hub-hero h1,
+  .hub-hero .sub-heading,
+  .hub-services .content h2,
+  .hub-services .intro-lead,
+  // Service page reveal targets
+  .service-hero h1,
+  .service-hero .sub-heading,
+  .service-deliverables .content h2,
+  .service-deliverables .intro-lead {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  // Service deliverables rail: show the finished state — rail fully drawn,
+  // numerals hot — instead of animating towards it.
+  .service-deliverables .deliv-progress {
+    transform: none !important;
+  }
+
+  .service-deliverables .deliv-index {
+    color: $vc-primary !important;
+    -webkit-text-stroke-color: $vc-primary !important;
+  }
+
+  // Service journey: the finished state — line drawn, numerals and nodes
+  // forged, counter complete (server-rendered).
+  .service-journey .journey-progress {
+    transform: none !important;
+  }
+
+  .service-journey .step-index {
+    color: $vc-primary !important;
+    -webkit-text-stroke-color: $vc-primary !important;
+  }
+
+  .service-journey .step-node {
+    background: $vc-primary !important;
   }
 
   // Contact next-steps rail: show the finished state — rail fully drawn,

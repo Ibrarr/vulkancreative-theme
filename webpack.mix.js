@@ -11,6 +11,7 @@ mix.js([
     'assets/js/header/header.js',
     'assets/js/header/mobile-menu.js',
     'assets/js/header/scrollspy.js',
+    'assets/js/header/dropdown.js',
 ], 'js/header.js');
 
 mix.js([
@@ -78,6 +79,26 @@ mix.js([
     'assets/js/homepage/testimonials.js',
     'assets/js/homepage/marquee.js',
 ], 'js/about.js');
+
+mix.js([
+    'assets/js/services-hub/reveal.js',
+    'assets/js/services-hub/grid.js',
+    // Shared homepage modules: process.js binds .process .process-steps,
+    // testimonials.js/marquee.js bind by element id (the about.js precedent).
+    'assets/js/homepage/process.js',
+    'assets/js/homepage/testimonials.js',
+    'assets/js/homepage/marquee.js',
+], 'js/services-hub.js');
+
+mix.js([
+    'assets/js/service/reveal.js',
+    'assets/js/service/deliverables.js',
+    'assets/js/service/journey.js',
+    // Shared modules: grid.js staggers the related-services cards
+    // (.services-grid), counter.js binds .results .stat-number.
+    'assets/js/services-hub/grid.js',
+    'assets/js/homepage/counter.js',
+], 'js/service.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

@@ -180,6 +180,156 @@
   }
 }
 
+// "What We Do" dropdown: the WP sub-menu rendered as a forge panel under the
+// bar. The panel carries its own solid surface so it reads identically over
+// the transparent-on-dark header state and the surfaced scrolled bar. Opens
+// on hover (hover-capable devices) and on :focus-within, so tabbing through
+// the children keeps it open; dropdown.js syncs aria-expanded and closes on
+// Escape. Scoped to the bar's nav — the mobile overlay accordion lives in
+// _mobile.scss.
+.menu-theme-toggle nav ul {
+  li.menu-item-has-children {
+    > .sub-menu {
+      position: absolute;
+      top: 100%;
+      left: -4px;
+      margin-top: 8px;
+      min-width: 280px;
+      max-width: 320px;
+      width: max-content;
+      display: block;
+      padding: $space-1 0;
+      background: $vc-surface-white;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      box-shadow: 0 20px 48px rgba(18, 18, 18, 0.14);
+      z-index: $z-header;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+
+      // Invisible bridge over the 8px offset so the hover never drops while
+      // the pointer crosses from the item to the panel.
+      &::before {
+        content: '';
+        position: absolute;
+        top: -9px;
+        left: 0;
+        right: 0;
+        height: 9px;
+      }
+
+      // Ember seam along the panel's top edge.
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: $vc-ember-line-light;
+      }
+
+      li {
+        display: block;
+
+        // No scrollspy tick inside the panel; the red tick sits before the
+        // label instead (small red text is banned on light surfaces, so the
+        // tick carries the accent).
+        &::after {
+          display: none;
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          min-height: 44px;
+          padding: 12px 16px;
+          color: $vc-text-dark;
+
+          &::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            flex-shrink: 0;
+            background: $vc-primary;
+            margin-right: 12px;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.25s ease;
+          }
+
+          @media (hover: hover) {
+            &:hover {
+              text-decoration: none;
+
+              &::before {
+                transform: scaleX(1);
+              }
+            }
+          }
+
+          &:focus-visible::before {
+            transform: scaleX(1);
+          }
+        }
+
+        &.current-menu-item a::before {
+          transform: scaleX(1);
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover > .sub-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity 0.24s cubic-bezier(0.33, 1, 0.68, 1), transform 0.24s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
+      }
+    }
+
+    &:focus-within > .sub-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: opacity 0.24s cubic-bezier(0.33, 1, 0.68, 1), transform 0.24s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
+    }
+  }
+}
+
+@at-root body.dark-mode .menu-theme-toggle nav ul li.menu-item-has-children > .sub-menu {
+  background: $dark-vc-background-dark !important;
+  border-color: $vc-grey-dark-border !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55) !important;
+
+  &::after {
+    background: $vc-ember-line !important;
+  }
+
+  li a {
+    color: $vc-text-light;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+    }
+  }
+
+  li.current-menu-item a {
+    color: $vc-primary;
+  }
+}
+
 // Compact bar once scrolled
 @at-root header.header--scrolled .main-menu {
   padding: 12px 0;

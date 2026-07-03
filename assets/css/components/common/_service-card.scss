@@ -1,0 +1,259 @@
+// Shared service card (template-parts/service-card.php): one taxonomy term as
+// a linked card. Two variants: --grid (services hub, 6-up) and --related
+// (service pages' related strip, 3-up, compact). Global like the insight card
+// so it renders identically under every body class. Forge hover: the border
+// heats, an ember sheen sweeps beneath the content, a red glow lifts the card
+// and the index numeral fills solid — the card itself never moves, and the
+// flat SVG watermark only shifts opacity (no tint or saturation changes).
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: $space-4;
+  background: transparent;
+  border: 1px solid $vc-grey-200;
+  border-radius: 2px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.3s, box-shadow 0.35s ease, background-color 0.3s;
+
+  // Ember sheen, swept across on hover/focus beneath the content.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: $z-base;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(115deg, transparent 38%, rgba($vc-secondary, 0.10) 48%, rgba($vc-primary, 0.14) 52%, transparent 64%);
+    background-size: 220% 100%;
+    background-position: 120% 0;
+    transition: opacity 0.3s ease, background-position 0.5s ease;
+  }
+
+  // Flat single-colour SVG watermark, bottom-right, behind everything. On
+  // hover/focus the glyph drifts up out of its cropped corner (allowed
+  // inner-media movement — the card itself never moves), clipped by the
+  // card's overflow.
+  .service-card-icon {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    opacity: 0.08;
+    z-index: $z-base;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-card-index {
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: 56px;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px $vc-primary;
+    display: block;
+    margin-bottom: $space-3;
+    position: relative;
+    z-index: $z-raised;
+    transition: color 0.3s;
+  }
+
+  .service-card-body {
+    position: relative;
+    z-index: $z-raised;
+    display: block;
+  }
+
+  .service-card-title {
+    @include vc-display-3($vc-text-dark);
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .service-card-desc {
+    @include vc-body($vc-grey-600);
+    margin: 12px 0 0;
+    display: -webkit-box;
+    // Three lines on the hub grid (the term descriptions are real sentences);
+    // the related variant tightens to two.
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s;
+  }
+
+  .service-card-arrow {
+    position: relative;
+    z-index: $z-raised;
+    display: inline-flex;
+    margin-top: auto;
+    padding-top: $space-3;
+    color: $vc-text-dark;
+    opacity: 0.4;
+    transition: transform 0.3s, opacity 0.3s, color 0.3s;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    min-height: 248px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    min-height: 288px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    min-height: 304px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+      &::after {
+        opacity: 1;
+        background-position: 0% 0;
+      }
+
+      .service-card-icon {
+        opacity: 0.14;
+        transform: translate(-6px, -6px) scale(1.05);
+      }
+
+      .service-card-index {
+        color: $vc-primary;
+      }
+
+      .service-card-title {
+        color: $vc-primary;
+      }
+
+      .service-card-arrow {
+        transform: translateX(6px);
+        opacity: 1;
+        color: $vc-primary;
+      }
+    }
+  }
+
+  &:focus-visible {
+    border-color: rgba($vc-secondary, 0.55);
+    box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+    &::after {
+      opacity: 1;
+      background-position: 0% 0;
+    }
+
+    .service-card-icon {
+      opacity: 0.14;
+      transform: translate(-6px, -6px) scale(1.05);
+    }
+
+    .service-card-index {
+      color: $vc-primary;
+    }
+
+    .service-card-title {
+      color: $vc-primary;
+    }
+
+    .service-card-arrow {
+      transform: translateX(6px);
+      opacity: 1;
+      color: $vc-primary;
+    }
+  }
+
+  // Compact variant for the related strip on service pages.
+  &--related {
+    padding: $space-3;
+
+    .service-card-icon {
+      right: -16px;
+      bottom: -16px;
+      width: 120px;
+      height: 120px;
+    }
+
+    .service-card-index {
+      font-size: 44px;
+      margin-bottom: $space-2;
+    }
+
+    .service-card-desc {
+      -webkit-line-clamp: 2;
+    }
+
+    @include media-breakpoint-up(md) {
+      min-height: 224px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      min-height: 248px;
+    }
+
+    @include media-breakpoint-up(xl) {
+      min-height: 256px;
+    }
+  }
+}
+
+@at-root body.dark-mode .service-card {
+  border-color: $vc-grey-dark-border !important;
+
+  .service-card-title {
+    color: $vc-text-light !important;
+  }
+
+  .service-card-desc {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .service-card-arrow {
+    color: $vc-text-light !important;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background: $vc-grey-dark-surface !important;
+      border-color: rgba($vc-primary, 0.6) !important;
+      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+      .service-card-title,
+      .service-card-arrow {
+        color: $vc-primary !important;
+      }
+
+      .service-card-index {
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  &:focus-visible {
+    background: $vc-grey-dark-surface !important;
+    border-color: rgba($vc-primary, 0.6) !important;
+    box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+    .service-card-title,
+    .service-card-arrow {
+      color: $vc-primary !important;
+    }
+
+    .service-card-index {
+      color: $vc-primary !important;
+    }
+  }
+}

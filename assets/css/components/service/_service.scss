@@ -1,0 +1,65 @@
+// Page scope for the service pages (taxonomy-service.php, body class
+// .tax-service — taxonomy archives have no page-template class). The hero is
+// the shared page-hero component; process and results are the shared
+// common/_process.scss and common/_results.scss bands; the related cards are
+// common/_service-card.scss; the intro-lead is common/_intro-lead.scss.
+.tax-service {
+  // Section headings run all-caps to match the homepage sections.
+  section .content h2 {
+    text-transform: uppercase;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  // Explicit alternating surface classes, assigned in PHP as sections render,
+  // so the pairing rule survives the conditional sections (results/insights).
+  section.surface-white {
+    background: $vc-surface-white;
+    transition: background 0.3s;
+  }
+
+  section.surface-grey {
+    background: $vc-background-white;
+    transition: background 0.3s;
+  }
+
+  @import "components/deliverables";
+  @import "components/journey";
+  @import "components/results-anchor";
+  @import "components/insights";
+  @import "components/related";
+  @import "components/cta";
+}
+
+// Chained, not descendant: dark-mode and tax-service share the body element.
+@at-root body.dark-mode.tax-service {
+  section.surface-white {
+    background: $dark-vc-background-dark !important;
+  }
+
+  section.surface-grey {
+    background: $dark-vc-background-dark-alt !important;
+  }
+}
+
+// Above-the-fold reveal targets are pre-hidden before the JS entrance so they
+// never flash at their final position on load. Gated on html.js; a failsafe
+// shows them at 2.5s if the script never runs, and the reduced-motion / no-JS
+// paths keep them visible (the misc/_motion.scss safety net forces opacity: 1).
+@at-root html.js body.tax-service {
+  .service-hero h1,
+  .service-hero .sub-heading,
+  .service-deliverables .content h2,
+  .service-deliverables .intro-lead {
+    opacity: 0;
+    animation: vc-service-reveal-failsafe 0s 2.5s forwards;
+  }
+}
+
+@keyframes vc-service-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

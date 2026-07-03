@@ -68,12 +68,24 @@ body {
 // Shared contact channel rows (Contact page, About founder plates).
 @import "components/common/contact-channels";
 
+// Shared results + process bands (homepage, services hub, service pages).
+@import "components/common/results";
+@import "components/common/process";
+
+// Shared service card (services hub grid, service pages' related strip).
+@import "components/common/service-card";
+
+// Shared red-ruled intro lead (services hub head, service deliverables head).
+@import "components/common/intro-lead";
+
 @import "components/homepage/homepage";
 @import "components/your-business/your-business";
 @import "components/default-page/default-page";
 @import "components/404/404";
 @import "components/contact-us/contact-us";
 @import "components/about-us/about-us";
+@import "components/services-hub/services-hub";
+@import "components/service/service";
 
 // Insights (blog) — shared global components, used by the index, category and
 // author archives, search results and the single article's related row.

@@ -5,13 +5,14 @@
   }
 
   @import "components/hero";
-  @import "components/results";
+  // results + process are shared components now (common/_results.scss,
+  // common/_process.scss) — imported globally from app.scss so the services
+  // hub and service pages render the same bands.
   @import "components/services";
   @import "components/work";
   @import "components/our-work";
   @import "components/why";
   @import "components/text-marquee";
-  @import "components/process";
   @import "components/testimonials";
   @import "components/contact";
   @import "components/latest-insights";

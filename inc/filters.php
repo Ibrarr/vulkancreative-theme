@@ -118,6 +118,25 @@ add_filter(
     }
 );
 
+// Service term pages sit under the Services hub page in the site hierarchy,
+// so inject the hub crumb after Home; Yoast only knows the term itself.
+add_filter(
+	'wpseo_breadcrumb_links',
+	function ( $links ) {
+		if ( ! is_tax( 'service' ) || ! is_array( $links ) ) {
+			return $links;
+		}
+		$hub = get_page_by_path( 'services' );
+		array_splice( $links, 1, 0, [
+			[
+				'text' => $hub ? get_the_title( $hub ) : 'Services',
+				'url'  => $hub ? get_permalink( $hub ) : home_url( '/services/' ),
+			],
+		] );
+		return $links;
+	}
+);
+
 // Indexing policy (categories indexed as topic hubs; author/date/search out of
 // the index) is governed by Yoast's own Search Appearance settings, so robots
 // meta, the XML sitemap and canonicals stay consistent — see the wpseo_titles

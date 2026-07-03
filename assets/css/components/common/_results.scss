@@ -1,4 +1,7 @@
-// Proof band straight after the hero: oversized red counters on hairline rules.
+// Proof band: oversized red counters on hairline rules. Shared component
+// (hoisted out of the .home.page scope July 2026): used by the homepage
+// results band and the service pages' results stats, imported globally from
+// app.scss.
 .results {
   @include vc-section-padding;
   background: $vc-surface-white;

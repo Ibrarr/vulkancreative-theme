@@ -90,6 +90,122 @@
             display: none;
           }
         }
+
+        // "What We Do" accordion: the parent link and the injected disclosure
+        // chevron share the row; the service sub-list expands beneath. Without
+        // JS there is no .has-disclosure class and the sub-list is simply
+        // visible, so nothing is ever unreachable.
+        &.menu-item-has-children {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          column-gap: $space-2;
+
+          > a {
+            flex: 0 1 auto;
+          }
+
+          .submenu-toggle {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid $vc-grey-200;
+            border-radius: 2px;
+            color: $vc-text-dark;
+            cursor: pointer;
+            padding: 0;
+            transition: border-color 0.3s, color 0.3s;
+
+            svg {
+              width: 18px;
+              height: 18px;
+              transition: transform 0.3s ease;
+            }
+
+            @media (hover: hover) {
+              &:hover {
+                border-color: $vc-primary;
+                color: $vc-primary;
+              }
+            }
+
+            &:focus-visible {
+              border-color: $vc-primary;
+              color: $vc-primary;
+            }
+          }
+
+          &.is-open .submenu-toggle svg {
+            transform: rotate(180deg);
+          }
+
+          .sub-menu {
+            width: 100%;
+            padding-left: $space-4;
+            // Spacing lives as padding, not margin, so the collapsed grid row
+            // clips to a true zero height.
+            padding-top: 4px;
+
+            li {
+              counter-increment: none;
+              opacity: 1;
+              transform: none;
+
+              a {
+                font-family: $vc-font-family;
+                font-weight: $vc-semi-bold;
+                font-stretch: 100%;
+                font-size: 18px;
+                line-height: 1.3;
+                letter-spacing: 0.06em;
+                color: $vc-grey-600;
+                display: flex;
+                align-items: center;
+                min-height: 44px;
+                padding: 10px 0;
+
+                // No index numeral on sub-items; the counter belongs to the
+                // top-level items only.
+                &::before {
+                  display: none;
+                }
+              }
+            }
+          }
+
+          // Collapsed state: dropdown.js wraps the sub-list in .submenu-wrap
+          // (a single grid child), so the expand animates grid-template-rows
+          // instead of a layout property. No JS means no wrapper, so the list
+          // is simply visible. misc/_motion.scss flattens the transition
+          // under reduced motion — the toggle stays functional but instant.
+          .submenu-wrap {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.35s ease;
+
+            > .sub-menu {
+              overflow: hidden;
+              min-height: 0;
+              visibility: hidden;
+              opacity: 0;
+              transition: opacity 0.3s ease, visibility 0s linear 0.35s;
+            }
+          }
+
+          &.is-open .submenu-wrap {
+            grid-template-rows: 1fr;
+
+            > .sub-menu {
+              visibility: visible;
+              opacity: 1;
+              transition: opacity 0.3s ease 0.05s, visibility 0s;
+            }
+          }
+        }
       }
     }
   }
@@ -160,6 +276,39 @@
 
     &::before {
       color: $vc-primary;
+    }
+  }
+
+  nav li.menu-item-has-children {
+    .submenu-toggle {
+      border-color: $vc-grey-dark-border;
+      color: $vc-text-light;
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: $vc-primary;
+          color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        border-color: $vc-primary;
+        color: $vc-primary;
+      }
+    }
+
+    .sub-menu a {
+      color: $vc-muted-on-dark !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+      }
     }
   }
 

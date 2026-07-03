@@ -1,0 +1,63 @@
+// Page scope for the services hub (page-templates/page-services-hub.php).
+// The hero band is the shared page-hero component (common/_page-hero.scss),
+// the process band is the shared common/_process.scss component, the service
+// cards are common/_service-card.scss, and the spotlight + rating chip are
+// common/_testimonial-spotlight.scss.
+.page-template-page-services-hub {
+  // Section headings run all-caps to match the homepage sections.
+  section .content h2 {
+    text-transform: uppercase;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  // Explicit surface classes keep the pairing rule (first section after the
+  // hero is the lighter pair, then alternate) self-documenting; they also
+  // outrank the shared components' own baked surfaces.
+  section.surface-white {
+    background: $vc-surface-white;
+    transition: background 0.3s;
+  }
+
+  section.surface-grey {
+    background: $vc-background-white;
+    transition: background 0.3s;
+  }
+
+  @import "components/grid";
+  @import "components/proof";
+  @import "components/cta";
+}
+
+// Chained, not descendant: dark-mode and the template class share the body.
+@at-root body.dark-mode.page-template-page-services-hub {
+  section.surface-white {
+    background: $dark-vc-background-dark !important;
+  }
+
+  section.surface-grey {
+    background: $dark-vc-background-dark-alt !important;
+  }
+}
+
+// Above-the-fold reveal targets are pre-hidden before the JS entrance so they
+// never flash at their final position on load. Gated on html.js; a failsafe
+// shows them at 2.5s if the script never runs, and the reduced-motion / no-JS
+// paths keep them visible (the misc/_motion.scss safety net forces opacity: 1).
+@at-root html.js body.page-template-page-services-hub {
+  .hub-hero h1,
+  .hub-hero .sub-heading,
+  .hub-services .content h2,
+  .hub-services .intro-lead {
+    opacity: 0;
+    animation: vc-hub-reveal-failsafe 0s 2.5s forwards;
+  }
+}
+
+@keyframes vc-hub-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}
