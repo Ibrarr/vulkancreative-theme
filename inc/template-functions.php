@@ -13,6 +13,8 @@ function vc_schema_type() {
 		$type = 'ProfilePage';
 	} elseif ( is_search() ) {
 		$type = 'SearchResultsPage';
+	} elseif ( is_page_template( 'page-templates/page-about-us.php' ) ) {
+		$type = 'AboutPage';
 	} else {
 		$type = 'WebPage';
 	}

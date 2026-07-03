@@ -59,11 +59,21 @@ body {
 // Components
 @import "components/header/header";
 
+// Shared dark page-hero band (Contact, About; template-parts/page-hero.php).
+@import "components/common/page-hero";
+
+// Shared testimonial spotlight (homepage testimonials, About proof).
+@import "components/common/testimonial-spotlight";
+
+// Shared contact channel rows (Contact page, About founder plates).
+@import "components/common/contact-channels";
+
 @import "components/homepage/homepage";
 @import "components/your-business/your-business";
 @import "components/default-page/default-page";
 @import "components/404/404";
 @import "components/contact-us/contact-us";
+@import "components/about-us/about-us";
 
 // Insights (blog) — shared global components, used by the index, category and
 // author archives, search results and the single article's related row.

@@ -1,0 +1,133 @@
+// The icon-led contact channel rows (44px hairline icon plate, eyebrow label,
+// medium value, forge hover: the plate heats with a red border, tint fill and
+// soft glow while the value warms — colour/surface only, the row never
+// moves). Extracted from the Contact page so the About founders' plates
+// render the identical component; consumers add an alias class (e.g.
+// .founder-channels) for their own spacing overrides.
+.contact-channels {
+  list-style: none;
+  margin: 0 0 $space-5;
+  padding: 0;
+  display: grid;
+  gap: $space-2;
+
+  li {
+    margin: 0;
+  }
+
+  .channel {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    width: fit-content;
+    text-decoration: none;
+  }
+
+  .channel-icon {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    color: $vc-primary;
+    transition: border-color 0.3s, color 0.3s, background 0.3s, box-shadow 0.3s;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .channel-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .channel-label {
+    @include vc-eyebrow($vc-grey-600);
+    margin: 0;
+  }
+
+  .channel-value {
+    @include vc-body($vc-text-dark);
+    font-weight: $vc-medium;
+    transition: color 0.3s;
+  }
+
+  a.channel {
+    @media (hover: hover) {
+      &:hover {
+        .channel-icon {
+          border-color: $vc-primary;
+          background: $vc-primary-tint;
+          box-shadow: 0 0 24px 0 $vc-glow-soft;
+        }
+
+        .channel-value {
+          color: $vc-primary;
+        }
+      }
+    }
+
+    &:focus-visible {
+      .channel-icon {
+        border-color: $vc-primary;
+        background: $vc-primary-tint;
+        box-shadow: 0 0 24px 0 $vc-glow-soft;
+      }
+
+      .channel-value {
+        color: $vc-primary;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .contact-channels {
+  .channel-label {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .channel-value {
+    color: $vc-text-light !important;
+  }
+
+  .channel-icon {
+    border-color: $vc-grey-dark-border !important;
+    color: $vc-primary !important;
+  }
+
+  a.channel:focus-visible {
+    color: $vc-primary !important;
+
+    .channel-icon {
+      border-color: $vc-primary !important;
+      background: $vc-primary-tint !important;
+      box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
+    }
+
+    .channel-value {
+      color: $vc-primary !important;
+    }
+  }
+
+  @media (hover: hover) {
+    a.channel:hover {
+      color: $vc-primary !important;
+
+      .channel-icon {
+        border-color: $vc-primary !important;
+        background: $vc-primary-tint !important;
+        box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
+      }
+
+      .channel-value {
+        color: $vc-primary !important;
+      }
+    }
+  }
+}

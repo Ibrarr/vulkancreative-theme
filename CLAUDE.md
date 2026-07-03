@@ -256,13 +256,14 @@ The June 2026 "forge" redesign sets the visual language. New pages and redesigne
 
 ### Redesign status (what is on the forge language vs not)
 
-The redesign has rolled out page by page. On the forge language: `front-page.php` (homepage), `header.php`, `footer.php`, the 404 (`404.php` + `template-parts/content-404.php` + the `page-404-preview.php` template), `page.php` (the default template, used by Privacy Policy and Cookie Policy), and `page-contact-us.php` (the Contact page). Still on pre-redesign patterns (legacy mixins like `vc-button-big`, `vc-h1`, `vc-tag`, `.tag` eyebrows, hard-coded padding) and awaiting the same treatment: `page-your-business.php`, the blog single (`template-parts/content-blog.php`), the archive family (`home.php`, `archive.php`, `template-parts/archive-category.php`, `author.php`), `search.php`, and the shared `common/` post grid. A quick tell when auditing a partial: forge components use `vc-display-*`, `vc-section-padding` and the surface tokens; pre-redesign ones use `vc-h1`/`vc-tag`/`vc-button-big`.
+The redesign has rolled out page by page. On the forge language: `front-page.php` (homepage), `header.php`, `footer.php`, the 404 (`404.php` + `template-parts/content-404.php` + the `page-404-preview.php` template), `page.php` (the default template, used by Privacy Policy and Cookie Policy), `page-contact-us.php` (the Contact page), `page-about-us.php` (the About page), the shared `template-parts/page-hero.php` title band with `common/_page-hero.scss`, the shared `common/_testimonial-spotlight.scss` component, and the blog/insights family (redesigned June 2026): the blog single (`template-parts/content-blog.php`), the archive family (`home.php`, `archive.php`, `template-parts/archive-category.php`, `author.php`), `search.php` and the shared `common/` post grid (`.insight-card`). Still on pre-redesign patterns (legacy mixins like `vc-button-big`, `vc-h1`, `vc-tag`, `.tag` eyebrows, hard-coded padding) and awaiting the same treatment: `page-your-business.php` only. A quick tell when auditing a partial: forge components use `vc-display-*`, `vc-section-padding` and the surface tokens; pre-redesign ones use `vc-h1`/`vc-tag`/`vc-button-big`.
 
 ### Surfaces and rhythm
 
 - Sections alternate two light surfaces with fixed dark-mode pairings: `$vc-surface-white` (#FFFFFF) pairs with `$dark-vc-background-dark` (#1E1E1E), and `$vc-background-white` (#F5F5F5) pairs with `$dark-vc-background-dark-alt` (#121212). Adjacent sections alternate the pair.
+- **The first section after a page's hero band is always the lighter pair** — `$vc-surface-white` (#FFF) light / `$dark-vc-background-dark` (#1E1E1E) dark — and the alternation proceeds from there (Ibrar's standing rule, July 2026; every template follows it: homepage results, contact main, default-page body, About founders).
 - Full-dark anchor bands (`$vc-background-dark`, #121212 in both modes) punctuate the page: the hero and the why section on the homepage. Where two #121212 sections meet in dark mode, mark the seam with a 1px `$vc-ember-line` rule (see `.our-work`). The footer sits on #0D0D0D.
-- Homepage sequence for reference (light mode): hero dark, results #FFF, services #F5F5F5, work #FFF, our-work #F5F5F5, why dark, story #F5F5F5, process #FFF, testimonials #F5F5F5, contact #FFF.
+- Homepage sequence for reference (light mode): hero dark, results #FFF, services #F5F5F5, work #FFF, our-work #F5F5F5, why dark, process #FFF, testimonials #F5F5F5, contact #FFF, latest-insights #F5F5F5. (The story section moved to the About page, whose sequence is hero dark, founders #FFF, story #F5F5F5, values #FFF, how #F5F5F5, proof #FFF.)
 - Section rhythm always via `@include vc-section-padding`; spacing from the 8px `$space-*` scale; z-index from the `$z-*` scale.
 - Corners are sharp: 2px on buttons, cards, tiles, plates and arrow buttons; 10px only on large media panels (case stage, portraits). Never rounded pills, anywhere.
 
@@ -280,7 +281,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 
 ### Imagery
 
-- Images rest slightly desaturated (`filter: grayscale(0.25)`) and saturate to full colour on hover/focus of their interactive container. Portraits take the duotone treatment (grayscale + brand-red overlay; see testimonials).
+- Images rest slightly desaturated (`filter: grayscale(0.25)`); the pre-ban our-work/work tiles saturate to full colour on hover/focus of their interactive container and stand as the grandfathered exception to the tint-hover ban below. Portraits take the duotone treatment (grayscale + brand-red overlay; see testimonials) and it never changes on hover.
 - Text over imagery needs two layers: a light fixed depth scrim on the image plus a caption-anchored gradient on the caption block itself, so any caption height keeps 4.5:1 over a worst-case bright image (full pattern and verification method in the Contrast conventions section).
 - Badges stamped on imagery are solid plates: `rgba(13,13,13,.85)`, 2px corners, white eyebrow type, no border or tick (see `.tile-service`).
 - Tile/card images whose caption announces the content carry `alt=""` so screen readers hear each item once.
@@ -290,6 +291,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 - Section reveals use IntersectionObserver + GSAP with nothing pre-hidden without JS or under reduced motion (the `reveal.js` pattern); add new section h2s to `reveal.js`'s selector lists for the standard SplitText line reveal.
 - Every animation module imports `prefersReducedMotion()` and degrades to a static, fully functional state; `misc/_motion.scss` is the CSS safety net. State changes (filtering, carousel position) stay functional under reduced motion, just instant.
 - Nothing non-interactive ever gets a hover state. Interactive hover feedback is colour/surface/inner-media only (an image zooming inside an overflow-hidden card is fine); the container itself never moves on hover. Content is never gated behind hover; hover drives decorative layers.
+- **The tint hover is banned outright** (Ibrar's standing decision, July 2026, from the About founders review: "ban the tint hover effect forever"). Hover must never shift an image's tint, duotone overlay or saturation, partially or fully. Duotone imagery stays static until a real state change (an opened or selected panel may saturate). The pre-ban our-work/work tile saturation hover is the one grandfathered exception; do not add new ones or extend it.
 - Gate hover styles behind `@media (hover: hover)` (including the dark-mode hover overrides, or they leak on touch) and mirror every hover affordance on `:focus-visible`.
 - Controls: 44px minimum targets, square 2px-radius arrow buttons with hairline borders (see the wheel/testimonial arrows), disabled state at 0.35 opacity.
 - For custom drag surfaces, follow the work-wheel rules in the JS Architecture section (threshold-deferred pointer capture, `dragstart` suppression, `inert` for off-screen items, keyboard-only recentring, `touch-action: pan-y`).
@@ -342,7 +344,7 @@ Defined in `functions.php`:
 
   - **`actions.php`** -- `vc_setup()` registers theme supports (title-tag, post-thumbnails, responsive-embeds, html5, woocommerce), a custom image size `header-image` (1920x1080), content width 1920, and nav menus. `vc_enqueue()` loads the stylesheet and jQuery. `vc_footer()` injects browser/device detection classes (ios, android, mobile, ie, chrome, firefox, safari, opera) onto the HTML element. Also handles favicon output (custom SVG/PNG suite), disables the content editor on the default `post` type, and registers footer menus.
 
-  - **`filters.php`** -- Sets the document title separator to `|`. Sanitises empty post titles to `'...'`. Adds `itemprop="url"` to nav menu links for schema.org. Disables intermediate image sizes (`medium_large`, `1536x1536`, `2048x2048`). Overrides the post link for `partner_content` CPT to use a `link_to_content` meta field. Adds body classes: `'dark-mode'` always (dark-first default; an inline script in `header.php` removes it for light-mode visitors, see Dark Mode), and `'practice-area-parent'`/`'practice-area-child'` for the `practice_area` taxonomy. Removes the last (duplicate) breadcrumb item from Yoast breadcrumbs.
+  - **`filters.php`** -- Sets the document title separator to `|`. Sanitises empty post titles to `'...'`. Adds `itemprop="url"` to nav menu links for schema.org. Disables intermediate image sizes (`medium_large`, `1536x1536`, `2048x2048`). Overrides the post link for `partner_content` CPT to use a `link_to_content` meta field. Adds body classes: `'dark-mode'` always (dark-first default; an inline script in `header.php` removes it for light-mode visitors, see Dark Mode), and `'practice-area-parent'`/`'practice-area-child'` for the `practice_area` taxonomy. Removes the last (duplicate) breadcrumb item from Yoast breadcrumbs. A `wpseo_schema_organization` filter enriches Yoast's Organization node (`@id` `/#organization`) with the `company_*` contact details from Global Settings and the four social profile URLs, so the knowledge graph matches the visible site (the About page's Person nodes attach to the same `@id`).
 
   - **`remove.php`** -- Unregisters `post_tag` taxonomy from posts. Removes comments and trackbacks from all post types, hides comments from the admin bar and admin menu.
 
@@ -350,7 +352,7 @@ Defined in `functions.php`:
 
   - **`acf.php`** -- ACF JSON sync config (saves/loads field groups to `acf-json/`). Sanitises JSON filenames (spaces/underscores to hyphens, lowercased). On `acf/save_post`, updates the post author from an ACF user field named `'author'`.
 
-  - **`template-functions.php`** -- `vc_schema_type()` outputs schema.org `itemscope`/`itemtype` based on page type (Article, ProfilePage, SearchResultsPage, WebPage). `register_custom_page_templates()` auto-discovers and registers page templates from `page-templates/*.php` on `init`.
+  - **`template-functions.php`** -- `vc_schema_type()` outputs schema.org `itemscope`/`itemtype` based on page type (Article, ProfilePage, SearchResultsPage, AboutPage for the About template, WebPage). `register_custom_page_templates()` auto-discovers and registers page templates from `page-templates/*.php` on `init`.
 
   - **`custom-taxonomies.php`** -- Registers the `service` taxonomy (hierarchical, on the `post` and `project` types, rewrite slug `'service'`, visible in REST/UI/nav menus). ACF fields on this taxonomy: `icon` (text) and `order` (number).
 
@@ -364,7 +366,7 @@ Defined in `functions.php`:
 
 | File | Purpose |
 |---|---|
-| `front-page.php` | Homepage (June 2026 "forge" redesign). 10 sections, each an anchor target: `.hero` `#top` (full-bleed dark hero in both modes, kinetic Archivo headline with rotating `.dynamic-text` words, Spline statue layer in `.graphic`, logo marquee `#logo-splide` at the hero base fed by the `worked_with_logos` options repeater), `.results` `#results` (count-up stats from `hp_results_stats`), `.services` `#services` (service cards from the `service` taxonomy: horizontal scrubbed track on desktop, stacked vertical card list below lg with the same card design; the service icon renders as a large faded watermark in each card's bottom-right corner, direct child of the row; hover styles are gated behind `@media (hover: hover)`, `:focus-visible` carries the same affordance), `.work` `#work` (work index from 3 `case_study` posts where `cs_featured` = 1: case rows + crossfading `.case-stage` on desktop, stacked image cards below lg whose captions sit on a caption-anchored gradient over a lighter depth scrim — same pattern as the Our Work cards, knee held at 70% because these captions run taller — with a full-opacity sector eyebrow so text keeps 4.5:1 over bright uploads; all text always visible, hover only swaps the decorative stage; ends with the `.work-outro` conversion line), `.our-work` `#our-work` (the lighter portfolio tier: the WORK WHEEL `#work-wheel`, a custom GSAP arc carousel of up to 8 projects curated and ordered by the homepage `hp_our_work_projects` relationship field, posts without an image skipped; cards (480/360/300px by breakpoint, aspect 4/3, inside a fixed-height `.wheel-stage` of 560/480/420px so nothing shifts) stand on the rim of a huge invisible wheel — our-work.js derives every card's x/y/rotation/scale/z from one progress value (radius 1800/1400/1150, arc spacing 540/408/336, tangent rotation damped ×0.6) — dragging anywhere spins it with velocity carry and elastic ends, 44px arrows beside the heading (with a "Drag to spin" hint) step it with a `back.out` settle, and on first view the deck fans open from a centre stack; the template orders the cards centre-out (the first pick takes the middle slot, later picks alternate right then left) and the wheel starts on that middle card; the spin range is the full [0, count−1] so every card including the first and last can come to centre (the earlier flank-clamp left edge cards unreachable, especially on mobile) — at the ends one side of the arc is naturally emptier; the centred card carries an `is-front` depth shadow on the list item (not the tile, so the hover glow composes instead of losing the specificity fight); linked tiles get a layered hover (image saturates and scales 1.06 inside the card, an ember sheen sweeps via `::after` at `$z-base` beneath the caption and pill at `$z-raised`, the border heats and a red glow shadow lifts the card; the card itself never moves), mirrored on `:focus-visible`; cards more than ~2 slots out get `inert` + `aria-hidden`; keyboard focus (`:focus-visible` only — mouse focus must not, or clicks fight a recentre tween) recentres the wheel on the focused card; a plain click on any card just opens its link, pointer capture starts only past the 6px drag threshold (capturing on pointerdown retargets the click to the stage and kills the card links), native link drag is suppressed via `dragstart` preventDefault + `user-select: none` (otherwise a spin starting on a card becomes an HTML5 link-drag and `pointercancel` kills it) and a real drag kills any running tween, suppresses the click behind it and blurs any focused card; each card carries a `.tile-service` plate (Yoast primary `service` term via `yoast_get_primary_term_id`, else the first assigned term; a clean solid plate — `rgba(13,13,13,.85)`, 2px corners, eyebrow type, no tick or border) plus sector eyebrow, h3 client name and a 2-line-clamped one-liner on a caption-anchored gradient (the caption block carries its own backdrop sized to itself, so any caption height keeps 4.5:1 over bright uploads, on top of a lighter decorative scrim); tiles with `pj_link` render as external links (new tab, `rel="noopener"`, always-visible red ↗ kept on the last word by a `white-space: nowrap` wrap) while tiles without a link are plain divs with no hover affordance and no place in the tab order; tile images carry `alt=""` because the caption announces the project; under reduced motion the geometry still applies but every change is instant and the entrance is skipped; without JS (`html:not(.js)`, or before the `is-wheel` class lands) the stage is a native horizontal scroller with the controls hidden; in dark mode the section ends with a `$vc-ember-line` hairline to mark the seam against the equally-dark why band), `.why` `#why` (credibility bento: 3 differentiator cells from the `hp_why_items` repeater plus stat/note/CTA cells; static cells, no hover affordance, only the CTA button is interactive), `.story` `#story` (Video.js player `#our-story`), `.process` `#process` (numbered steps from `hp_process_steps`; scrubbed ember timeline, horizontal on desktop and a vertical left rail below lg), `.testimonials` `#testimonials` (spotlight: crossfading `.spotlight-photo` duotone portrait (400px col lg+, 10px radius, grayscale + brand-red soft-light overlay) beside the Splide fade quote, a small `.cite-avatar` duotone headshot beside the attribution below lg, aggregate `.rating-chip`, trust logos, autoplay progress + counter + arrows; quote heights are equalised to the tallest blockquote by testimonials.js (re-measured on resize and fonts.ready); `tm_photo` falls back to `assets/images/testimonials/avatar-placeholder.png`), `.contact` `#contact` (text col-lg-6 / form col-lg-5 offset-lg-1; the heading's `you&nbsp;want` and `to&nbsp;discuss` keep those pairs together once the SplitText reveal reverts — note nbsp only holds after the revert, not during the split; Gravity Form id=2). Copy comes from `hp_` ACF fields; every field's ACF `default_value` mirrors the live copy and the front page's saved values (including the `hp_results_stats`/`hp_process_steps`/`hp_why_items` repeater rows) are seeded with it, so the edit screen always shows the real content — the inline `?:` fallbacks in the template remain only as a blank-field safety net. An `hp_heading()` helper swaps default headings for `<span>`-highlighted versions. Section eyebrow tags were removed in the June 2026 polish (the `hp_*_tag` fields remain in ACF but are not rendered) and section h2s render all-caps (`.home.page section .content h2 { text-transform: uppercase }` in `_homepage.scss`). Below lg the hero uses a different poster entirely: `assets/images/hero/statue-forward.webp`, a forward-facing transparent cut-out (no blend mask, opacity 0.4, `object-position: 15% top`), chosen by viewport in `spline-viewer.js`; desktop keeps `statue-poster.webp` as the Spline fallback behind a long left fade (`mask-image` to 65%). |
+| `front-page.php` | Homepage (June 2026 "forge" redesign). 10 sections, each an anchor target: `.hero` `#top` (full-bleed dark hero in both modes, kinetic Archivo headline with rotating `.dynamic-text` words, Spline statue layer in `.graphic`, logo marquee `#logo-splide` at the hero base fed by the `worked_with_logos` options repeater), `.results` `#results` (count-up stats from `hp_results_stats`), `.services` `#services` (service cards from the `service` taxonomy: horizontal scrubbed track on desktop, stacked vertical card list below lg with the same card design; the service icon renders as a large faded watermark in each card's bottom-right corner, direct child of the row; hover styles are gated behind `@media (hover: hover)`, `:focus-visible` carries the same affordance), `.work` `#work` (work index from 3 `case_study` posts where `cs_featured` = 1: case rows + crossfading `.case-stage` on desktop, stacked image cards below lg whose captions sit on a caption-anchored gradient over a lighter depth scrim — same pattern as the Our Work cards, knee held at 70% because these captions run taller — with a full-opacity sector eyebrow so text keeps 4.5:1 over bright uploads; all text always visible, hover only swaps the decorative stage; ends with the `.work-outro` conversion line), `.our-work` `#our-work` (the lighter portfolio tier: the WORK WHEEL `#work-wheel`, a custom GSAP arc carousel of up to 8 projects curated and ordered by the homepage `hp_our_work_projects` relationship field, posts without an image skipped; cards (480/360/300px by breakpoint, aspect 4/3, inside a fixed-height `.wheel-stage` of 560/480/420px so nothing shifts) stand on the rim of a huge invisible wheel — our-work.js derives every card's x/y/rotation/scale/z from one progress value (radius 1800/1400/1150, arc spacing 540/408/336, tangent rotation damped ×0.6) — dragging anywhere spins it with velocity carry and elastic ends, 44px arrows beside the heading (with a "Drag to spin" hint) step it with a `back.out` settle, and on first view the deck fans open from a centre stack; the template orders the cards centre-out (the first pick takes the middle slot, later picks alternate right then left) and the wheel starts on that middle card; the spin range is the full [0, count−1] so every card including the first and last can come to centre (the earlier flank-clamp left edge cards unreachable, especially on mobile) — at the ends one side of the arc is naturally emptier; the centred card carries an `is-front` depth shadow on the list item (not the tile, so the hover glow composes instead of losing the specificity fight); linked tiles get a layered hover (image saturates and scales 1.06 inside the card, an ember sheen sweeps via `::after` at `$z-base` beneath the caption and pill at `$z-raised`, the border heats and a red glow shadow lifts the card; the card itself never moves), mirrored on `:focus-visible`; cards more than ~2 slots out get `inert` + `aria-hidden`; keyboard focus (`:focus-visible` only — mouse focus must not, or clicks fight a recentre tween) recentres the wheel on the focused card; a plain click on any card just opens its link, pointer capture starts only past the 6px drag threshold (capturing on pointerdown retargets the click to the stage and kills the card links), native link drag is suppressed via `dragstart` preventDefault + `user-select: none` (otherwise a spin starting on a card becomes an HTML5 link-drag and `pointercancel` kills it) and a real drag kills any running tween, suppresses the click behind it and blurs any focused card; each card carries a `.tile-service` plate (Yoast primary `service` term via `yoast_get_primary_term_id`, else the first assigned term; a clean solid plate — `rgba(13,13,13,.85)`, 2px corners, eyebrow type, no tick or border) plus sector eyebrow, h3 client name and a 2-line-clamped one-liner on a caption-anchored gradient (the caption block carries its own backdrop sized to itself, so any caption height keeps 4.5:1 over bright uploads, on top of a lighter decorative scrim); tiles with `pj_link` render as external links (new tab, `rel="noopener"`, always-visible red ↗ kept on the last word by a `white-space: nowrap` wrap) while tiles without a link are plain divs with no hover affordance and no place in the tab order; tile images carry `alt=""` because the caption announces the project; under reduced motion the geometry still applies but every change is instant and the entrance is skipped; without JS (`html:not(.js)`, or before the `is-wheel` class lands) the stage is a native horizontal scroller with the controls hidden; in dark mode the section ends with a `$vc-ember-line` hairline to mark the seam against the equally-dark why band), `.why` `#why` (credibility bento: 3 differentiator cells from the `hp_why_items` repeater plus stat/note/CTA cells; static cells, no hover affordance, only the CTA button is interactive), `.process` `#process` (numbered steps from `hp_process_steps`; scrubbed ember timeline, horizontal on desktop and a vertical left rail below lg), `.testimonials` `#testimonials` (spotlight: crossfading `.spotlight-photo` duotone portrait (400px col lg+, 10px radius, grayscale + brand-red soft-light overlay) beside the Splide fade quote, a small `.cite-avatar` duotone headshot beside the attribution below lg, aggregate `.rating-chip`, trust logos, autoplay progress + counter + arrows; quote heights are equalised to the tallest blockquote by testimonials.js (re-measured on resize and fonts.ready); `tm_photo` falls back to `assets/images/testimonials/avatar-placeholder.png`), `.contact` `#contact` (text col-lg-6 / form col-lg-5 offset-lg-1; the heading's `you&nbsp;want` and `to&nbsp;discuss` keep those pairs together once the SplitText reveal reverts — note nbsp only holds after the revert, not during the split; Gravity Form id=2), `.latest-insights` `#latest-insights` (the three newest posts as shared `.insight-card`s via `template-parts/content-card.php`; heading, sub-line and view-all link from `hp_latest_heading/subheading/cta_label`). Copy comes from `hp_` ACF fields; every field's ACF `default_value` mirrors the live copy and the front page's saved values (including the `hp_results_stats`/`hp_process_steps`/`hp_why_items` repeater rows) are seeded with it, so the edit screen always shows the real content — the inline `?:` fallbacks in the template remain only as a blank-field safety net. An `hp_heading()` helper swaps default headings for `<span>`-highlighted versions. Section eyebrow tags were removed in the June 2026 polish (the `hp_*_tag` fields remain in ACF but are not rendered) and section h2s render all-caps (`.home.page section .content h2 { text-transform: uppercase }` in `_homepage.scss`). Below lg the hero uses a different poster entirely: `assets/images/hero/statue-forward.webp`, a forward-facing transparent cut-out (no blend mask, opacity 0.4, `object-position: 15% top`), chosen by viewport in `spline-viewer.js`; desktop keeps `statue-poster.webp` as the Spline fallback behind a long left fade (`mask-image` to 65%). The story section (Video.js player `#our-story`) moved to the About page in July 2026, so the homepage bundle no longer carries story.js or Video.js. |
 | `page.php` | Default page template, used by long-form utility/legal pages (Privacy Policy, Cookie Policy, Services). Forge layout in `.default-page`: a dark `.page-header` title band (a `[wpseo_breadcrumb]` `.breadcrumbs` eyebrow above an Archivo `vc-display-2`, uppercase title; its `<div>` — not `<header>`, which would inherit the global fixed nav's `position: fixed` — and `$space-15` top padding clear the fixed site header) over a light `.page-body` with the prose constrained to `col-lg-8`. `.content-area` styles `the_content()` output: Archivo `h2`, Poppins `h3`, near-black body (`$vc-grey-700`), brand-red `::marker` and links, plus table/blockquote styles; full light/dark pairing. |
 | `single.php` | Single posts. Calls `get_template_part('template-parts/content', 'blog')`. |
 | `home.php` | Blog listing. Custom `WP_Query` with 12 posts per page, Yoast breadcrumbs, post card grid (col-lg-4, col-md-6, col-12), pagination. |
@@ -379,7 +381,8 @@ Defined in `functions.php`:
 
 | File | Purpose |
 |---|---|
-| `page-contact-us.php` | Contact page (forge redesign). 2 sections: a full-dark `.contact-hero` band (a `[wpseo_breadcrumb]` `.breadcrumbs` like the insights header, page `<h1>`, reassurance points separated by hairlines — no eyebrow ticks), and `.contact-main` (direct contact channels — email `mailto:`/phone `tel:`/the address (linking to a map), each an icon-led row in a hairline square; these come from Global Settings → Company info (`company_email`/`company_phone`/`company_location`/`company_map_url` via the `'options'` id), the same source as the footer — and a "what happens next" list beside Gravity Form id=2, the form styled identically to the homepage `.contact` block). On mobile the form column comes first (Bootstrap `order-1 order-lg-2`). The hero and the two `.contact-main` columns are pre-hidden by an `html.js`-gated rule in `_main.scss` (opacity 0 + a 2.5s failsafe) and fade up via `reveal.js`, so they never flash at their final position on load. No social links, no trust strip and no FAQ (deliberately kept to a single focused action), and the global footer `.footer-cta` band is hidden on this template. Copy comes from `ct_` ACF fields (every `default_value` mirrors the live copy and the page's saved values are seeded to match); the `ct_heading()` helper swaps default headings for `<span>`-highlighted versions. JS bundle `contact.js` (reveal only). |
+| `page-contact-us.php` | Contact page (forge redesign). 2 sections: the shared `template-parts/page-hero.php` band (alias class `contact-hero`; breadcrumbs eyebrow, page `<h1>`, sub-line — the page's own `contact-us/components/_hero.scss` is gone), and `.contact-main` (direct contact channels — email `mailto:`/phone `tel:`/the address (linking to a map), each an icon-led row in a hairline square (the shared `.contact-channels` component in `common/_contact-channels.scss`, also used by the About founders' bio plates); these come from Global Settings → Company info (`company_email`/`company_phone`/`company_location`/`company_map_url` via the `'options'` id), the same source as the footer — and a "what happens next" list beside Gravity Form id=2, the form styled identically to the homepage `.contact` block). On mobile the form column comes first (Bootstrap `order-1 order-lg-2`). The hero heading/sub-line and the `.contact-main` reveal targets are pre-hidden by an `html.js`-gated rule in `_main.scss` (opacity 0 + a 2.5s failsafe) and fade up via `reveal.js`, so they never flash at their final position on load. No social links, no trust strip and no FAQ (deliberately kept to a single focused action), and the global footer `.footer-cta` band is hidden on this template. Copy comes from `ct_` ACF fields (every `default_value` mirrors the live copy and the page's saved values are seeded to match); the `ct_heading()` helper swaps default headings for `<span>`-highlighted versions. JS bundle `contact.js` (reveal, next-steps and form-progress modules). |
+| `page-about-us.php` | About page (forge redesign). Title "About", slug `/about/` (page id 527). Opens with the shared `template-parts/page-hero.php` band (alias class `about-hero`; an `ab_heading()` highlight-map helper cloned from `ct_heading()`), then 5 sections: `.about-founders` `#founders` (the section head is a split row — the h2 left, the red-ruled `intro-lead` positioning statement right (`ab_intro_statement`/`ab_intro_support`; sentence-case Poppins with the red span held on one line via `white-space: nowrap` — Ibrar rejected a standalone statement band twice as a hero lookalike, so it merged into this head); below it the expanding founder duo: base markup renders both panels stacked and fully open with server-side `aria-expanded="true"`, so no-JS and reduced motion see everything and the toggles hide via `:not(.is-enhanced)`; founders.js adds `is-enhanced` + `is-duo` on lg+ with motion allowed — one interruptible timeline tweens both panels' flex-basis 49.4/49.4↔44/17 under `justify-content: space-between` (the .6/1% shortfalls keep a slim visible gap between the panels at rest and between the plate and the spine when open), so opening a founder parts the row and their bio plate (width fixed in px by founders.js at 38% of the row, anchored off the panel's inner edge; its LinkedIn/email/phone rows are the shared `.contact-channels` component from `common/_contact-channels.scss` — identical format and forge hover to the Contact page — with solid Font Awesome icons supplied by Ibrar) fades into the middle gap directly beside their own portrait, while the other panel crossfades to a veiled vertical-name spine (`.founder-spine`: deep scrim, icon-only toggle); the open pair fuses into ONE box (the joining edges square off, only the outer corners stay 10px, the shared border edge goes — the same fusion applies to the open accordion card below lg); nothing re-wraps mid-tween (captions keep a fixed-width `.caption-inner`, the plate never resizes, the spine swap is opacity only) and the short bios are height-equalised by founders.js so the two captions line up at rest, the portrait saturates to full colour on open (a state change; the media carries no hover effects, per the tint-hover ban), and every expand/collapse ends with `ScrollTrigger.refresh()` so the scrubbed sections below never work from stale positions; below lg `is-accordion` height-tweens each bio independently. Portraits take the duotone spotlight recipe; the caption-anchored gradient runs a long eased multi-stop ramp (near-full by 26% on desktop, 20% below lg, `$space-10` top fade) so no band edge shows across the portrait, verified 5.7:1 desktop / 6.4:1 mobile worst-case over white at the name row), `.about-story` `#story` (the homepage story section migrated here: `ab_story_*` fields with the video URL editable, story.js moved to `assets/js/about/` with retargeted selectors and a lazily initialised Video.js player `#our-story`; the pre-fonts hide of `.split-text-story` now lives in the `html.js`-gated failsafe block in `_about-us.scss` rather than unconditional CSS, fixing a scripts-blocked invisibility the homepage original had), `.about-values` `#values` (giant Archivo value words, solid red in base CSS so no-JS and reduced motion read the finished state; values.js adds `.is-scrub` under motion and scrubs a clip-path red fill across each word, the outline base drawn via `-webkit-text-stroke`), `.about-how` `#how` (ledger rows, no numerals, scrubbed ember rail via how.js, sticky heading column on lg), and `.about-proof` `#proof` (the shared `.testimonial-spotlight` component reusing homepage testimonials.js, the shared `.rating-chip` beside the heading — it reads the homepage's `hp_testimonials_rating_value/label` from the front page so the site keeps one aggregate rating edited in one place — plus a `worked_with_logos` Splide marquee `.about-logos` reusing homepage marquee.js; the JS is concatenated into the about bundle). Surfaces run hero dark → founders #FFF → story #F5F5F5 → values #FFF → how #F5F5F5 → proof #FFF with the standard dark pairings (first section after the hero = the lighter pair, per the sitewide rule); section h2s render all-caps via a page-scope rule in `_about-us.scss`, and the hero/story reveal targets are pre-hidden by the `html.js`-gated rule there (opacity 0 + a 2.5s failsafe, revealed by about/reveal.js; the below-fold sections are JS-hidden by reveal.js itself). Structured data: two Person nodes fed by the `ab_founders` repeater, attached to Yoast's Organization `@id` `/#organization` via `worksFor`; `vc_schema_type()` outputs `AboutPage` for this template; and the `wpseo_schema_organization` filter in `inc/filters.php` enriches Yoast's org node with the `company_*` options plus the four social profile URLs. Copy comes from `ab_` ACF fields (defaults mirror the live copy, the page's saved values are seeded to match, repeater rows included). JS bundle `about.js`. |
 | `page-404-preview.php` | Renders the shared `template-parts/content-404.php` at a stable URL (`/404-preview/`) so the 404 design can be reviewed and tested, since real 404s redirect to the homepage. The `.error-section` styles key off the section class (not a body class), so they apply on both this template and `404.php`. |
 | `page-your-business.php` | Major landing page. Dark mode forced. 6 sections: Hero (Gravity Form id=2 + Splide logo carousel), Problem (repeater grid), Solution (2-pillar layout), Outcomes (numbered repeater), Trust (partner logos + testimonial Splide carousel), CTA (Gravity Form id=2). All sections pull from ACF fields with `yb_` prefix and inline fallback defaults. |
 
@@ -390,6 +393,7 @@ Defined in `functions.php`:
 | `content-blog.php` | `single.php` | Full blog post layout: hero with featured image, breadcrumbs, title, excerpt, category badges, read time; main content from ACF `intro_key_takeaways` + `content` fields with auto-generated heading IDs; FAQs repeater with schema.org JSON-LD; sidebar with auto-generated TOC, author info, newsletter form (Gravity Form id=3). |
 | `archive-category.php` | `archive.php` | Category archive: heading with breadcrumbs, 12 posts per page filtered by current category, post card grid, pagination. |
 | `content-404.php` | `404.php`, `page-404-preview.php` | The forge 404 section (`.error-section`): error code, heading, copy and the forge/ghost CTA pair. Shared so the real error response and the preview page render identically. |
+| `page-hero.php` | `page-contact-us.php`, `page-about-us.php` | The shared dark page-hero band: `[wpseo_breadcrumb]` breadcrumbs eyebrow, display `<h1>` with the red `<span>` highlight, optional muted sub-line, two-gradient forge glow. Called with `get_template_part()` `$args` (`heading`, `subheading`, `class`, `id` defaulting to `top`); each consumer passes an alias class (`contact-hero` / `about-hero`) for its own pre-hide and reveal selectors. Styles in `common/_page-hero.scss`, keyed off `.page-hero` (the content-404 sharing pattern); dark in both modes, with a `$vc-ember-line` seam under it in dark mode. |
 
 #### `get_template_part()` pattern
 
@@ -431,6 +435,8 @@ get_template_part('template-parts/content', 'blog');
 
 Display logic: `is_front_page()` selects the `*-home` variant; all other pages use `*-other`.
 
+The former "Our Story" items in all four locations now read "About" and link to `/about/` (the story section moved from the homepage to the About page).
+
 ### Dark Mode
 
 Dark mode is the **default** for every page (dark-first). Light mode is the opt-out, persisted in `localStorage`. Four layers work together:
@@ -449,7 +455,7 @@ Two forms are used:
 
 | Form ID | Purpose | Locations |
 |---|---|---|
-| 2 | Contact/enquiry form | `front-page.php` (contact section), `page-your-business.php` (hero + CTA sections) |
+| 2 | Contact/enquiry form | `front-page.php` (contact section), `page-contact-us.php` (main section), `page-your-business.php` (hero + CTA sections) |
 | 3 | Newsletter subscription | `footer.php`, `template-parts/content-blog.php` (sidebar) |
 
 Embedding pattern:
@@ -489,6 +495,14 @@ assets/css/
 └── components/
     ├── 404/
     │   └── _404.scss
+    ├── about-us/
+    │   ├── _about-us.scss                # page scope + the html.js-gated reveal pre-hide/failsafe
+    │   └── components/
+    │       ├── _founders.scss            # incl. the merged section head + intro-lead
+    │       ├── _how.scss
+    │       ├── _proof.scss
+    │       ├── _story.scss
+    │       └── _values.scss
     ├── archive/
     │   ├── author/
     │   │   ├── _author.scss
@@ -503,10 +517,15 @@ assets/css/
     │       ├── _pagination.scss
     │       └── _posts.scss
     ├── common/
+    │   ├── _contact-channels.scss        # shared icon channel rows (Contact page + About founder plates)
+    │   ├── _page-hero.scss               # shared page-hero band (Contact + About)
     │   ├── _pagination.scss
-    │   └── _post-grid.scss
+    │   ├── _post-grid.scss
+    │   └── _testimonial-spotlight.scss   # shared spotlight (homepage testimonials + About proof)
     ├── contact-us/
-    │   └── _contact-us.scss
+    │   ├── _contact-us.scss
+    │   └── components/
+    │       └── _main.scss                # the hero band is the shared page-hero component
     ├── content/
     │   └── post/
     │       ├── _post.scss
@@ -529,12 +548,13 @@ assets/css/
     │   └── components/
     │       ├── _contact.scss
     │       ├── _hero.scss
+    │       ├── _latest-insights.scss
     │       ├── _our-work.scss
     │       ├── _process.scss
     │       ├── _results.scss
     │       ├── _services.scss
-    │       ├── _story.scss
-    │       ├── _testimonials.scss
+    │       ├── _story.scss               # legacy, no longer imported (the story section moved to the About page)
+    │       ├── _testimonials.scss        # section head + trust logos; the spotlight AND rating chip live in common/_testimonial-spotlight.scss
     │       ├── _text-marquee.scss
     │       ├── _why.scss
     │       └── _work.scss
@@ -560,7 +580,7 @@ assets/css/
 1. External libraries: video.js + city theme, theme-toggles, Splide core, Bootstrap SCSS
 2. Core theme: `_fonts.scss`, `_variables.scss`, `_mixins.scss`
 3. Global styles: CSS custom properties (`--app-height`), base resets, dark mode body transition, a global `:focus-visible` outline ring for keyboard users
-4. Components: misc/motion, header, homepage, your-business, default-page, 404, contact-us, post content, archive pages, footer
+4. Components: misc/motion, header, the shared common partials (page-hero, testimonial-spotlight), homepage, your-business, default-page, 404, contact-us, about-us, the insights partials (common post-grid + pagination, archive headings and grid, post content), footer
 
 ### Variables (`_variables.scss`)
 
@@ -774,7 +794,7 @@ On the homepage every dark-mode override sits inside the `.home.page` scope (`@a
 
 - **No small red text on light surfaces.** `$vc-primary` on `#F5F5F5` is roughly 3.25:1, which fails for body-size text. Use `vc-eyebrow-tick($vc-grey-600)` so the red tick carries the accent instead. Red text is fine on the dark surfaces.
 - **Buttons are white-on-red by standing decision.** `vc-button-forge` puts white on `$vc-primary` (3.6:1). Ibrar reviewed and chose this over dark-on-red; treat it as the one deliberate exception to the 4.5:1 floor and do not extend it to non-button text.
-- **Text over imagery uses the caption-anchored gradient pattern.** A light fixed depth scrim plus a gradient on the caption block itself (sized to itself, so any caption height stays covered). Verify by alpha-compositing both gradients at each text element's position over a pure-white image; tune the gradient knee to the caption height (`.tile-caption` in `_our-work.scss` uses 60%, the taller `.case-overlay` in `_work.scss` needs 70%).
+- **Text over imagery uses the caption-anchored gradient pattern.** A light fixed depth scrim plus a gradient on the caption block itself (sized to itself, so any caption height stays covered). Verify by alpha-compositing both gradients at each text element's position over a pure-white image; tune the gradient knee to the caption height (`.tile-caption` in `_our-work.scss` uses 60%, the taller `.case-overlay` in `_work.scss` needs 70%, and the very tall `.founder-caption` in the About `_founders.scss` brings the knee forward to 16% with a `$space-8` top fade).
 - **Badges and labels on imagery** are solid plates: `rgba(13,13,13,.85)`, 2px corners, white eyebrow type, no pills, no borders, no ticks.
 - **Muted text** uses `$vc-grey-600`/`$vc-grey-700` on light and `$vc-muted-on-dark` on dark.
 
@@ -811,11 +831,10 @@ assets/js/
 │   └── scrollspy.js
 ├── footer/                     # Always loaded
 │   └── footer.js
-├── homepage/                   # Front page only
+├── homepage/                   # Front page only (testimonials.js and marquee.js also ship in the about bundle)
 │   ├── hero.js
 │   ├── marquee.js
 │   ├── why.js
-│   ├── story.js
 │   ├── services.js
 │   ├── work.js
 │   ├── our-work.js
@@ -826,6 +845,16 @@ assets/js/
 │   └── contact.js
 ├── spline/                     # Part of homepage bundle
 │   └── spline-viewer.js
+├── about/                      # About template only
+│   ├── reveal.js
+│   ├── founders.js
+│   ├── story.js
+│   ├── values.js
+│   └── how.js
+├── contact/                    # Contact template only
+│   ├── reveal.js
+│   ├── next-steps.js
+│   └── form-progress.js
 ├── your-business/              # Your-business template only
 │   ├── hero.js
 │   ├── logo-bar.js
@@ -834,11 +863,15 @@ assets/js/
 │   ├── outcomes.js
 │   ├── testimonials.js
 │   └── cta.js
-├── single-blog/                # Single posts only
+├── blog/                       # Insights modules (feed the single-blog, archive-blog and archive-author bundles)
+│   ├── reveal.js
+│   ├── filter.js
+│   └── toc.js
+├── single-blog/                # Legacy loading.js, no longer bundled
 │   └── loading.js
-├── archive-blog/               # Blog archive + categories
+├── archive-blog/               # Legacy loading.js, no longer bundled
 │   └── loading.js
-├── archive-author/             # Author archive
+├── archive-author/             # Legacy loading.js, no longer bundled
 │   └── loading.js
 └── components/                 # Shared utility modules
     └── reduced-motion.js       # prefersReducedMotion() helper
@@ -846,19 +879,20 @@ assets/js/
 
 ### Bundles (`webpack.mix.js`)
 
-8 bundles, each concatenating source files:
+10 bundles, each concatenating source files:
 
 | Bundle | Source files | Condition |
 |---|---|---|
 | `global.js` | dark-mode, load-at-top, smooth-scrolling, remove-anchor-from-url | Always |
 | `header.js` | header, mobile-menu, scrollspy | Always |
 | `footer.js` | footer | Always |
-| `homepage.js` | spline-viewer, hero, marquee, why, story, services, work, our-work, process, testimonials, reveal, counter, contact | `is_front_page()` |
-| `single-blog.js` | loading | `is_single()` |
-| `archive-blog.js` | loading | `is_home() \|\| is_category()` |
-| `archive-author.js` | loading | `is_author()` |
+| `homepage.js` | spline-viewer, hero, marquee, why, services, work, our-work, process, testimonials, reveal, counter, contact | `is_front_page()` |
+| `single-blog.js` | blog/reveal, blog/filter, blog/toc | `is_single()` |
+| `archive-blog.js` | blog/reveal, blog/filter, blog/toc | `is_home() \|\| is_category()` |
+| `archive-author.js` | blog/reveal, blog/filter, blog/toc | `is_author()` |
 | `your-business.js` | hero, logo-bar, problem, solution, outcomes, testimonials, cta | `is_page_template('page-templates/page-your-business.php')` |
-| `contact.js` | reveal | `is_page_template('page-templates/page-contact-us.php')` |
+| `contact.js` | reveal, next-steps, form-progress | `is_page_template('page-templates/page-contact-us.php')` |
+| `about.js` | about/reveal, about/founders, about/story, about/values, about/how, plus the shared homepage/testimonials.js and homepage/marquee.js (they bind by element id; the blog bundles set the same multi-bundle precedent) | `is_page_template('page-templates/page-about-us.php')` |
 
 ### GSAP setup
 
@@ -866,11 +900,11 @@ GSAP v3.12.5 is imported as an npm module. Plugins used:
 
 | Plugin | Registered in | Purpose |
 |---|---|---|
-| `ScrollTrigger` | Homepage hero, story, services, contact; archive and single-blog modules | Scroll-based animation triggers |
-| `SplitText` | Homepage hero, story, contact; archive and single-blog modules | Text line/word splitting for reveal animations |
+| `ScrollTrigger` | Homepage hero, services, process, contact; the About founders, story, values and how modules; the your-business modules | Scroll-based animation triggers |
+| `SplitText` | Homepage hero, reveal, contact; About reveal and story; the contact and blog reveals; the your-business modules | Text line/word splitting for reveal animations |
 | `DrawSVGPlugin` | `header/header.js` | SVG path draw animation for the logo |
 
-The newer homepage modules (`reveal.js`, `work.js`, `our-work.js`, `why.js`, `counter.js`) deliberately use `IntersectionObserver` instead of ScrollTrigger, so content can never be left stuck hidden under fast scrolling. Every animation module imports `prefersReducedMotion()` from `assets/js/components/reduced-motion.js` and falls back to a static, fully visible state.
+The newer homepage modules (`reveal.js`, `work.js`, `our-work.js`, `why.js`, `counter.js`) deliberately use `IntersectionObserver` instead of ScrollTrigger, so content can never be left stuck hidden under fast scrolling. Every animation module branches on the reduced-motion query — via the shared `prefersReducedMotion()` helper from `assets/js/components/reduced-motion.js`, or a `gsap.matchMedia('(prefers-reduced-motion: no-preference)')` context in the About founders/values/how modules — and falls back to a static, fully visible state.
 
 Registration pattern:
 
@@ -999,10 +1033,10 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 - **`header/mobile-menu.js`**: Full-screen overlay menu (jQuery). Toggles `mobile-menu-active` on the header and `no-scroll` on the body, updates `aria-expanded`/`aria-label`, moves focus into the menu once the overlay transition finishes, closes on Escape, traps Tab focus while open, and closes then animates scroll for in-menu anchor links.
 - **`footer/footer.js`**: Empty stub. The custom cursor and mouse-follow glow were removed; hover/focus states live in CSS.
 - **`spline/spline-viewer.js`**: Prepends the poster (`assets/images/hero/statue-poster.webp`) into `.hero .graphic` as an instant visual. Then, only on viewports >= 992px without reduced motion, lazy-loads `@splinetool/viewer` via dynamic `import()` (code-split chunk; `__webpack_public_path__` is set from the inline `window.__vc_public_path`) once fonts are ready, on `requestIdleCallback`, and appends a `<spline-viewer>` for `assets/spline/scene.splinecode`. On mobile and under reduced motion the poster stays as a faint backdrop (`.graphic` at 0.28 opacity, masked).
-- **Splide carousels**: homepage `marquee.js` (hero logo marquee `#logo-splide`: loop, free drag, AutoScroll at speed 0.8, 6/4/3 logos per page; static but draggable under reduced motion), homepage `testimonials.js` (`#testimonial-splide`), plus the your-business `logo-bar.js` and `testimonials.js`.
+- **Splide carousels**: homepage `marquee.js` (hero logo marquee `#logo-splide`: loop, free drag, AutoScroll at speed 0.8, 6/4/3 logos per page; static but draggable under reduced motion), homepage `testimonials.js` (`#testimonial-splide`), plus the your-business `logo-bar.js` and `testimonials.js`. The homepage `marquee.js` and `testimonials.js` are also concatenated into the about bundle: they bind by element id, and the About proof section renders the same `#logo-splide` and `#testimonial-splide` ids.
 - **`homepage/our-work.js`**: The work wheel, a fully custom GSAP arc carousel (no Splide). One `progress` value drives everything: each card's transform derives from its angle on a large wheel (`x = sin·R`, `y = (1−cos)·R`, tangent rotation damped), so drag, momentum, arrow steps and the fan-open entrance are all tweens of `progress` (or `spread` for the entrance). It starts on the middle card (the template orders cards centre-out) and toggles `is-front` on whichever card holds the centre slot; the hover layers themselves are pure CSS. The drag input pipeline is smoothed: pointer moves only record a target and a rAF loop eases progress toward it (input-rate jitter never reaches the cards), the wheel does not move at all below the 6px threshold (clicks stay still), the start is re-based at the threshold so crossing it never jumps, a mostly-vertical touch gesture hands back to page scrolling, and the release velocity is an exponential moving average so equal flicks throw equally. Gotchas baked in: pointer capture is taken only after the 6px drag threshold (capturing on pointerdown makes the browser retarget the subsequent click to the stage, killing card links); a real drag suppresses the click behind it (capture-phase listener) and blurs any focused card; the spin range clamps to [1, count−2] so the stage never shows a dead half; far cards get `inert` + `aria-hidden`; `touch-action: pan-y` keeps page scroll alive on touch. Reduced motion keeps the wheel fully working with direct pointer tracking, instant steps and no entrance.
 - **`homepage/counter.js`**: Counts the `.results` stat numbers up from zero on first view (requestAnimationFrame + IntersectionObserver; keeps prefixes, suffixes and decimals; instant under reduced motion).
-- **Video.js**: `story.js` initialises a Video.js player on element `#our-story` (city theme; the videojs-youtube plugin is bundled).
+- **Video.js**: `about/story.js` initialises a Video.js player on element `#our-story` (city theme; the videojs-youtube plugin is bundled), lazily via IntersectionObserver just before the story section scrolls into view. It ships in the about bundle only — the homepage dropped story.js and Video.js when the story section moved to the About page.
 
 ---
 
@@ -1010,11 +1044,11 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 
 ### Field groups
 
-9 field groups plus an ACF options page definition, stored as JSON in `acf-json/`:
+11 field groups plus an ACF options page definition, stored as JSON in `acf-json/`:
 
 | File | Group | Applies to | Fields |
 |---|---|---|---|
-| `homepage.json` | Homepage | Page type = Front Page | 41 fields with `hp_` prefix: tag/heading/description text for the sections (including `hp_our_work_heading`/`hp_our_work_subheading`), the `hp_our_work_projects` relationship (post type `project`, max 8, drag-ordered; sets both the selection and the order of the Our Work shelf), plus repeaters `hp_results_stats` (`value`, `label`), `hp_process_steps` (`title`, `description`), `hp_why_items` (`title`, `description`, `proof`, max 3) and `hp_testimonials_logos` (`logo`, `alt_text`), plus the why-section extras `hp_why_stat_value/label`, `hp_why_note_title/text`, `hp_why_cta_text/label` and the testimonials rating chip `hp_testimonials_rating_value/label`. An `hp_testimonials_items` repeater also exists in the group, but the template reads the `testimonial` CPT instead. |
+| `homepage.json` | Homepage | Page type = Front Page | 38 fields with `hp_` prefix: tag/heading/description text for the sections (including `hp_our_work_heading`/`hp_our_work_subheading` and the latest-insights trio `hp_latest_heading`/`hp_latest_subheading`/`hp_latest_cta_label`), the `hp_our_work_projects` relationship (post type `project`, max 8, drag-ordered; sets both the selection and the order of the Our Work shelf), plus repeaters `hp_results_stats` (`value`, `label`), `hp_process_steps` (`title`, `description`) and `hp_testimonials_logos` (`logo`, `alt_text`), the why-section extras `hp_why_note_title/text` and `hp_why_cta_text/label`, and the testimonials rating chip `hp_testimonials_rating_value/label`. The story fields (`hp_story_tag/heading/description`) were removed when the story section moved to the About page. An `hp_testimonials_items` repeater also exists in the group, but the template reads the `testimonial` CPT instead; the why bento's `hp_why_items` rows and `hp_why_stat_value/label` are no longer registered in the group, though `front-page.php` still reads the saved meta with inline fallbacks. |
 | `case-study.json` | Case Study | Post type = `case_study` | `cs_client_name`, `cs_sector`, `cs_metric_value`, `cs_metric_label` (text), `cs_summary` (textarea), `cs_image` (image, array), `cs_featured` (true/false; the homepage work section queries `cs_featured` = 1) |
 | `project.json` | Project | Post type = `project` | The lighter Our Work tier: `pj_client_name` (text, required), `pj_sector` (text), `pj_description` (textarea, required, one sentence), `pj_image` (image, array, required), `pj_link` (url, optional live site; linkless tiles are not clickable). No featured/order fields: curation lives on the homepage in `hp_our_work_projects` |
 | `testimonial.json` | Testimonial | Post type = `testimonial` | `tm_quote` (textarea), `tm_name`, `tm_role`, `tm_company` (text), `tm_photo` (image, array; falls back to the theme placeholder headshot) |
@@ -1022,7 +1056,8 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 | `global-settings.json` | Global Settings | -- | Not a field group: the ACF UI options page definition ("Global Settings" admin page, slug `global-settings`, data stored in options). |
 | `blog.json` | Blog | Post type = `post` | `intro_key_takeaways` (WYSIWYG), `content` (WYSIWYG), `faqs` (repeater: `question` text + `answer` WYSIWYG) |
 | `your-business.json` | Your Business | Page template = `page-your-business.php` | 25 fields with `yb_` prefix covering hero, problem, solution, outcomes, trust, CTA sections. Mix of text, textarea, and repeaters. |
-| `contact-us.json` | Contact us | Page template = `page-contact-us.php` | Fields with `ct_` prefix for the Contact page: hero (`ct_hero_heading`, `ct_hero_subheading`, `ct_hero_points` repeater), `ct_next_heading` + `ct_next_steps` repeater, and `ct_form_heading`. The contact details (email/phone/location/map) are NOT here — they live in Global Settings → Company info (`company_*`), shared with the footer. The details column has no heading; the channels lead. |
+| `contact-us.json` | Contact us | Page template = `page-contact-us.php` | Fields with `ct_` prefix for the Contact page: hero (`ct_hero_heading`, `ct_hero_subheading`), `ct_next_heading` + `ct_next_steps` repeater, and `ct_form_heading`. The contact details (email/phone/location/map) are NOT here — they live in Global Settings → Company info (`company_*`), shared with the footer. The details column has no heading; the channels lead. |
+| `about-us.json` | About Us | Page template = `page-about-us.php` | Fields with `ab_` prefix for the About page: `ab_hero_heading`/`ab_hero_subheading`, `ab_intro_statement`/`ab_intro_support`, `ab_founders_heading` + `ab_founders` repeater (min 2, max 2: `name`, `role`, `short_bio`, `long_bio` (WYSIWYG, basic toolbar, no media), `photo` (image, array), `linkedin_url`, `email`, `phone`), `ab_story_heading`/`ab_story_description`/`ab_story_button_label`/`ab_story_video_url`, `ab_values_heading` + `ab_values` repeater (`word`, `line`; max 5), `ab_how_heading`/`ab_how_intro` + `ab_how_items` repeater (`title`, `description`), and `ab_proof_heading`. Every `default_value` mirrors the approved launch copy and the About page's saved values are seeded to match, repeater rows included. |
 | `user.json` | User | All user forms | `job_title` (text) |
 | `services.json` | Services | Taxonomy = `service` | `icon` (text), `order` (number) |
 
@@ -1033,7 +1068,8 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 - **Project (Our Work) fields:** Prefixed `pj_` (e.g. `pj_client_name`, `pj_featured`).
 - **Testimonial fields:** Prefixed `tm_` (e.g. `tm_quote`, `tm_company`).
 - **Your-business fields:** Prefixed `yb_` (e.g. `yb_hero_heading`, `yb_problem_points`).
-- **Contact page fields:** Prefixed `ct_` (e.g. `ct_hero_heading`, `ct_faqs`).
+- **Contact page fields:** Prefixed `ct_` (e.g. `ct_hero_heading`, `ct_next_steps`).
+- **About page fields:** Prefixed `ab_` (e.g. `ab_hero_heading`, `ab_founders`).
 - **Global/options fields:** No prefix (e.g. `worked_with_logos`, `company_email`/`company_phone`/`company_location`/`company_map_url`). Referenced with the `'options'` post id.
 - **Blog fields:** No prefix (e.g. `intro_key_takeaways`, `content`, `faqs`).
 - **User fields:** No prefix (e.g. `job_title`). Referenced as `'user_' . $user_id` in templates.
@@ -1166,6 +1202,7 @@ All enqueuing happens in `inc/styles-scripts.php` via the `add_custom_scripts()`
 | `archive-author` | `mix('/js/archive-author.js')` | `is_author()` | `jquery` |
 | `your-business` | `mix('/js/your-business.js')` | `is_page_template('page-templates/page-your-business.php')` | `jquery` |
 | `contact` | `mix('/js/contact.js')` | `is_page_template('page-templates/page-contact-us.php')` | `jquery` |
+| `about` | `mix('/js/about.js')` | `is_page_template('page-templates/page-about-us.php')` | `jquery` |
 
 All scripts load in the footer (`true` as the last parameter). All depend on `['jquery']`.
 

@@ -60,18 +60,15 @@ $ct_icons = [
 ];
 ?>
 
-<section class="contact-hero" id="top">
-	<div class="contact-hero-glow" aria-hidden="true"></div>
-	<div class="container px-4">
-		<div class="row">
-			<div class="col-lg-9 content">
-				<div class="breadcrumbs"><?php echo do_shortcode( '[wpseo_breadcrumb]' ); ?></div>
-				<h1><?php echo wp_kses_post( $hero_heading ); ?></h1>
-				<p class="sub-heading"><?php echo esc_html( $hero_subheading ); ?></p>
-			</div>
-		</div>
-	</div>
-</section>
+<?php
+// The shared page-hero band; 'contact-hero' stays on the section as the alias
+// the pre-hide rules in components/_main.scss and contact/reveal.js target.
+get_template_part( 'template-parts/page', 'hero', [
+	'heading'    => $hero_heading,
+	'subheading' => $hero_subheading,
+	'class'      => 'contact-hero',
+] );
+?>
 
 <section class="contact-main" id="contact">
 	<div class="container px-4">

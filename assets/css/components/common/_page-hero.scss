@@ -1,6 +1,10 @@
-// Contact hero: a full-dark forge band in both modes (same family as the 404
-// and homepage hero). The top padding clears the fixed site header. Page <h1>.
-.contact-hero {
+// The shared page-hero band (template-parts/page-hero.php): a full-dark forge
+// title band in both modes, same family as the 404 and homepage hero. Styles
+// key off the section class (the .error-section pattern) so every consumer
+// template renders identically; page templates add an alias class (e.g.
+// .contact-hero) only for their own pre-hide and reveal selectors. The top
+// padding clears the fixed site header.
+.page-hero {
   position: relative;
   overflow: hidden;
   background: $vc-background-dark;
@@ -12,7 +16,7 @@
 
   // Two-gradient forge glow, same composition as the homepage hero: the main
   // heat top-right plus a lower secondary bloom so the band reads molten, not flat.
-  .contact-hero-glow {
+  .page-hero-glow {
     position: absolute;
     inset: 0;
     background:
@@ -69,7 +73,7 @@
 
 // The hero stays dark in both modes; only its hue swaps with the body. In dark
 // mode the two dark bands meet, so the seam takes the house ember hairline.
-@at-root body.dark-mode .contact-hero {
+@at-root body.dark-mode .page-hero {
   background: $dark-vc-background-dark-alt !important;
   border-bottom: 1px solid $vc-ember-line !important;
 }

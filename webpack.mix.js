@@ -22,7 +22,6 @@ mix.js([
     'assets/js/homepage/hero.js',
     'assets/js/homepage/marquee.js',
     'assets/js/homepage/why.js',
-    'assets/js/homepage/story.js',
     'assets/js/homepage/services.js',
     'assets/js/homepage/work.js',
     'assets/js/homepage/our-work.js',
@@ -67,6 +66,18 @@ mix.js([
     'assets/js/contact/next-steps.js',
     'assets/js/contact/form-progress.js',
 ], 'js/contact.js');
+
+mix.js([
+    'assets/js/about/reveal.js',
+    'assets/js/about/founders.js',
+    'assets/js/about/story.js',
+    'assets/js/about/values.js',
+    'assets/js/about/how.js',
+    // Shared homepage modules (bind by element id; the blog bundles set the
+    // same multi-bundle precedent).
+    'assets/js/homepage/testimonials.js',
+    'assets/js/homepage/marquee.js',
+], 'js/about.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

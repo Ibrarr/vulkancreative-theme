@@ -1,0 +1,84 @@
+// Proof: the shared testimonial spotlight (common/_testimonial-spotlight.scss)
+// plus the client logo marquee from Global Settings, closing the page above
+// the footer CTA band.
+.about-proof {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+  overflow: hidden;
+
+  // Heading and rating chip share the row, mirroring the homepage
+  // testimonials head.
+  .proof-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $space-4;
+    margin-bottom: $space-6;
+
+    .content {
+      margin-bottom: 0;
+    }
+  }
+
+  .content {
+    max-width: 720px;
+    margin-bottom: $space-6;
+
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .about-logos {
+    margin-top: $space-8;
+    padding-top: $space-6;
+    border-top: 1px solid $vc-grey-200;
+    transition: border-color 0.3s;
+
+    .splide__slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 26px;
+        width: auto;
+        max-width: 140px;
+        object-fit: contain;
+        filter: grayscale(1);
+        opacity: 0.6;
+        transition: opacity 0.3s, filter 0.3s;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      .splide__slide img {
+        height: 20px;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .about-proof {
+  background: $dark-vc-background-dark !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .about-logos {
+    border-color: $vc-grey-dark-border !important;
+
+    .splide__slide img {
+      filter: grayscale(1) brightness(0) invert(1) !important;
+      opacity: 0.55 !important;
+    }
+  }
+}

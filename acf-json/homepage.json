@@ -901,69 +901,6 @@
             "append": ""
         },
         {
-            "key": "field_hp_0025",
-            "label": "Story Tag",
-            "name": "hp_story_tag",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Inside the forge",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_hp_0026",
-            "label": "Story Heading",
-            "name": "hp_story_heading",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Wrap a word in <span><\/span> to highlight it in red.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Our Story",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_hp_0027",
-            "label": "Story Description",
-            "name": "hp_story_description",
-            "aria-label": "",
-            "type": "textarea",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "We built Vulkan to do agency work properly: in person, honest about what works and measured by what it returns. Press play to meet the team you would be working with.",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "rows": 3,
-            "new_lines": ""
-        },
-        {
             "key": "field_hp_0028",
             "label": "Contact Tag",
             "name": "hp_contact_tag",
@@ -1113,5 +1050,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1781566541
+    "modified": 1783029215
 }

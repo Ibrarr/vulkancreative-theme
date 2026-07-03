@@ -1,0 +1,99 @@
+// Cinematic full-width showreel moment, migrated from the homepage. The head
+// stacks (heading, description, button — the house default) because the
+// founders section above owns the split-head composition. The inner class
+// names (.story-head, .split-text-story, .video-wrapper) are unchanged so
+// about/story.js and the misc/_motion.scss safety net keep matching.
+.about-story {
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  .story-head {
+    margin-bottom: $space-6;
+
+    .content {
+      h2 {
+        @include vc-display-2($vc-text-dark);
+        margin-bottom: 0;
+        transition: color 0.3s;
+
+        span {
+          color: $vc-primary;
+        }
+      }
+
+      // The pre-fonts hide lives in the html.js-gated failsafe block in
+      // _about-us.scss (the homepage original hid it unconditionally, which
+      // left it invisible when the bundles were blocked).
+      .split-text-story {
+        @include vc-p($vc-grey-600);
+        max-width: 60ch;
+        margin: $space-3 0 0;
+        will-change: transform;
+        transition: color 0.3s;
+
+        & * {
+          will-change: transform;
+        }
+      }
+
+    }
+
+    // The film CTA hangs at the bottom right of the head row on desktop.
+    .story-cta {
+      margin-top: $space-3;
+
+      @include media-breakpoint-up(lg) {
+        margin-top: 0;
+        text-align: right;
+      }
+
+      .bottom .button {
+        @include vc-button-ghost($vc-text-dark);
+        cursor: pointer !important;
+      }
+    }
+  }
+
+  .video-wrapper {
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid $vc-grey-200;
+    line-height: 0;
+    transition: border-color .3s;
+
+    .video-js {
+      width: 100% !important;
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+    }
+  }
+}
+
+@at-root body.dark-mode .about-story {
+  background: $dark-vc-background-dark-alt !important;
+
+  .story-head {
+    .content h2 {
+      color: $vc-text-light !important;
+    }
+
+    .content .split-text-story {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .story-cta .bottom .button {
+      color: $vc-text-light !important;
+      border-color: rgba($vc-text-light, 0.35) !important;
+
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .video-wrapper {
+    border-color: $vc-grey-dark-border !important;
+  }
+}

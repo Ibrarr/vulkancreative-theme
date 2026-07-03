@@ -1,0 +1,100 @@
+// Values as giant display words. Base CSS renders each word SOLID RED (the
+// finished state) so no-JS and reduced-motion read the section perfectly;
+// values.js adds .is-scrub (motion allowed only), which switches the base
+// word to a hairline outline and scrubs the red .value-fill duplicate in
+// with a clip-path as the word passes through the viewport (the process
+// numeral fill motif at display scale). Static content: no hover states.
+.about-values {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  .content {
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      margin-bottom: $space-6;
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .value-row {
+    padding: $space-4 0;
+    border-top: 1px solid $vc-grey-200;
+    transition: border-color 0.3s;
+
+    &:last-child {
+      border-bottom: 1px solid $vc-grey-200;
+    }
+  }
+
+  .value-word {
+    position: relative;
+    display: inline-block;
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(3rem, 7vw + 0.5rem, 7.5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: $vc-primary;
+    margin: 0;
+
+    .value-fill {
+      position: absolute;
+      inset: 0;
+      color: $vc-primary;
+      pointer-events: none;
+    }
+  }
+
+  .value-line {
+    @include vc-p($vc-grey-600);
+    margin: $space-2 0 0;
+    transition: color 0.3s;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 0 6px;
+    }
+  }
+
+  // Scrub mode: outline base + clipped red fill, driven by values.js.
+  &.is-scrub .value-word {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba($vc-text-dark, 0.35);
+
+    .value-fill {
+      -webkit-text-stroke: 1.5px transparent;
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+}
+
+@at-root body.dark-mode .about-values {
+  background: $dark-vc-background-dark !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .value-row {
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .value-line {
+    color: $vc-muted-on-dark !important;
+  }
+
+  &.is-scrub .value-word {
+    color: transparent !important;
+    -webkit-text-stroke-color: rgba($vc-text-light, 0.35) !important;
+
+    .value-fill {
+      color: $vc-primary !important;
+      -webkit-text-stroke-color: transparent !important;
+    }
+  }
+}

@@ -1,0 +1,488 @@
+// The founders duo: two tall duotone portrait panels. Base styles render the
+// stacked, fully-open state (no-JS and reduced-motion see everything with no
+// toggles); founders.js adds .is-enhanced plus .is-duo (lg+) or .is-accordion
+// (below lg) and drives the expand with GSAP.
+//
+// Duo geometry (Ibrar's review round): the two panels tween flex-basis with
+// justify-content: space-between, so opening a founder parts the row and the
+// bio plate fades into the middle gap DIRECTLY BESIDE the open portrait; the
+// other founder narrows to a veiled "spine" with a vertical name. Nothing
+// re-wraps mid-tween: captions have a fixed-width inner, the plate width is
+// set in px by founders.js, and the spine swaps in by crossfade only.
+// Imagery carries NO hover effects (the tint hover is banned; see CLAUDE.md);
+// the portrait saturates only on the real open state.
+.about-founders {
+  @include vc-section-padding;
+  // First section after the page hero: always the lighter surface pair
+  // (#FFF light / #1E1E1E dark), the sitewide convention.
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  .content {
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      margin-bottom: 0;
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .founders-head {
+    margin-bottom: $space-6;
+  }
+
+  // The positioning statement, merged into the section head (heading left,
+  // this red-ruled lead right). Sized as a lead line for its column, not a
+  // display heading.
+  .intro-lead {
+    border-left: 2px solid $vc-primary;
+    padding-left: $space-3;
+    margin-top: $space-5;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: 0;
+      margin-bottom: 6px;
+      padding-left: $space-4;
+    }
+
+    .intro-statement {
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: clamp(1.25rem, 0.8vw + 0.95rem, 1.625rem);
+      line-height: 1.4;
+      color: $vc-text-dark;
+      margin: 0 0 $space-2;
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+        white-space: nowrap;
+      }
+    }
+
+    .intro-support {
+      @include vc-body($vc-grey-600);
+      margin: 0;
+      transition: color 0.3s;
+    }
+  }
+
+  // Toggles only appear once JS has taken over; without it (or under reduced
+  // motion) the bios are already open, so the buttons would be dead controls.
+  &:not(.is-enhanced) .founder-toggle {
+    display: none;
+  }
+
+  .founder-panel {
+    min-width: 0;
+
+    + .founder-panel {
+      margin-top: $space-5;
+    }
+  }
+
+  .founder-media {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: $vc-text-dark;
+    aspect-ratio: 1 / 1;
+
+    @include media-breakpoint-up(md) {
+      aspect-ratio: 4 / 3;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1);
+      transition: filter 0.5s;
+    }
+
+    // Duotone: brand-red soft-light overlay over the grayscale portrait
+    // (the testimonial spotlight recipe). Static: never changes on hover.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: $vc-primary;
+      mix-blend-mode: soft-light;
+      opacity: 0.75;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+
+    // Light fixed depth scrim under the caption's own gradient; doubles as
+    // the spine veil (founders.js toggles .is-spine, the background deepens).
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(13, 13, 13, 0.38) 100%);
+      z-index: $z-base;
+      pointer-events: none;
+      transition: background 0.4s;
+    }
+  }
+
+  // Caption-anchored gradient: the block carries its own backdrop sized to
+  // itself, so any caption height keeps 4.5:1 over a worst-case bright photo.
+  // The ramp is a long eased multi-stop curve (Ibrar's review: a fast knee
+  // reads as a visible band edge across the portrait); every text row sits
+  // below the 32% stop. Verified by compositing at the name's position over
+  // pure white.
+  .founder-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: calc(#{$z-base} + 1);
+    padding: $space-10 $space-4 $space-4;
+    background: linear-gradient(180deg, rgba(13, 13, 13, 0) 0%, rgba(13, 13, 13, 0.3) 8%, rgba(13, 13, 13, 0.62) 16%, rgba(13, 13, 13, 0.86) 26%, rgba(13, 13, 13, 0.93) 40%, rgba(13, 13, 13, 0.94) 100%);
+
+    // The squarer below-lg media puts the name higher up the caption, so the
+    // ramp reaches depth sooner there (same graded curve, earlier stops).
+    @include media-breakpoint-down(lg) {
+      background: linear-gradient(180deg, rgba(13, 13, 13, 0) 0%, rgba(13, 13, 13, 0.3) 6%, rgba(13, 13, 13, 0.66) 13%, rgba(13, 13, 13, 0.88) 20%, rgba(13, 13, 13, 0.93) 36%, rgba(13, 13, 13, 0.94) 100%);
+    }
+
+    // Fixed measure so panel-width tweens never re-wrap the text.
+    .caption-inner {
+      max-width: 52ch;
+    }
+
+    .founder-name {
+      @include vc-display-3($vc-text-light);
+      text-transform: uppercase;
+      margin: 0 0 2px;
+    }
+
+    .founder-role {
+      @include vc-eyebrow($vc-text-light);
+      opacity: 0.92;
+      margin: 0 0 $space-2;
+    }
+
+    .founder-short {
+      @include vc-body(rgba($vc-text-light, 0.92));
+      max-width: 52ch;
+      margin: 0;
+    }
+  }
+
+  // The "closed tab" view: a vertical name and an icon toggle over the veiled
+  // portrait. Hidden entirely outside duo mode; founders.js crossfades it.
+  .founder-spine {
+    display: none;
+  }
+
+  .founder-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    margin-top: $space-3;
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid rgba($vc-text-light, 0.45);
+    border-radius: 2px;
+    color: $vc-text-light;
+    font-family: $vc-font-family;
+    font-size: 14px;
+    font-weight: $vc-bold;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+
+    .toggle-glyph {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 auto;
+      transition: transform 0.3s;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        background: currentColor;
+      }
+
+      &::before {
+        left: 0;
+        right: 0;
+        top: 5px;
+        height: 2px;
+      }
+
+      &::after {
+        top: 0;
+        bottom: 0;
+        left: 5px;
+        width: 2px;
+      }
+    }
+
+    &[aria-expanded="true"] .toggle-glyph {
+      transform: rotate(45deg);
+    }
+
+    &:focus-visible,
+    &:hover {
+      color: $vc-primary;
+      border-color: $vc-primary;
+    }
+  }
+
+  // The bio plate. Base (stacked / no-JS / reduced motion): a normal-flow
+  // solid plate below the portrait, fully visible.
+  .founder-bio {
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    margin-top: $space-2;
+    transition: background 0.3s, border-color 0.3s;
+
+    .founder-bio-inner {
+      padding: $space-4;
+    }
+
+    .founder-long {
+      p {
+        @include vc-body($vc-grey-700);
+        margin: 0 0 $space-2;
+        transition: color 0.3s;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Spacing/divider overrides on the shared contact-channels component
+  // (common/_contact-channels.scss), which supplies the row format and the
+  // forge hover identical to the Contact page.
+  .founder-channels {
+    margin: $space-4 0 0;
+    padding-top: $space-3;
+    border-top: 1px solid $vc-grey-200;
+    transition: border-color 0.3s;
+
+    .channel-value {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  // ------------------------------------------------------------------
+  // Duo mode (lg+, JS, motion allowed).
+  &.is-duo {
+    @include media-breakpoint-up(lg) {
+      .founders-duo {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        height: clamp(580px, 78vh, 740px);
+      }
+
+      .founder-panel {
+        position: relative;
+        flex: 0 0 50%;
+
+        + .founder-panel {
+          margin-top: 0;
+        }
+      }
+
+      .founder-media {
+        position: absolute;
+        inset: 0;
+        aspect-ratio: auto;
+      }
+
+      // Fixed (not max) width: the narrowing media clips the caption like a
+      // window sliding over laid-out text, so it can never re-wrap mid-tween.
+      .caption-inner {
+        width: 400px;
+        max-width: none;
+      }
+
+      // The plate hangs off the panel's inner edge into the middle gap that
+      // space-between opens up; founders.js sets its px width (38% of the
+      // row) so the text is laid out once and only ever fades.
+      .founder-bio {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 100%;
+        width: 38%;
+        margin: 0;
+        z-index: $z-raised;
+        opacity: 0;
+        visibility: hidden;
+
+        .founder-bio-inner {
+          height: 100%;
+          overflow-y: auto;
+          scrollbar-width: thin;
+          padding: $space-4;
+        }
+
+        .founder-long p {
+          margin-bottom: 12px;
+        }
+
+        .founder-channels {
+          margin-top: $space-3;
+          padding-top: $space-2;
+          gap: 12px;
+        }
+      }
+
+      .founder-panel + .founder-panel .founder-bio {
+        left: auto;
+        right: 100%;
+      }
+
+      // The open pair reads as ONE box (Ibrar's review): the joining edges
+      // square off, only the outer corners stay rounded, and the divider
+      // border on the shared edge goes.
+      .founder-media {
+        transition: border-radius 0.4s;
+      }
+
+      .founder-bio {
+        transition: background 0.3s, border-color 0.3s, border-radius 0.4s;
+      }
+
+      .founder-panel:first-child.is-open .founder-media {
+        border-radius: 10px 0 0 10px;
+      }
+
+      .founder-panel + .founder-panel.is-open .founder-media {
+        border-radius: 0 10px 10px 0;
+      }
+
+      .founder-panel:first-child .founder-bio {
+        border-left: 0;
+        border-radius: 0 10px 10px 0;
+      }
+
+      .founder-panel + .founder-panel .founder-bio {
+        border-right: 0;
+        border-radius: 10px 0 0 10px;
+      }
+
+      // Open panel: the portrait saturates to full colour (a state change,
+      // not a hover effect).
+      .founder-panel.is-open .founder-media {
+        img {
+          filter: grayscale(0);
+        }
+
+        &::after {
+          opacity: 0;
+        }
+      }
+
+      // Spine panel: the portrait takes a deep veil so the closed founder
+      // recedes instead of competing with the open bio. 0.78 keeps the
+      // vertical name at 3.8:1+ (large text) over a worst-case bright photo.
+      .founder-panel.is-spine .founder-media::before {
+        background: rgba(13, 13, 13, 0.78);
+      }
+
+      .founder-spine {
+        position: absolute;
+        inset: 0;
+        z-index: calc(#{$z-base} + 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: $space-4;
+        opacity: 0;
+        visibility: hidden;
+
+        .spine-name {
+          @include vc-display-3($vc-text-light);
+          text-transform: uppercase;
+          writing-mode: vertical-rl;
+          margin: 0;
+          max-height: 70%;
+          overflow: hidden;
+        }
+
+        .founder-toggle--spine {
+          margin-top: 0;
+          width: 44px;
+          padding: 0;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // Accordion mode (below lg, JS, motion allowed): founders.js clips and
+  // tweens the plate height. An open card fuses with its plate the same way
+  // the duo does: square joining edges, rounded outer corners, no gap.
+  &.is-accordion {
+    .founder-bio {
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s, border-radius 0.3s, margin-top 0.3s;
+    }
+
+    .founder-media {
+      transition: border-radius 0.3s;
+    }
+
+    .founder-panel.is-open {
+      .founder-media {
+        border-radius: 10px 10px 0 0;
+      }
+
+      .founder-bio {
+        margin-top: 0;
+        border-top: 0;
+        border-radius: 0 0 10px 10px;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .about-founders {
+  background: $dark-vc-background-dark !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .founder-bio {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .founder-long p {
+    color: $vc-muted-on-dark !important;
+  }
+
+  // Channel row dark rules come from the shared component; only the plate's
+  // divider needs the dark hairline.
+  .founder-channels {
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .intro-lead {
+    .intro-statement {
+      color: $vc-text-light !important;
+    }
+
+    .intro-support {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+}

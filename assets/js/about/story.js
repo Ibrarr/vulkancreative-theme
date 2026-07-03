@@ -12,29 +12,29 @@ const reduceMotion = prefersReducedMotion();
 document.addEventListener('DOMContentLoaded', () => {
     if (reduceMotion) return;
 
-    const heroContentTl = gsap.timeline({
+    const storyTl = gsap.timeline({
         scrollTrigger: {
-            trigger: '.story',
+            trigger: '.about-story',
             start: 'top 100%',
             toggleActions: 'play none none none'
         }
     });
 
-    heroContentTl.from('.story h2', {
+    storyTl.from('.about-story h2', {
         opacity: 0,
         y: 50,
         duration: 1,
         ease: 'power2.out'
     });
 
-    gsap.from('.story .bottom', {
+    gsap.from('.about-story .bottom', {
         opacity: 0,
         y: 30,
         duration: 0.8,
         delay: 0.75,
         ease: 'power2.out',
         scrollTrigger: {
-            trigger: '.story .bottom',
+            trigger: '.about-story .bottom',
             start: 'top 100%',
             toggleActions: 'play none none none'
         }
@@ -84,10 +84,10 @@ document.fonts.ready.then(() => {
 });
 
 // Lazily initialise the video player just before the story section comes
-// into view: booting it at page load competes with the hero intro and adds
-// a visible stutter on warm reloads. The native poster shows until then.
+// into view: booting it at page load competes with the entrance reveals and
+// adds a visible stutter on warm reloads. The native poster shows until then.
 document.addEventListener('DOMContentLoaded', () => {
-    const story = document.querySelector('.story');
+    const story = document.querySelector('.about-story');
     const videoEl = document.getElementById('our-story');
     if (!videoEl) return;
 

@@ -10,7 +10,6 @@ $hp_heading_highlights = [
 	'hp_work_heading'         => [ 'Forged with our clients.',             'Forged with <span>our clients</span>.' ],
 	'hp_our_work_heading'     => [ 'More of our work.',                    'More of <span>our work</span>.' ],
 	'hp_why_heading'          => [ 'Why Choose Vulkan?',                   'Why Choose <span>Vulkan</span>?' ],
-	'hp_story_heading'        => [ 'Our Story',                            'Our <span>Story</span>' ],
 	'hp_process_heading'      => [ 'A Clear Path From Spark to Scale',     'A Clear Path From <span>Spark to Scale</span>' ],
 	'hp_testimonials_heading' => [ 'Trusted by Ambitious Brands',          'Trusted by <span>Ambitious Brands</span>' ],
 	'hp_contact_heading'      => [ 'Have a project you want to discuss?',  'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' ],
@@ -85,10 +84,6 @@ $why_note_title = get_field('hp_why_note_title') ?: 'Not the cheapest. The most 
 $why_note_text  = get_field('hp_why_note_text') ?: 'One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.';
 $why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partner?';
 $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
-
-// Story
-$story_heading     = hp_heading('hp_story_heading', $hp_heading_highlights);
-$story_description = get_field('hp_story_description') ?: 'We built Vulkan to do agency work properly: in person, honest about what works and measured by what it returns. Press play to meet the team you would be working with.';
 
 // Process
 $process_heading     = hp_heading('hp_process_heading', $hp_heading_highlights);
@@ -449,34 +444,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     </div>
 </section>
 
-<section class="story" id="story">
-    <div class="container px-4">
-        <div class="row story-head">
-            <div class="col-lg-6">
-                <div class="content">
-                    <h2><?php echo wp_kses_post( $story_heading ); ?></h2>
-                </div>
-            </div>
-            <div class="col-lg-5 offset-lg-1 story-intro">
-                <p class="split-text-story"><?php echo esc_html( $story_description ); ?></p>
-                <div class="bottom"><a href="#watch" class="button">Watch the Film</a></div>
-            </div>
-        </div>
-        <div class="video-wrapper" id="watch">
-            <video
-                    id="our-story"
-                    class="video-js vjs-theme-city"
-                    controls
-                    preload="metadata"
-                    poster="<?php echo VC_TEMPLATE_URI . '/assets/images/hero/story-poster.webp'; ?>"
-                    title="Our story"
-            >
-                <source src="https://vulkancreative.com/wp-content/VulkanTrailer.mp4" type="video/mp4" />
-            </video>
-        </div>
-    </div>
-</section>
-
+<?php // The Our Story section moved to the About page (page-templates/page-about-us.php). ?>
 <div class="text-marquee" aria-hidden="true">
     <div class="text-marquee-track">
         <span class="text-marquee-row">Strategy<em>&bull;</em>Design<em>&bull;</em>Development<em>&bull;</em>Content<em>&bull;</em>SEO<em>&bull;</em>Paid media<em>&bull;</em></span>

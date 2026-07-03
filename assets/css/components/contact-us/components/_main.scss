@@ -17,90 +17,9 @@
     }
   }
 
-  .contact-channels {
-    list-style: none;
-    margin: 0 0 $space-5;
-    padding: 0;
-    display: grid;
-    gap: $space-2;
-
-    li {
-      margin: 0;
-    }
-
-    .channel {
-      display: flex;
-      align-items: center;
-      gap: $space-2;
-      width: fit-content;
-      text-decoration: none;
-    }
-
-    .channel-icon {
-      flex: 0 0 auto;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid $vc-grey-200;
-      border-radius: 2px;
-      color: $vc-primary;
-      transition: border-color 0.3s, color 0.3s, background 0.3s, box-shadow 0.3s;
-
-      svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
-
-    .channel-text {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .channel-label {
-      @include vc-eyebrow($vc-grey-600);
-      margin: 0;
-    }
-
-    .channel-value {
-      @include vc-body($vc-text-dark);
-      font-weight: $vc-medium;
-      transition: color 0.3s;
-    }
-
-    // Forge hover: the icon plate heats (border, tint fill, soft red glow) and
-    // the value warms. Colour/surface only — the row itself never moves.
-    a.channel {
-      @media (hover: hover) {
-        &:hover {
-          .channel-icon {
-            border-color: $vc-primary;
-            background: $vc-primary-tint;
-            box-shadow: 0 0 24px 0 $vc-glow-soft;
-          }
-
-          .channel-value {
-            color: $vc-primary;
-          }
-        }
-      }
-
-      &:focus-visible {
-        .channel-icon {
-          border-color: $vc-primary;
-          background: $vc-primary-tint;
-          box-shadow: 0 0 24px 0 $vc-glow-soft;
-        }
-
-        .channel-value {
-          color: $vc-primary;
-        }
-      }
-    }
-  }
+  // The channel rows are the shared component in
+  // components/common/_contact-channels.scss (also used by the About
+  // founders' bio plates).
 
   .contact-next {
     border-top: 1px solid $vc-grey-200;
@@ -369,12 +288,10 @@
     color: $vc-text-light !important;
   }
 
-  .channel-label,
   .contact-next h3 {
     color: $vc-muted-on-dark !important;
   }
 
-  .channel-value,
   .step-title {
     color: $vc-text-light !important;
   }
@@ -387,40 +304,7 @@
     border-top-color: $vc-grey-dark-border !important;
   }
 
-  .channel-icon {
-    border-color: $vc-grey-dark-border !important;
-    color: $vc-primary !important;
-  }
-
-  a.channel:focus-visible {
-    color: $vc-primary !important;
-
-    .channel-icon {
-      border-color: $vc-primary !important;
-      background: $vc-primary-tint !important;
-      box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
-    }
-
-    .channel-value {
-      color: $vc-primary !important;
-    }
-  }
-
-  @media (hover: hover) {
-    a.channel:hover {
-      color: $vc-primary !important;
-
-      .channel-icon {
-        border-color: $vc-primary !important;
-        background: $vc-primary-tint !important;
-        box-shadow: 0 0 24px 0 rgba($vc-primary, 0.16) !important;
-      }
-
-      .channel-value {
-        color: $vc-primary !important;
-      }
-    }
-  }
+  // Channel dark rules live with the shared component partial.
 
   .next-rail-wrap::before {
     background: $vc-grey-dark-border !important;

@@ -124,3 +124,41 @@ add_filter(
 // options noindex-tax-category=false and noindex-author-wpseo=true. A theme
 // robots filter is deliberately NOT used: it would flip the meta tag but leave
 // the sitemap out of sync.
+// Enrich Yoast's Organization node (@id /#organization) with the company
+// contact details from Global Settings and the social profiles the footer
+// links to, so the knowledge graph matches the visible site. Yoast stays the
+// single source of the node itself.
+add_filter(
+	'wpseo_schema_organization',
+	function ( $data ) {
+		$email = get_field( 'company_email', 'options' );
+		$phone = get_field( 'company_phone', 'options' );
+		$location = get_field( 'company_location', 'options' );
+
+		if ( $email ) {
+			$data['email'] = $email;
+		}
+		if ( $phone ) {
+			$data['telephone'] = $phone;
+		}
+		if ( $location ) {
+			$data['address'] = [
+				'@type'         => 'PostalAddress',
+				'streetAddress' => $location,
+				'addressLocality' => 'London',
+				'addressCountry'  => 'GB',
+			];
+		}
+		$data['sameAs'] = array_values( array_unique( array_merge(
+			isset( $data['sameAs'] ) ? (array) $data['sameAs'] : [],
+			[
+				'https://www.linkedin.com/company/vulkan-creative/',
+				'https://www.tiktok.com/@vulkancreative',
+				'https://www.instagram.com/vulkancreative/',
+				'https://www.youtube.com/@VulkanCreative',
+			]
+		) ) );
+
+		return $data;
+	}
+);

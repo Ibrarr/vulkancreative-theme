@@ -39,6 +39,17 @@
   .insight-card,
   .breadcrumbs,
   .pagination,
+  // About page reveal targets
+  .about-hero h1,
+  .about-hero .sub-heading,
+  .about-founders .content h2,
+  .about-founders .intro-statement,
+  .about-founders .intro-support,
+  .about-values .content h2,
+  .about-how .content h2,
+  .about-how .content .sub-heading,
+  .about-how .how-row,
+  .about-proof .content h2,
   // Contact page reveal targets
   .contact-hero h1,
   .contact-hero .sub-heading,
@@ -54,6 +65,11 @@
   // Contact next-steps rail: show the finished state — rail fully drawn,
   // indices hot — instead of animating towards it.
   .contact-main .next-progress {
+    transform: none !important;
+  }
+
+  // About how-we-work rail: same treatment, fully drawn.
+  .about-how .how-progress {
     transform: none !important;
   }
 
