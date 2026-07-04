@@ -254,6 +254,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 - The red highlight in a heading is a plain `<span>` styled `color: $vc-primary` (see the `hp_heading()` highlight-map pattern in `front-page.php` for editable defaults).
 - Body and UI text is Poppins (`vc-p`, `vc-body`); muted copy uses `$vc-grey-600`/`$vc-grey-700` on light and `$vc-muted-on-dark` on dark.
 - Labels use `vc-eyebrow`; on light surfaces use `vc-eyebrow-tick($vc-grey-600)` so the tick carries the red (small red text is banned on light surfaces). Standalone eyebrow tags above section headings were removed sitewide; do not reintroduce them.
+- **Not every section needs a visible h2 (standing decision, July 2026, work-archive review).** The display-h2 + intro-lead split head is overused on the site; where the page h1 and the content itself already say what a section is (a listing straight after its hero, for example), skip the visible head and keep a `visually-hidden` h2 for screen-reader structure instead (the `home.php` "Latest insights" precedent; the work archive does the same). Weigh user/SEO value before adding another display h2.
 
 ### Colour and accents
 

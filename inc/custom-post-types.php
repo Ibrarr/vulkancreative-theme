@@ -87,9 +87,12 @@ function testimonial_post_type() {
 /**
  * Register Project Post Type ("Our Work")
  *
- * The lighter portfolio tier under Case Studies. Admin-only content
- * consumed by the homepage Our Work section. No single pages or archive
- * for now; the key stays stable so they can be added in a later round.
+ * The lighter portfolio tier under Case Studies. Feeds the homepage Our Work
+ * section and, since July 2026, its own pages: the archive at /work/
+ * (archive-project.php) and a showcase single per project at /work/{slug}/
+ * (single-project.php). with_front is off so the /blog/ permalink base does
+ * not prefix the URLs. exclude_from_search stays true: projects support
+ * title only, so search-result cards would render as empty shells.
  */
 add_action( 'init', 'project_post_type', 0 );
 function project_post_type() {
@@ -110,15 +113,18 @@ function project_post_type() {
 
     $args = array(
         'labels'              => $labels,
-        'public'              => false,
-        'publicly_queryable'  => false,
+        'public'              => true,
+        'publicly_queryable'  => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
-        'show_in_nav_menus'   => false,
+        'show_in_nav_menus'   => true,
         'show_in_rest'        => true,
         'exclude_from_search' => true,
-        'has_archive'         => false,
-        'rewrite'             => false,
+        'has_archive'         => 'work',
+        'rewrite'             => array(
+            'slug'       => 'work',
+            'with_front' => false,
+        ),
         'hierarchical'        => false,
         'menu_position'       => 22,
         'menu_icon'           => 'dashicons-hammer',

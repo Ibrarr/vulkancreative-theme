@@ -1,0 +1,26 @@
+{
+    "key": "ui_options_page_wk_work_page",
+    "title": "Work Page Settings",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Work Page Settings",
+    "menu_slug": "work-page-settings",
+    "parent_slug": "edit.php?post_type=project",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "Work Page",
+    "position": "",
+    "redirect": 0,
+    "description": "Copy for the Work archive at \/work\/ and the shared strings on single project pages.",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-admin-site-alt3"
+    },
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1783123200
+}

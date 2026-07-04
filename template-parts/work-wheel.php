@@ -56,9 +56,17 @@ $wheel_projects = array_values( $wheel_slots );
 		<div class="wheel-stage" role="group" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $wheel_label ); ?>">
 			<ul class="wheel-track">
 				<?php foreach ( $wheel_projects as $wheel_project ) :
-					$tile_tag   = $wheel_project['link'] ? 'a' : 'div';
-					$tile_attrs = $wheel_project['link'] ? ' href="' . esc_url( $wheel_project['link'] ) . '" target="_blank" rel="noopener"' : '';
-					// Keep the live-site arrow glued to the last word of the name.
+					// Internal links (the projects' own pages, the default
+					// since July 2026) navigate in-tab with the internal
+					// arrow; external ones keep the ↗ and a new tab.
+					$tile_link     = $wheel_project['link'];
+					$tile_internal = $tile_link && 0 === strpos( $tile_link, home_url() );
+					$tile_tag      = $tile_link ? 'a' : 'div';
+					$tile_attrs    = '';
+					if ( $tile_link ) {
+						$tile_attrs = ' href="' . esc_url( $tile_link ) . '"' . ( $tile_internal ? '' : ' target="_blank" rel="noopener"' );
+					}
+					// Keep the arrow glued to the last word of the name.
 					$client_words = explode( ' ', $wheel_project['client'] );
 					$client_last  = array_pop( $client_words );
 					$client_head  = implode( ' ', $client_words );
@@ -70,7 +78,9 @@ $wheel_projects = array_values( $wheel_slots );
 							<?php if ( $wheel_project['service'] ) : ?><span class="tile-service"><?php echo esc_html( $wheel_project['service'] ); ?></span><?php endif; ?>
 							<span class="tile-caption">
 								<?php if ( $wheel_project['sector'] ) : ?><span class="tile-sector"><?php echo esc_html( $wheel_project['sector'] ); ?></span><?php endif; ?>
-								<?php if ( $wheel_project['link'] ) : ?>
+								<?php if ( $tile_internal ) : ?>
+									<h3 class="tile-client"><?php echo $client_head ? esc_html( $client_head ) . ' ' : ''; ?><span class="tile-client-end"><?php echo esc_html( $client_last ); ?><svg class="tile-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></h3>
+								<?php elseif ( $tile_link ) : ?>
 									<h3 class="tile-client"><?php echo $client_head ? esc_html( $client_head ) . ' ' : ''; ?><span class="tile-client-end"><?php echo esc_html( $client_last ); ?><svg class="tile-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden">(opens the live site in a new tab)</span></span></h3>
 								<?php else : ?>
 									<h3 class="tile-client"><?php echo esc_html( $wheel_project['client'] ); ?></h3>

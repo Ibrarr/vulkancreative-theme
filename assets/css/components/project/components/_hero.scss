@@ -1,0 +1,111 @@
+// Project-led hero additions on top of the shared common/_page-hero.scss
+// band: the meta row (sector, year, service links, hairline-separated), the
+// live-site ghost action and the large media panel. The band is dark in both
+// modes, so no dark-mode overrides are needed here.
+.project-hero {
+  .hero-meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: $space-3 0 0;
+    padding: 0;
+
+    li {
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 14px;
+      color: rgba($vc-text-light, 0.85);
+
+      + li {
+        border-left: 1px solid rgba($vc-text-light, 0.25);
+        padding-left: 14px;
+        margin-left: 14px;
+      }
+    }
+
+    // Small screens: the services list takes its own clean line instead of
+    // wrapping mid-row with a hanging separator.
+    @include media-breakpoint-down(md) {
+      row-gap: 6px;
+
+      .hero-meta-services {
+        flex-basis: 100%;
+        border-left: 0;
+        padding-left: 0;
+        margin-left: 0;
+      }
+    }
+
+    a {
+      color: rgba($vc-text-light, 0.85);
+      text-decoration: underline;
+      text-decoration-color: rgba($vc-text-light, 0.35);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+          text-decoration-color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary;
+        text-decoration-color: $vc-primary;
+      }
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-4;
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
+    }
+
+    .live-arrow {
+      display: inline-block;
+      vertical-align: -2px;
+      margin-left: 8px;
+      color: $vc-primary;
+      transition: color 0.3s, filter 0.3s;
+    }
+
+    .button-ghost:focus-visible .live-arrow {
+      color: $vc-secondary;
+    }
+
+    @media (hover: hover) {
+      .button-ghost:hover .live-arrow {
+        color: $vc-secondary;
+        filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+      }
+    }
+  }
+
+  // The project image leads: a large panel inside the band, 10px corners
+  // (the large-media rule), resting desaturation, no hover (not a link).
+  .hero-media {
+    margin-top: $space-8;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 21 / 9;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-6;
+      aspect-ratio: 16 / 10;
+    }
+
+    .hero-media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.25);
+    }
+  }
+}

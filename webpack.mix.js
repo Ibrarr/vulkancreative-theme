@@ -102,6 +102,14 @@ mix.js([
     'assets/js/homepage/our-work.js',
 ], 'js/service.js');
 
+mix.js([
+    'assets/js/project/reveal.js',
+    'assets/js/project/filter.js',
+    // Shared module: our-work.js drives the related-work wheel (#work-wheel)
+    // on single project pages; it no-ops on the archive.
+    'assets/js/homepage/our-work.js',
+], 'js/project.js');
+
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({
         processCssUrls: false

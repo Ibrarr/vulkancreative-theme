@@ -1,0 +1,188 @@
+// The /work/ archive's single content section: the filter chips then the
+// editorial work grid (no visible head; the hero h1 carries the message and
+// a visually-hidden h2 keeps the structure). Cards mirror the wheel tile's
+// anatomy (hairline border, depth scrim, service plate, caption-anchored gradient,
+// glued arrow) but hover keeps the resting desaturation: the saturation
+// hover stays grandfathered to the wheel. Wide cards (col-lg-7, 16/10) and
+// narrow cards (col-lg-5, 4/3) alternate 7/5 then 5/7 per row; below lg
+// every media panel is 4/3 so md pairs align and the stack reads evenly.
+.work-index {
+  @include vc-section-padding;
+
+  .work-grid {
+    // The reveal staggers the cards in; the row's own gutters set the rhythm.
+  }
+
+  .work-card-media {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid $vc-grey-200;
+    text-decoration: none;
+    transition: border-color 0.3s, box-shadow 0.35s;
+
+    .work-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.25);
+      transform: scale(1);
+      transition: transform 0.6s ease;
+    }
+
+    // Depth wash only; the caption carries its own backdrop below.
+    .work-card-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 13, 13, 0.92) 0%, rgba(13, 13, 13, 0.4) 55%, rgba(13, 13, 13, 0.15) 100%);
+    }
+
+    // Primary service (Yoast's pick, else the first term) stamped as the
+    // standard solid plate: sharp 2px corners, no border, no tick.
+    .work-card-plate {
+      position: absolute;
+      top: $space-2;
+      left: $space-2;
+      z-index: $z-raised;
+      @include vc-eyebrow($vc-text-light);
+      font-size: 11px;
+      line-height: 1;
+      padding: 8px 12px;
+      background: rgba(13, 13, 13, 0.85);
+      border-radius: 2px;
+    }
+
+    // The caption carries its own gradient, sized to itself, so however many
+    // lines it runs to the text always sits on a dark backdrop.
+    .work-card-caption {
+      position: relative;
+      z-index: $z-raised;
+      width: 100%;
+      padding: $space-5 $space-3 $space-3;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to top, rgba(13, 13, 13, 0.92) 0%, rgba(13, 13, 13, 0.85) 60%, rgba(13, 13, 13, 0) 100%);
+    }
+
+    .work-card-sector {
+      @include vc-eyebrow($vc-text-light);
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .work-card-client {
+      @include vc-display-3($vc-text-light);
+      margin: 0;
+      transition: color 0.3s;
+
+      // The last word and the arrow wrap together, so the arrow is never
+      // orphaned on its own line.
+      .work-card-client-end {
+        white-space: nowrap;
+      }
+
+      .work-card-arrow {
+        display: inline-block;
+        vertical-align: baseline;
+        margin-left: 8px;
+        color: $vc-primary;
+        transition: color 0.3s, filter 0.3s, transform 0.3s;
+      }
+    }
+
+    .work-card-line {
+      @include vc-body(rgba($vc-text-light, 0.85));
+      margin-top: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    // Layered hover: the border heats, a red glow lifts the tile off the
+    // page, the image breathes inside its frame and the arrow slides on. The
+    // card itself never moves and the image never changes tint (the wheel's
+    // saturation hover is grandfathered there, not here); focus-visible
+    // carries the identical affordance.
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55);
+        box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+        .work-card-img {
+          transform: scale(1.06);
+        }
+
+        .work-card-client {
+          color: $vc-primary;
+        }
+
+        .work-card-arrow {
+          color: $vc-secondary;
+          filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+          transform: translateX(4px);
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+      .work-card-img {
+        transform: scale(1.06);
+      }
+
+      .work-card-client {
+        color: $vc-primary;
+      }
+
+      .work-card-arrow {
+        color: $vc-secondary;
+        filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  // The 16/10 wide panel only exists where the 7/5 rhythm does.
+  @include media-breakpoint-up(lg) {
+    .work-card--wide .work-card-media {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  .work-empty {
+    @include vc-p($vc-grey-600);
+    margin: $space-4 0 0;
+    transition: color 0.3s;
+  }
+}
+
+@at-root body.dark-mode .work-index {
+  .work-card-media {
+    border-color: $vc-grey-dark-border !important;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55) !important;
+        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55) !important;
+      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+    }
+  }
+
+  .work-empty {
+    color: $vc-muted-on-dark !important;
+  }
+}

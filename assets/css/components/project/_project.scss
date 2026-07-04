@@ -1,0 +1,86 @@
+// Page scope for the work pages: the /work/ archive (archive-project.php,
+// body class .post-type-archive-project) and the single project showcases
+// (single-project.php, body class .single-project). The archive hero is the
+// shared page-hero component; the related wheel is common/_work-wheel.scss.
+.post-type-archive-project,
+.single-project {
+  // Section headings run all-caps to match the homepage sections.
+  section .content h2 {
+    text-transform: uppercase;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  // Explicit alternating surface classes, assigned in PHP as sections render,
+  // so the pairing rule survives the conditional sections (gallery/related).
+  section.surface-white {
+    background: $vc-surface-white;
+    transition: background 0.3s;
+  }
+
+  section.surface-grey {
+    background: $vc-background-white;
+    transition: background 0.3s;
+  }
+
+  @import "components/index";
+  @import "components/filter";
+  @import "components/hero";
+  @import "components/overview";
+  @import "components/gallery";
+  @import "components/next";
+  @import "components/cta";
+
+  // Host section for the shared work wheel (common/_work-wheel.scss): per its
+  // contract the host owns the background, section padding and overflow.
+  .project-related {
+    @include vc-section-padding;
+    overflow: hidden;
+  }
+}
+
+// Chained, not descendant: dark-mode and the page classes share the body element.
+@at-root {
+  body.dark-mode.post-type-archive-project,
+  body.dark-mode.single-project {
+    section.surface-white {
+      background: $dark-vc-background-dark !important;
+    }
+
+    section.surface-grey {
+      background: $dark-vc-background-dark-alt !important;
+    }
+  }
+}
+
+// Above-the-fold reveal targets are pre-hidden before the JS entrance so they
+// never flash at their final position on load. Gated on html.js; a failsafe
+// shows them at 2.5s if the script never runs, and the reduced-motion / no-JS
+// paths keep them visible (the misc/_motion.scss safety net forces opacity: 1).
+@at-root {
+  html.js body.post-type-archive-project {
+    .work-hero h1,
+    .work-hero .sub-heading {
+      opacity: 0;
+      animation: vc-work-reveal-failsafe 0s 2.5s forwards;
+    }
+  }
+
+  html.js body.single-project {
+    .project-hero h1,
+    .project-hero .hero-meta,
+    .project-hero .hero-actions,
+    .project-hero .hero-media {
+      opacity: 0;
+      animation: vc-work-reveal-failsafe 0s 2.5s forwards;
+    }
+  }
+}
+
+@keyframes vc-work-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,239 @@
+{
+    "key": "group_project_details_pj01",
+    "title": "Project Details",
+    "fields": [
+        {
+            "key": "field_pj_0101",
+            "label": "Year",
+            "name": "pj_year",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Shown in the page hero meta row, for example 2025 or 2024-25.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "2025",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_pj_0102",
+            "label": "Overview Statement",
+            "name": "pj_overview_statement",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One bold sentence on what the project was and the goal. Leads the overview section; leave blank to hide it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 2,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_pj_0103",
+            "label": "Overview Support",
+            "name": "pj_overview_support",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "A short paragraph expanding on the brief and what we did. Leave blank to hide it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_pj_0104",
+            "label": "What We Delivered",
+            "name": "pj_deliverables",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "One deliverable per row, for example Brand identity, WordPress build, SEO setup. Shown as a ruled list in the overview section; leave empty to hide it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 10,
+            "collapsed": "",
+            "button_label": "Add deliverable",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_pj_0105",
+                    "label": "Label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "Brand identity",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_pj_0104"
+                }
+            ]
+        },
+        {
+            "key": "field_pj_0106",
+            "label": "Gallery",
+            "name": "pj_gallery",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Project imagery shown as a large editorial gallery. Landscape works best; the first image in each group of three displays full width. Leave empty to hide the gallery.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 12,
+            "collapsed": "",
+            "button_label": "Add image",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_pj_0107",
+                    "label": "Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_pj_0106"
+                },
+                {
+                    "key": "field_pj_0108",
+                    "label": "Caption",
+                    "name": "caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional caption shown under the image.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_pj_0106"
+                }
+            ]
+        },
+        {
+            "key": "field_pj_0109",
+            "label": "Case Study",
+            "name": "pj_case_study",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Optional. Link this project to its case study. The link appears on the project page once case studies have their own pages (a later round).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "case_study"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "project"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Optional showcase content for the project's own page at \/work\/{slug}\/. Empty fields simply hide their section.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1783123200
+}

@@ -1,0 +1,178 @@
+// Single project overview: the shared h2 with the statement stacked under it
+// (no split-header), the fact ledger as the right column's artefact, and the
+// ruled "What we delivered" list below. Rows rule with ember hairlines.
+.project-overview {
+  @include vc-section-padding;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    transition: color 0.3s;
+  }
+
+  .overview-lead {
+    margin-top: $space-4;
+
+    .overview-statement {
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: clamp(1.25rem, 0.8vw + 0.95rem, 1.625rem);
+      line-height: 1.4;
+      color: $vc-text-dark;
+      margin: 0;
+      max-width: 30ch;
+      transition: color 0.3s;
+    }
+
+    .overview-support {
+      @include vc-p($vc-grey-600);
+      margin: $space-2 0 0;
+      max-width: 56ch;
+      transition: color 0.3s;
+    }
+  }
+
+  .fact-ledger {
+    margin: 0;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-6;
+    }
+
+    .fact-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: $space-2;
+      align-items: baseline;
+      padding: $space-2 0;
+      border-bottom: 1px solid $vc-ember-line-light;
+
+      &:first-child {
+        border-top: 1px solid $vc-ember-line-light;
+      }
+
+      dt {
+        @include vc-eyebrow($vc-grey-600);
+        font-size: 11px;
+        margin: 0;
+        transition: color 0.3s;
+      }
+
+      dd {
+        @include vc-body($vc-text-dark);
+        margin: 0;
+        transition: color 0.3s;
+
+        a {
+          color: $vc-text-dark;
+          text-decoration: underline;
+          text-decoration-color: $vc-grey-400;
+          text-underline-offset: 3px;
+          transition: color 0.3s, text-decoration-color 0.3s;
+
+          @media (hover: hover) {
+            &:hover {
+              color: $vc-primary;
+              text-decoration-color: $vc-primary;
+            }
+          }
+
+          &:focus-visible {
+            color: $vc-primary;
+            text-decoration-color: $vc-primary;
+          }
+        }
+
+        .live-arrow {
+          display: inline-block;
+          vertical-align: -2px;
+          margin-left: 6px;
+          color: $vc-primary;
+        }
+      }
+    }
+  }
+
+  .deliverables {
+    margin-top: $space-8;
+
+    .deliverables-label {
+      @include vc-eyebrow-tick($vc-grey-600);
+      margin-bottom: $space-3;
+      transition: color 0.3s;
+    }
+
+    .deliverables-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: $space-8;
+
+      @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      li {
+        @include vc-body($vc-text-dark);
+        padding: $space-2 0;
+        border-bottom: 1px solid $vc-ember-line-light;
+        transition: color 0.3s;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .project-overview {
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .overview-lead .overview-statement {
+    color: $vc-text-light !important;
+  }
+
+  .overview-lead .overview-support {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .fact-ledger .fact-row {
+    border-color: $vc-ember-line !important;
+
+    dt {
+      color: $vc-muted-on-dark !important;
+    }
+
+    dd {
+      color: $vc-text-light !important;
+
+      a {
+        color: $vc-text-light !important;
+        text-decoration-color: $vc-grey-dark-border !important;
+
+        @media (hover: hover) {
+          &:hover {
+            color: $vc-primary !important;
+            text-decoration-color: $vc-primary !important;
+          }
+        }
+
+        &:focus-visible {
+          color: $vc-primary !important;
+          text-decoration-color: $vc-primary !important;
+        }
+      }
+    }
+  }
+
+  .deliverables {
+    .deliverables-label {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .deliverables-list li {
+      color: $vc-text-light !important;
+      border-color: $vc-ember-line !important;
+    }
+  }
+}

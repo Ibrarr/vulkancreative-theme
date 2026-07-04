@@ -1,0 +1,49 @@
+// Single project gallery: a static editorial grid (no carousel, no lightbox;
+// the related wheel below is the page's one drag surface). Rhythm per group
+// of three: a full-width 21/9 panel then a 7/5 pair, 10px corners (the
+// large-media rule), resting desaturation, captions below the image in muted
+// body type so the imagery itself stays quiet and uncovered. Non-interactive:
+// no hover states.
+.project-gallery {
+  @include vc-section-padding;
+
+  .gallery-item {
+    margin: 0;
+
+    .gallery-media {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(0.25);
+      }
+    }
+
+    figcaption {
+      @include vc-body($vc-grey-600);
+      margin-top: 12px;
+      transition: color 0.3s;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .gallery-item--full .gallery-media {
+      aspect-ratio: 21 / 9;
+    }
+
+    .gallery-item.col-lg-5 .gallery-media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+}
+
+@at-root body.dark-mode .project-gallery {
+  .gallery-item figcaption {
+    color: $vc-muted-on-dark !important;
+  }
+}

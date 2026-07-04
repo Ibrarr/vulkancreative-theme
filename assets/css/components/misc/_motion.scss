@@ -66,7 +66,25 @@
   // Service page reveal targets
   .service-hero h1,
   .service-hero .sub-heading,
-  .service-hero .hero-actions {
+  .service-hero .hero-actions,
+  // Work pages (archive + single project) reveal targets
+  .work-hero h1,
+  .work-hero .sub-heading,
+  .work-index .work-filter,
+  .work-card,
+  .project-hero h1,
+  .project-hero .hero-meta,
+  .project-hero .hero-actions,
+  .project-hero .hero-media,
+  .project-overview .content h2,
+  .project-overview .overview-lead,
+  .project-overview .fact-ledger,
+  .project-overview .deliverables,
+  .project-gallery .gallery-item,
+  .project-next .next-link,
+  .project-cta .content h2,
+  .project-cta .content .sub-heading,
+  .project-cta .cta-actions {
     opacity: 1 !important;
     transform: none !important;
   }

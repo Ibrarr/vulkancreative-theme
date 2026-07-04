@@ -1,0 +1,242 @@
+// The archive's service filter: real links styled as square-cornered chips in
+// the wheel-arrow family (hairline border, 44px targets, red hover/focus),
+// with the active chip as a solid plate. Below md the row collapses behind a
+// dropdown toggle and the chips stack as full-width 44px rows inside a
+// bordered panel (the insights-filter recipe); without JS the toggle hides
+// and the chips simply stay visible. No pills, no red fills: the forge red
+// stays an accent.
+.work-filter {
+  margin-bottom: $space-5;
+
+  .work-filter-toggle {
+    @include vc-eyebrow($vc-grey-600);
+    display: none;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 14px;
+    font-size: 12px;
+    line-height: 1;
+    background: transparent;
+    border: 1px solid $vc-grey-400;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+
+    .work-filter-current {
+      color: $vc-text-dark;
+      transition: color 0.3s;
+    }
+
+    .work-filter-chevron {
+      margin-left: auto;
+      color: $vc-text-dark;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $vc-primary;
+
+        .work-filter-current,
+        .work-filter-chevron {
+          color: $vc-primary;
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: $vc-primary;
+
+      .work-filter-current,
+      .work-filter-chevron {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  &.is-open .work-filter-chevron {
+    transform: rotate(180deg);
+  }
+
+  .work-filter-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-1;
+  }
+
+  .work-chip {
+    // The include first: vc-eyebrow (via vc-tag) sets display and margin of
+    // its own, and the flex centring below must win.
+    @include vc-eyebrow($vc-text-dark);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 18px;
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid $vc-grey-400;
+    border-radius: 2px;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $vc-primary;
+        color: $vc-primary;
+      }
+    }
+
+    &:focus-visible {
+      border-color: $vc-primary;
+      color: $vc-primary;
+    }
+
+    &.is-active {
+      background: $vc-background-dark;
+      border-color: $vc-background-dark;
+      color: $vc-text-light;
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: $vc-background-dark;
+          color: $vc-text-light;
+        }
+      }
+
+      &:focus-visible {
+        border-color: $vc-primary;
+        color: $vc-text-light;
+      }
+    }
+  }
+
+  // Small screens: the toggle appears and the chips stack as ruled rows in a
+  // single bordered panel, so the filter never eats half the viewport.
+  @include media-breakpoint-down(md) {
+    .work-filter-toggle {
+      display: flex;
+    }
+
+    .work-filter-panel {
+      flex-direction: column;
+      gap: 0;
+      margin-top: $space-1;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .work-chip {
+      width: 100%;
+      padding: 0 14px;
+      border: 0;
+      border-bottom: 1px solid $vc-grey-200;
+      border-radius: 0;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &.is-active {
+        border-color: $vc-background-dark;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// The collapse is JS-owned: only an html.js page hides the panel behind the
+// toggle (filter.js adds .is-open); without JS the chips stay visible and the
+// inert toggle hides, so filtering keeps working as plain links.
+@at-root {
+  @include media-breakpoint-down(md) {
+    html.js .work-filter:not(.is-open) .work-filter-panel {
+      display: none;
+    }
+  }
+
+  html:not(.js) .work-filter .work-filter-toggle {
+    display: none !important;
+  }
+}
+
+@at-root body.dark-mode .work-filter {
+  .work-filter-toggle {
+    color: $vc-muted-on-dark !important;
+    border-color: $vc-grey-dark-border !important;
+
+    .work-filter-current,
+    .work-filter-chevron {
+      color: $vc-text-light !important;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $vc-primary !important;
+
+        .work-filter-current,
+        .work-filter-chevron {
+          color: $vc-primary !important;
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: $vc-primary !important;
+
+      .work-filter-current,
+      .work-filter-chevron {
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  .work-filter-panel {
+    @include media-breakpoint-down(md) {
+      border-color: $vc-grey-dark-border !important;
+    }
+  }
+
+  .work-chip {
+    color: $vc-text-light !important;
+    border-color: $vc-grey-dark-border !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+
+    &.is-active {
+      background: $vc-background-white !important;
+      border-color: $vc-background-white !important;
+      color: $vc-background-dark !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-background-dark !important;
+          border-color: $vc-background-white !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-background-dark !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+}

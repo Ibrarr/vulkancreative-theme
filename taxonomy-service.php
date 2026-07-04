@@ -121,7 +121,9 @@ if ( $work_query->have_posts() ) {
 			'sector'      => get_field( 'pj_sector' ),
 			'description' => get_field( 'pj_description' ),
 			'image'       => $pj_image,
-			'link'        => get_field( 'pj_link' ),
+			// Tiles link to the project's own page (July 2026, the work-pages
+			// build); the live-site link sits in that page's hero instead.
+			'link'        => get_permalink(),
 			// No service plate here: every tile is this service, so the
 			// plates would all repeat the page title (Ibrar review).
 			'service'     => '',

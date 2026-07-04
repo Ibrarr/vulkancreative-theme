@@ -325,7 +325,10 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     'sector'      => get_field('pj_sector', $project_id),
                     'description' => get_field('pj_description', $project_id),
                     'image'       => $project_image,
-                    'link'        => get_field('pj_link', $project_id),
+                    // Tiles link to the project's own page (July 2026, the
+                    // work-pages build); the live-site link sits in that
+                    // page's hero instead.
+                    'link'        => get_permalink( $project_id ),
                     'service'     => $service_label,
                 ];
             }

@@ -90,6 +90,9 @@ body {
 @import "components/services-hub/services-hub";
 @import "components/service/service";
 
+// Work pages: the /work/ archive and the single project showcases.
+@import "components/project/project";
+
 // Insights (blog) — shared global components, used by the index, category and
 // author archives, search results and the single article's related row.
 @import "components/common/post-grid";          // .insight-card

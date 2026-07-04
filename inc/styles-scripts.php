@@ -13,7 +13,9 @@ function add_custom_scripts() {
         wp_add_inline_script( 'homepage', 'window.__vc_public_path=' . wp_json_encode( VC_TEMPLATE_URI . '/dist/' ) . ';', 'before' );
     }
 
-    if ( is_single() ) {
+    // is_singular('post'), not is_single(): the latter is true for CPT
+    // singles too and would leak the blog bundle onto project pages.
+    if ( is_singular( 'post' ) ) {
         wp_enqueue_script( 'single-blog', VC_TEMPLATE_URI . mix('/js/single-blog.js'), [ 'jquery' ], null, true );
     }
 
@@ -47,6 +49,10 @@ function add_custom_scripts() {
 
     if ( is_tax( 'service' ) ) {
         wp_enqueue_script( 'service', VC_TEMPLATE_URI . mix('/js/service.js'), [ 'jquery' ], null, true );
+    }
+
+    if ( is_post_type_archive( 'project' ) || is_singular( 'project' ) ) {
+        wp_enqueue_script( 'project', VC_TEMPLATE_URI . mix('/js/project.js'), [ 'jquery' ], null, true );
     }
 
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/js/global.js'), [ 'jquery' ], null, true );

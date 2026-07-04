@@ -1,0 +1,96 @@
+// Next-project band: one full-width link that hands the reader on to the
+// next piece of work. Ember hairlines mark the band's edges; hover and
+// focus-visible heat the name and slide the arrow, colour only, and the band
+// itself never moves.
+.project-next {
+  padding: $space-10 0;
+  border-top: 1px solid $vc-ember-line-light;
+  border-bottom: 1px solid $vc-ember-line-light;
+
+  .next-link {
+    display: block;
+    text-decoration: none;
+
+    .next-label {
+      @include vc-eyebrow-tick($vc-grey-600);
+      display: block;
+      margin-bottom: $space-2;
+      transition: color 0.3s;
+    }
+
+    .next-name {
+      @include vc-display-2($vc-text-dark);
+      display: block;
+      text-transform: uppercase;
+      transition: color 0.3s;
+
+      // The last word and the arrow wrap together, so the arrow is never
+      // orphaned on its own line.
+      .next-name-end {
+        white-space: nowrap;
+      }
+
+      .next-arrow {
+        display: inline-block;
+        vertical-align: baseline;
+        margin-left: 14px;
+        color: $vc-primary;
+        transition: color 0.3s, filter 0.3s, transform 0.3s;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        .next-name {
+          color: $vc-primary;
+        }
+
+        .next-arrow {
+          color: $vc-secondary;
+          filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+          transform: translateX(6px);
+        }
+      }
+    }
+
+    &:focus-visible {
+      .next-name {
+        color: $vc-primary;
+      }
+
+      .next-arrow {
+        color: $vc-secondary;
+        filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+        transform: translateX(6px);
+      }
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    padding: $space-8 0;
+  }
+}
+
+@at-root body.dark-mode .project-next {
+  border-color: $vc-ember-line !important;
+
+  .next-link {
+    .next-label {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .next-name {
+      color: $vc-text-light !important;
+    }
+
+    @media (hover: hover) {
+      &:hover .next-name {
+        color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible .next-name {
+      color: $vc-primary !important;
+    }
+  }
+}

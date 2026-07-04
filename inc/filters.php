@@ -137,6 +137,30 @@ add_filter(
 	}
 );
 
+// The work archive's service filter chips link to /work/?service={slug}. But
+// 'service' is also the service taxonomy's own query var, so left alone it
+// would flag the main query as is_tax('service') and drag in every service
+// term-page behaviour (the 3-post query cap, the service bundle, the
+// tax-service body class, the footer CTA hide, the breadcrumb splice). Move
+// it into a private query var before the query flags are parsed; the archive
+// template reads vc_work_service to mark the server-rendered filter state,
+// and Yoast canonicalises the filtered URLs back to /work/.
+add_filter(
+	'query_vars',
+	function ( $vars ) {
+		$vars[] = 'vc_work_service';
+		return $vars;
+	}
+);
+add_filter( 'request', 'vc_work_service_request' );
+function vc_work_service_request( $qv ) {
+	if ( isset( $qv['post_type'], $qv['service'] ) && 'project' === $qv['post_type'] ) {
+		$qv['vc_work_service'] = sanitize_title( (string) $qv['service'] );
+		unset( $qv['service'] );
+	}
+	return $qv;
+}
+
 // Indexing policy (categories indexed as topic hubs; author/date/search out of
 // the index) is governed by Yoast's own Search Appearance settings, so robots
 // meta, the XML sitemap and canonicals stay consistent — see the wpseo_titles

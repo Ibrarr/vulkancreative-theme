@@ -7,7 +7,13 @@
  */
 function vc_schema_type() {
 	$schema = 'https://schema.org/';
-	if ( is_single() ) {
+	// Project branches must precede is_single(), which is true for CPT
+	// singles too and would mislabel them as Article.
+	if ( is_singular( 'project' ) ) {
+		$type = 'WebPage';
+	} elseif ( is_post_type_archive( 'project' ) ) {
+		$type = 'CollectionPage';
+	} elseif ( is_single() ) {
 		$type = "Article";
 	} elseif ( is_author() ) {
 		$type = 'ProfilePage';

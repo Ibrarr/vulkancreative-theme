@@ -115,9 +115,32 @@ function vc_service_archive_query( $query ) {
 	if ( is_admin() || ! $query->is_main_query() || ! $query->is_tax( 'service' ) ) {
 		return;
 	}
+	// The work archive strips ?service= into a private var (inc/filters.php)
+	// before the flags are parsed, so a project query should never land here;
+	// guard anyway so the cap can never eat the work grid.
+	if ( 'project' === $query->get( 'post_type' ) ) {
+		return;
+	}
 	$query->set( 'posts_per_page', 3 );
 	$query->set( 'ignore_sticky_posts', true );
 	$query->set( 'no_found_rows', true );
+}
+
+/**
+ * Work archive: every published project renders on /work/ in one pass (the
+ * grid filters in place, no pagination), so uncap the main query, order it
+ * newest first and skip the pagination count.
+ */
+add_action( 'pre_get_posts', 'vc_work_archive_query' );
+function vc_work_archive_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() || ! $query->is_post_type_archive( 'project' ) ) {
+		return;
+	}
+	$query->set( 'posts_per_page', -1 );
+	$query->set( 'ignore_sticky_posts', true );
+	$query->set( 'no_found_rows', true );
+	$query->set( 'orderby', 'date' );
+	$query->set( 'order', 'DESC' );
 }
 
 /**
