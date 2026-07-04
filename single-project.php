@@ -3,9 +3,10 @@
  * Single project showcase at /work/{slug}/ (project post type). A project-led
  * hero on the dark forge band (breadcrumbs, client name, meta row, live-site
  * link, large media panel), then: overview (statement, fact ledger,
- * deliverables), editorial gallery, related-work wheel, next-project band and
- * the closing CTA band (no form: the spokes rule; footer.php hides the footer
- * CTA here). Optional fields hide their sections, so lighter projects render
+ * deliverables), editorial gallery, the related-work wheel (projects sharing
+ * a service with this one) and the closing CTA band (no form: the spokes
+ * rule; footer.php hides the footer CTA here). Optional fields hide their
+ * sections, so lighter projects render
  * fewer sections on the same template. Shared strings live on the Work Page
  * Settings options page (wk_ fields); per-project content is the pj_ fields.
  */
@@ -260,45 +261,10 @@ while ( have_posts() ) :
 				<?php
 				get_template_part( 'template-parts/work-wheel', null, [
 					'projects'    => $related_items,
-					'heading'     => vc_heading_parts( 'wk_related_heading', 'options', 'More <span>work</span>.' ),
+					'heading'     => vc_heading_parts( 'wk_related_heading', 'options', 'Related <span>work</span>.' ),
 					'stage_label' => 'Related projects',
 				] );
 				?>
-			</div>
-		</section>
-	<?php endif; ?>
-
-	<?php
-	// Next project: the adjacent project newest-first, wrapping past the end,
-	// so every page hands the reader on to another piece of work.
-	$next_ids = get_posts( [
-		'post_type'      => 'project',
-		'posts_per_page' => -1,
-		'fields'         => 'ids',
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-		'no_found_rows'  => true,
-	] );
-	$next_id  = 0;
-	if ( count( $next_ids ) > 1 ) {
-		$next_index = array_search( $pj_id, $next_ids, true );
-		if ( false !== $next_index ) {
-			$next_id = $next_ids[ ( $next_index + 1 ) % count( $next_ids ) ];
-		}
-	}
-	?>
-	<?php if ( $next_id ) :
-		$next_client = get_field( 'pj_client_name', $next_id ) ?: get_the_title( $next_id );
-		$next_words  = explode( ' ', $next_client );
-		$next_last   = array_pop( $next_words );
-		$next_head   = implode( ' ', $next_words );
-		?>
-		<section class="project-next <?php echo esc_attr( $pj_surface() ); ?>">
-			<div class="container px-4">
-				<a class="next-link" href="<?php echo esc_url( get_permalink( $next_id ) ); ?>">
-					<span class="next-label"><?php echo esc_html( get_field( 'wk_next_label', 'options' ) ?: 'Next project' ); ?></span>
-					<span class="next-name"><?php echo $next_head ? esc_html( $next_head ) . ' ' : ''; ?><span class="next-name-end"><?php echo esc_html( $next_last ); ?><svg class="next-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></span>
-				</a>
 			</div>
 		</section>
 	<?php endif; ?>

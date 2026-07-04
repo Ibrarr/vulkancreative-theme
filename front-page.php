@@ -33,7 +33,7 @@ $why_items_default = [
 	[
 		'title'       => 'Hands-On, In Person',
 		'description' => 'We sit down with you and learn how the business actually runs. You deal with the people doing the work, not an account queue.',
-		'proof'       => '10+ years combined experience',
+		'proof'       => '25+ years combined experience',
 	],
 	[
 		'title'       => 'Bespoke, Never Templated',

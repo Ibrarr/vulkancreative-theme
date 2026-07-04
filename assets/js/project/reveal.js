@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '.project-overview .overview-lead',
         '.project-overview .fact-ledger',
         '.project-overview .deliverables',
-        '.project-next .next-link',
         '.project-cta .content .sub-heading',
         '.project-cta .cta-actions',
     ].join(', '));

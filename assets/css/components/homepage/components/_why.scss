@@ -79,10 +79,12 @@
     }
   }
 
-  // Small red text fails contrast on the cell surface, so the proof line is
-  // muted and the red tick carries the accent (same logic as light surfaces).
+  // Red proof lines by Ibrar's direction (July 2026, replacing the removed
+  // per-cell ticks). Deliberate contrast exception: brand red on the #262626
+  // cell runs about 4.3:1 at this size, just under the 4.5:1 floor, and is
+  // accepted like the white-on-red button.
   .why-proof {
-    @include vc-eyebrow-tick($vc-muted-on-dark);
+    @include vc-eyebrow($vc-primary);
     font-size: 12px;
     margin-top: auto;
     padding-top: $space-2;

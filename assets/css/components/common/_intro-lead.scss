@@ -1,16 +1,16 @@
-// Red-ruled lead line (statement + support) beside a section heading — the
-// About founders-head recipe, shared: services hub grid head and the service
+// Lead line (statement + support) beside a section heading — the About
+// founders-head recipe, shared: services hub grid head and the service
 // pages' deliverables head use this global version. (The About page keeps its
-// own scoped copy, which outranks this one where they overlap.)
+// own scoped copy, which outranks this one where they overlap.) The red
+// side-stripe was removed in the July 2026 tick audit (the coloured accent
+// stripe is the banned pattern); the red lives in the statement's <span>
+// words instead.
 .intro-lead {
-  border-left: 2px solid $vc-primary;
-  padding-left: $space-3;
   margin-top: $space-5;
 
   @include media-breakpoint-up(lg) {
     margin-top: 0;
     margin-bottom: 6px;
-    padding-left: $space-4;
   }
 
   .intro-statement {

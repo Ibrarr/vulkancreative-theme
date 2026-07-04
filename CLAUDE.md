@@ -10,6 +10,7 @@ Long reference catalogues have been moved out of this file into `docs/` next to 
 - `docs/js-reference.md`: full JS folder tree, bundle map, GSAP setup, animation pattern catalogue.
 - `docs/acf-reference.md`: full ACF field group tables and code patterns.
 - `docs/services-system.md`: full build notes for the services hub-and-spoke feature (July 2026).
+- `docs/work-system.md`: full build notes for the Work archive at `/work/` and the project showcase singles (July 2026).
 
 ---
 
@@ -237,7 +238,7 @@ The June 2026 "forge" redesign sets the visual language. New pages and redesigne
 
 ### Redesign status (what is on the forge language vs not)
 
-The redesign has rolled out page by page. On the forge language: `front-page.php` (homepage), `header.php`, `footer.php`, the 404 (`404.php` + `template-parts/content-404.php` + the `page-404-preview.php` template), `page.php` (the default template, used by Privacy Policy and Cookie Policy), `page-contact-us.php` (the Contact page), `page-about-us.php` (the About page), the shared `template-parts/page-hero.php` title band with `common/_page-hero.scss`, the shared `common/_testimonial-spotlight.scss` component, and the blog/insights family (redesigned June 2026): the blog single (`template-parts/content-blog.php`), the archive family (`home.php`, `archive.php`, `template-parts/archive-category.php`, `author.php`), `search.php` and the shared `common/` post grid (`.insight-card`), and the services system (July 2026): the services hub (`page-templates/page-services-hub.php`, page 300 at `/services/`) and the service pages (`taxonomy-service.php`, one per `service` term at `/services/{slug}/`); full build notes in `docs/services-system.md`. Still on pre-redesign patterns (legacy mixins like `vc-button-big`, `vc-h1`, `vc-tag`, `.tag` eyebrows, hard-coded padding) and awaiting the same treatment: `page-your-business.php` only. A quick tell when auditing a partial: forge components use `vc-display-*`, `vc-section-padding` and the surface tokens; pre-redesign ones use `vc-h1`/`vc-tag`/`vc-button-big`.
+The redesign has rolled out page by page. On the forge language: `front-page.php` (homepage), `header.php`, `footer.php`, the 404 (`404.php` + `template-parts/content-404.php` + the `page-404-preview.php` template), `page.php` (the default template, used by Privacy Policy and Cookie Policy), `page-contact-us.php` (the Contact page), `page-about-us.php` (the About page), the shared `template-parts/page-hero.php` title band with `common/_page-hero.scss`, the shared `common/_testimonial-spotlight.scss` component, and the blog/insights family (redesigned June 2026): the blog single (`template-parts/content-blog.php`), the archive family (`home.php`, `archive.php`, `template-parts/archive-category.php`, `author.php`), `search.php` and the shared `common/` post grid (`.insight-card`), and the services system (July 2026): the services hub (`page-templates/page-services-hub.php`, page 300 at `/services/`) and the service pages (`taxonomy-service.php`, one per `service` term at `/services/{slug}/`); full build notes in `docs/services-system.md`, and the work system (July 2026): the archive at `/work/` (`archive-project.php`) and the project showcase singles at `/work/{slug}/` (`single-project.php`); full build notes in `docs/work-system.md`. Still on pre-redesign patterns (legacy mixins like `vc-button-big`, `vc-h1`, `vc-tag`, `.tag` eyebrows, hard-coded padding) and awaiting the same treatment: `page-your-business.php` only. A quick tell when auditing a partial: forge components use `vc-display-*`, `vc-section-padding` and the surface tokens; pre-redesign ones use `vc-h1`/`vc-tag`/`vc-button-big`.
 
 ### Surfaces and rhythm
 
@@ -254,6 +255,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 - The red highlight in a heading is a plain `<span>` styled `color: $vc-primary` (see the `hp_heading()` highlight-map pattern in `front-page.php` for editable defaults).
 - Body and UI text is Poppins (`vc-p`, `vc-body`); muted copy uses `$vc-grey-600`/`$vc-grey-700` on light and `$vc-muted-on-dark` on dark.
 - Labels use `vc-eyebrow`; on light surfaces use `vc-eyebrow-tick($vc-grey-600)` so the tick carries the red (small red text is banned on light surfaces). Standalone eyebrow tags above section headings were removed sitewide; do not reintroduce them.
+- **Tick restraint (standing decision, July 2026, work-pages review + sitewide tick audit).** The red tick marks genuine one-off labels only, never items in a series (captions, list rows, cards): a repeated identical mark reads as AI scaffolding, not brand voice. Bind repeated items by proximity/spacing instead. The audit removed the per-card tick on the homepage work section's `.case-sector`, the per-cell tick on `.why-proof`, and the red side-stripe from the shared `intro-lead` (and its About founders copy): the coloured accent stripe is the banned pattern, and the red belongs in the statement's `<span>` words. After Ibrar's follow-up (red label text replacing the last two ticks on work singles, and the next-project band's removal), `vc-eyebrow-tick` currently has **no live uses**; the mixin stays available for future one-off labels. Red-rule survivors on merit: blockquote left-rules in article/legal content (print convention) and the article TOC's red active-position indicator (functional state).
 - **Not every section needs a visible h2 (standing decision, July 2026, work-archive review).** The display-h2 + intro-lead split head is overused on the site; where the page h1 and the content itself already say what a section is (a listing straight after its hero, for example), skip the visible head and keep a `visually-hidden` h2 for screen-reader structure instead (the `home.php` "Latest insights" precedent; the work archive does the same). Weigh user/SEO value before adding another display h2.
 
 ### Colour and accents
@@ -283,7 +285,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 ### Content and editability
 
 - Every editable string lives in ACF with its `default_value` mirroring the live copy, and the page's saved values seeded to match (repeaters included): the edit screen must always show real content. Template `?:` fallbacks are a safety net, not the source of truth.
-- Homepage-fed CPTs (`case_study`, `testimonial`, `project`) stay admin-only until their own pages ship; Our Work curation lives in the homepage `hp_our_work_projects` relationship field.
+- Homepage-fed CPTs: `case_study` and `testimonial` stay admin-only until their own pages ship; `project` has its own pages since July 2026 (the `/work/` archive and singles, see `docs/work-system.md`). Our Work curation on the homepage still lives in the `hp_our_work_projects` relationship field, and wheel tiles sitewide link to the projects' own pages.
 - Sample content is `[SAMPLE]`-prefixed with `_vc_sample_content` meta so it is easy to find and replace.
 - **Three-part headings (standing rule, July 2026).** Every main section heading is three ACF text fields, `{name}_start`, `{name}_red`, `{name}_end`, composed by `vc_heading_parts()` in `inc/template-functions.php` (punctuation-aware join; the red part renders as the standard `<span>` highlight and is required: "always make red the important words in the main headings"). When all three parts are blank the template's highlighted fallback string applies. Converted across the homepage (`hp_*`), Contact (`ct_*`), About (`ab_*`), the services hub (`sh_*`) and the service terms (`sv_*`, including `sv_work_heading_*`/`sv_insights_heading_*`/`sv_related_heading_*`; the work and insights fallbacks are the short generics "Recent work"/"Related insights", not per-service names); the old single heading fields were removed and their values migrated into parts. Statements and intro-leads stay single fields. Not yet converted (hard-coded): the footer CTA line, the blog/archive h1s, the 404 and `page-your-business.php`. Give any NEW section heading the same three fields.
 
@@ -347,7 +349,7 @@ Defined in `functions.php`:
 
   - **`custom-taxonomies.php`** -- Registers the `service` taxonomy (hierarchical, on the `post` and `project` types, rewrite slug `'services'` since July 2026 so terms live under the hub at /services/{slug}/, visible in REST/UI/nav menus). ACF fields on this taxonomy: `icon` (text) and `order` (number), plus the Service Page content group (`sv_` prefix, see `docs/services-system.md`).
 
-  - **`custom-post-types.php`** -- Registers the `case_study`, `testimonial` and `project` CPTs. All three are admin-only content: `public` false, `publicly_queryable` false, `show_ui` true, `show_in_rest` true, no archive, no rewrite, `supports` title only. Case studies feed the homepage work section; testimonials feed the homepage testimonials carousel; projects (admin menu "Our Work", the lighter portfolio tier) feed the homepage Our Work section and carry the `service` taxonomy. None has single pages yet; the `project` key is stable so archive/single pages can be added later by flipping the visibility flags and flushing permalinks.
+  - **`custom-post-types.php`** -- Registers the `case_study`, `testimonial` and `project` CPTs, all `supports` title only. `case_study` and `testimonial` are admin-only content (`public` false, no archive, no rewrite): case studies feed the homepage work section, testimonials the spotlight carousels. `project` (admin menu "Our Work", carries the `service` taxonomy) went public in July 2026: `has_archive` `'work'`, rewrite slug `'work'` with `with_front` false, `exclude_from_search` true (title-only support would break search cards); it feeds the homepage Our Work wheel AND its own pages at `/work/` (see `docs/work-system.md`; flush permalinks after any rewrite change).
 
   - **`shortcodes.php`**, **`ajax-calls.php`** -- Empty stubs for future use.
 
@@ -369,7 +371,7 @@ Full file-by-file walkthrough of every root template, page template and template
 
 ### Menus
 
-2 registered menu locations: `main-menu` (header, every page) and `footer-menu` (footer "Explore", every page), both registered in `actions.php`. One menu serves the whole site per location. Section-anchor items are stored as absolute URLs (`/#why`, home is `/#top`) and a filter in `inc/filters.php` flattens them to in-page anchors on the front page only, so `scrollspy.js` keeps working there. Full detail in `docs/template-reference.md`.
+2 registered menu locations: `main-menu` (header, every page) and `footer-menu` (footer "Explore", every page), both registered in `actions.php`. One menu serves the whole site per location; both carry an "Our Work" item pointing at `/work/`, placed after "What We Do" (July 2026). Section-anchor items are stored as absolute URLs (`/#why`, home is `/#top`) and a filter in `inc/filters.php` flattens them to in-page anchors on the front page only, so `scrollspy.js` keeps working there. Full detail in `docs/template-reference.md`.
 
 ### Dark Mode
 
@@ -412,7 +414,8 @@ Full folder tree, complete colour/typography/spacing variable tables and the ful
 ### Contrast conventions
 
 - **No small red text on light surfaces.** `$vc-primary` on `#F5F5F5` is roughly 3.25:1, which fails for body-size text. Use `vc-eyebrow-tick($vc-grey-600)` so the red tick carries the accent instead. Red text is fine on the dark surfaces.
-- **Buttons are white-on-red by standing decision.** `vc-button-forge` puts white on `$vc-primary` (3.6:1). Ibrar reviewed and chose this over dark-on-red; treat it as the one deliberate exception to the 4.5:1 floor and do not extend it to non-button text.
+- **Buttons are white-on-red by standing decision.** `vc-button-forge` puts white on `$vc-primary` (3.6:1). Ibrar reviewed and chose this over dark-on-red; treat it as a deliberate exception to the 4.5:1 floor and do not extend it to non-button text.
+- **One further owner-approved red-text exception (July 2026):** the homepage `.why-proof` lines (brand red on the #262626 cells, about 4.3:1 at 12px), Ibrar's explicit direction after the tick audit; red earns its place there as proof metrics. The work singles' `.deliverables-label` was briefly red and settled back to muted grey (labels are furniture; red stays in words and metrics). Do not extend red small text anywhere else without asking.
 - **Text over imagery uses the caption-anchored gradient pattern.** A light fixed depth scrim plus a gradient on the caption block itself (sized to itself, so any caption height stays covered). Verify by alpha-compositing both gradients at each text element's position over a pure-white image; tune the gradient knee to the caption height (`.tile-caption` in `_our-work.scss` uses 60%, the taller `.case-overlay` in `_work.scss` needs 70%, and the very tall `.founder-caption` in the About `_founders.scss` brings the knee forward to 16% with a `$space-8` top fade).
 - **Badges and labels on imagery** are solid plates: `rgba(13,13,13,.85)`, 2px corners, white eyebrow type, no pills, no borders, no ticks.
 - **Muted text** uses `$vc-grey-600`/`$vc-grey-700` on light and `$vc-muted-on-dark` on dark.
@@ -439,7 +442,7 @@ Full folder tree, bundle map, GSAP plugin registry and the complete animation-pa
 
 Full field group tables (all 11 groups + options page) and code patterns are in `docs/acf-reference.md`. Field naming conventions (apply these to any new field group):
 
-- **Homepage:** `hp_`. **Case study:** `cs_`. **Project/Our Work:** `pj_`. **Testimonial:** `tm_`. **Your-business:** `yb_`. **Contact page:** `ct_`. **About page:** `ab_`.
+- **Homepage:** `hp_`. **Case study:** `cs_`. **Project/Our Work:** `pj_` (the base group plus the "Project Details" showcase group). **Work Page options:** `wk_` (the Work Page Settings options sub-page under the Our Work menu). **Testimonial:** `tm_`. **Your-business:** `yb_`. **Contact page:** `ct_`. **About page:** `ab_`.
 - **Global/options fields:** no prefix (e.g. `worked_with_logos`, `company_email`/`company_phone`/`company_location`/`company_map_url`), referenced with the `'options'` post id.
 - **Blog fields:** no prefix (`intro_key_takeaways`, `content`, `faqs`). **User fields:** no prefix (`job_title`), referenced as `'user_' . $user_id`. **Taxonomy fields:** no prefix (`icon`, `order`), referenced as `get_field('icon', 'service_' . $term->term_id)`.
 - **Sub-fields (repeaters):** short and descriptive (`title`, `description`, `question`, `answer`, `quote`, `name`, `company`, `logo`, `alt_text`). Separators are underscores, all lowercase.
@@ -509,7 +512,7 @@ All enqueuing happens in `inc/styles-scripts.php` via the `add_custom_scripts()`
 
 **Global (always loaded):** `site` (style, `mix('/css/app.css')`), `global`/`header`/`footer` (JS, all depend on `jquery`).
 
-**Conditional (page-specific):** `homepage` (`is_front_page()`), `single-blog` (`is_single()`), `archive-blog` (`is_home() || is_category()`), `archive-author` (`is_author()`), `your-business`/`contact`/`about` (matching `is_page_template(...)`). All load in the footer, all depend on `jquery`.
+**Conditional (page-specific):** `homepage` (`is_front_page()`), `single-blog` (`is_singular('post')` — not `is_single()`, which is true for CPT singles too), `archive-blog` (`is_home() || is_category()`), `archive-author` (`is_author()`), `project` (`is_post_type_archive('project') || is_singular('project')`), `your-business`/`contact`/`about` (matching `is_page_template(...)`), `services-hub`/`service` (hub template / `is_tax('service')`). All load in the footer, all depend on `jquery`.
 
 The `homepage` handle also gets an inline `window.__vc_public_path` variable (via `wp_add_inline_script`) so webpack's dynamically imported chunks -- the Spline viewer -- resolve under the theme's `dist/` directory instead of the site root.
 

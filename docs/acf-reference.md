@@ -64,3 +64,10 @@ endwhile;
 // CPT fields inside a WP_Query loop (homepage work/testimonials sections)
 $cs_client = get_field('cs_client_name') ?: get_the_title();
 ```
+
+
+## Work groups (July 2026)
+
+- **Work Page Settings** (`acf-json/work-page-settings.json` + `work-page.json`): an options sub-page under the Our Work admin menu, prefix `wk_` — hero heading parts + subheading, the "All Work" chip label, and the shared single-page strings (overview/related/CTA heading parts, CTA subheading). Read with `get_field(..., 'options')` / `vc_heading_parts(..., 'options', ...)`. Values are saved (seeded), not just defaults.
+- **Project Details** (`acf-json/project-details.json`, `pj_`, seamless, `menu_order` 1 under the base Project group): `pj_year`, `pj_overview_statement`, `pj_overview_support`, `pj_deliverables` (repeater: `label`), `pj_gallery` (repeater: `image` + optional `caption`), `pj_case_study` (post_object → `case_study`, dormant until that CPT is public). Every field optional: an empty field hides its section on `single-project.php`.
+- Seeder: `inc/project-seed.php` (Settings > Seed Work), the service-seed pattern; also the canonical source of the gallery caption copy.

@@ -95,8 +95,10 @@
   .deliverables {
     margin-top: $space-8;
 
+    // Muted structural label (Ibrar settled on grey over red, July 2026):
+    // the label is furniture, the red stays in the words and metrics.
     .deliverables-label {
-      @include vc-eyebrow-tick($vc-grey-600);
+      @include vc-eyebrow($vc-grey-600);
       margin-bottom: $space-3;
       transition: color 0.3s;
     }

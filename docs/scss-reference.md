@@ -38,7 +38,7 @@ assets/css/
     │       └── _posts.scss
     ├── common/
     │   ├── _contact-channels.scss        # shared icon channel rows (Contact page + About founder plates)
-    │   ├── _intro-lead.scss              # shared red-ruled intro lead (services hub head)
+    │   ├── _intro-lead.scss              # shared intro lead (services hub head)
     │   ├── _page-hero.scss               # shared page-hero band (Contact, About, services hub, service pages)
     │   ├── _pagination.scss
     │   ├── _post-grid.scss
@@ -334,3 +334,8 @@ The enquiry form (Gravity Form id 2) is the same component on the homepage (`_co
 
 - **Motion safety net** (`misc/_motion.scss`): a `prefers-reduced-motion: reduce` block that flattens all animations and transitions and forces GSAP-revealed elements (split text, hero content, rolling words) to stay visible even if a script is slow or blocked. JS modules branch on the same query via the shared `prefersReducedMotion()` helper.
 - The custom cursor, preloader and firework effect from the previous design were removed in the 2026 redesign (no `loading` body class either). `misc/_preloader.scss` still sits on disk but is not imported; do not use it.
+
+
+## Work pages (July 2026)
+
+`assets/css/components/project/` — scoped to the auto body classes `.post-type-archive-project` and `.single-project` (no template class exists for CPT templates): `_project.scss` (uppercase h2 + red span rule, PHP-assigned `surface-white`/`surface-grey` pairs with chained `body.dark-mode` overrides, `html.js` pre-hide + `vc-work-reveal-failsafe`, the `.project-related` wheel-host rules) plus `components/{_index,_filter,_hero,_overview,_gallery,_cta}.scss`. Gallery captions are Poppins italic with proximity binding (10px to their image, 48px gutter to the next item); the archive card mirrors the wheel tile but never changes tint on hover. New pre-hidden selectors live in `misc/_motion.scss`. Full notes in `docs/work-system.md`.

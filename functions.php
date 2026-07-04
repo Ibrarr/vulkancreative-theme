@@ -32,6 +32,9 @@ require VC_INC_PATH . '/custom-taxonomies.php';
 // Service content seeder (Settings > Seed Services)
 require VC_INC_PATH . '/service-seed.php';
 
+// Work content seeder (Settings > Seed Work)
+require VC_INC_PATH . '/project-seed.php';
+
 // ACF
 require VC_INC_PATH . '/acf.php';
 

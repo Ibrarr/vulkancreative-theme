@@ -7,8 +7,20 @@
 .project-gallery {
   @include vc-section-padding;
 
+  // Caption ownership by proximity: each caption hangs tight (10px) under
+  // its own image while the next item starts a full 48px lower, so a caption
+  // can never read as the next image's.
+  .gallery-grid {
+    --bs-gutter-y: #{$space-6};
+  }
+
   .gallery-item {
-    margin: 0;
+    // Reset the figure's own margins but keep margin-top free: that is where
+    // Bootstrap's row gutter (--bs-gutter-y) lives, and zeroing it was what
+    // let the next image crowd the caption above it.
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 
     .gallery-media {
       display: block;
@@ -26,7 +38,12 @@
 
     figcaption {
       @include vc-body($vc-grey-600);
-      margin-top: 12px;
+      // The print convention for figure captions: the body face's italic,
+      // no added marks. Ticks stay reserved for genuine one-off labels
+      // (Ibrar, July 2026); proximity does the binding (10px to the
+      // caption's own image, a 48px gutter before the next item).
+      font-style: italic;
+      margin-top: 10px;
       transition: color 0.3s;
     }
   }

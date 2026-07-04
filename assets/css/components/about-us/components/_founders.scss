@@ -35,17 +35,15 @@
   }
 
   // The positioning statement, merged into the section head (heading left,
-  // this red-ruled lead right). Sized as a lead line for its column, not a
-  // display heading.
+  // this lead right). Sized as a lead line for its column, not a display
+  // heading. The red side-stripe was removed in the July 2026 tick audit;
+  // the red lives in the statement's <span> words instead.
   .intro-lead {
-    border-left: 2px solid $vc-primary;
-    padding-left: $space-3;
     margin-top: $space-5;
 
     @include media-breakpoint-up(lg) {
       margin-top: 0;
       margin-bottom: 6px;
-      padding-left: $space-4;
     }
 
     .intro-statement {

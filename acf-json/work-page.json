@@ -184,7 +184,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "More",
+            "default_value": "Related",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -227,27 +227,6 @@
                 "id": ""
             },
             "default_value": ".",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_wk_0017",
-            "label": "Next Project Label",
-            "name": "wk_next_label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "The small label above the next-project link at the foot of each project page.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Next project",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",

@@ -161,7 +161,9 @@
       }
 
       .case-sector {
-        @include vc-eyebrow-tick($vc-grey-600);
+        // Plain eyebrow: the tick is reserved for one-off section labels, and
+        // repeating it on every card read as scaffolding (tick audit, July 2026).
+        @include vc-eyebrow($vc-grey-600);
         font-size: 12px;
         margin-bottom: 6px;
       }
