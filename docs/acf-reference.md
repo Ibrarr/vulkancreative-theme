@@ -4,7 +4,7 @@ Full ACF field group catalogue and code patterns. Moved out of the main CLAUDE.m
 
 ## Field groups
 
-11 field groups plus an ACF options page definition, stored as JSON in `acf-json/`:
+The core field groups plus an ACF options page definition, stored as JSON in `acf-json/` (the work, case-studies and services groups have their own sections below):
 
 | File | Group | Applies to | Fields |
 |---|---|---|---|
@@ -20,6 +20,7 @@ Full ACF field group catalogue and code patterns. Moved out of the main CLAUDE.m
 | `your-business.json` | Your Business | Page template = `page-your-business.php` | 25 fields with `yb_` prefix covering hero, problem, solution, outcomes, trust, CTA sections. Mix of text, textarea, and repeaters. |
 | `contact-us.json` | Contact us | Page template = `page-contact-us.php` | Fields with `ct_` prefix for the Contact page: hero (`ct_hero_heading`, `ct_hero_subheading`), `ct_next_heading` + `ct_next_steps` repeater, and `ct_form_heading`. The contact details (email/phone/location/map) are NOT here: they live in Global Settings → Company info (`company_*`), shared with the footer. The details column has no heading; the channels lead. |
 | `about-us.json` | About Us | Page template = `page-about-us.php` | Fields with `ab_` prefix for the About page: `ab_hero_heading`/`ab_hero_subheading`, `ab_intro_statement`/`ab_intro_support`, `ab_founders_heading` + `ab_founders` repeater (min 2, max 2: `name`, `role`, `short_bio`, `long_bio` (WYSIWYG, basic toolbar, no media), `photo` (image, array), `linkedin_url`, `email`, `phone`), `ab_story_heading`/`ab_story_description`/`ab_story_button_label`/`ab_story_video_url`, `ab_values_heading` + `ab_values` repeater (`word`, `line`; max 5), `ab_how_heading`/`ab_how_intro` + `ab_how_items` repeater (`title`, `description`), and `ab_proof_heading`. Every `default_value` mirrors the approved launch copy and the About page's saved values are seeded to match, repeater rows included. |
+| `free-website-page.json` | Free Website Page | Page template = `page-free-website.php` | Fields with `fw_` prefix (keys `field_fw1xx` for the three-part heading sets, `field_fw0xx` for the rest) for the standalone offer landing page at `/free-website/`: heading parts for hero/how/ledger/contrast/proof/faq/enquire, `fw_hero_subheading`/`fw_hero_primary_label`/`fw_hero_secondary_label`/`fw_hero_note`, `fw_how_subheading` + `fw_how_steps` repeater (max 4: `title`, `description`), `fw_ledger_subheading` + `fw_ledger_items` repeater (`item`, `detail`) + `fw_ledger_included_label`/`fw_ledger_total_label`/`fw_ledger_total_value`/`fw_ledger_monthly_note`, `fw_contrast_note` + `fw_contrast_usual_title`/`fw_contrast_this_title` + `fw_contrast_rows` repeater (`usual`, `this`), `fw_faqs` repeater (`question`, `answer` textarea; also feeds the FAQPage JSON-LD), `fw_enquire_subheading`/`fw_enquire_note`, `fw_header_cta_label`, `fw_sticky_label`. Every `default_value` mirrors the launch copy and the page's saved values are seeded to match. |
 | `user.json` | User | All user forms | `job_title` (text) |
 | `services.json` | Services | Taxonomy = `service` | `icon` (text), `order` (number) |
 

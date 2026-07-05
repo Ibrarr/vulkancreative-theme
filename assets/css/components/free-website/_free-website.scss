@@ -1,0 +1,38 @@
+// Free Website offer landing page (page-templates/page-free-website.php).
+// Standalone template: slim header (logo + toggle + CTA), no footer CTA row.
+// Sections alternate the standard surface pairs; the hero and enquire bands
+// stay #121212 in both modes.
+.page-template-page-free-website {
+  section .content h2 {
+    text-transform: uppercase;
+  }
+
+  @import "components/header";
+  @import "components/hero";
+  @import "components/how";
+  @import "components/ledger";
+  @import "components/contrast";
+  @import "components/proof";
+  @import "components/faq";
+  @import "components/enquire";
+  @import "components/sticky-cta";
+}
+
+// Hero entrance targets are pre-hidden only when JS is running; a failsafe
+// shows them at 2.5s if the script never gets there, and the reduced-motion /
+// no-JS paths keep them visible (misc/_motion.scss forces opacity: 1).
+@at-root html.js body.page-template-page-free-website {
+  .fw-hero h1,
+  .fw-hero .sub-heading,
+  .fw-hero .hero-actions,
+  .fw-hero .hero-note {
+    opacity: 0;
+    animation: vc-fw-reveal-failsafe 0s 2.5s forwards;
+  }
+}
+
+@keyframes vc-fw-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,151 @@
+// Three-step numbered rail. #FFF light / #1E1E1E dark (first pair after the hero).
+.fw-how {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+  scroll-margin-top: 90px;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    transition: color 0.3s;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .fw-how-head {
+    align-items: flex-end;
+    margin-bottom: $space-8;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+
+  .fw-how-intro .sub-heading {
+    @include vc-p($vc-grey-600);
+    margin: 0 0 6px;
+    transition: color 0.3s;
+
+    @include media-breakpoint-down(lg) {
+      margin: $space-2 0 0;
+    }
+  }
+
+  .fw-how-rail-wrap {
+    position: relative;
+  }
+
+  // The connector rail sits behind the step numerals; drawn by JS on reveal,
+  // fully drawn by default so no-JS never hides it.
+  .fw-how-rail {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $vc-ember-line-light;
+    transform-origin: left center;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+
+  .fw-how-steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-5;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .how-step {
+    position: relative;
+    padding-top: $space-8;
+
+    .step-index {
+      position: absolute;
+      top: 0;
+      display: inline-block;
+      padding-right: $space-2;
+      background: $vc-surface-white;
+      font-family: $vc-display-font;
+      font-stretch: $vc-display-stretch;
+      font-weight: $vc-black;
+      font-size: 44px;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px $vc-primary;
+      transition: background 0.3s;
+    }
+
+    .step-title {
+      @include vc-display-3($vc-text-dark);
+      margin: 0 0 $space-1;
+      transition: color 0.3s;
+    }
+
+    .step-desc {
+      @include vc-body($vc-grey-600);
+      margin: 0;
+      max-width: 42ch;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .fw-how-steps {
+      grid-template-columns: 1fr;
+      gap: $space-5;
+    }
+
+    .how-step {
+      padding-top: 0;
+      padding-left: 72px;
+
+      .step-index {
+        left: 0;
+        top: 2px;
+        padding-right: 0;
+        background: transparent;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-how {
+  background: $dark-vc-background-dark !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .fw-how-intro .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .fw-how-rail {
+    background: $vc-ember-line !important;
+  }
+
+  .how-step .step-index {
+    background: $dark-vc-background-dark !important;
+  }
+
+  .how-step .step-title {
+    color: $vc-text-light !important;
+  }
+
+  .how-step .step-desc {
+    color: $vc-muted-on-dark !important;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .how-step .step-index {
+      background: transparent !important;
+    }
+  }
+}

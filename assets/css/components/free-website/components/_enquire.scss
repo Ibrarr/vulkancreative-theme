@@ -1,0 +1,73 @@
+// Closing enquiry band, #121212 in both modes; the form sits on a panel so
+// the shared enquiry-form styling keeps its contrast in light mode.
+.fw-enquire {
+  position: relative;
+  overflow: hidden;
+  @include vc-section-padding;
+  background: $vc-background-dark;
+  scroll-margin-top: 90px;
+
+  .fw-enquire-glow {
+    position: absolute;
+    right: -18%;
+    bottom: -40%;
+    width: 58vw;
+    height: 58vw;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 62%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .content h2 {
+    @include vc-display-2($vc-text-light);
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .fw-enquire-intro .sub-heading {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 46ch;
+    margin: $space-2 0 0;
+  }
+
+  .form-container {
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-100;
+    border-radius: 2px;
+    padding: $space-5;
+    scroll-margin-top: 110px;
+    transition: background 0.3s, border-color 0.3s;
+
+    @include media-breakpoint-down(sm) {
+      padding: $space-3;
+    }
+  }
+
+  .enquire-note {
+    @include vc-body($vc-grey-600);
+    margin: $space-3 0 0;
+  }
+
+  @include media-breakpoint-down(lg) {
+    .fw-enquire-form {
+      margin-top: $space-6;
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-enquire {
+  .form-container {
+    background: $dark-vc-background-dark !important;
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .enquire-note {
+    color: $vc-muted-on-dark !important;
+  }
+}

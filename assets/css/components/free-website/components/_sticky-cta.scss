@@ -1,0 +1,38 @@
+// Mobile-only sticky CTA bar: visible between the hero and the enquiry
+// section (sticky-cta.js drives .is-visible). Deep frosted surface reads in
+// both modes; hidden state is unfocusable.
+.fw-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-sticky;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba($vc-background-deep, 0.92);
+  transform: translateY(110%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0s 0.35s;
+
+  @supports (backdrop-filter: blur(1px)) {
+    background: rgba($vc-background-deep, 0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .button {
+    @include vc-button-forge;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  &.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.35s ease, visibility 0s;
+  }
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}

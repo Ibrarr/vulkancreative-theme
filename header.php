@@ -49,14 +49,49 @@
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="hero-active">
-        <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) ) { echo 'container '; } ?>px-4">
+        <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) || is_page_template( 'page-templates/page-free-website.php' ) ) { echo 'container '; } ?>px-4">
             <div class="main-menu">
                 <div class="logo">
                     <a href="/" aria-label="Home">
                         <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?>
                     </a>
                 </div>
-                <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
+                <?php if ( is_page_template( 'page-templates/page-free-website.php' ) ) : ?>
+                <?php // Slim header for the free-website offer page: one CTA plus the theme toggle, no nav. ?>
+                <div class="menu-theme-toggle fw-header-actions">
+                    <a class="fw-header-cta" href="#enquire"><?php echo esc_html( get_field( 'fw_header_cta_label' ) ?: 'Get Your Free Website' ); ?></a>
+                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             aria-hidden="true"
+                             width="2.5em"
+                             height="2.5em"
+                             fill="currentColor"
+                             stroke-linecap="round"
+                             class="theme-toggle__classic"
+                             viewBox="0 0 32 32">
+                            <defs>
+                                <clipPath id="clip-path-1">
+                                    <path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" />
+                                </clipPath>
+                            </defs>
+                            <g clip-path="url(#clip-path-1)">
+                                <circle cx="50%" cy="50%" r="9.34" />
+                                <circle cx="50%" cy="50%" r="6.34" />
+                                <g stroke="currentColor" stroke-width="1.5">
+                                    <path d="M16 5.5v-4" />
+                                    <path d="M16 30.5v-4" />
+                                    <path d="M1.5 16h4" />
+                                    <path d="M26.5 16h4" />
+                                    <path d="m23.4 8.6 2.8-2.8" />
+                                    <path d="m5.7 26.3 2.9-2.9" />
+                                    <path d="m5.8 5.8 2.8 2.8" />
+                                    <path d="m23.4 23.4 2.9 2.9" />
+                                </g>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+                <?php elseif ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
                 <div class="menu-theme-toggle">
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
@@ -104,7 +139,7 @@
                 <?php endif; ?>
             </div>
 
-            <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
+            <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) && ! is_page_template( 'page-templates/page-free-website.php' ) ) : ?>
             <div class="mobile-menu" id="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
                     <nav id="nav-mobile" role="navigation" itemscope

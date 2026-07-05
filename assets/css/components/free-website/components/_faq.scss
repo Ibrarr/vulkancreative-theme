@@ -1,0 +1,194 @@
+// Accessible FAQ accordion (server renders answers open; faq.js collapses on
+// init). #FFF light / #1E1E1E dark.
+.fw-faq {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  .fw-faq-head {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 130px;
+    }
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-dark);
+      margin-top: $space-3;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+
+      // The mobile sticky bar already carries this CTA.
+      .button-ghost {
+        display: none;
+      }
+    }
+  }
+
+  .fw-faq-item {
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
+
+    &:last-child {
+      border-bottom: 1px solid $vc-ember-line-light;
+    }
+
+    .faq-q {
+      margin: 0;
+    }
+
+    .faq-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-3;
+      width: 100%;
+      min-height: 44px;
+      padding: $space-3 0;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 18px;
+      line-height: 1.4;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 16px;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary;
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+      }
+    }
+
+    // Plus glyph drawn in CSS; the vertical bar collapses when open.
+    .faq-icon {
+      position: relative;
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        background: currentColor;
+        transition: transform 0.3s ease;
+      }
+
+      &::before {
+        left: 0;
+        right: 0;
+        top: 7px;
+        height: 2px;
+      }
+
+      &::after {
+        top: 0;
+        bottom: 0;
+        left: 7px;
+        width: 2px;
+      }
+    }
+
+    .faq-toggle[aria-expanded="true"] .faq-icon::after {
+      transform: scaleY(0);
+    }
+
+    .faq-a {
+      overflow: hidden;
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    .faq-a-inner {
+      padding: 0 0 $space-3;
+      max-width: 65ch;
+
+      p {
+        @include vc-body($vc-grey-700);
+        margin: 0 0 $space-2;
+        line-height: 1.7;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-faq {
+  background: $dark-vc-background-dark !important;
+
+  .fw-faq-head .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .fw-faq-head .button-ghost {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+
+  .fw-faq-item {
+    border-top-color: $vc-ember-line !important;
+
+    &:last-child {
+      border-bottom-color: $vc-ember-line !important;
+    }
+
+    .faq-toggle {
+      color: $vc-text-light !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+      }
+    }
+
+    .faq-a-inner p {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+}

@@ -1,0 +1,108 @@
+// Dark forge hero, #121212 in both modes. Typographic: the outlined £0
+// monument replaces imagery.
+.fw-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 92vh;
+  padding: 160px 0 $space-10;
+  background: $vc-background-dark;
+  scroll-margin-top: 110px;
+
+  @include media-breakpoint-down(lg) {
+    min-height: 0;
+    padding: 140px 0 $space-8;
+  }
+
+  .fw-hero-glow {
+    position: absolute;
+    left: -18%;
+    bottom: -35%;
+    width: 68vw;
+    height: 68vw;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 62%);
+    pointer-events: none;
+  }
+
+  // Decorative outlined monument; hidden from readers and from small screens.
+  .fw-hero-mark {
+    position: absolute;
+    right: -3%;
+    bottom: -8%;
+    z-index: 0;
+    font-family: $vc-display-font;
+    font-stretch: $vc-display-stretch;
+    font-weight: $vc-black;
+    font-size: clamp(280px, 36vw, 540px);
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba($vc-text-light, 0.08);
+    pointer-events: none;
+    user-select: none;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .content {
+    h1 {
+      @include vc-display-1($vc-text-light);
+      text-transform: uppercase;
+      text-wrap: balance;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .sub-heading {
+      @include vc-p($vc-muted-on-dark);
+      max-width: 56ch;
+      margin: $space-2 0 0;
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
+    }
+  }
+
+  .hero-note {
+    @include vc-eyebrow($vc-muted-on-dark);
+    margin: $space-5 0 0;
+    letter-spacing: 0.06em;
+
+    @include media-breakpoint-down(sm) {
+      // One line at 375px: shrink and tighten rather than wrap.
+      font-size: 10px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  .hero-rule {
+    display: block;
+    width: 220px;
+    height: 1px;
+    margin-top: $space-2;
+    background: $vc-ember-line;
+    transform-origin: left center;
+  }
+}

@@ -35,6 +35,10 @@ function add_custom_scripts() {
         wp_enqueue_script( 'your-business', VC_TEMPLATE_URI . mix('/js/your-business.js'), [ 'jquery' ], null, true );
     }
 
+    if ( is_page_template( 'page-templates/page-free-website.php' ) ) {
+        wp_enqueue_script( 'free-website', VC_TEMPLATE_URI . mix('/js/free-website.js'), [ 'jquery' ], null, true );
+    }
+
     if ( is_page_template( 'page-templates/page-contact-us.php' ) ) {
         wp_enqueue_script( 'contact', VC_TEMPLATE_URI . mix('/js/contact.js'), [ 'jquery' ], null, true );
         // Multi-step enquiry form (form id 5). When the form moves to another

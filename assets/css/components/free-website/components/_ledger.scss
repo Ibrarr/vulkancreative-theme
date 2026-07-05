@@ -1,0 +1,219 @@
+// The signature section: an itemised ledger of everything included, closing
+// on the £0 total. #F5F5F5 light / #121212 dark.
+.fw-ledger {
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  .fw-ledger-head {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 130px;
+    }
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .sub-heading {
+      @include vc-p($vc-grey-600);
+      max-width: 34ch;
+      margin: $space-2 0 0;
+      transition: color 0.3s;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+
+  .fw-ledger-plate {
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-100;
+    border-radius: 2px;
+    padding: $space-5;
+    transition: background 0.3s, border-color 0.3s;
+
+    @include media-breakpoint-down(sm) {
+      padding: $space-3;
+    }
+  }
+
+  .ledger-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ledger-row {
+    display: flex;
+    align-items: baseline;
+    gap: $space-2;
+    padding: $space-3 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:not(:first-child) {
+      border-top: 1px solid $vc-grey-100;
+      transition: border-color 0.3s;
+    }
+
+    .ledger-item {
+      display: block;
+      max-width: 62%;
+    }
+
+    .item-name {
+      display: block;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 17px;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 16px;
+      }
+    }
+
+    .item-detail {
+      display: block;
+      @include vc-body($vc-grey-600);
+      margin-top: 4px;
+    }
+
+    .ledger-leader {
+      flex: 1 1 auto;
+      align-self: center;
+      min-width: 32px;
+      height: 1px;
+      border-bottom: 1px dotted $vc-grey-200;
+      transition: border-color 0.3s;
+    }
+
+    .ledger-stamp {
+      @include vc-eyebrow($vc-grey-600);
+      margin: 0;
+      white-space: nowrap;
+    }
+  }
+
+  .ledger-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $space-2;
+    margin-top: $space-2;
+    padding-top: $space-4;
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
+
+    .total-label {
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 18px;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+    }
+
+    // Display-scale metric: red carries the proof number (large-text
+    // contrast on #F5F5F5 clears the 3:1 floor for display type).
+    .total-value {
+      font-family: $vc-display-font;
+      font-stretch: $vc-display-stretch;
+      font-weight: $vc-black;
+      font-size: clamp(56px, 7vw, 96px);
+      line-height: 0.9;
+      color: $vc-primary;
+    }
+  }
+
+  .ledger-note {
+    @include vc-body($vc-grey-600);
+    margin: $space-2 0 0;
+    text-align: right;
+  }
+
+  @include media-breakpoint-down(sm) {
+    .ledger-row {
+      flex-wrap: wrap;
+
+      .ledger-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+
+      .ledger-leader {
+        display: none;
+      }
+
+      .ledger-stamp {
+        margin-top: 6px;
+      }
+    }
+
+    .ledger-total {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-1;
+
+      .total-value {
+        font-size: clamp(48px, 16vw, 72px);
+      }
+    }
+
+    .ledger-note {
+      text-align: left;
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-ledger {
+  background: $dark-vc-background-dark-alt !important;
+
+  .fw-ledger-head .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .fw-ledger-head .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .fw-ledger-plate {
+    background: $dark-vc-background-dark !important;
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .ledger-row:not(:first-child) {
+    border-top-color: $vc-grey-dark-border !important;
+  }
+
+  .ledger-row .item-name {
+    color: $vc-text-light !important;
+  }
+
+  .ledger-row .item-detail,
+  .ledger-row .ledger-stamp,
+  .ledger-note {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .ledger-row .ledger-leader {
+    border-bottom-color: $vc-grey-dark-border !important;
+  }
+
+  .ledger-total {
+    border-top-color: $vc-ember-line !important;
+
+    .total-label {
+      color: $vc-text-light !important;
+    }
+  }
+}

@@ -163,6 +163,39 @@
     color: $vc-primary !important;
   }
 
+  // Free-website offer page: every reveal target shows its finished state.
+  .fw-hero h1,
+  .fw-hero .sub-heading,
+  .fw-hero .hero-actions,
+  .fw-hero .hero-note,
+  .fw-how .content h2,
+  .fw-how .fw-how-intro .sub-heading,
+  .fw-how .how-step,
+  .fw-ledger .content h2,
+  .fw-ledger .sub-heading,
+  .fw-ledger .ledger-row,
+  .fw-ledger .ledger-total,
+  .fw-ledger .ledger-note,
+  .fw-contrast .content h2,
+  .fw-contrast .sub-heading,
+  .fw-contrast .contrast-row,
+  .fw-proof .content h2,
+  .fw-faq .content h2,
+  .fw-faq .fw-faq-item,
+  .fw-enquire .content h2,
+  .fw-enquire .sub-heading,
+  .fw-enquire .form-container,
+  .fw-enquire .enquire-note {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  // The hero's ember rule and the how-section rail stay fully drawn.
+  .fw-hero .hero-rule,
+  .fw-how .fw-how-rail {
+    transform: none !important;
+  }
+
   // The rolling-word container is normally sized by JS. With motion off, show
   // only the first word inline so the headline reads as a complete sentence.
   .dynamic-text {

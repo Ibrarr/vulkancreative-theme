@@ -1,0 +1,58 @@
+// Slim header for the offer page: the base header hides .menu-theme-toggle
+// below lg (the overlay-menu pages move it into the mobile menu), but this
+// template has no mobile menu, so the actions stay visible at every width.
+header {
+  .fw-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .fw-header-cta {
+    @include vc-button-forge;
+    font-size: 15px;
+    padding: 11px 24px;
+    white-space: nowrap;
+
+    &::after {
+      content: '\2192';
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform .3s ease;
+    }
+
+    @media (hover: hover) {
+      &:hover::after {
+        transform: translateX(4px);
+      }
+    }
+
+    &:focus-visible::after {
+      transform: translateX(4px);
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .main-menu .menu-theme-toggle {
+      display: flex;
+    }
+
+    .main-menu .fw-header-actions {
+      gap: 16px;
+    }
+
+    .fw-header-cta {
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+
+  // Below sm the three elements cannot share the row without crushing the
+  // button; the hero CTA (above the fold) and the sticky bar carry the CTA
+  // on phones, so the header keeps just the logo and toggle.
+  @include media-breakpoint-down(sm) {
+    .fw-header-cta {
+      display: none;
+    }
+  }
+}

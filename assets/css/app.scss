@@ -103,6 +103,9 @@ body {
 // Case study pages: the /case-studies/ archive and the narrative singles.
 @import "components/case-study/case-study";
 
+// Free Website offer landing page (standalone template at /free-website/).
+@import "components/free-website/free-website";
+
 // Insights (blog) — shared global components, used by the index, category and
 // author archives, search results and the single article's related row.
 @import "components/common/post-grid";          // .insight-card

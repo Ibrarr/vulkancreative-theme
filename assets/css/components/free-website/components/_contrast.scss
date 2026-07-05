@@ -1,0 +1,186 @@
+// "The usual way vs the Vulkan way": paired rows, the right column on a
+// continuous dark plate. #FFF light / #1E1E1E dark.
+.fw-contrast {
+  @include vc-section-padding;
+  background: $vc-surface-white;
+  transition: background 0.3s;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    transition: color 0.3s;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .fw-contrast-intro .sub-heading {
+    @include vc-p($vc-grey-600);
+    margin: 0 0 6px;
+    transition: color 0.3s;
+
+    @include media-breakpoint-down(lg) {
+      margin: $space-2 0 0;
+    }
+  }
+
+  .contrast-grid {
+    margin-top: $space-8;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-5;
+    }
+  }
+
+  .contrast-row {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: $space-5;
+
+    .cr-usual,
+    .cr-this {
+      margin: 0;
+    }
+
+    .cr-usual {
+      @include vc-body($vc-grey-600);
+      padding: $space-3 $space-3 $space-3 0;
+      border-top: 1px solid $vc-grey-100;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    // The plate: contiguous dark cells read as one column.
+    .cr-this {
+      @include vc-body($vc-text-light);
+      padding: $space-3 $space-4;
+      background: $vc-background-dark;
+      border-top: 1px solid rgba($vc-text-light, 0.08);
+      transition: background 0.3s;
+    }
+
+    &.contrast-head {
+      .cr-usual,
+      .cr-this {
+        @include vc-eyebrow($vc-grey-600);
+        border-top: 0;
+        margin: 0;
+      }
+
+      .cr-usual {
+        padding: 0 $space-3 $space-2 0;
+        align-self: end;
+      }
+
+      .cr-this {
+        color: rgba($vc-text-light, 0.92);
+        background: $vc-background-dark;
+        border-radius: 2px 2px 0 0;
+        padding: $space-4 $space-4 $space-2;
+      }
+    }
+
+    &:nth-child(2) .cr-usual {
+      border-top: 0;
+    }
+
+    &:last-child .cr-this {
+      border-radius: 0 0 2px 2px;
+      padding-bottom: $space-4;
+    }
+
+    // The per-cell labels only exist on mobile, where the head row is hidden.
+    .cr-label {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .contrast-row {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+
+      &.contrast-head {
+        display: none;
+      }
+
+      .cr-usual {
+        padding: $space-3 0;
+        border-top: 1px solid $vc-grey-100;
+      }
+
+      .cr-this {
+        border-top: 0;
+        border-radius: 2px;
+      }
+
+      &:nth-child(2) .cr-usual {
+        border-top: 1px solid $vc-grey-100;
+      }
+
+      &:last-child .cr-this {
+        border-radius: 2px;
+        padding-bottom: $space-3;
+      }
+
+      .cr-label {
+        @include vc-eyebrow($vc-grey-600);
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .cr-this .cr-label {
+        color: rgba($vc-text-light, 0.72);
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-contrast {
+  background: $dark-vc-background-dark !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .fw-contrast-intro .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .contrast-row {
+    .cr-usual {
+      color: $vc-muted-on-dark !important;
+      border-top-color: $vc-grey-dark-border !important;
+    }
+
+    // The plate steps up a surface so it still reads as the highlighted column.
+    .cr-this {
+      background: $vc-grey-dark-surface !important;
+      border-top-color: rgba($vc-text-light, 0.08) !important;
+    }
+
+    &.contrast-head {
+      .cr-usual {
+        color: $vc-muted-on-dark !important;
+        border-top: 0 !important;
+      }
+
+      .cr-this {
+        background: $vc-grey-dark-surface !important;
+      }
+    }
+
+    &:nth-child(2) .cr-usual {
+      border-top: 0 !important;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .contrast-row:nth-child(2) .cr-usual {
+      border-top: 1px solid $vc-grey-dark-border !important;
+    }
+
+    .contrast-row .cr-usual .cr-label {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+}

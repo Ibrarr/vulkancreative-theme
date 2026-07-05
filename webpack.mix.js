@@ -125,6 +125,16 @@ mix.js([
     'assets/js/homepage/counter.js',
 ], 'js/case-study.js');
 
+mix.js([
+    'assets/js/free-website/reveal.js',
+    'assets/js/free-website/ledger.js',
+    'assets/js/free-website/faq.js',
+    'assets/js/free-website/sticky-cta.js',
+    // Shared module: the testimonial spotlight carousel binds
+    // #testimonial-splide (the about/services-hub precedent).
+    'assets/js/homepage/testimonials.js',
+], 'js/free-website.js');
+
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({
         processCssUrls: false

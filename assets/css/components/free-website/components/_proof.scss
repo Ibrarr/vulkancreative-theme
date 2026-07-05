@@ -1,0 +1,29 @@
+// Testimonial spotlight wrapper; the component itself is the shared
+// common/_testimonial-spotlight.scss. #F5F5F5 light / #121212 dark.
+.fw-proof {
+  @include vc-section-padding;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    margin-bottom: $space-8;
+    transition: color 0.3s;
+
+    span {
+      color: $vc-primary;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+}
+
+@at-root body.dark-mode .fw-proof {
+  background: $dark-vc-background-dark-alt !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+}
