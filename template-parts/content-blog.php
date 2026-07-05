@@ -173,7 +173,7 @@ $related = new WP_Query( [
                         <div class="insight-newsletter">
                             <p class="insight-sidebar-label">Subscribe to our newsletter</p>
                             <div class="form">
-                                <?php echo do_shortcode( '[gravityform id="3" title="false" description="false" ajax="true"]' ); ?>
+                                <?php vc_render_form( 3, 'options', 'newsletter_form_id' ); ?>
                             </div>
                         </div>
                     </div>

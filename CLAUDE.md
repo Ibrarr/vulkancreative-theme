@@ -394,13 +394,12 @@ Dark mode is the **default** for every page (dark-first). Light mode is the opt-
 
 ### Gravity Forms
 
-Two forms are used: **id 2** (Contact/enquiry) on `front-page.php`, `page-contact-us.php`, `page-your-business.php`; **id 3** (Newsletter) on `footer.php`, `template-parts/content-blog.php` sidebar.
+Form embeds are **editor-selectable**, not hardcoded. Every form section renders through `vc_render_form( $default_id, $acf_id, $field )` (`inc/gravity-forms.php`), which reads an ACF "Select Form" picker and falls back to the section's original id when the picker is left on "— Use default —". Never re-add a bare `[gravityform]` shortcode to a template; call the helper so the choice stays editable.
 
-```php
-<?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
-```
+- **Per-page picker** (`vc_page_form`, group `group_vc_form_settings`): a select in the "Form Settings" side panel on the front page and the Contact / Services Hub / Your Business templates. One saved value per page. Defaults: homepage/services-hub/your-business `2`, contact `5` (the multi-step enquiry form, id 5, per the enquiry-form system).
+- **Site-wide newsletter picker** (`newsletter_form_id`, group `group_vc_newsletter_form`): a select on the Global Settings options page, read with `'options'`, for the blog-sidebar newsletter in `template-parts/content-blog.php` (default `3`). Global rather than per-post because that sidebar shows on every article.
 
-All forms use `ajax="true"`. Title and description are hidden. SCSS override details in `docs/scss-reference.md`.
+Both field groups are registered in **PHP** (`acf/init` in `inc/gravity-forms.php`), not `acf-json`, because the page groups and options page already exist in the ACF database and a JSON edit would sit behind a manual Sync. The dropdowns are populated live from `GFAPI::get_forms()` via an `acf/load_field` filter, so the list always matches the real forms. All embeds keep `title="false" description="false" ajax="true"`. SCSS override details in `docs/scss-reference.md`.
 
 ### Custom Taxonomies
 

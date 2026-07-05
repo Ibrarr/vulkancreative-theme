@@ -70,7 +70,7 @@ get_template_part( 'template-parts/page', 'hero', [
 				<div class="form-container">
 					<?php // Progress hairline sits outside .gform_wrapper so GF ajax re-renders never remove it. ?>
 					<span class="form-progress" aria-hidden="true"><span class="form-progress-fill"></span></span>
-					<?php echo do_shortcode( '[gravityform id="5" title="false" description="false" ajax="true"]' ); ?>
+					<?php vc_render_form( 5 ); ?>
 				</div>
 			</div>
 

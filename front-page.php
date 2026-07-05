@@ -536,7 +536,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             </div>
             <div class="col-lg-6 form">
                 <div class="form-container">
-                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                    <?php vc_render_form( 2 ); ?>
                 </div>
             </div>
         </div>

@@ -250,7 +250,7 @@ get_template_part( 'template-parts/page', 'hero', [
 			</div>
 			<div class="col-lg-5 offset-lg-1 form">
 				<div class="form-container">
-					<?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+					<?php vc_render_form( 2 ); ?>
 				</div>
 			</div>
 		</div>

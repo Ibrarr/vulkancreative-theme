@@ -68,7 +68,7 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
             </div>
             <div class="offset-xl-1 col-lg-5 hero-form">
                 <div class="hero-form-container">
-                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                    <?php vc_render_form( 2 ); ?>
                 </div>
             </div>
         </div>
@@ -307,7 +307,7 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
             </div>
             <div class="col-lg-6 form">
                 <div class="form-container">
-                    <?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+                    <?php vc_render_form( 2 ); ?>
                 </div>
             </div>
         </div>
