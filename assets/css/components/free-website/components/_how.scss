@@ -1,4 +1,9 @@
 // Three-step numbered rail. #FFF light / #1E1E1E dark (first pair after the hero).
+// A rail draws through the steps on scroll and each numeral forges solid as the
+// rail reaches it. Horizontal across the top on desktop, vertical down the left
+// below lg. The numerals mask the rail (solid background knockout) so the line
+// never shows behind a number; how-scroll.js sets the rail geometry and the
+// scroll fill.
 .fw-how {
   @include vc-section-padding;
   background: $vc-surface-white;
@@ -37,19 +42,29 @@
     position: relative;
   }
 
-  // The connector rail sits behind the step numerals; drawn by JS on reveal,
-  // fully drawn by default so no-JS never hides it.
+  // Desktop: horizontal connector. how-scroll.js overrides left/width to run
+  // from the first numeral's centre to the last, so it never trails past the
+  // final number; scaleX is the scroll fill. Behind the numerals (z-index 0).
   .fw-how-rail {
     position: absolute;
     top: 22px;
     left: 0;
     right: 0;
     height: 1px;
+    z-index: 0;
     background: $vc-ember-line-light;
     transform-origin: left center;
 
     @include media-breakpoint-down(lg) {
-      display: none;
+      // Vertical rail down the numeral column; scaleY is the scroll fill.
+      // how-scroll.js centres `left` on the numerals; this is the no-JS default.
+      top: 0;
+      bottom: 0;
+      left: 25px;
+      right: auto;
+      width: 1px;
+      height: 100%;
+      transform-origin: center top;
     }
   }
 
@@ -61,17 +76,24 @@
     margin: 0;
     padding: 0;
     position: relative;
+    z-index: 1;
   }
 
+  // Step text is always full-contrast for readability; only the numeral colour
+  // tracks progress (outline until the rail reaches it, then solid red).
   .how-step {
     position: relative;
     padding-top: $space-8;
 
+    // Solid background knockout: masks the rail wherever a numeral crosses it,
+    // so the line is only ever visible in the gaps between numbers.
     .step-index {
       position: absolute;
       top: 0;
+      left: 0;
       display: inline-block;
-      padding-right: $space-2;
+      padding: 0 $space-2;
+      margin-left: -$space-2;
       background: $vc-surface-white;
       font-family: $vc-display-font;
       font-stretch: $vc-display-stretch;
@@ -80,7 +102,12 @@
       line-height: 1;
       color: transparent;
       -webkit-text-stroke: 1.5px $vc-primary;
-      transition: background 0.3s;
+      transition: background 0.3s, color 0.45s ease;
+    }
+
+    // The numeral forges solid as the rail reaches it (homepage process dialect).
+    &.is-passed .step-index {
+      color: $vc-primary;
     }
 
     .step-title {
@@ -99,18 +126,28 @@
   @include media-breakpoint-down(lg) {
     .fw-how-steps {
       grid-template-columns: 1fr;
-      gap: $space-5;
+      gap: $space-8;
     }
 
+    // Vertical timeline: smaller numeral centred on the rail, content cleared
+    // well to the right so the number never touches the copy.
     .how-step {
       padding-top: 0;
-      padding-left: 72px;
+      padding-left: 64px;
+      min-height: 40px;
 
       .step-index {
+        top: -2px;
         left: 0;
-        top: 2px;
-        padding-right: 0;
-        background: transparent;
+        width: 40px;
+        padding: 4px 0;
+        margin-left: 0;
+        font-size: 30px;
+        text-align: center;
+      }
+
+      .step-title {
+        padding-top: 2px;
       }
     }
   }
@@ -141,11 +178,5 @@
 
   .how-step .step-desc {
     color: $vc-muted-on-dark !important;
-  }
-
-  @include media-breakpoint-down(lg) {
-    .how-step .step-index {
-      background: transparent !important;
-    }
   }
 }

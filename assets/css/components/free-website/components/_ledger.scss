@@ -1,5 +1,7 @@
 // The signature section: an itemised ledger of everything included, closing
-// on the £0 total. #F5F5F5 light / #121212 dark.
+// on the £0 total. #F5F5F5 light / #121212 dark. Kept deliberately quiet:
+// the plate surface and row spacing do the binding, and the only rule on the
+// plate is the ember tear line above the total.
 .fw-ledger {
   @include vc-section-padding;
   background: $vc-background-white;
@@ -34,13 +36,12 @@
 
   .fw-ledger-plate {
     background: $vc-surface-white;
-    border: 1px solid $vc-grey-100;
     border-radius: 2px;
-    padding: $space-5;
-    transition: background 0.3s, border-color 0.3s;
+    padding: $space-6 $space-5;
+    transition: background 0.3s;
 
     @include media-breakpoint-down(sm) {
-      padding: $space-3;
+      padding: $space-4 $space-3;
     }
   }
 
@@ -50,28 +51,33 @@
     padding: 0;
   }
 
+  // Quiet receipt row: name and stamp share the first line, detail beneath;
+  // a faint hairline separates the rows.
   .ledger-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'name stamp'
+      'detail detail';
     align-items: baseline;
-    gap: $space-2;
+    column-gap: $space-3;
     padding: $space-3 0;
 
     &:first-child {
       padding-top: 0;
     }
 
-    &:not(:first-child) {
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    & + .ledger-row {
       border-top: 1px solid $vc-grey-100;
       transition: border-color 0.3s;
     }
 
-    .ledger-item {
-      display: block;
-      max-width: 62%;
-    }
-
     .item-name {
-      display: block;
+      grid-area: name;
       font-family: $vc-font-family;
       font-weight: $vc-semi-bold;
       font-size: 17px;
@@ -83,25 +89,18 @@
       }
     }
 
-    .item-detail {
-      display: block;
-      @include vc-body($vc-grey-600);
-      margin-top: 4px;
-    }
-
-    .ledger-leader {
-      flex: 1 1 auto;
-      align-self: center;
-      min-width: 32px;
-      height: 1px;
-      border-bottom: 1px dotted $vc-grey-200;
-      transition: border-color 0.3s;
-    }
-
     .ledger-stamp {
       @include vc-eyebrow($vc-grey-600);
+      grid-area: stamp;
       margin: 0;
       white-space: nowrap;
+    }
+
+    .item-detail {
+      grid-area: detail;
+      @include vc-body($vc-grey-600);
+      margin-top: 4px;
+      max-width: 56ch;
     }
   }
 
@@ -110,7 +109,7 @@
     align-items: baseline;
     justify-content: space-between;
     gap: $space-2;
-    margin-top: $space-2;
+    margin-top: $space-6;
     padding-top: $space-4;
     border-top: 1px solid $vc-ember-line-light;
     transition: border-color 0.3s;
@@ -118,9 +117,13 @@
     .total-label {
       font-family: $vc-font-family;
       font-weight: $vc-semi-bold;
-      font-size: 18px;
+      font-size: 22px;
       color: $vc-text-dark;
       transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 18px;
+      }
     }
 
     // Display-scale metric: red carries the proof number (large-text
@@ -137,28 +140,11 @@
 
   .ledger-note {
     @include vc-body($vc-grey-600);
-    margin: $space-2 0 0;
-    text-align: right;
+    margin: $space-1 0 0;
+    max-width: 48ch;
   }
 
   @include media-breakpoint-down(sm) {
-    .ledger-row {
-      flex-wrap: wrap;
-
-      .ledger-item {
-        flex: 1 1 100%;
-        max-width: 100%;
-      }
-
-      .ledger-leader {
-        display: none;
-      }
-
-      .ledger-stamp {
-        margin-top: 6px;
-      }
-    }
-
     .ledger-total {
       flex-direction: column;
       align-items: flex-start;
@@ -167,10 +153,6 @@
       .total-value {
         font-size: clamp(48px, 16vw, 72px);
       }
-    }
-
-    .ledger-note {
-      text-align: left;
     }
   }
 }
@@ -188,10 +170,9 @@
 
   .fw-ledger-plate {
     background: $dark-vc-background-dark !important;
-    border-color: $vc-grey-dark-border !important;
   }
 
-  .ledger-row:not(:first-child) {
+  .ledger-row + .ledger-row {
     border-top-color: $vc-grey-dark-border !important;
   }
 
@@ -203,10 +184,6 @@
   .ledger-row .ledger-stamp,
   .ledger-note {
     color: $vc-muted-on-dark !important;
-  }
-
-  .ledger-row .ledger-leader {
-    border-bottom-color: $vc-grey-dark-border !important;
   }
 
   .ledger-total {

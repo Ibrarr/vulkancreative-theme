@@ -9,7 +9,7 @@ get_header();
 // by vc_heading_parts(); fallbacks only apply when all three parts are blank.
 
 // Hero
-$hero_heading         = vc_heading_parts( 'fw_hero_heading', false, 'Your new website. <span>Built free.</span>' );
+$hero_heading         = vc_heading_parts( 'fw_hero_heading', false, 'Your new website. <span>Built free</span>.' );
 $hero_subheading      = get_field('fw_hero_subheading') ?: 'For local businesses that want a proper website without paying thousands up front. We design it, build it, host it and look after it. You pay from £49 a month, and you can leave whenever you like.';
 $hero_primary_label   = get_field('fw_hero_primary_label') ?: 'Get Your Free Website';
 $hero_secondary_label = get_field('fw_hero_secondary_label') ?: 'See How It Works';
@@ -97,7 +97,7 @@ if ( $testimonial_posts->have_posts() ) {
 }
 
 // FAQ
-$faq_heading = vc_heading_parts( 'fw_faq_heading', false, 'Questions, <span>answered</span>.' );
+$faq_heading = vc_heading_parts( 'fw_faq_heading', false, '<span>FAQs</span>.' );
 $faqs_default = [
 	[ 'question' => 'Why is the website free?', 'answer' => 'Because we make our money on the monthly fee, not the build. We only do well if your website is good and you stay with us, so we have every reason to build you something that works and to keep it working. There is no catch to find.' ],
 	[ 'question' => 'What does the monthly fee cover?', 'answer' => 'Everything your website needs to run: hosting, your domain and SSL certificate, software updates, security monitoring, backups, support from a real person, and small content changes like new photos, prices or opening hours.' ],
@@ -120,7 +120,7 @@ $faqs = $faqs ?: $faqs_default;
 // Enquire
 $enquire_heading    = vc_heading_parts( 'fw_enquire_heading', false, 'Get your <span>free website</span>.' );
 $enquire_subheading = get_field('fw_enquire_subheading') ?: 'Tell us who you are and we will come back to you within one working day. No obligation, no pressure, no jargon.';
-$enquire_note       = get_field('fw_enquire_note') ?: 'We only use your details to reply to you.';
+$enquire_note       = get_field('fw_enquire_note') ?: '';
 
 // Sticky bar
 $sticky_label = get_field('fw_sticky_label') ?: 'Get Your Free Website';
@@ -190,14 +190,11 @@ $sticky_label = get_field('fw_sticky_label') ?: 'Get Your Free Website';
 					<ul class="ledger-list">
 						<?php foreach ( $ledger_items as $row ) : ?>
 							<li class="ledger-row">
-								<span class="ledger-item">
-									<span class="item-name"><?php echo esc_html( $row['item'] ); ?></span>
-									<?php if ( ! empty( $row['detail'] ) ) : ?>
-										<span class="item-detail"><?php echo esc_html( $row['detail'] ); ?></span>
-									<?php endif; ?>
-								</span>
-								<span class="ledger-leader" aria-hidden="true"></span>
+								<span class="item-name"><?php echo esc_html( $row['item'] ); ?></span>
 								<span class="ledger-stamp"><?php echo esc_html( $ledger_included ); ?></span>
+								<?php if ( ! empty( $row['detail'] ) ) : ?>
+									<span class="item-detail"><?php echo esc_html( $row['detail'] ); ?></span>
+								<?php endif; ?>
 							</li>
 						<?php endforeach; ?>
 					</ul>
@@ -224,15 +221,16 @@ $sticky_label = get_field('fw_sticky_label') ?: 'Get Your Free Website';
 				<p class="sub-heading"><?php echo esc_html( $contrast_note ); ?></p>
 			</div>
 		</div>
-		<div class="contrast-grid">
-			<div class="contrast-row contrast-head">
-				<h3 class="cr-usual"><?php echo esc_html( $contrast_usual_title ); ?></h3>
-				<h3 class="cr-this"><?php echo esc_html( $contrast_this_title ); ?></h3>
+		<?php // Clean two-column comparison: the usual way muted on the left, the Vulkan way in red and bold on the right. ?>
+		<div class="contrast-compare">
+			<div class="compare-row compare-row--head">
+				<span class="cr-head cr-head--usual"><?php echo esc_html( $contrast_usual_title ); ?></span>
+				<span class="cr-head cr-head--vulkan"><?php echo esc_html( $contrast_this_title ); ?></span>
 			</div>
 			<?php foreach ( $contrast_rows as $row ) : ?>
-				<div class="contrast-row">
-					<p class="cr-usual"><span class="cr-label"><?php echo esc_html( $contrast_usual_title ); ?></span><?php echo esc_html( $row['usual'] ); ?></p>
-					<p class="cr-this"><span class="cr-label"><?php echo esc_html( $contrast_this_title ); ?></span><?php echo esc_html( $row['this'] ); ?></p>
+				<div class="compare-row">
+					<span class="cr-usual"><?php echo esc_html( $row['usual'] ); ?></span>
+					<span class="cr-vulkan"><?php echo esc_html( $row['this'] ); ?></span>
 				</div>
 			<?php endforeach; ?>
 		</div>

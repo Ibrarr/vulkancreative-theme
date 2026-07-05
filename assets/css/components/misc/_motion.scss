@@ -178,7 +178,7 @@
   .fw-ledger .ledger-note,
   .fw-contrast .content h2,
   .fw-contrast .sub-heading,
-  .fw-contrast .contrast-row,
+  .fw-contrast .compare-row,
   .fw-proof .content h2,
   .fw-faq .content h2,
   .fw-faq .fw-faq-item,
@@ -190,10 +190,15 @@
     transform: none !important;
   }
 
-  // The hero's ember rule and the how-section rail stay fully drawn.
+  // The hero's ember rule and the how-section rail stay fully drawn, and the
+  // step numerals show their forged (passed) state.
   .fw-hero .hero-rule,
   .fw-how .fw-how-rail {
     transform: none !important;
+  }
+
+  .fw-how .how-step .step-index {
+    color: $vc-primary !important;
   }
 
   // The rolling-word container is normally sized by JS. With motion off, show

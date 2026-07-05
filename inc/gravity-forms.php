@@ -107,6 +107,7 @@ function vc_register_form_picker_fields() {
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-contact-us.php' ] ],
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-services-hub.php' ] ],
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-your-business.php' ] ],
+			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-free-website.php' ] ],
 		],
 		'menu_order'      => 20,
 		'position'        => 'side',

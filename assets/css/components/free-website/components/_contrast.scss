@@ -1,5 +1,8 @@
-// "The usual way vs the Vulkan way": paired rows, the right column on a
-// continuous dark plate. #FFF light / #1E1E1E dark.
+// "Most agencies charge thousands. We don't." A clean two-column comparison,
+// kept deliberately readable: the usual way muted on the left, the Vulkan way
+// bold and red-headed on the right. No boxes, no chip, no strikethrough. The
+// Vulkan column earns focus through the red heading and heavier, larger type.
+// Row hairlines aid scanning. #FFF light / #1E1E1E dark.
 .fw-contrast {
   @include vc-section-padding;
   background: $vc-surface-white;
@@ -24,7 +27,7 @@
     }
   }
 
-  .contrast-grid {
+  .contrast-compare {
     margin-top: $space-8;
 
     @include media-breakpoint-down(lg) {
@@ -32,104 +35,92 @@
     }
   }
 
-  .contrast-row {
+  .compare-row {
     display: grid;
-    grid-template-columns: 5fr 7fr;
-    column-gap: $space-5;
+    grid-template-columns: 1fr 1fr;
+    column-gap: $space-8;
+    align-items: baseline;
+  }
 
-    .cr-usual,
-    .cr-this {
-      margin: 0;
+  // Column headings. The Vulkan red is set at heading scale so it clears the
+  // large-text contrast floor on the light surface (never small red on light).
+  .compare-row--head {
+    padding-bottom: $space-3;
+
+    .cr-head {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 1.25rem;
+      line-height: 1.2;
     }
 
-    .cr-usual {
-      @include vc-body($vc-grey-600);
-      padding: $space-3 $space-3 $space-3 0;
-      border-top: 1px solid $vc-grey-100;
-      transition: color 0.3s, border-color 0.3s;
+    .cr-head--usual {
+      color: $vc-grey-700;
+      transition: color 0.3s;
     }
 
-    // The plate: contiguous dark cells read as one column.
-    .cr-this {
-      @include vc-body($vc-text-light);
-      padding: $space-3 $space-4;
-      background: $vc-background-dark;
-      border-top: 1px solid rgba($vc-text-light, 0.08);
-      transition: background 0.3s;
-    }
-
-    &.contrast-head {
-      .cr-usual,
-      .cr-this {
-        @include vc-eyebrow($vc-grey-600);
-        border-top: 0;
-        margin: 0;
-      }
-
-      .cr-usual {
-        padding: 0 $space-3 $space-2 0;
-        align-self: end;
-      }
-
-      .cr-this {
-        color: rgba($vc-text-light, 0.92);
-        background: $vc-background-dark;
-        border-radius: 2px 2px 0 0;
-        padding: $space-4 $space-4 $space-2;
-      }
-    }
-
-    &:nth-child(2) .cr-usual {
-      border-top: 0;
-    }
-
-    &:last-child .cr-this {
-      border-radius: 0 0 2px 2px;
-      padding-bottom: $space-4;
-    }
-
-    // The per-cell labels only exist on mobile, where the head row is hidden.
-    .cr-label {
-      display: none;
+    .cr-head--vulkan {
+      color: $vc-primary;
     }
   }
 
-  @include media-breakpoint-down(lg) {
-    .contrast-row {
-      grid-template-columns: 1fr;
-      column-gap: 0;
+  // Content rows: usual muted and plain, Vulkan heavier and larger so it reads
+  // as the important side without a box.
+  .compare-row:not(.compare-row--head) {
+    padding: $space-4 0;
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
 
-      &.contrast-head {
+    .cr-usual {
+      @include vc-body($vc-grey-600);
+      line-height: 1.55;
+      max-width: 42ch;
+      transition: color 0.3s;
+    }
+
+    .cr-vulkan {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      color: $vc-text-dark;
+      max-width: 42ch;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.0625rem;
+      }
+    }
+  }
+
+  // Below md: stack, leading with the Vulkan answer, the usual claim muted
+  // beneath. One red heading at the top carries the brand accent.
+  @include media-breakpoint-down(md) {
+    .compare-row {
+      grid-template-columns: 1fr;
+    }
+
+    .compare-row--head {
+      padding-bottom: $space-2;
+
+      .cr-head--usual {
         display: none;
+      }
+    }
+
+    .compare-row:not(.compare-row--head) {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: $space-3 0;
+
+      .cr-vulkan {
+        order: -1;
+        max-width: none;
       }
 
       .cr-usual {
-        padding: $space-3 0;
-        border-top: 1px solid $vc-grey-100;
-      }
-
-      .cr-this {
-        border-top: 0;
-        border-radius: 2px;
-      }
-
-      &:nth-child(2) .cr-usual {
-        border-top: 1px solid $vc-grey-100;
-      }
-
-      &:last-child .cr-this {
-        border-radius: 2px;
-        padding-bottom: $space-3;
-      }
-
-      .cr-label {
-        @include vc-eyebrow($vc-grey-600);
-        display: block;
-        margin-bottom: 6px;
-      }
-
-      .cr-this .cr-label {
-        color: rgba($vc-text-light, 0.72);
+        max-width: none;
       }
     }
   }
@@ -146,41 +137,19 @@
     color: $vc-muted-on-dark !important;
   }
 
-  .contrast-row {
-    .cr-usual {
-      color: $vc-muted-on-dark !important;
-      border-top-color: $vc-grey-dark-border !important;
-    }
-
-    // The plate steps up a surface so it still reads as the highlighted column.
-    .cr-this {
-      background: $vc-grey-dark-surface !important;
-      border-top-color: rgba($vc-text-light, 0.08) !important;
-    }
-
-    &.contrast-head {
-      .cr-usual {
-        color: $vc-muted-on-dark !important;
-        border-top: 0 !important;
-      }
-
-      .cr-this {
-        background: $vc-grey-dark-surface !important;
-      }
-    }
-
-    &:nth-child(2) .cr-usual {
-      border-top: 0 !important;
-    }
+  .compare-row--head .cr-head--usual {
+    color: $vc-muted-on-dark !important;
   }
 
-  @include media-breakpoint-down(lg) {
-    .contrast-row:nth-child(2) .cr-usual {
-      border-top: 1px solid $vc-grey-dark-border !important;
+  .compare-row:not(.compare-row--head) {
+    border-top-color: $vc-ember-line !important;
+
+    .cr-usual {
+      color: $vc-muted-on-dark !important;
     }
 
-    .contrast-row .cr-usual .cr-label {
-      color: $vc-muted-on-dark !important;
+    .cr-vulkan {
+      color: $vc-text-light !important;
     }
   }
 }

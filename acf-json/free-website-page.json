@@ -37,7 +37,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Built free.",
+            "default_value": "Built free",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -58,7 +58,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": ".",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -808,7 +808,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Questions,",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -829,7 +829,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "answered",
+            "default_value": "FAQs",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1023,7 +1023,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "We only use your details to reply to you.",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",

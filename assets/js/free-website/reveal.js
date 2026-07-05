@@ -60,20 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const headings = gsap.utils.toArray('.fw-how .content h2, .fw-ledger .content h2, .fw-contrast .content h2, .fw-proof .content h2, .fw-faq .content h2, .fw-enquire .content h2');
     const fades = gsap.utils.toArray('.fw-how .fw-how-intro .sub-heading, .fw-ledger .fw-ledger-head .sub-heading, .fw-contrast .fw-contrast-intro .sub-heading, .fw-enquire .fw-enquire-intro .sub-heading, .fw-enquire .enquire-note');
     const steps = gsap.utils.toArray('.fw-how .how-step');
-    const contrastRows = gsap.utils.toArray('.fw-contrast .contrast-grid .contrast-row');
+    const contrastRows = gsap.utils.toArray('.fw-contrast .compare-row');
     const faqItems = gsap.utils.toArray('.fw-faq .fw-faq-item');
     const formPanel = document.querySelector('.fw-enquire .form-container');
-    const howRail = document.querySelector('.fw-how .fw-how-rail');
 
-    gsap.set([...headings, ...fades, ...steps, ...faqItems], { opacity: 0, y: 24 });
+    gsap.set([...headings, ...fades, ...faqItems], { opacity: 0, y: 24 });
+    // Steps rise on entrance only; their opacity and the rail belong to the
+    // scroll fill in how-scroll.js.
+    gsap.set(steps, { y: 24 });
     if (formPanel) gsap.set(formPanel, { opacity: 0, y: 28 });
-    if (howRail) gsap.set(howRail, { scaleX: 0 });
-    contrastRows.forEach((row) => {
-        const usual = row.querySelector('.cr-usual');
-        const cell = row.querySelector('.cr-this');
-        if (usual) gsap.set(usual, { opacity: 0, x: -16 });
-        if (cell) gsap.set(cell, { opacity: 0, x: 16 });
-    });
+    if (contrastRows.length) gsap.set(contrastRows, { opacity: 0, y: 22 });
 
     const showHeading = (el) => {
         SplitText.create(el, {
@@ -103,25 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
     headings.forEach((el) => handlers.set(el, showHeading));
     fades.forEach((el) => handlers.set(el, showFade));
 
-    // Steps stagger in together and the rail draws underneath them.
+    // Steps rise in together on entrance (the scroll fill brightens them).
     const stepsGrid = document.querySelector('.fw-how .fw-how-steps');
     if (stepsGrid && steps.length) {
         handlers.set(stepsGrid, () => {
-            gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.14, ease: 'power2.out' });
-            if (howRail) gsap.to(howRail, { scaleX: 1, duration: 1.1, ease: 'power3.out', delay: 0.1 });
+            gsap.to(steps, { y: 0, duration: 0.6, stagger: 0.14, ease: 'power2.out' });
         });
     }
 
-    // Contrast rows slide in from opposite sides, row by row.
-    const contrastGrid = document.querySelector('.fw-contrast .contrast-grid');
-    if (contrastGrid && contrastRows.length) {
-        handlers.set(contrastGrid, () => {
-            contrastRows.forEach((row, i) => {
-                const usual = row.querySelector('.cr-usual');
-                const cell = row.querySelector('.cr-this');
-                if (usual) gsap.to(usual, { opacity: 1, x: 0, duration: 0.55, ease: 'power2.out', delay: i * 0.08 });
-                if (cell) gsap.to(cell, { opacity: 1, x: 0, duration: 0.55, ease: 'power2.out', delay: i * 0.08 + 0.05 });
-            });
+    // Each comparison row rises in sequence.
+    const contrastCompare = document.querySelector('.fw-contrast .contrast-compare');
+    if (contrastCompare && contrastRows.length) {
+        handlers.set(contrastCompare, () => {
+            gsap.to(contrastRows, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power2.out' });
         });
     }
 

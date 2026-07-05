@@ -127,6 +127,7 @@ mix.js([
 
 mix.js([
     'assets/js/free-website/reveal.js',
+    'assets/js/free-website/how-scroll.js',
     'assets/js/free-website/ledger.js',
     'assets/js/free-website/faq.js',
     'assets/js/free-website/sticky-cta.js',
