@@ -68,6 +68,12 @@ mix.js([
     'assets/js/contact/form-progress.js',
 ], 'js/contact.js');
 
+// Multi-step enquiry form (Gravity Form, cssClass `enquiry-form`). Own bundle
+// so future placements only need the enqueue condition extending.
+mix.js([
+    'assets/js/enquiry-form/steps.js',
+], 'js/enquiry-form.js');
+
 mix.js([
     'assets/js/about/reveal.js',
     'assets/js/about/founders.js',
@@ -109,6 +115,15 @@ mix.js([
     // on single project pages; it no-ops on the archive.
     'assets/js/homepage/our-work.js',
 ], 'js/project.js');
+
+mix.js([
+    'assets/js/case-study/reveal.js',
+    'assets/js/case-study/filter.js',
+    // Shared module: counter.js binds .results .stat-number for the single
+    // pages' results band; it no-ops on the archive. No wheel and no carousel
+    // on these pages.
+    'assets/js/homepage/counter.js',
+], 'js/case-study.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

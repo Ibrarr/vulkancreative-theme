@@ -1,0 +1,847 @@
+// Multi-step enquiry form (Gravity Form with cssClass `enquiry-form`).
+// Scoped to the GF wrapper class, never a page scope, so the styling travels
+// with the form to any template it is embedded on; the host page supplies the
+// surrounding panel (.form-container). Input recipe mirrors the established
+// contact-form treatment (underline inputs, red focus, forge submit); the step
+// indicator speaks the process-step language (outlined Archivo numerals that
+// fill red); the picker cards speak the service-card language (hairline cards,
+// corner watermark icons).
+
+.gform_wrapper.enquiry-form_wrapper {
+  --gf-form-spinner-fg-color: #{$vc-primary};
+  --gf-form-spinner-bg-color: #{rgba($vc-grey-400, 0.35)};
+
+  margin: 0;
+
+  .gform_heading,
+  .gform_required_legend {
+    display: none;
+  }
+
+  // Unlike the single-step forms, required state is shown here (Ibrar's
+  // review, Jul 2026): a red asterisk hugging the label like a typographic
+  // mark. Owner-approved; required state is also on the inputs via
+  // aria-required. Inline display (with the label forced off Orbital's flex)
+  // keeps it on the text baseline with no gap.
+  .gfield_required {
+    display: inline !important;
+    color: $vc-primary !important; // beats Orbital's rust danger colour
+    margin-left: 2px;
+  }
+
+  // GF's own honeypot hiding, belt and braces.
+  .gfield.gform_validation_container {
+    display: none !important;
+  }
+
+  .gform-loader {
+    width: 20px;
+    height: 20px;
+  }
+
+  // GF's native focus scrolls (error summary focus) must clear the fixed header.
+  .gform_validation_errors,
+  .gfield {
+    scroll-margin-top: 120px;
+  }
+
+  // ----- Step indicator (restyled GF `steps` pagination) -----
+  .gf_page_steps {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    margin: 0 0 $space-4;
+    padding: 0;
+    border: 0;
+
+    .gf_step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      height: auto;
+
+      // Connectors: a hairline grows between steps, ember once the step is done.
+      &:not(.gf_step_last) {
+        flex: 1 1 auto;
+
+        &::after {
+          content: '';
+          flex: 1 1 12px;
+          height: 1px;
+          background: $vc-grey-200;
+          transition: background 0.3s;
+        }
+      }
+
+      .gf_step_number {
+        // Neutralise Orbital's circular badge and completed-check overlay.
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        min-width: 0;
+        display: block;
+
+        font-family: $vc-display-font;
+        font-weight: $vc-black;
+        font-stretch: $vc-display-stretch-tight;
+        font-size: 28px;
+        line-height: 1;
+        color: transparent;
+        -webkit-text-stroke: 1.5px $vc-grey-400;
+        transition: color 0.3s;
+
+        &::before,
+        &::after {
+          content: none !important;
+          display: none !important;
+        }
+      }
+
+      .gf_step_label {
+        font-family: $vc-font-family;
+        font-weight: $vc-semi-bold;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: $vc-grey-600;
+        transition: color 0.3s;
+      }
+
+      &.gf_step_active {
+        .gf_step_number {
+          -webkit-text-stroke-color: $vc-primary;
+        }
+
+        .gf_step_label {
+          color: $vc-text-dark;
+        }
+      }
+
+      &.gf_step_completed {
+        .gf_step_number {
+          color: $vc-primary;
+          -webkit-text-stroke-color: $vc-primary;
+        }
+
+        &:not(.gf_step_last)::after {
+          background: linear-gradient(90deg, $vc-primary, $vc-secondary);
+        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      gap: 10px;
+
+      .gf_step {
+        gap: 8px;
+
+        .gf_step_number {
+          font-size: 22px;
+        }
+
+        // Numerals always visible; only the active step keeps its label.
+        &:not(.gf_step_active) .gf_step_label {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // ----- Fields shell -----
+  .gform_fields {
+    row-gap: 20px !important;
+  }
+
+  .gform-body {
+    transition: opacity 0.25s ease;
+  }
+
+  .enquiry-form {
+    .gfield_label {
+      // Block, not Orbital's flex: flex turns the required asterisk into a
+      // separate stretched item that detaches from the label text.
+      display: block !important;
+      font-family: $vc-font-family;
+      font-size: 14px;
+      color: $vc-grey-600;
+      font-weight: $vc-semi-bold;
+      margin: 0;
+      transition: color 0.3s;
+    }
+
+    // Active field turns its label red (established contact-form behaviour).
+    .gfield:focus-within > label,
+    .gfield:focus-within .gfield_label {
+      color: $vc-primary !important;
+    }
+
+    .gfield_description:not(.gfield_validation_message) {
+      font-family: $vc-font-family;
+      font-size: 13px;
+      color: $vc-grey-600;
+      line-height: 1.5;
+      margin: 4px 0 6px;
+      padding: 0;
+    }
+
+    // Underline-only inputs, the house recipe extended to url/tel.
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    textarea {
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 16px !important;
+      color: $vc-text-dark;
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $vc-grey-400;
+      border-radius: 0;
+      background: none;
+      box-shadow: none !important;
+      padding: 0;
+      height: 50px;
+      min-height: 50px;
+      transition: border-color 0.3s;
+      cursor: text;
+
+      &:focus {
+        border-bottom: 1px solid $vc-primary;
+        --gf-local-shadow: none;
+        --gf-local-outline-color: none;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+    }
+
+    .gfield--type-textarea .gfield_label {
+      margin-bottom: 6px;
+    }
+
+    textarea {
+      height: 140px !important;
+      min-height: 140px;
+      line-height: 1.6;
+      padding: 10px 0 0;
+      resize: vertical;
+    }
+
+    // Select keeps the underline language; chevron replaces the native arrow.
+    // Sizing carries force or Orbital's select padding top-aligns the text.
+    .ginput_container_select select {
+      appearance: none;
+      -webkit-appearance: none;
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 16px !important;
+      color: $vc-text-dark;
+      width: 100%;
+      height: 50px !important;
+      min-block-size: 0 !important;
+      line-height: normal !important;
+      border: none;
+      border-bottom: 1px solid $vc-grey-400;
+      border-radius: 0;
+      background-color: transparent;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23595959' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 2px center !important;
+      background-size: 14px !important;
+      // Balanced block padding: appearance:none selects top-align their text,
+      // so the padding does the vertical centring inside the 50px box.
+      padding: 13px 28px 12px 0 !important;
+      box-shadow: none !important;
+      cursor: pointer;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-bottom-color: $vc-primary;
+        --gf-local-shadow: none;
+        --gf-local-outline-color: none;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      // Placeholder option selected reads muted, like input placeholders.
+      &:has(> option[value='']:checked) {
+        color: $vc-grey-600;
+      }
+    }
+  }
+
+  // ----- Service picker cards (checkbox field, service-card dialect) -----
+  .service-picker {
+    .gfield_checkbox {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+
+      @include media-breakpoint-down(md) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    // Flex, not Orbital's grid: the label must stretch to the full grid cell
+    // (Orbital gives choice labels fit-content width).
+    .gchoice {
+      position: relative;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    // The real checkbox stays in the tree (focusable, announced); the label is
+    // the visible card.
+    .gfield-choice-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      clip-path: inset(50%);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .gchoice label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      flex: 1 1 auto;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      margin: 0;
+      padding: 15px 52px 15px 16px;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      overflow: hidden;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 15px;
+      line-height: 1.35;
+      color: $vc-text-dark;
+      cursor: pointer;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+
+      // The checkbox square: the control's own state affordance, and the
+      // non-colour signal for the selected state.
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+        border: 1px solid $vc-grey-400;
+        border-radius: 2px;
+        background: transparent no-repeat center / 12px 12px;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+    }
+
+    // Watermark service icon: at this card height only a corner sliver may
+    // show, or it reads as a wash behind the text.
+    .choice-card-icon {
+      position: absolute;
+      right: -18px;
+      bottom: -18px;
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      opacity: 0.08;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    @media (hover: hover) {
+      .gchoice label:hover {
+        border-color: rgba($vc-secondary, 0.55);
+      }
+    }
+
+    .gfield-choice-input:checked + label {
+      border-color: rgba($vc-secondary, 0.55);
+      background: $vc-primary-tint;
+      box-shadow: 0 0 0 1px rgba($vc-secondary, 0.25);
+
+      &::before {
+        background-color: $vc-primary;
+        border-color: $vc-primary;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6.2 4.8 9 10 3.4' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      }
+
+      .choice-card-icon {
+        opacity: 0.14;
+      }
+    }
+
+    .gfield-choice-input:focus-visible + label {
+      outline: 2px solid $vc-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  // ----- Radio chips (redesign / timeframe / budget) -----
+  .gfield--type-radio .gfield_radio {
+    display: flex;
+    // Orbital stacks radio choices in a column; the chips flow in a row.
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .gchoice {
+      position: relative;
+      display: inline-flex;
+      width: auto;
+      margin: 0;
+    }
+
+    .gfield-choice-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      clip-path: inset(50%);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 14px;
+      color: $vc-grey-700;
+      cursor: pointer;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+
+      // Small square marker: the radio's state affordance (non-colour signal).
+      &::before {
+        content: '';
+        flex: 0 0 auto;
+        width: 10px;
+        height: 10px;
+        border: 1px solid $vc-grey-400;
+        border-radius: 2px;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+    }
+
+    @media (hover: hover) {
+      label:hover {
+        border-color: rgba($vc-secondary, 0.55);
+        color: $vc-text-dark;
+      }
+    }
+
+    .gfield-choice-input:checked + label {
+      border-color: rgba($vc-secondary, 0.55);
+      background: $vc-primary-tint;
+      color: $vc-text-dark;
+
+      &::before {
+        background-color: $vc-primary;
+        border-color: $vc-primary;
+      }
+    }
+
+    .gfield-choice-input:focus-visible + label {
+      outline: 2px solid $vc-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  // ----- HTML note (the optional-step line on About You) -----
+  .enquiry-note-field .enquiry-note {
+    font-family: $vc-font-family;
+    font-size: 13px;
+    color: $vc-grey-600;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  // ----- Step footer: Back (ghost) hugs the left, Continue / Send Enquiry
+  // (forge) floats right (Ibrar's review, Jul 2026) -----
+  .gform_page_footer,
+  .gform_footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin: $space-4 0 0;
+    padding: 0;
+    border: 0;
+
+    // Orbital's framework buttons out-specify any sane wrapper chain (theme
+    // class stack + attribute selectors), so the brand properties carry force
+    // here — the same accepted trade-off as the theme's other GF overrides.
+    input[type="submit"],
+    .gform_next_button {
+      @include vc-button-forge;
+      font-family: $vc-font-family !important;
+      font-size: 16px !important;
+      font-weight: $vc-bold !important;
+      background: $vc-primary !important;
+      color: #FFFFFF !important;
+      border: 1px solid $vc-primary !important;
+      border-radius: 2px !important;
+      padding: 16px 35px !important;
+      height: auto !important;
+      min-height: 0 !important;
+      line-height: normal !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+
+      &:hover {
+        background: $vc-secondary !important;
+        border-color: $vc-secondary !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 8px 30px rgba($vc-primary, 0.35) !important;
+      }
+
+      // Mouse clicks get no ring (GF paints its blue one otherwise);
+      // keyboard focus keeps the house red ring.
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      &:focus-visible {
+        background: $vc-secondary !important;
+        border-color: $vc-secondary !important;
+        outline: 2px solid $vc-primary !important;
+        outline-offset: 2px !important;
+      }
+    }
+
+    .gform_previous_button {
+      @include vc-button-ghost($vc-text-dark);
+      font-family: $vc-font-family !important;
+      font-size: 16px !important;
+      font-weight: $vc-semi-bold !important;
+      background: transparent !important;
+      color: $vc-text-dark !important;
+      border: 1px solid rgba($vc-text-dark, 0.45) !important;
+      border-radius: 2px !important;
+      padding: 16px 28px !important;
+      height: auto !important;
+      min-height: 0 !important;
+      line-height: normal !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+      order: -1;
+      // Forced: Orbital's button margins otherwise beat the auto push that
+      // keeps Back on the left while Continue/Send float right.
+      margin: 0 auto 0 0 !important;
+
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+        background: transparent !important;
+      }
+
+      &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+        outline: 2px solid $vc-primary !important;
+        outline-offset: 2px !important;
+      }
+    }
+  }
+
+  // ----- Validation -----
+  // Message text is dark, never small red on light surfaces (house contrast
+  // rule); the red lives in the field's underline state and the plate border.
+  .gform_validation_errors {
+    background: $vc-surface-white !important;
+    // GF paints its own rust danger border at higher force; keep the plate in
+    // the brand family.
+    border: 1px solid rgba($vc-primary, 0.35) !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+    padding: 14px 16px;
+    margin: 0 0 $space-3;
+
+    .gform_submission_error {
+      font-family: $vc-font-family !important;
+      font-weight: $vc-semi-bold;
+      font-size: 15px !important;
+      line-height: 1.45;
+      color: $vc-text-dark;
+      margin: 0;
+    }
+
+    .gform-icon {
+      display: none;
+    }
+
+    // GF focuses the plate after a failed step; mouse-origin focus gets no
+    // ring, keyboard keeps the house red one.
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $vc-primary !important;
+      outline-offset: 2px;
+    }
+  }
+
+  .gfield_error {
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    textarea,
+    select {
+      border-bottom: 2px solid $vc-primary !important;
+    }
+
+    &.service-picker .gchoice label {
+      border-color: rgba($vc-primary, 0.5);
+    }
+  }
+
+  .gfield_validation_message {
+    font-family: $vc-font-family !important;
+    font-weight: $vc-semi-bold;
+    font-size: 13px !important;
+    color: $vc-text-dark !important;
+    background: none !important;
+    border: 0 !important;
+    padding: 6px 0 0 !important;
+    margin: 0 !important;
+
+    // Ibrar's supplied error icon (assets/images/icons/error.svg, inlined red)
+    // marks the message as an error state; the text itself stays dark, never
+    // small red on light surfaces.
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640' fill='%23FF3B30'%3E%3Cpath d='M320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576zM320 112C205.1 112 112 205.1 112 320C112 434.9 205.1 528 320 528C434.9 528 528 434.9 528 320C528 205.1 434.9 112 320 112zM320 448C302.3 448 288 433.7 288 416C288 398.3 302.3 384 320 384C337.7 384 352 398.3 352 416C352 433.7 337.7 448 320 448zM320 192C338.2 192 352.7 207.5 351.4 225.7L344 329.7C343.1 342.3 332.6 352 320.1 352C307.5 352 297.1 342.3 296.2 329.7L288.8 225.7C287.3 207.5 301.8 192 320 192z'/%3E%3C/svg%3E") no-repeat center / contain;
+      margin-right: 8px;
+      vertical-align: -3px;
+    }
+  }
+}
+
+// Loading state while a step posts (steps.js toggles the class on the
+// persistent panel; covers the reCAPTCHA token fetch too).
+.form-container.is-submitting .gform_wrapper.enquiry-form_wrapper {
+  .gform-body {
+    opacity: 0.55;
+  }
+
+  .gform_page_footer,
+  .gform_footer {
+    pointer-events: none;
+  }
+}
+
+// ----- Dark mode -----
+@at-root body.dark-mode .gform_wrapper.enquiry-form_wrapper {
+  --gf-form-spinner-bg-color: #{rgba($vc-text-light, 0.2)};
+
+  .gf_page_steps {
+    .gf_step {
+      &:not(.gf_step_last)::after {
+        background: $vc-grey-dark-border !important;
+      }
+
+      .gf_step_number {
+        -webkit-text-stroke-color: rgba($vc-text-light, 0.35) !important;
+        color: transparent !important;
+      }
+
+      .gf_step_label {
+        color: $vc-muted-on-dark !important;
+      }
+
+      &.gf_step_active {
+        .gf_step_number {
+          -webkit-text-stroke-color: $vc-primary !important;
+        }
+
+        .gf_step_label {
+          color: $vc-text-light !important;
+        }
+      }
+
+      &.gf_step_completed {
+        .gf_step_number {
+          color: $vc-primary !important;
+          -webkit-text-stroke-color: $vc-primary !important;
+        }
+
+        &:not(.gf_step_last)::after {
+          background: linear-gradient(90deg, $vc-primary, $vc-secondary) !important;
+        }
+      }
+    }
+  }
+
+  .enquiry-form {
+    .gfield_label {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .gfield:focus-within > label,
+    .gfield:focus-within .gfield_label {
+      color: $vc-primary !important;
+    }
+
+    .gfield_description:not(.gfield_validation_message) {
+      color: $vc-muted-on-dark !important;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    textarea {
+      color: $vc-text-light !important;
+      border-bottom-color: rgba($vc-text-light, 0.35) !important;
+
+      &:focus {
+        border-bottom-color: $vc-primary !important;
+      }
+    }
+
+    .ginput_container_select select {
+      color: $vc-text-light !important;
+      border-bottom-color: rgba($vc-text-light, 0.35) !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B5B5B5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+
+      &:focus {
+        border-bottom-color: $vc-primary !important;
+      }
+
+      &:has(> option[value='']:checked) {
+        color: $vc-muted-on-dark !important;
+      }
+    }
+  }
+
+  .service-picker {
+    .gchoice label {
+      border-color: $vc-grey-dark-border !important;
+      color: $vc-text-light !important;
+
+      &::before {
+        border-color: rgba($vc-text-light, 0.35) !important;
+      }
+    }
+
+    @media (hover: hover) {
+      .gchoice label:hover {
+        border-color: rgba($vc-primary, 0.6) !important;
+      }
+    }
+
+    .gfield-choice-input:checked + label {
+      border-color: rgba($vc-primary, 0.6) !important;
+      background: rgba($vc-primary, 0.12) !important;
+      box-shadow: 0 0 0 1px rgba($vc-primary, 0.35) !important;
+
+      &::before {
+        background-color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .gfield--type-radio .gfield_radio {
+    label {
+      border-color: $vc-grey-dark-border !important;
+      color: $vc-muted-on-dark !important;
+
+      &::before {
+        border-color: rgba($vc-text-light, 0.35) !important;
+      }
+    }
+
+    @media (hover: hover) {
+      label:hover {
+        border-color: rgba($vc-primary, 0.6) !important;
+        color: $vc-text-light !important;
+      }
+    }
+
+    .gfield-choice-input:checked + label {
+      border-color: rgba($vc-primary, 0.6) !important;
+      background: rgba($vc-primary, 0.12) !important;
+      color: $vc-text-light !important;
+
+      &::before {
+        background-color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .enquiry-note-field .enquiry-note {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .gfield_required {
+    color: $vc-primary !important;
+  }
+
+  .gform_page_footer,
+  .gform_footer {
+    .gform_previous_button {
+      color: $vc-text-light !important;
+      border-color: rgba($vc-text-light, 0.45) !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+          border-color: $vc-primary !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .gform_validation_errors {
+    background: $vc-grey-dark-surface !important;
+    border-color: rgba($vc-primary, 0.5) !important;
+
+    .gform_submission_error {
+      color: $vc-text-light !important;
+    }
+  }
+
+  .gfield_validation_message {
+    color: $vc-text-light !important;
+  }
+}

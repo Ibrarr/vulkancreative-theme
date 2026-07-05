@@ -1,0 +1,20 @@
+// The /case-studies/ archive's single content section: the filter chips then
+// the two-up card grid (no visible head; the hero h1 carries the message and
+// a visually-hidden h2 keeps the structure). The cards themselves are the
+// shared common/_case-study-card.scss; uniform columns, because on these
+// cards the metric is the differentiator, not the size.
+.cs-index {
+  @include vc-section-padding;
+
+  .work-empty {
+    @include vc-p($vc-grey-600);
+    margin: $space-4 0 0;
+    transition: color 0.3s;
+  }
+}
+
+@at-root body.dark-mode .cs-index {
+  .work-empty {
+    color: $vc-muted-on-dark !important;
+  }
+}

@@ -12,8 +12,10 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.contact-hero h1, .contact-main .contact-form-col h2');
-    const fades = gsap.utils.toArray('.contact-hero .sub-heading, .contact-main .contact-form-col .form-container');
+    // Direct-child h2 only: GF's validation summary heading is also an h2
+    // inside this column and must never be split or pre-hidden.
+    const headings = gsap.utils.toArray('.contact-hero h1, .contact-main .contact-form-col > h2');
+    const fades = gsap.utils.toArray('.contact-hero .sub-heading, .contact-main .contact-form-col .form-note, .contact-main .contact-form-col .form-container');
     // Staggered groups: the observer watches the list, the items cascade in.
     // (.contact-next is owned by next-steps.js so the rail draw and the step
     // stagger sequence as one timeline.)
@@ -79,5 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
 
-    handlers.forEach((fn, el) => observer.observe(el));
+    // Observation starts once fonts are active: SplitText must measure the
+    // settled metrics (Archivo's width stretch changes line breaks), or a
+    // heading can animate with fallback-font wrapping and rewrap when the
+    // reveal reverts. fonts.ready resolves immediately on a warm cache.
+    document.fonts.ready.then(() => {
+        handlers.forEach((fn, el) => observer.observe(el));
+    });
 });

@@ -4,13 +4,15 @@
                     <?php
                     // No CTA band where the page already ends on its own
                     // conversion moment: the Contact page and the services
-                    // hub end in the enquiry form, service pages and single
-                    // work pages end in their own CTA band. The work archive
-                    // keeps it: the grid has no closing moment of its own.
+                    // hub end in the enquiry form; service pages, single work
+                    // pages and single case studies end in their own CTA
+                    // band. The work and case-studies archives keep it: the
+                    // grids have no closing moment of their own.
                     $vc_hide_footer_cta = is_page_template( 'page-templates/page-contact-us.php' )
                         || is_page_template( 'page-templates/page-services-hub.php' )
                         || is_tax( 'service' )
-                        || is_singular( 'project' );
+                        || is_singular( 'project' )
+                        || is_singular( 'case_study' );
                     ?>
                     <?php if ( ! $vc_hide_footer_cta ) : ?>
                     <div class="row footer-cta">

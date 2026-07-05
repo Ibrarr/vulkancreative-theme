@@ -81,6 +81,13 @@ body {
 // Shared work wheel (homepage Our Work, service pages' recent work).
 @import "components/common/work-wheel";
 
+// Shared case study card (/case-studies/ archive grid, service pages' strip).
+@import "components/common/case-study-card";
+
+// Multi-step enquiry form (Contact page today; scoped to the GF wrapper class
+// so it travels with the form wherever it is embedded).
+@import "components/common/enquiry-form";
+
 @import "components/homepage/homepage";
 @import "components/your-business/your-business";
 @import "components/default-page/default-page";
@@ -92,6 +99,9 @@ body {
 
 // Work pages: the /work/ archive and the single project showcases.
 @import "components/project/project";
+
+// Case study pages: the /case-studies/ archive and the narrative singles.
+@import "components/case-study/case-study";
 
 // Insights (blog) — shared global components, used by the index, category and
 // author archives, search results and the single article's related row.

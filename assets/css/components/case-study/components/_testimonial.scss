@@ -1,0 +1,28 @@
+// The client's words: the shared testimonial spotlight in its static variant
+// (common/_testimonial-spotlight.scss styles the anatomy; .spotlight-static
+// swaps the Splide track for one bare blockquote). This file is section glue
+// only: the shared h2 and the layout fallback when the testimonial has no
+// portrait, where the quote takes the full measure instead of leaving an
+// empty photo column.
+.cs-testimonial {
+  @include vc-section-padding;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    transition: color 0.3s;
+  }
+
+  .testimonial-spotlight {
+    margin-top: $space-6;
+  }
+
+  .spotlight-static--no-photo .spotlight-layout {
+    display: block;
+  }
+}
+
+@at-root body.dark-mode .cs-testimonial {
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+}

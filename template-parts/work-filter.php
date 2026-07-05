@@ -10,8 +10,12 @@
  * line announces the result count for screen readers.
  *
  * $args:
- *  - 'terms'   WP_Term[] to render, already ordered. Required.
- *  - 'active'  The active service slug ('' = all).
+ *  - 'terms'      WP_Term[] to render, already ordered. Required.
+ *  - 'active'     The active service slug ('' = all).
+ *  - 'base'       Archive URL the chips link to. Defaults to /work/, so the
+ *                 case-studies archive passes its own.
+ *  - 'all_label'  The first chip's label. Defaults to the Work Page option.
+ *  - 'aria_label' The nav's accessible label. Defaults to the projects one.
  */
 
 $filter_terms  = $args['terms'] ?? [];
@@ -21,8 +25,9 @@ if ( empty( $filter_terms ) ) {
 	return;
 }
 
-$filter_all_label = get_field( 'wk_filter_all_label', 'options' ) ?: 'All Work';
-$filter_base      = get_post_type_archive_link( 'project' );
+$filter_all_label = $args['all_label'] ?? ( get_field( 'wk_filter_all_label', 'options' ) ?: 'All Work' );
+$filter_base      = $args['base'] ?? get_post_type_archive_link( 'project' );
+$filter_aria      = $args['aria_label'] ?? 'Filter projects by service';
 
 $filter_current = $filter_all_label;
 foreach ( $filter_terms as $filter_term ) {
@@ -32,7 +37,7 @@ foreach ( $filter_terms as $filter_term ) {
 	}
 }
 ?>
-<nav class="work-filter" aria-label="Filter projects by service" data-work-filter>
+<nav class="work-filter" aria-label="<?php echo esc_attr( $filter_aria ); ?>" data-work-filter>
 	<button type="button" class="work-filter-toggle" aria-expanded="false" aria-controls="work-filter-panel" data-work-toggle>
 		<span class="work-filter-toggle-label">Service:</span>
 		<span class="work-filter-current" data-work-current><?php echo esc_html( $filter_current ); ?></span>

@@ -1,0 +1,83 @@
+// The results band: the forge numbers anchor recipe from the service pages
+// (full-dark #121212 in BOTH modes, one low-left radial glow, ember seam
+// along the top edge), punctuating the story rather than taking an
+// alternation slot. Markup keeps the shared .results / .stat-number classes
+// so counter.js counts the values up unchanged; the narrative line puts the
+// numbers in context and a ghost enquiry button converts the proof moment.
+// Stats are non-interactive: no hover states.
+.cs-results {
+  @include vc-section-padding;
+  overflow: hidden;
+  background: radial-gradient(48% 64% at 15% 92%, $vc-glow 0%, transparent 62%), $vc-background-dark;
+  border-top: 1px solid $vc-ember-line;
+
+  .content h2 {
+    @include vc-display-2($vc-text-light);
+  }
+
+  .stat {
+    border-top: 0;
+    padding-top: 0;
+
+    .stat-number {
+      font-size: clamp(3.25rem, 4.5vw + 0.75rem, 5.5rem);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      color: $vc-muted-on-dark;
+    }
+  }
+
+  .results-narrative {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 56ch;
+    margin: $space-6 0 0;
+  }
+
+  .results-actions {
+    margin-top: $space-5;
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
+    }
+  }
+
+  // Vertical hairline dividers between the counters on desktop; below lg the
+  // grid takes a top rule per stat instead.
+  @include media-breakpoint-up(lg) {
+    .stats-grid > div + div .stat {
+      border-left: 1px solid $vc-grey-dark-border;
+      padding-left: $space-4;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .stat {
+      border-top: 1px solid $vc-grey-dark-border;
+      padding-top: $space-3;
+    }
+  }
+}
+
+@at-root body.dark-mode.single-case_study .cs-results {
+  // A step darker than the #1E1E1E sections around it (the footer tone), so
+  // the anchor always reads as its own slab in dark mode too.
+  background: radial-gradient(48% 64% at 15% 92%, $vc-glow 0%, transparent 62%), #0D0D0D !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .stat {
+    border-top-color: $vc-grey-dark-border !important;
+
+    .stat-label {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+
+  .results-narrative {
+    color: $vc-muted-on-dark !important;
+  }
+}

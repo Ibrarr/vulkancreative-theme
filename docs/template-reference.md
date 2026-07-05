@@ -99,3 +99,16 @@ Full build notes in `docs/work-system.md`; summary map:
 | `template-parts/work-filter.php` | The chip bar + mobile dropdown toggle (progressive enhancement; real links to `/work/?service={slug}`). Args: `terms`, `active`. |
 | `template-parts/work-wheel.php` | Now distinguishes internal links (in-tab, `→`) from external (`↗`, new tab); homepage and service-page callers pass `get_permalink()` since July 2026. |
 | `inc/project-seed.php` | Settings > Seed Work: slug-matched seeding of the nine sample projects' showcase fields, Yoast descriptions and the canonical gallery captions. |
+
+## Case studies system additions (July 2026)
+
+| File | Notes |
+|---|---|
+| `archive-case_study.php` | The `/case-studies/` archive: shared page-hero band (alias `case-studies-hero`, `csp_` options copy carrying the positioning line), a `visually-hidden` h2, the shared filter chips (`?service=` links through the same `vc_work_service` shim as /work/) and the uniform two-up metric-forward card grid, ItemList JSON-LD. Footer CTA band kept. |
+| `single-case_study.php` | The narrative single at `/case-studies/{slug}/`: case-study hero (standfirst, meta row, the headline metric at hero scale, ghost View the Project, 21/9 media), overview (statement + fact ledger incl. the linked Project row), challenge, approach (+ editorial gallery), the full-dark results band (shared counter.js count-up, exact values server-rendered), static testimonial spotlight, related (project feature panel + service cards), closing CTA band (footer CTA hidden here). CreativeWork JSON-LD with `about` welding to the project node. The linked project resolves by reverse meta query on `pj_case_study`. |
+| `template-parts/case-study-card.php` | The shared metric-forward card (media panel + sector plate above a bordered body led by the metric on an ember rule). Args: `case`, `class` (column set; archive two-up default, service strip passes three-up), `hidden`. Hover: inner image zoom + colour shifts only; tint never changes. |
+| `template-parts/work-filter.php` | Gained additive args `base`, `all_label`, `aria_label` (defaults keep /work/ byte-identical); the case-studies archive passes its own. |
+| `taxonomy-service.php` | Gained the `.service-case-studies` strip between the recent-work wheel and insights: ≤3 newest imaged case studies carrying the term, shared cards, `sv_case_studies_heading_*`, hides when empty. |
+| `single-project.php` | Gained the `.project-case-study-band` full-story band (metric + summary + read action, one band-wide link) between the gallery and the related wheel; the hero's Read the Case Study ghost is live. |
+| `front-page.php` | The work section's `.case-row` cards link to the case studies' own pages (was `#contact`); the outro keeps the contact route. |
+| `inc/case-study-seed.php` | Settings > Seed Case Studies: slug-matched seeding of the three sample case studies' narratives, terms, testimonial links and Yoast metas, creates the matching sample projects with `pj_case_study` links, and seeds the `csp_` options copy. |

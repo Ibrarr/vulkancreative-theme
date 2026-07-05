@@ -35,6 +35,9 @@ require VC_INC_PATH . '/service-seed.php';
 // Work content seeder (Settings > Seed Work)
 require VC_INC_PATH . '/project-seed.php';
 
+// Case study content seeder (Settings > Seed Case Studies)
+require VC_INC_PATH . '/case-study-seed.php';
+
 // ACF
 require VC_INC_PATH . '/acf.php';
 
@@ -43,3 +46,6 @@ require VC_INC_PATH . '/shortcodes.php';
 
 // Ajax Calls
 require VC_INC_PATH . '/ajax-calls.php';
+
+// Gravity Forms (multi-step enquiry form hooks)
+require VC_INC_PATH . '/gravity-forms.php';

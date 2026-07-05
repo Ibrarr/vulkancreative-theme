@@ -4,10 +4,13 @@ The Work section: the archive at `/work/` and a showcase single per project at
 `/work/{slug}/`, built on the existing `project` CPT (admin menu "Our Work").
 Read this before touching `archive-project.php`, `single-project.php`, the
 `template-parts/work-*` parts, the `wk_`/`pj_` ACF fields or the project SCSS/JS.
-Work and Case Studies are deliberately separate (Ibrar, July 2026): these are
-showcase pages, not case studies; the `case_study` CPT stays homepage-only until
-its own round, and `pj_case_study` on each project holds the future cross-link
-(it renders nothing until `case_study` is publicly viewable).
+Work and Case Studies are deliberately separate tiers (Ibrar, July 2026): these
+are showcase pages (no results, metrics or testimonials); the full stories live
+on the case study pages at `/case-studies/` (`docs/case-studies-system.md`,
+shipped later the same month). `pj_case_study` on each project is the single
+source of truth for the pairing: it feeds the hero's "Read the Case Study"
+ghost and the `.project-case-study-band` full-story band (between the gallery
+and the related wheel), both gated on the linked case study being public.
 
 ## Routing and registration
 
@@ -80,10 +83,10 @@ optional field hiding its section:
 1. **Project-led hero** (`.page-hero.project-hero`, bespoke markup composing
    the shared page-hero classes): breadcrumbs, `pj_client_name` h1, hairline-
    separated meta row (sector · year · service term links; services take their
-   own line below `md`), ghost "View Live Site" ↗ when `pj_link` is set (and a
-   "Read the Case Study" ghost that activates only when `case_study` becomes
-   public), then the `pj_image` panel (21/9 desktop, 16/10 down, 10px corners,
-   eager + fetchpriority high: it is the LCP image).
+   own line below `md`), ghost "View Live Site" ↗ when `pj_link` is set and a
+   "Read the Case Study" ghost when the linked case study is public, then the
+   `pj_image` panel (21/9 desktop, 16/10 down, 10px corners, eager +
+   fetchpriority high: it is the LCP image).
 2. **Overview** (`.project-overview`): shared `wk_overview_heading_*` h2 with
    the statement stacked beneath it (no split-header), the ember-ruled fact
    ledger right (Client/Sector/Year/Services/Live site), and the muted
@@ -95,12 +98,19 @@ optional field hiding its section:
    sit in Poppins italic 10px under their own image with a 48px gutter before
    the next item (proximity binds them; no tick, per the tick-restraint rule).
    Caption present → `alt=""`; else the attachment alt.
-4. **Related work** (`.project-related`): the shared work wheel, projects
+4. **Full-story band** (`.project-case-study-band`, July 2026 case-studies
+   build): when the linked case study is public, one band-wide link between
+   the gallery and the related wheel: the case study's headline metric in
+   display red, "The full story" eyebrow + `cs_summary`, and the read action
+   with the internal arrow. Consumes a surface slot; hover is border heat and
+   colour shifts only. Styles in
+   `components/project/components/_case-study-band.scss`.
+5. **Related work** (`.project-related`): the shared work wheel, projects
    sharing ANY of this project's service terms, current excluded, imageless
    skipped, newest first, max 8, service plates ON, tiles linking to the
    projects' own pages. Heading `wk_related_heading_*` ("Related work.").
    Renders only with ≥1 item. `#work-wheel` appears once per page.
-5. **CTA** (`.project-cta`): the service-cta recipe with the outlined
+6. **CTA** (`.project-cta`): the service-cta recipe with the outlined
    client-name wordmark, forge "Start a Project" → `/contact/`, ghost
    "Back to Our Work" → `/work/`. No form (the services-spoke rule);
    `footer.php` hides the footer CTA band on `is_singular('project')`.
@@ -126,7 +136,8 @@ visually-hidden note); the live-site link lives in each project page's hero.
   under the base group): `pj_year`, `pj_overview_statement`,
   `pj_overview_support`, `pj_deliverables` (repeater, `label`), `pj_gallery`
   (repeater, `image` + optional `caption`), `pj_case_study` (post_object →
-  `case_study`, dormant until that CPT goes public). Every field optional.
+  `case_study`; the single source of truth for the project-to-case-study
+  pairing, see `docs/case-studies-system.md`). Every field optional.
 - The base group (`project.json`: `pj_client_name/sector/description/image/link`)
   is unchanged and still feeds the wheels and archive cards.
 

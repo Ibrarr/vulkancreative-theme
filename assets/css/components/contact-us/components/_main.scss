@@ -119,7 +119,10 @@
 
   // ----- Form column -----
   .contact-form-col {
-    h2 {
+    // Direct child only: Gravity Forms renders its validation summary heading
+    // as an h2 inside this column, and it must never inherit the display
+    // style, the reveal pre-hide or the dark override.
+    > h2 {
       @include vc-display-3($vc-text-dark);
       margin: 0 0 $space-3;
       transition: color 0.3s;
@@ -128,6 +131,13 @@
       span {
         color: $vc-primary;
       }
+    }
+
+    // Effort-setting line between the heading and the panel (ct_form_note).
+    .form-note {
+      @include vc-body($vc-grey-600);
+      margin: -#{$space-2} 0 $space-3;
+      transition: color 0.3s;
     }
   }
 
@@ -284,8 +294,12 @@
 @at-root body.dark-mode .contact-main {
   background: $dark-vc-background-dark !important;
 
-  .contact-form-col h2 {
+  .contact-form-col > h2 {
     color: $vc-text-light !important;
+  }
+
+  .contact-form-col .form-note {
+    color: $vc-muted-on-dark !important;
   }
 
   .contact-next h3 {
@@ -362,7 +376,8 @@
   .contact-hero .sub-heading,
   .contact-main .contact-channels li,
   .contact-main .contact-next,
-  .contact-main .contact-form-col h2,
+  .contact-main .contact-form-col > h2,
+  .contact-main .contact-form-col .form-note,
   .contact-main .contact-form-col .form-container {
     opacity: 0;
     animation: vc-contact-reveal-failsafe 0s 2.5s forwards;

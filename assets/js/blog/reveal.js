@@ -81,5 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
 
-    handlers.forEach((fn, el) => observer.observe(el));
+    // Observation starts once fonts are active: SplitText must measure the
+    // settled metrics (Archivo's width stretch changes line breaks), or a
+    // heading can animate with fallback-font wrapping and rewrap when the
+    // reveal reverts. fonts.ready resolves immediately on a warm cache.
+    document.fonts.ready.then(() => {
+        handlers.forEach((fn, el) => observer.observe(el));
+    });
 });

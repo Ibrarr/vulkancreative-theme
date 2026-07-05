@@ -1,0 +1,26 @@
+{
+    "key": "ui_options_page_csp_case_studies_page",
+    "title": "Case Studies Page Settings",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "Case Studies Page Settings",
+    "menu_slug": "case-studies-page-settings",
+    "parent_slug": "edit.php?post_type=case_study",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "Case Studies Page",
+    "position": "",
+    "redirect": 0,
+    "description": "Copy for the Case Studies archive at \/case-studies\/ and the shared strings on single case study pages.",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-admin-site-alt3"
+    },
+    "update_button": "Update",
+    "updated_message": "Options Updated",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1783209600
+}

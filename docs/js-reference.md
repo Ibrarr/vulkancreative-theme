@@ -228,3 +228,11 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 ## Work bundle (July 2026)
 
 `js/project.js` (enqueued on `is_post_type_archive('project') || is_singular('project')`) = `assets/js/project/reveal.js` (the services-hub reveal pattern with the work/project selector lists) + `assets/js/project/filter.js` (archive chip filtering: real-link progressive enhancement, pushState/popstate sync, aria-live counts, the mobile dropdown toggle, and the 7/5 pattern maths mirrored from `archive-project.php`) + the shared `homepage/our-work.js` for the related wheel. The single-blog bundle is gated on `is_singular('post')` so it never leaks onto project singles. Full notes in `docs/work-system.md`.
+
+## Fonts gate on the reveal pattern (July 2026)
+
+Every shared reveal module (`homepage`/`blog`/`contact`/`about`/`services-hub`/`service`/`project`/`case-study` reveal.js) starts observing only inside `document.fonts.ready.then(...)`: SplitText must measure the settled metrics (Archivo's width stretch changes line breaks), or a heading reached before fonts activate animates with fallback-font wrapping and visibly rewraps when the reveal reverts. Pre-hiding still happens at DOMContentLoaded so nothing flashes; `fonts.ready` resolves immediately on a warm cache. The bespoke split modules (`homepage/hero.js`, `homepage/contact.js`, `about/story.js`) already carried the same gate. Give any NEW SplitText module the same treatment.
+
+## Case study bundle (July 2026)
+
+`js/case-study.js` (enqueued on `is_post_type_archive('case_study') || is_singular('case_study')`) = `assets/js/case-study/reveal.js` (the work-pages reveal pattern with the case-study selector lists, incl. the stats grid and gallery groups) + `assets/js/case-study/filter.js` (the project filter minus the 7/5 pattern maths: uniform grid, "N case studies shown." announcements) + the shared `homepage/counter.js` for the results band (no-ops on the archive). No wheel and no Splide on these pages: the testimonial is static markup. The service bundle's `service/reveal.js` gained the case-studies strip (h2 + `.cs-card-item` group) and `project/reveal.js` gained the `.project-case-study-band .band-inner` fade. Full notes in `docs/case-studies-system.md`.

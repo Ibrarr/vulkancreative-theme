@@ -1,0 +1,23 @@
+// Case studies proving this service: the newest imaged case studies carrying
+// the term, rendered with the shared metric-forward cards (all card styles
+// are global in common/_case-study-card.scss). Host glue only, the
+// service-insights recipe.
+.service-case-studies {
+  @include vc-section-padding;
+
+  .service-case-studies-head {
+    margin-bottom: $space-6;
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      margin: 0;
+      transition: color 0.3s;
+    }
+  }
+}
+
+@at-root body.dark-mode.tax-service .service-case-studies {
+  .service-case-studies-head .content h2 {
+    color: $vc-text-light !important;
+  }
+}

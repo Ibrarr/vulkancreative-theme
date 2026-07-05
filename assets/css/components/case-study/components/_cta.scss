@@ -1,0 +1,93 @@
+// Closing CTA: forge button to the Contact page, ghost back to the archive.
+// Mirrors the project CTA (which itself re-states the service-cta recipe);
+// footer.php hides the footer CTA band on single case studies. The oversized
+// outlined client name closes the page as a brand moment, cropped by the
+// section's overflow.
+.cs-cta {
+  @include vc-section-padding;
+  position: relative;
+  overflow: hidden;
+
+  .cta-wordmark {
+    position: absolute;
+    right: -0.05em;
+    bottom: -0.18em;
+    font-family: $vc-display-font;
+    font-weight: $vc-black;
+    font-stretch: $vc-display-stretch;
+    font-size: clamp(5rem, 12vw, 13rem);
+    line-height: 1;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1px $vc-grey-200;
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+    z-index: $z-base;
+  }
+
+  .container {
+    position: relative;
+    z-index: $z-raised;
+  }
+
+  .content {
+    h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+    }
+
+    .sub-heading {
+      @include vc-p($vc-grey-600);
+      max-width: 56ch;
+      margin: $space-2 0 0;
+      transition: color 0.3s;
+    }
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-dark);
+    }
+  }
+}
+
+@at-root body.dark-mode.single-case_study .cs-cta {
+  .cta-wordmark {
+    -webkit-text-stroke-color: $vc-grey-dark-border;
+  }
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .content .sub-heading {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .cta-actions .button-ghost {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: $vc-primary !important;
+        color: $vc-text-light !important;
+      }
+    }
+
+    &:focus-visible {
+      border-color: $vc-primary !important;
+      color: $vc-text-light !important;
+    }
+  }
+}

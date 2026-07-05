@@ -39,6 +39,7 @@ $next_steps = $next_steps ?: $next_steps_default;
 
 // Form
 $form_heading = vc_heading_parts( 'ct_form_heading', false, 'Tell us about <span>your project</span>' );
+$form_note    = get_field( 'ct_form_note' ) ?: 'It takes about a minute.';
 
 // Inline line icons for the contact channels (consistent stroke, SVG only).
 $ct_icons = [
@@ -63,10 +64,13 @@ get_template_part( 'template-parts/page', 'hero', [
 		<div class="row gx-5">
 			<div class="col-lg-6 offset-lg-1 contact-form-col form order-1 order-lg-2">
 				<h2><?php echo wp_kses_post( $form_heading ); ?></h2>
+				<?php if ( $form_note ) : ?>
+					<p class="form-note"><?php echo esc_html( $form_note ); ?></p>
+				<?php endif; ?>
 				<div class="form-container">
 					<?php // Progress hairline sits outside .gform_wrapper so GF ajax re-renders never remove it. ?>
 					<span class="form-progress" aria-hidden="true"><span class="form-progress-fill"></span></span>
-					<?php echo do_shortcode( '[gravityform id="2" title="false" description="false" ajax="true"]' ); ?>
+					<?php echo do_shortcode( '[gravityform id="5" title="false" description="false" ajax="true"]' ); ?>
 				</div>
 			</div>
 

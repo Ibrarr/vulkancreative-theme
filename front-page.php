@@ -251,13 +251,16 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     'value'   => get_field('cs_metric_value'),
                     'label'   => get_field('cs_metric_label'),
                     'image'   => get_field('cs_image'),
+                    // Cards link to the case studies' own pages (July 2026,
+                    // the case-studies build); the outro keeps the contact route.
+                    'link'    => get_permalink(),
                 ];
             }
             wp_reset_postdata(); ?>
             <div class="work-showcase">
                 <div class="case-list">
                     <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
-                        <a class="case-row<?php echo $work_i === 0 ? ' is-active' : ''; ?>" href="#contact" data-case="<?php echo (int) $work_i; ?>" aria-label="Discuss a project like <?php echo esc_attr( $work_case['client'] ); ?>">
+                        <a class="case-row<?php echo $work_i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url( $work_case['link'] ); ?>" data-case="<?php echo (int) $work_i; ?>" aria-label="Read the <?php echo esc_attr( $work_case['client'] ); ?> case study">
                             <?php if ( $work_case['image'] ) : ?>
                                 <span class="case-bg" aria-hidden="true">
                                     <img loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">

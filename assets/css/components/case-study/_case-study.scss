@@ -1,0 +1,87 @@
+// Page scope for the case study pages: the /case-studies/ archive
+// (archive-case_study.php, body class .post-type-archive-case_study) and the
+// single narrative pages (single-case_study.php, body class
+// .single-case_study). The archive hero is the shared page-hero component;
+// the card itself is common/_case-study-card.scss (shared with the service
+// term pages' strip). Recipes mirror the work-pages family (the mirroring
+// precedent: .project-cta re-states .service-cta) so /work/ ships untouched.
+.post-type-archive-case_study,
+.single-case_study {
+  // Section headings run all-caps to match the homepage sections.
+  section .content h2 {
+    text-transform: uppercase;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  // Explicit alternating surface classes, assigned in PHP as sections render,
+  // so the pairing rule survives the conditional sections (challenge,
+  // approach, testimonial, related). The results band sits outside the
+  // alternation on the full-dark anchor surface.
+  section.surface-white {
+    background: $vc-surface-white;
+    transition: background 0.3s;
+  }
+
+  section.surface-grey {
+    background: $vc-background-white;
+    transition: background 0.3s;
+  }
+
+  @import "components/index";
+  @import "components/filter";
+  @import "components/hero";
+  @import "components/overview";
+  @import "components/narrative";
+  @import "components/results";
+  @import "components/testimonial";
+  @import "components/related";
+  @import "components/cta";
+}
+
+// Chained, not descendant: dark-mode and the page classes share the body element.
+@at-root {
+  body.dark-mode.post-type-archive-case_study,
+  body.dark-mode.single-case_study {
+    section.surface-white {
+      background: $dark-vc-background-dark !important;
+    }
+
+    section.surface-grey {
+      background: $dark-vc-background-dark-alt !important;
+    }
+  }
+}
+
+// Above-the-fold reveal targets are pre-hidden before the JS entrance so they
+// never flash at their final position on load. Gated on html.js; a failsafe
+// shows them at 2.5s if the script never runs, and the reduced-motion / no-JS
+// paths keep them visible (the misc/_motion.scss safety net forces opacity: 1).
+@at-root {
+  html.js body.post-type-archive-case_study {
+    .case-studies-hero h1,
+    .case-studies-hero .sub-heading {
+      opacity: 0;
+      animation: vc-cs-reveal-failsafe 0s 2.5s forwards;
+    }
+  }
+
+  html.js body.single-case_study {
+    .cs-hero h1,
+    .cs-hero .sub-heading,
+    .cs-hero .hero-meta,
+    .cs-hero .hero-metric,
+    .cs-hero .hero-media {
+      opacity: 0;
+      animation: vc-cs-reveal-failsafe 0s 2.5s forwards;
+    }
+  }
+}
+
+@keyframes vc-cs-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

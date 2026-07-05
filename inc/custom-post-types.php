@@ -3,8 +3,15 @@
 /**
  * Register Case Study Post Type
  *
- * Admin-only content consumed by the homepage work section.
- * No single pages or archive for now.
+ * The proof tier above Our Work. Feeds the homepage work section and, since
+ * July 2026, its own pages: the archive at /case-studies/
+ * (archive-case_study.php) and a narrative single per case study at
+ * /case-studies/{slug}/ (single-case_study.php). with_front is off so the
+ * /blog/ permalink base does not prefix the URLs. exclude_from_search is
+ * load-bearing twice over: case studies support title only (search-result
+ * cards would render as empty shells), and it is the flag that keeps case
+ * studies out of the service term pages' main archive query (the insights
+ * grid) — see vc_service_archive_query() in inc/actions.php.
  */
 add_action( 'init', 'case_study_post_type', 0 );
 function case_study_post_type() {
@@ -25,15 +32,18 @@ function case_study_post_type() {
 
     $args = array(
         'labels'              => $labels,
-        'public'              => false,
-        'publicly_queryable'  => false,
+        'public'              => true,
+        'publicly_queryable'  => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
-        'show_in_nav_menus'   => false,
+        'show_in_nav_menus'   => true,
         'show_in_rest'        => true,
         'exclude_from_search' => true,
-        'has_archive'         => false,
-        'rewrite'             => false,
+        'has_archive'         => 'case-studies',
+        'rewrite'             => array(
+            'slug'       => 'case-studies',
+            'with_front' => false,
+        ),
         'hierarchical'        => false,
         'menu_position'       => 20,
         'menu_icon'           => 'dashicons-portfolio',

@@ -17,11 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         let done = 0;
         fields.forEach((field) => {
-            const inputs = field.querySelectorAll('input:not([type="hidden"]), textarea, select');
+            const inputs = Array.from(field.querySelectorAll('input:not([type="hidden"]), textarea, select'));
             if (!inputs.length) return;
-            const complete = Array.prototype.every.call(inputs, (el) => (
-                (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value.trim() !== ''
-            ));
+            // Checkable groups (checkbox/radio) count complete when any option
+            // is picked — a required multi-choice field can never have every
+            // box ticked. Text-like inputs must all be filled.
+            const checkables = inputs.filter((el) => el.type === 'checkbox' || el.type === 'radio');
+            const others = inputs.filter((el) => el.type !== 'checkbox' && el.type !== 'radio');
+            const complete = (checkables.length ? checkables.some((el) => el.checked) : true)
+                && others.every((el) => el.value.trim() !== '');
             if (complete) done += 1;
         });
         fill.style.transform = `scaleX(${done / fields.length})`;

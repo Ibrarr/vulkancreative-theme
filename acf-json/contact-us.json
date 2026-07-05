@@ -237,6 +237,27 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_ct107",
+            "label": "Form Note",
+            "name": "ct_form_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Short effort-setting line under the form heading, e.g. how long the form takes.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "It takes about a minute.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -262,5 +283,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783080655
+    "modified": 1783256552
 }

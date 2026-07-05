@@ -1,0 +1,345 @@
+{
+    "key": "group_case_study_details_cs01",
+    "title": "Case Study Details",
+    "fields": [
+        {
+            "key": "field_cs_0101",
+            "label": "Year",
+            "name": "cs_year",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Optional. Shown in the page hero meta row and the fact ledger, for example 2025 or 2024-25.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "2025",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_cs_0102",
+            "label": "Overview Statement",
+            "name": "cs_overview_statement",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One bold sentence on who the client is and what the engagement set out to do. Leads the overview section; leave blank to hide it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 2,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_cs_0103",
+            "label": "Overview Support",
+            "name": "cs_overview_support",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "A short paragraph setting the scene: the client, their market and where things stood when they came to us. Leave blank to hide it.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_cs_0104",
+            "label": "Challenge Statement",
+            "name": "cs_challenge_statement",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "One bold sentence naming the problem the client faced. Leads the challenge section; leave blank to hide the section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 2,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_cs_0105",
+            "label": "Challenge Body",
+            "name": "cs_challenge_body",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "The problem in detail: what was going wrong, what it was costing, and why it needed fixing. Blank lines become paragraphs.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 6,
+            "placeholder": "",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_cs_0106",
+            "label": "Approach Body",
+            "name": "cs_approach_body",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "What we did and why, in order. Blank lines become paragraphs. Leave blank to hide the approach section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 8,
+            "placeholder": "",
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_cs_0107",
+            "label": "Approach Gallery",
+            "name": "cs_approach_gallery",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Imagery from the project shown as a large editorial gallery under the approach copy. Wide images work best; the first image in each group of three displays full width. Leave empty to hide the gallery.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 12,
+            "collapsed": "",
+            "button_label": "Add image",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_cs_0108",
+                    "label": "Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "60",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "jpg,jpeg,png,webp",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_cs_0107"
+                },
+                {
+                    "key": "field_cs_0109",
+                    "label": "Caption",
+                    "name": "caption",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Optional caption shown under the image.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cs_0107"
+                }
+            ]
+        },
+        {
+            "key": "field_cs_0110",
+            "label": "Results Stats",
+            "name": "cs_results_stats",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "The supporting numbers shown in the results band, for example 2.4x and qualified leads in six months. Two to four rows work best; leave empty to hide the stats grid (the narrative still shows).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 4,
+            "collapsed": "",
+            "button_label": "Add stat",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_cs_0111",
+                    "label": "Value",
+                    "name": "value",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "2.4x",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cs_0110"
+                },
+                {
+                    "key": "field_cs_0112",
+                    "label": "Label",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "increase in qualified leads",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_cs_0110"
+                }
+            ]
+        },
+        {
+            "key": "field_cs_0113",
+            "label": "Results Narrative",
+            "name": "cs_results_narrative",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "A short paragraph putting the numbers in context: over what period, against what baseline, and what they meant for the business.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_cs_0114",
+            "label": "Testimonial",
+            "name": "cs_testimonial",
+            "aria-label": "",
+            "type": "post_object",
+            "instructions": "Optional. Pick the client's testimonial to quote on this case study. Leave empty to hide the testimonial section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "testimonial"
+            ],
+            "post_status": [
+                "publish"
+            ],
+            "taxonomy": "",
+            "return_format": "id",
+            "multiple": 0,
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "ui": 1,
+            "bidirectional_target": []
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "case_study"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "The narrative content for the case study's own page at \/case-studies\/{slug}\/. Empty fields simply hide their section.",
+    "show_in_rest": 1,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1783209600
+}

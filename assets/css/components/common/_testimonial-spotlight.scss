@@ -136,8 +136,10 @@
   // track height changes per slide, shifting everything below mid-fade.
   // testimonials.js measures the tallest blockquote and applies it as a
   // min-height to all of them (re-measured on resize), so the section is
-  // never taller than its longest quote.
-  .splide__slide blockquote {
+  // never taller than its longest quote. The .spotlight-static variant is the
+  // case study pages' single static quote: same anatomy, no Splide wrappers.
+  .splide__slide blockquote,
+  &.spotlight-static blockquote {
     margin: 0;
     max-width: 56rem;
 
@@ -296,7 +298,8 @@
     border-color: $vc-grey-dark-border !important;
   }
 
-  .splide__slide blockquote {
+  .splide__slide blockquote,
+  &.spotlight-static blockquote {
     cite .cite-avatar {
       border-color: $vc-grey-dark-border !important;
     }

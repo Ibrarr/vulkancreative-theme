@@ -37,6 +37,10 @@ function add_custom_scripts() {
 
     if ( is_page_template( 'page-templates/page-contact-us.php' ) ) {
         wp_enqueue_script( 'contact', VC_TEMPLATE_URI . mix('/js/contact.js'), [ 'jquery' ], null, true );
+        // Multi-step enquiry form (form id 5). When the form moves to another
+        // template, extend this condition — the bundle and SCSS are otherwise
+        // self-contained (both key on the form's `enquiry-form` cssClass).
+        wp_enqueue_script( 'enquiry-form', VC_TEMPLATE_URI . mix('/js/enquiry-form.js'), [ 'jquery' ], null, true );
     }
 
     if ( is_page_template( 'page-templates/page-about-us.php' ) ) {
@@ -53,6 +57,10 @@ function add_custom_scripts() {
 
     if ( is_post_type_archive( 'project' ) || is_singular( 'project' ) ) {
         wp_enqueue_script( 'project', VC_TEMPLATE_URI . mix('/js/project.js'), [ 'jquery' ], null, true );
+    }
+
+    if ( is_post_type_archive( 'case_study' ) || is_singular( 'case_study' ) ) {
+        wp_enqueue_script( 'case-study', VC_TEMPLATE_URI . mix('/js/case-study.js'), [ 'jquery' ], null, true );
     }
 
     wp_enqueue_script( 'global', VC_TEMPLATE_URI . mix('/js/global.js'), [ 'jquery' ], null, true );

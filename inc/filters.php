@@ -137,14 +137,15 @@ add_filter(
 	}
 );
 
-// The work archive's service filter chips link to /work/?service={slug}. But
-// 'service' is also the service taxonomy's own query var, so left alone it
-// would flag the main query as is_tax('service') and drag in every service
-// term-page behaviour (the 3-post query cap, the service bundle, the
-// tax-service body class, the footer CTA hide, the breadcrumb splice). Move
-// it into a private query var before the query flags are parsed; the archive
-// template reads vc_work_service to mark the server-rendered filter state,
-// and Yoast canonicalises the filtered URLs back to /work/.
+// The work and case-studies archives' service filter chips link to
+// /work/?service={slug} and /case-studies/?service={slug}. But 'service' is
+// also the service taxonomy's own query var, so left alone it would flag the
+// main query as is_tax('service') and drag in every service term-page
+// behaviour (the 3-post query cap, the service bundle, the tax-service body
+// class, the footer CTA hide, the breadcrumb splice). Move it into a private
+// query var before the query flags are parsed; both archive templates read
+// vc_work_service to mark the server-rendered filter state, and Yoast
+// canonicalises the filtered URLs back to the bare archives.
 add_filter(
 	'query_vars',
 	function ( $vars ) {
@@ -154,7 +155,7 @@ add_filter(
 );
 add_filter( 'request', 'vc_work_service_request' );
 function vc_work_service_request( $qv ) {
-	if ( isset( $qv['post_type'], $qv['service'] ) && 'project' === $qv['post_type'] ) {
+	if ( isset( $qv['post_type'], $qv['service'] ) && in_array( $qv['post_type'], array( 'project', 'case_study' ), true ) ) {
 		$qv['vc_work_service'] = sanitize_title( (string) $qv['service'] );
 		unset( $qv['service'] );
 	}

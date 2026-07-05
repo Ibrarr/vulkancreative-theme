@@ -31,8 +31,9 @@ while ( have_posts() ) :
 	$pj_terms = get_the_terms( $pj_id, 'service' );
 	$pj_terms = ( $pj_terms && ! is_wp_error( $pj_terms ) ) ? $pj_terms : [];
 
-	// The case-study link stays dormant until case studies have public pages
-	// of their own (a later round); the field is already in the data model.
+	// The case-study link: live since July 2026 (the case-studies build). It
+	// feeds the hero ghost button and the full-story band before the related
+	// wheel; both render only when the linked case study is public.
 	$pj_case_study_url = '';
 	if ( $pj_case_study && is_post_type_viewable( 'case_study' ) && 'publish' === get_post_status( $pj_case_study ) ) {
 		$pj_case_study_url = get_permalink( $pj_case_study );
@@ -199,6 +200,31 @@ while ( have_posts() ) :
 						</figure>
 					<?php endforeach; ?>
 				</div>
+			</div>
+		</section>
+	<?php endif; ?>
+
+	<?php if ( $pj_case_study_url ) :
+		$band_value   = get_field( 'cs_metric_value', $pj_case_study );
+		$band_label   = get_field( 'cs_metric_label', $pj_case_study );
+		$band_summary = get_field( 'cs_summary', $pj_case_study );
+		?>
+		<?php // The full story: the linked case study's headline result as a band-wide link. ?>
+		<section class="project-case-study-band <?php echo esc_attr( $pj_surface() ); ?>">
+			<div class="container px-4">
+				<a class="band-inner" href="<?php echo esc_url( $pj_case_study_url ); ?>">
+					<?php if ( $band_value ) : ?>
+						<span class="band-metric">
+							<span class="band-metric-value"><?php echo esc_html( $band_value ); ?></span>
+							<?php if ( $band_label ) : ?><span class="band-metric-label"><?php echo esc_html( $band_label ); ?></span><?php endif; ?>
+						</span>
+					<?php endif; ?>
+					<span class="band-text">
+						<span class="band-eyebrow">The full story</span>
+						<?php if ( $band_summary ) : ?><span class="band-line"><?php echo esc_html( $band_summary ); ?></span><?php endif; ?>
+					</span>
+					<span class="band-action"><span class="band-action-label">Read the Case Study</span><svg class="band-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+				</a>
 			</div>
 		</section>
 	<?php endif; ?>

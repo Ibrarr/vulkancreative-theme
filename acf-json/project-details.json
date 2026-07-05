@@ -190,7 +190,7 @@
             "name": "pj_case_study",
             "aria-label": "",
             "type": "post_object",
-            "instructions": "Optional. Link this project to its case study. The link appears on the project page once case studies have their own pages (a later round).",
+            "instructions": "Optional. Link this project to its case study. Feeds the project hero's Read the Case Study button and the full-story band, and the case study finds this project through it.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

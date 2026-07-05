@@ -1,0 +1,157 @@
+// The full story: the linked case study's headline result as one band-wide
+// link between the gallery and the related wheel. The metric leads in display
+// red, the summary sits beside it and the read action carries the internal
+// arrow. Hover is border heat and colour shifts only: the band never moves.
+.project-case-study-band {
+  @include vc-section-padding;
+
+  .band-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-3;
+    padding: $space-4;
+    text-decoration: none;
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    transition: border-color 0.3s, box-shadow 0.35s, background 0.3s;
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: $space-6;
+    }
+
+    .band-metric {
+      .band-metric-value {
+        display: block;
+        font-family: $vc-display-font;
+        font-weight: $vc-black;
+        font-stretch: $vc-display-stretch;
+        font-size: clamp(2.75rem, 2.5vw + 1.5rem, 4rem);
+        line-height: 1;
+        color: $vc-primary;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .band-metric-label {
+        @include vc-body($vc-grey-600);
+        display: block;
+        margin-top: 6px;
+        max-width: 30ch;
+        transition: color 0.3s;
+      }
+    }
+
+    .band-text {
+      .band-eyebrow {
+        @include vc-eyebrow($vc-grey-600);
+        font-size: 11px;
+        display: block;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+      }
+
+      .band-line {
+        @include vc-body($vc-text-dark);
+        display: block;
+        max-width: 52ch;
+        transition: color 0.3s;
+      }
+    }
+
+    .band-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 14px;
+      color: $vc-text-dark;
+      white-space: nowrap;
+      transition: color 0.3s;
+
+      .band-arrow {
+        color: $vc-primary;
+        transition: color 0.3s, filter 0.3s, transform 0.3s;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55);
+        box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+        .band-action {
+          color: $vc-primary;
+
+          .band-arrow {
+            color: $vc-secondary;
+            filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+            transform: translateX(4px);
+          }
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+      .band-action {
+        color: $vc-primary;
+
+        .band-arrow {
+          color: $vc-secondary;
+          filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode.single-project .project-case-study-band {
+  .band-inner {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+
+    .band-metric .band-metric-label {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .band-text {
+      .band-eyebrow {
+        color: $vc-muted-on-dark !important;
+      }
+
+      .band-line {
+        color: $vc-text-light !important;
+      }
+    }
+
+    .band-action {
+      color: $vc-text-light !important;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55) !important;
+        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+        .band-action {
+          color: $vc-primary !important;
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55) !important;
+      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+      .band-action {
+        color: $vc-primary !important;
+      }
+    }
+  }
+}

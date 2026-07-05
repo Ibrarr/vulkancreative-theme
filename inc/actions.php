@@ -115,12 +115,16 @@ function vc_service_archive_query( $query ) {
 	if ( is_admin() || ! $query->is_main_query() || ! $query->is_tax( 'service' ) ) {
 		return;
 	}
-	// The work archive strips ?service= into a private var (inc/filters.php)
-	// before the flags are parsed, so a project query should never land here;
-	// guard anyway so the cap can never eat the work grid.
-	if ( 'project' === $query->get( 'post_type' ) ) {
+	// The work and case-studies archives strip ?service= into a private var
+	// (inc/filters.php) before the flags are parsed, so their queries should
+	// never land here; guard anyway so the cap can never eat those grids.
+	if ( in_array( $query->get( 'post_type' ), array( 'project', 'case_study' ), true ) ) {
 		return;
 	}
+	// Pin the insights grid to blog posts. Projects and case studies carry
+	// service terms too but stay out of tax archives via exclude_from_search;
+	// pinning here means the grid no longer silently depends on that flag.
+	$query->set( 'post_type', 'post' );
 	$query->set( 'posts_per_page', 3 );
 	$query->set( 'ignore_sticky_posts', true );
 	$query->set( 'no_found_rows', true );
@@ -134,6 +138,23 @@ function vc_service_archive_query( $query ) {
 add_action( 'pre_get_posts', 'vc_work_archive_query' );
 function vc_work_archive_query( $query ) {
 	if ( is_admin() || ! $query->is_main_query() || ! $query->is_post_type_archive( 'project' ) ) {
+		return;
+	}
+	$query->set( 'posts_per_page', -1 );
+	$query->set( 'ignore_sticky_posts', true );
+	$query->set( 'no_found_rows', true );
+	$query->set( 'orderby', 'date' );
+	$query->set( 'order', 'DESC' );
+}
+
+/**
+ * Case studies archive: every published case study renders on /case-studies/
+ * in one pass (the grid filters in place, no pagination), so uncap the main
+ * query, order it newest first and skip the pagination count.
+ */
+add_action( 'pre_get_posts', 'vc_case_study_archive_query' );
+function vc_case_study_archive_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() || ! $query->is_post_type_archive( 'case_study' ) ) {
 		return;
 	}
 	$query->set( 'posts_per_page', -1 );

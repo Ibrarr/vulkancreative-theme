@@ -93,11 +93,13 @@ usort( $related_terms, function ( $a, $b ) {
 } );
 $related_terms = array_slice( $related_terms, 0, 3 );
 
-// Work + insights + related: editable three-part headings. Fallbacks stay
-// short and generic — long service names made per-name headings unwieldy.
-$work_heading     = vc_heading_parts( 'sv_work_heading', $acf_id, 'Recent <span>work</span>' );
-$insights_heading = vc_heading_parts( 'sv_insights_heading', $acf_id, 'Related <span>insights</span>' );
-$related_heading  = vc_heading_parts( 'sv_related_heading', $acf_id, 'More ways we can <span>help</span>.' );
+// Work + case studies + insights + related: editable three-part headings.
+// Fallbacks stay short and generic — long service names made per-name
+// headings unwieldy.
+$work_heading         = vc_heading_parts( 'sv_work_heading', $acf_id, 'Recent <span>work</span>' );
+$case_studies_heading = vc_heading_parts( 'sv_case_studies_heading', $acf_id, 'Case <span>studies</span>' );
+$insights_heading     = vc_heading_parts( 'sv_insights_heading', $acf_id, 'Related <span>insights</span>' );
+$related_heading      = vc_heading_parts( 'sv_related_heading', $acf_id, 'More ways we can <span>help</span>.' );
 
 // Recent work: projects carrying this service term, shown on the shared
 // homepage work wheel (the project CPT is admin-only content, queried
@@ -128,6 +130,27 @@ if ( $work_query->have_posts() ) {
 			// plates would all repeat the page title (Ibrar review).
 			'service'     => '',
 		];
+	}
+	wp_reset_postdata();
+}
+
+// Case studies proving this service: the newest imaged case studies carrying
+// the term, on the shared metric-forward cards
+// (template-parts/case-study-card.php). The section hides with none.
+$case_studies_query = new WP_Query([
+	'post_type'      => 'case_study',
+	'posts_per_page' => 3,
+	'no_found_rows'  => true,
+	'tax_query'      => [ [ 'taxonomy' => 'service', 'field' => 'term_id', 'terms' => $term_id ] ],
+]);
+$case_study_items = [];
+if ( $case_studies_query->have_posts() ) {
+	while ( $case_studies_query->have_posts() ) {
+		$case_studies_query->the_post();
+		if ( ! get_field( 'cs_image' ) ) {
+			continue;
+		}
+		$case_study_items[] = get_the_ID();
 	}
 	wp_reset_postdata();
 }
@@ -308,6 +331,27 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 			'stage_label' => 'Recent ' . $term->name . ' projects',
 		] );
 		?>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php if ( $case_study_items ) : ?>
+<section class="service-case-studies <?php echo esc_attr( $sv_surface() ); ?>" id="case-studies">
+	<div class="container px-4">
+		<div class="service-case-studies-head">
+			<div class="content">
+				<h2><?php echo wp_kses_post( $case_studies_heading ); ?></h2>
+			</div>
+		</div>
+		<?php // The shared metric-forward cards, three-up (the /case-studies/ archive family). ?>
+		<div class="row g-4 case-studies-row">
+			<?php foreach ( $case_study_items as $case_study_id ) :
+				get_template_part( 'template-parts/case-study-card', null, [
+					'case'  => $case_study_id,
+					'class' => 'col-12 col-md-6 col-lg-4',
+				] );
+			endforeach; ?>
+		</div>
 	</div>
 </section>
 <?php endif; ?>

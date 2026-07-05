@@ -606,6 +606,69 @@
             "append": ""
         },
         {
+            "key": "field_680b0230",
+            "label": "Case Studies Heading (Start)",
+            "name": "sv_case_studies_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The heading over this service's case studies strip. Leave all three blank for the default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0231",
+            "label": "Case Studies Heading (Red)",
+            "name": "sv_case_studies_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0232",
+            "label": "Case Studies Heading (End)",
+            "name": "sv_case_studies_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "34",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_680b0213",
             "label": "Insights Heading Start",
             "name": "sv_insights_heading_start",
@@ -832,7 +895,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "Per-service page content. Shown on the service's page at \/services\/{slug}\/.",
+    "description": "Per-service page content. Shown on the service's page at /services/{slug}/.",
     "show_in_rest": 0,
     "display_title": "",
     "allow_ai_access": false,

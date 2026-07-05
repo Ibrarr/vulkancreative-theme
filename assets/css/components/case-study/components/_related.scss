@@ -1,0 +1,165 @@
+// The work behind it: the linked project as a ruled feature panel (text-led,
+// with the media panel joining once project imagery lands) and the case
+// study's services as the shared related service cards
+// (common/_service-card.scss, surface never changes on hover). The feature
+// panel is one link: hairline border, 2px corners, colour-shift hover only.
+.cs-related {
+  @include vc-section-padding;
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    transition: color 0.3s;
+  }
+
+  .related-project {
+    display: flex;
+    flex-direction: column;
+    margin-top: $space-6;
+    padding: $space-4;
+    text-decoration: none;
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.35s, background 0.3s;
+
+    .related-project-eyebrow {
+      @include vc-eyebrow($vc-grey-600);
+      font-size: 11px;
+      margin-bottom: $space-2;
+      transition: color 0.3s;
+    }
+
+    .related-project-media {
+      position: relative;
+      display: block;
+      margin: 0 0 $space-3;
+      aspect-ratio: 21 / 9;
+      border-radius: 2px;
+      overflow: hidden;
+
+      .related-project-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(0.25);
+        transform: scale(1);
+        transition: transform 0.6s ease;
+      }
+    }
+
+    .related-project-client {
+      @include vc-display-3($vc-text-dark);
+      margin: 0;
+      transition: color 0.3s;
+
+      .related-project-end {
+        white-space: nowrap;
+      }
+
+      .related-project-arrow {
+        display: inline-block;
+        vertical-align: baseline;
+        margin-left: 8px;
+        color: $vc-primary;
+        transition: color 0.3s, filter 0.3s, transform 0.3s;
+      }
+    }
+
+    .related-project-line {
+      @include vc-body($vc-grey-600);
+      margin-top: 6px;
+      max-width: 62ch;
+      transition: color 0.3s;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55);
+        box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+        .related-project-img {
+          transform: scale(1.06);
+        }
+
+        .related-project-client {
+          color: $vc-primary;
+        }
+
+        .related-project-arrow {
+          color: $vc-secondary;
+          filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+          transform: translateX(4px);
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55);
+      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+
+      .related-project-img {
+        transform: scale(1.06);
+      }
+
+      .related-project-client {
+        color: $vc-primary;
+      }
+
+      .related-project-arrow {
+        color: $vc-secondary;
+        filter: drop-shadow(0 0 6px rgba($vc-primary, 0.65));
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .related-services-row {
+    margin-top: $space-4;
+  }
+}
+
+@at-root body.dark-mode .cs-related {
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .related-project {
+    background: $vc-grey-dark-surface !important;
+    border-color: $vc-grey-dark-border !important;
+
+    .related-project-eyebrow {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .related-project-client {
+      color: $vc-text-light !important;
+    }
+
+    .related-project-line {
+      color: $vc-muted-on-dark !important;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: rgba($vc-secondary, 0.55) !important;
+        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+        .related-project-client {
+          color: $vc-primary !important;
+        }
+      }
+    }
+
+    &:focus-visible {
+      border-color: rgba($vc-secondary, 0.55) !important;
+      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+
+      .related-project-client {
+        color: $vc-primary !important;
+      }
+    }
+  }
+}

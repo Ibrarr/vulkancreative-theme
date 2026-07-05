@@ -16,13 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // (.service-deliverables is absent on purpose: the welded lattice owns
     // every entrance inside its section, heading included.)
-    const headings = gsap.utils.toArray('.service-hero h1, .service-journey .content h2, .service-results .content h2, .service-work .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2');
+    const headings = gsap.utils.toArray('.service-hero h1, .service-journey .content h2, .service-results .content h2, .service-work .content h2, .service-case-studies .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2');
     const fades = gsap.utils.toArray('.service-hero .sub-heading, .service-hero .hero-actions, .service-journey .content .sub-heading, .service-cta .content .sub-heading, .service-cta .cta-actions');
     // Staggered groups: the observer watches the container, the items cascade
     // in. Each group carries its own child selector. (The journey plates and
     // the deliverables stack get no entrance — the scrub and the deck are
     // their motion.)
     const groupConfig = [
+        ['.service-case-studies .case-studies-row', '.cs-card-item'],
         ['.service-insights .insights-row', '.insight-card'],
     ];
 
@@ -94,5 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
 
-    handlers.forEach((fn, el) => observer.observe(el));
+    // Observation starts once fonts are active: SplitText must measure the
+    // settled metrics (Archivo's width stretch changes line breaks), or a
+    // heading can animate with fallback-font wrapping and rewrap when the
+    // reveal reverts. fonts.ready resolves immediately on a warm cache.
+    document.fonts.ready.then(() => {
+        handlers.forEach((fn, el) => observer.observe(el));
+    });
 });
