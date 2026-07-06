@@ -1,0 +1,63 @@
+// Global Gravity Forms loading spinner. Injected and toggled by
+// assets/js/global/form-loading.js on every form, on every page. The spinner is
+// centred over the pressed button (see the JS for positioning); here it only
+// gets its look and the label is hidden so nothing shifts.
+
+.gform_wrapper {
+  // Suppress GF's own AJAX spinner (GIF or Orbital SVG). It renders as a footer
+  // sibling that widens the row and nudges the button — the whole reason for a
+  // custom one. Backed up by the gform_ajax_spinner_url filter in PHP.
+  .gform_ajax_spinner,
+  .gform-loader {
+    display: none !important;
+  }
+
+  // The label hide (color: transparent), the dim (reduced motion) and the
+  // per-button lock are set inline with !important by form-loading.js, because
+  // GF/Orbital button colours are !important at a specificity a stylesheet rule
+  // here can't reliably beat. `input` also can't host ::after, so the spinner is
+  // an injected sibling, not a pseudo-element. The classes below are hooks the
+  // JS toggles; the visual for those states lives in the JS inline styles.
+
+  // The button's parent, marked position:relative so the absolutely-positioned
+  // spinner centres against it. Locked so a sibling button (e.g. Back while
+  // Continue submits) can't be re-pressed mid-submit.
+  .vc-form-loading-anchor {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .vc-form-spinner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid rgba(#ffffff, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%; // spinners are round — the sanctioned exception to 2px
+    transform: translate(-50%, -50%) rotate(0deg);
+    animation: vc-spin 0.7s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+
+    // Over the ghost "Back" button (light surface, dark text) the ring goes dark.
+    &.vc-form-spinner--prev {
+      border-color: rgba($vc-text-dark, 0.3);
+      border-top-color: $vc-text-dark;
+    }
+  }
+}
+
+@keyframes vc-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// Dark mode: the primary/next buttons stay red, so the white ring is still
+// correct. Only the ghost Back button flips to light text, so its ring does too.
+@at-root body.dark-mode .gform_wrapper .vc-form-spinner--prev {
+  border-color: rgba(#ffffff, 0.3);
+  border-top-color: #ffffff;
+}

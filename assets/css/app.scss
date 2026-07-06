@@ -88,6 +88,14 @@ body {
 // so it travels with the form wherever it is embedded).
 @import "components/common/enquiry-form";
 
+// Global submit spinner for every Gravity Form (paired with assets/js/global/
+// form-loading.js). Imported after enquiry-form so the transparent-label rule
+// wins the specificity tie against the button styling above.
+@import "components/common/form-loading";
+
+// Global field error messages (brand red + left error icon) for every form.
+@import "components/common/form-errors";
+
 @import "components/homepage/homepage";
 @import "components/your-business/your-business";
 @import "components/default-page/default-page";

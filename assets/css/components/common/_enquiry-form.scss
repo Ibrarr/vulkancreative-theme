@@ -625,29 +625,8 @@
     }
   }
 
-  .gfield_validation_message {
-    font-family: $vc-font-family !important;
-    font-weight: $vc-semi-bold;
-    font-size: 13px !important;
-    color: $vc-text-dark !important;
-    background: none !important;
-    border: 0 !important;
-    padding: 6px 0 0 !important;
-    margin: 0 !important;
-
-    // Ibrar's supplied error icon (assets/images/icons/error.svg, inlined red)
-    // marks the message as an error state; the text itself stays dark, never
-    // small red on light surfaces.
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 640' fill='%23FF3B30'%3E%3Cpath d='M320 576C178.6 576 64 461.4 64 320C64 178.6 178.6 64 320 64C461.4 64 576 178.6 576 320C576 461.4 461.4 576 320 576zM320 112C205.1 112 112 205.1 112 320C112 434.9 205.1 528 320 528C434.9 528 528 434.9 528 320C528 205.1 434.9 112 320 112zM320 448C302.3 448 288 433.7 288 416C288 398.3 302.3 384 320 384C337.7 384 352 398.3 352 416C352 433.7 337.7 448 320 448zM320 192C338.2 192 352.7 207.5 351.4 225.7L344 329.7C343.1 342.3 332.6 352 320.1 352C307.5 352 297.1 342.3 296.2 329.7L288.8 225.7C287.3 207.5 301.8 192 320 192z'/%3E%3C/svg%3E") no-repeat center / contain;
-      margin-right: 8px;
-      vertical-align: -3px;
-    }
-  }
+  // Per-field validation messages (brand red + left error icon) are styled
+  // globally for every form in common/_form-errors.scss.
 }
 
 // Loading state while a step posts (steps.js toggles the class on the
@@ -839,9 +818,5 @@
     .gform_submission_error {
       color: $vc-text-light !important;
     }
-  }
-
-  .gfield_validation_message {
-    color: $vc-text-light !important;
   }
 }

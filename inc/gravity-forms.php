@@ -16,6 +16,12 @@ function vc_enquiry_disable_gf_scroll( $anchor, $form ) {
 	return $anchor;
 }
 
+// Suppress GF's default AJAX spinner GIF on every form. The theme renders its
+// own spinner over the pressed button (assets/js/global/form-loading.js +
+// common/_form-loading.scss); GF's default is a footer sibling that shifts the
+// button. Returning empty stops the image; the CSS `display:none` backs it up.
+add_filter( 'gform_ajax_spinner_url', '__return_empty_string' );
+
 // Service SVG watermarks on the picker cards (the corner-crop treatment from
 // template-parts/service-card.php). Keyed on choice value so reordering or
 // inserting choices never mismatches an icon; `something-else` stays plain.

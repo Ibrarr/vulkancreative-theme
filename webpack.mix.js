@@ -5,6 +5,7 @@ mix.js([
     'assets/js/global/load-at-top.js',
     'assets/js/global/smooth-scrolling.js',
     'assets/js/global/remove-anchor-from-url.js',
+    'assets/js/global/form-loading.js',
 ], 'js/global.js');
 
 mix.js([
