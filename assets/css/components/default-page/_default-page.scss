@@ -57,9 +57,6 @@
   .content-area {
     @include vc-p($vc-grey-700);
     line-height: 1.7;
-    // Cap the line length at a readable measure; the col-lg-8 alone lets long
-    // legal prose run ~90-100ch at 1440.
-    max-width: 72ch;
 
     > *:first-child {
       margin-top: 0;
@@ -148,6 +145,7 @@
 @at-root body.dark-mode .default-page {
   .page-header {
     background: $dark-vc-background-dark-alt !important;
+    border-bottom: 1px solid $vc-ember-line !important;
   }
 
   .page-body {

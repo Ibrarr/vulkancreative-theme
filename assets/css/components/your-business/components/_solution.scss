@@ -1,6 +1,9 @@
 .yb-solution {
   background: $vc-background-dark;
   @include vc-section-padding;
+  // Clip the pillar slide-in reveals (translateX offset) so they never cause
+  // horizontal page overflow on narrow viewports.
+  overflow: hidden;
 
   .content {
     margin-bottom: $space-10;

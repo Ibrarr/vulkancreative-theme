@@ -25,6 +25,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  // The hero + logo bar form the full-dark anchor band; the seam to the first
+  // section below takes the house ember hairline, matching the forge heroes.
+  background: $vc-background-dark;
+  border-bottom: 1px solid $vc-ember-line;
 
   @include media-breakpoint-down(lg) {
     min-height: auto;
@@ -47,6 +51,8 @@
   }
 
   > .container {
+    position: relative;
+    z-index: $z-base;
     display: flex;
     flex-direction: column;
     flex: 1;

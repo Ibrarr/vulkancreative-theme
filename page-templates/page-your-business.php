@@ -59,6 +59,7 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 
 <div class="yb-hero-wrapper">
 <section class="yb-hero" id="top">
+    <div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="row gx">
             <div class="col-lg-6 content">

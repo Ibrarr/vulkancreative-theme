@@ -61,6 +61,18 @@ Numbered markers (your decision: remove on non-sequential sets):
 
 **Your-business forge migration (YB-01…YB-15)** `Status: done` — verified live at 1440 + 375. Removed all six eyebrows (incl. the "From Your Business Magazine" line, per your call) and the pillar/outcome numerals; swapped `vc-h1`/`vc-h4` → `vc-display-1`/`vc-display-2`/`vc-display-3`, `vc-tag` → gone, `vc-button-big` → `vc-button-forge` (10px→2px); replaced the red-bordered problem cards and pillars with forge surface cards (hairline, 2px), the 3px red testimonial strip with a forge card, and the red outcome dividers with ember hairlines; tokenised the padding (`vc-section-padding`/`$space-*`) and the hardcoded `#222222` → `$dark-vc-background-dark`; set the surface-pair rhythm (first post-hero section on the lighter pair); removed the logo-bar tint hover; fixed the `&mdash;`/`&ldquo;` entities; added the yb targets to the reduced-motion safety net, guarded `hero.js`, and gated the hero pre-hide on `html.js` (no-JS visibility); and the 375px overflow is gone (0px, was 36px — the 150px numeral). The default headings all read fine standalone, so no copy changes were needed. The `.gform_wrapper.contact-form_wrapper` form overrides in `_cta.scss` are inert legacy (form 2 uses the shared enquiry-form styling) and were left untouched.
 
+Follow-up round (your feedback, 6 Jul 2026):
+
+- **HDR-SEAM** `Status: done` — the dark title band's ember `border-bottom` (the thin red seam) existed on the `page-hero` pages (about, work, case studies, contact, services) but was missing on the `insights-header` family. Added it to `.insights-header` (blog index, category, author, search) and the blog single `.insight-hero`, so every dark title band now carries the seam.
+- **YB-HERO-GLOW** `Status: done` — the your-business hero was flat. Added the shared forge glow (`.page-hero-glow`), set the hero+logo-bar to the `#121212` anchor with the ember seam to the first section, and kept the clean dark `#1E1E1E`/`#121212` section alternation (you chose to keep the page dark-only).
+- **YB-OVERFLOW** `Status: done` — found and fixed a real mobile overflow: `solution.js` slides the right pillar in with `translateX(60px)`, which overflowed at 375px until the reveal fired. Clipped `.yb-solution` with `overflow: hidden`; verified 0px overflow at 375 in every reveal state.
+
+Follow-up round 2 (your feedback, 6 Jul 2026):
+
+- **HDR-SEAM-2** `Status: done` — added the ember `border-bottom` seam to the homepage hero (`.hero`) and the default/legal page header band (`.default-page .page-header`), so those title bands now match the rest.
+- **LEG-WIDTH** `Status: done` — reverted the 72ch cap on the legal `.content-area` and widened its column from `col-lg-8` to `col-12`, so the content now runs full container width (~1296px) per your request. (Note: at 1440 this is ~180ch lines; say the word if you want a middle-ground max-width for readability.)
+- **BLOG-RED** `Status: done` — added brand red to the blog single hero: the breadcrumb links and the meta `·` separators (author/category/date) now read red instead of all-white, legible over the hero's dark bottom veil.
+
 Verified-not-an-issue / parked:
 
 - **SW-09** `Status: parked` — checked live: category pages render exactly one header/footer, so the `archive.php` double-`get_header` doesn't manifest. Left untouched to avoid breaking a working page.

@@ -67,4 +67,7 @@
 
 @at-root body.dark-mode .insights-header {
   background: $dark-vc-background-dark-alt !important;
+  // Match the shared page-hero band: in dark mode the title band meets the dark
+  // grid below it, so the seam takes the house ember hairline.
+  border-bottom: 1px solid $vc-ember-line !important;
 }

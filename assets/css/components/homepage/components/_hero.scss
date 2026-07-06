@@ -224,6 +224,9 @@
 // The hero stays dark in both modes; only the body behind it changes.
 @at-root body.dark-mode .hero {
   background: $dark-vc-background-dark-alt !important;
+  // The seam to the first section takes the house ember hairline, matching the
+  // shared page-hero and insights title bands.
+  border-bottom: 1px solid $vc-ember-line !important;
 }
 
 // Hide the hero reveal targets from the very first paint (stylesheet-level,
