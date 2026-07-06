@@ -62,7 +62,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
     <div class="container px-4">
         <div class="row gx">
             <div class="col-lg-6 content">
-                <p class="tag">From Your Business Magazine</p>
                 <h1><?php echo wp_kses_post($hero_heading); ?></h1>
                 <p class="split-text-yb-hero"><?php echo esc_html($hero_subheading); ?></p>
             </div>
@@ -98,7 +97,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 <section class="yb-problem" id="yb-problem">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html($problem_tag); ?></p>
             <h2 class="split-text-yb-problem"><?php echo wp_kses_post($problem_heading); ?></h2>
             <p class="sub-heading"><?php echo esc_html($problem_description); ?></p>
         </div>
@@ -154,20 +152,17 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 <section class="yb-solution" id="yb-solution">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html($solution_tag); ?></p>
             <h2 class="split-text-yb-solution"><?php echo wp_kses_post($solution_heading); ?></h2>
             <p class="sub-heading"><?php echo esc_html($solution_description); ?></p>
         </div>
         <div class="pillar-editorial">
             <div class="pillar-block pillar-left">
-                <span class="pillar-number">01</span>
                 <div class="pillar-content">
                     <h3><?php echo esc_html($pillar_1_heading); ?></h3>
                     <p><?php echo esc_html($pillar_1_description); ?></p>
                 </div>
             </div>
             <div class="pillar-block pillar-right">
-                <span class="pillar-number">02</span>
                 <div class="pillar-content">
                     <h3><?php echo esc_html($pillar_2_heading); ?></h3>
                     <p><?php echo esc_html($pillar_2_description); ?></p>
@@ -180,7 +175,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 <section class="yb-outcomes" id="yb-outcomes">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html($outcomes_tag); ?></p>
             <h2 class="split-text-yb-outcomes"><?php echo wp_kses_post($outcomes_heading); ?></h2>
         </div>
         <div class="outcomes-list">
@@ -188,7 +182,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
                 <?php $outcome_index = 1; ?>
                 <?php while (have_rows('yb_outcomes_items')) : the_row(); ?>
                     <div class="outcome-item">
-                        <span class="outcome-number"><?php echo str_pad($outcome_index, 2, '0', STR_PAD_LEFT); ?></span>
                         <div class="outcome-content">
                             <h3><?php echo esc_html(get_sub_field('title')); ?></h3>
                             <p><?php echo esc_html(get_sub_field('description')); ?></p>
@@ -198,35 +191,30 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
                 <?php endwhile; ?>
             <?php else : ?>
                 <div class="outcome-item">
-                    <span class="outcome-number">01</span>
                     <div class="outcome-content">
                         <h3>More qualified leads</h3>
                         <p>Attract the right people with messaging that speaks to their needs, not just your features.</p>
                     </div>
                 </div>
                 <div class="outcome-item">
-                    <span class="outcome-number">02</span>
                     <div class="outcome-content">
                         <h3>Clear ROI reporting</h3>
                         <p>Know exactly what is working, what is not, and where your budget is best spent.</p>
                     </div>
                 </div>
                 <div class="outcome-item">
-                    <span class="outcome-number">03</span>
                     <div class="outcome-content">
                         <h3>One partner end-to-end</h3>
                         <p>No contractors, no outsourcing. You speak to the people actually doing the work.</p>
                     </div>
                 </div>
                 <div class="outcome-item">
-                    <span class="outcome-number">04</span>
                     <div class="outcome-content">
                         <h3>Messaging that sells</h3>
                         <p>Copy and creative built around what your customers need to hear, not what you want to say.</p>
                     </div>
                 </div>
                 <div class="outcome-item">
-                    <span class="outcome-number">05</span>
                     <div class="outcome-content">
                         <h3>A website that converts</h3>
                         <p>Strong UX, clean structure, and tracking that tells you what is working.</p>
@@ -240,7 +228,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
 <section class="yb-trust" id="yb-trust">
     <div class="container px-4">
         <div class="content">
-            <p class="tag"><?php echo esc_html($trust_tag); ?></p>
             <h2 class="split-text-yb-trust"><?php echo wp_kses_post($trust_heading); ?></h2>
         </div>
         <div class="trust-logos">
@@ -265,8 +252,8 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
                             <li class="splide__slide">
                                 <div class="testimonial-card">
                                     <blockquote>
-                                        <p>&ldquo;<?php echo esc_html( get_sub_field('quote') ); ?>&rdquo;</p>
-                                        <cite>&mdash; <?php echo esc_html( get_sub_field('name') ); ?>, <?php echo esc_html( get_sub_field('company') ); ?></cite>
+                                        <p>"<?php echo esc_html( get_sub_field('quote') ); ?>"</p>
+                                        <cite><?php echo esc_html( get_sub_field('name') ); ?>, <?php echo esc_html( get_sub_field('company') ); ?></cite>
                                     </blockquote>
                                 </div>
                             </li>
@@ -275,16 +262,16 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
                         <li class="splide__slide">
                             <div class="testimonial-card">
                                 <blockquote>
-                                    <p>&ldquo;Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves.&rdquo;</p>
-                                    <cite>&mdash; Client Name, Company Name</cite>
+                                    <p>"Working with Vulkan Creative transformed how we approach our marketing. The results speak for themselves."</p>
+                                    <cite>Client Name, Company Name</cite>
                                 </blockquote>
                             </div>
                         </li>
                         <li class="splide__slide">
                             <div class="testimonial-card">
                                 <blockquote>
-                                    <p>&ldquo;Professional, responsive, and genuinely invested in our success. They feel like an extension of our team.&rdquo;</p>
-                                    <cite>&mdash; Client Name, Company Name</cite>
+                                    <p>"Professional, responsive, and genuinely invested in our success. They feel like an extension of our team."</p>
+                                    <cite>Client Name, Company Name</cite>
                                 </blockquote>
                             </div>
                         </li>
@@ -300,7 +287,6 @@ $cta_subheading  = get_field('yb_cta_subheading') ?: 'No pitch decks, no fluff. 
         <div class="row gx-5">
             <div class="col-lg-6">
                 <div class="content">
-                    <p class="tag"><?php echo esc_html($cta_tag); ?></p>
                     <h2 class="split-text-yb-cta"><?php echo wp_kses_post($cta_heading); ?></h2>
                     <p class="sub-heading"><?php echo esc_html($cta_subheading); ?></p>
                 </div>

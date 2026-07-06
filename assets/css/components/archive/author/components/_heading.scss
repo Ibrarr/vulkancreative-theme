@@ -35,14 +35,12 @@
     min-width: 0;
   }
 
-  .insights-eyebrow {
-    margin: 0 0 $space-1;
-  }
-
-  // A person's name doesn't want the full section-title scale.
+  // A person's name doesn't want the full section-title scale, and shouldn't be
+  // uppercased the way section titles are (the base .insights-title forces it).
   .insights-title {
     font-size: clamp(1.875rem, 2.5vw + 0.75rem, 2.875rem);
     line-height: 1.05;
+    text-transform: none;
   }
 
   .author-role {

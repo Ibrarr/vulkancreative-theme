@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const handlers = new Map();
     headings.forEach((el) => handlers.set(el, showHeading));
     fades.forEach((el) => handlers.set(el, showFade));
-    groups.forEach((group) => handlers.set(group.el, () => showGroup(group)));
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
@@ -105,11 +104,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
 
+    // The staggered grids get their own observer at threshold 0. A percentage
+    // threshold never fires for a container taller than the viewport: the work
+    // grid runs ~2400px, so 12% is ~290px, but on desktop its top can sit just
+    // below the fold on load and the grid stays hidden until a ~1000px scroll.
+    // Threshold 0 with a small bottom margin reveals the cascade as soon as the
+    // grid's top edge enters, and fires immediately for a grid already in view.
+    const groupByEl = new Map();
+    groups.forEach((group) => groupByEl.set(group.el, group));
+    const groupObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const group = groupByEl.get(entry.target);
+            if (group) showGroup(group);
+            obs.unobserve(entry.target);
+        });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+
     // Observation starts once fonts are active: SplitText must measure the
     // settled metrics (Archivo's width stretch changes line breaks), or a
     // heading can animate with fallback-font wrapping and rewrap when the
     // reveal reverts. fonts.ready resolves immediately on a warm cache.
     document.fonts.ready.then(() => {
         handlers.forEach((fn, el) => observer.observe(el));
+        groupByEl.forEach((group, el) => groupObserver.observe(el));
     });
 });

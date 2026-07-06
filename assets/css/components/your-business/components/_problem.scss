@@ -1,27 +1,20 @@
 .yb-problem {
-  background: $vc-background-dark;
-  padding: 120px 0;
+  // First section after the hero: the lighter dark pair.
+  background: $dark-vc-background-dark;
+  @include vc-section-padding;
   position: relative;
   z-index: 1;
   transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
-
   .content {
-    margin-bottom: 60px;
+    margin-bottom: $space-8;
 
     @include media-breakpoint-down(lg) {
-      margin-bottom: 30px;
-    }
-
-    .tag {
-      @include vc-tag($vc-primary);
+      margin-bottom: $space-4;
     }
 
     .split-text-yb-problem {
-      @include vc-h1($vc-text-light);
+      @include vc-display-2($vc-text-light);
       will-change: transform;
 
       & * {
@@ -42,19 +35,19 @@
 
   .problem-grid {
     .problem-card {
-      padding: 40px 32px;
-      border-radius: 10px;
-      border: 2px solid $vc-primary;
-      background: $vc-background-dark;
+      padding: $space-5 $space-4;
+      border-radius: 2px;
+      border: 1px solid $vc-grey-dark-border;
+      background: $vc-grey-dark-surface;
       height: 100%;
 
       @include media-breakpoint-down(lg) {
-        padding: 25px 20px;
+        padding: $space-4 $space-3;
       }
 
       h3 {
-        @include vc-h4($vc-text-light);
-        margin-bottom: 10px;
+        @include vc-display-3($vc-text-light);
+        margin-bottom: $space-1;
       }
 
       p {
@@ -66,9 +59,9 @@
 }
 
 @at-root body.dark-mode .yb-problem {
-  background: $dark-vc-background-dark-alt !important;
+  background: $dark-vc-background-dark !important;
 
   .problem-card {
-    background: $dark-vc-background-dark-alt !important;
+    background: $vc-grey-dark-surface !important;
   }
 }

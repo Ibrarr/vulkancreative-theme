@@ -77,13 +77,15 @@
           font-size: 13px;
           text-transform: uppercase;
           letter-spacing: 0.08em;
-          padding: 8px 12px;
-          display: inline-block;
+          padding: 0 12px;
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px; // full-height tap target (was ~31px)
           transition: color .3s;
 
           @include media-breakpoint-between(lg, xl) {
             font-size: 12px;
-            padding: 8px 8px;
+            padding: 0 8px;
           }
 
           // Light surfaces: red 15px text fails contrast, so hover keeps the
@@ -153,6 +155,12 @@
   .mobile-menu-toggle {
     background: none;
     border: 0;
+    // 44px tap target around the icon (was ~38px).
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     padding: 8px;
     line-height: 0;
     cursor: pointer;

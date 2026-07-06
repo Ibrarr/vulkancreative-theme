@@ -122,9 +122,13 @@ get_template_part( 'template-parts/page', 'hero', [
 			foreach ( $services as $service ) {
 				echo '<div class="col-lg-4 col-md-6 col-12 service-card-col">';
 				get_template_part( 'template-parts/service', 'card', [
-					'term'    => $service,
-					'index'   => $card_i,
-					'variant' => 'grid',
+					'term'       => $service,
+					'index'      => $card_i,
+					'variant'    => 'grid',
+					// Services are an unordered set, so the outlined 01-06 numeral
+					// reads as decorative scaffolding; the varying watermark icon
+					// and title carry the card instead.
+					'show_index' => false,
 				] );
 				echo '</div>';
 				$card_i++;
@@ -203,7 +207,7 @@ get_template_part( 'template-parts/page', 'hero', [
 						<div class="spotlight-footer">
 							<div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
 							<div class="spotlight-controls">
-								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span>&nbsp;/&nbsp;<span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
+								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
 								<div class="splide__arrows">
 									<button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>

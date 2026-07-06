@@ -76,17 +76,6 @@ function custom_body_classes( $classes ) {
     // for visitors who chose light mode (see header.php).
     $classes[] = 'dark-mode';
 
-    if ( is_tax( 'practice_area' ) ) {
-        $term = get_queried_object();
-        if ( $term ) {
-            if ( $term->parent == 0 ) {
-                $classes[] = 'practice-area-parent';
-            } else {
-                $classes[] = 'practice-area-child';
-            }
-        }
-    }
-
 	return $classes;
 }
 
@@ -108,14 +97,59 @@ function custom_body_classes( $classes ) {
 //	return $field;
 //}
 
+// Strip the current-page crumb only on content singles, where the visible H1
+// already repeats the title (blog posts, project and case-study showcases). On
+// pages (Contact, legal) and archives (category, work, case-studies) the
+// terminal crumb is the wayfinding, so leaving it in place keeps the trail
+// meaningful and avoids a lone "Home" crumb reading as an eyebrow tag above the
+// heading (and keeps the visible trail in step with the BreadcrumbList schema).
 add_filter(
     'wpseo_breadcrumb_single_link',
     function ( $link_output ) {
-        if ( strpos( $link_output, 'breadcrumb_last' ) !== false ) {
+        if ( is_singular() && ! is_page() && strpos( $link_output, 'breadcrumb_last' ) !== false ) {
             $link_output = '';
         }
         return $link_output;
     }
+);
+
+// Yoast builds its own titles and ignores the document_title_separator filter
+// above, so it emits a hyphen on generated pages while the homepage's saved
+// title uses the house pipe. Normalise the separator that sits before the brand
+// name to "|", and guarantee the brand suffix on any title that omits it (some
+// posts), so every SERP result carries "… | Vulkan Creative" consistently.
+add_filter(
+	'wpseo_title',
+	function ( $title ) {
+		$brand = get_bloginfo( 'name' );
+		if ( '' === $title || '' === $brand ) {
+			return $title;
+		}
+		$title = preg_replace(
+			'/\s[-\x{2013}\x{2014}]\s(' . preg_quote( $brand, '/' ) . ')\s*$/u',
+			' | $1',
+			$title
+		);
+		if ( false === strpos( $title, $brand ) ) {
+			$title .= ' | ' . $brand;
+		}
+		return $title;
+	},
+	20
+);
+
+// The 404-preview page (page-templates/page-404-preview.php) exists only so the
+// team can view the 404 design at a stable, crawlable URL; the real 404.php
+// already returns a proper 404 status. Keep the preview out of the index so
+// Google never treats a "Page not found" screen as a live landing page.
+add_filter(
+	'wpseo_robots_array',
+	function ( $robots ) {
+		if ( is_page_template( 'page-templates/page-404-preview.php' ) ) {
+			$robots['index'] = 'noindex';
+		}
+		return $robots;
+	}
 );
 
 // Service term pages sit under the Services hub page in the site hierarchy,

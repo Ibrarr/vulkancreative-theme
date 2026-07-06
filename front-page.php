@@ -98,12 +98,15 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 <div class="col-lg-9 col-xl-8 content">
                     <h1>
                         <span class="h1-line">We forge</span>
-                        <span class="dynamic-text">
+                        <span class="dynamic-text" aria-hidden="true">
                             <span class="word">brands</span>
                             <span class="word">websites</span>
                             <span class="word">marketing</span>
                             <span class="word">content</span>
                         </span>
+                        <?php // The rotating words are decorative; give assistive tech and search
+                        // engines one clean, keyword-complete reading of the heading. ?>
+                        <span class="visually-hidden">brands, websites, marketing and content,</span>
                         <span class="h1-line">built to perform<span class="red">.</span></span>
                     </h1>
                     <p class="split-text-hero"><?php echo esc_html( $hero_subheading ); ?></p>
@@ -207,7 +210,6 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 ?>
                 <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>" aria-label="Explore <?php echo esc_attr( $title ); ?>">
                     <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
-                    <span class="service-index"><?php echo str_pad( $service_i, 2, '0', STR_PAD_LEFT ); ?></span>
                     <span class="service-main">
                         <span class="service-title-row">
                             <h3 class="service-title"><?php echo esc_html( $title ); ?></h3>

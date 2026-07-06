@@ -15,6 +15,29 @@
     @include vc-p($vc-grey-600);
     margin: 0;
   }
+
+  // Forward paths from a zero-results state so it is never a dead end.
+  .insights-empty-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-4;
+    margin: $space-3 0 0;
+
+    a {
+      @include vc-body($vc-text-dark);
+      font-weight: $vc-semi-bold;
+      text-decoration: underline;
+      text-decoration-color: $vc-primary;
+      text-underline-offset: 4px;
+      transition: color 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+    }
+  }
 }
 
 // Filter bar (template-parts/insights-filter.php): article search on the left,
@@ -58,7 +81,7 @@
     border-radius: 2px;
     background: $vc-surface-white;
     font-family: $vc-font-family;
-    font-size: 15px;
+    font-size: 16px; // >=16px stops iOS Safari auto-zooming on focus
     color: $vc-text-dark;
     transition: border-color 0.3s;
 
@@ -227,7 +250,7 @@
   border: 1px solid $vc-grey-200;
   border-radius: 2px;
   font-family: $vc-font-family;
-  font-size: 14px;
+  font-size: 16px; // >=16px stops iOS Safari auto-zooming on focus
   color: $vc-text-dark;
 
   &::placeholder {
@@ -326,6 +349,10 @@
     .insights-empty {
       color: $vc-muted-on-dark !important;
     }
+
+    .insights-empty-links a {
+      color: $vc-text-light !important;
+    }
   }
 
   .insights-filter-search {
@@ -363,6 +390,13 @@
     background: $vc-grey-dark-surface !important;
     border-color: $vc-grey-dark-border !important;
     color: $vc-text-light !important;
+
+    // The "Category:" label keeps its light-surface grey by default (~2.16:1 on
+    // the dark toggle, a hard fail); remap it to the on-dark muted token like
+    // every other muted label in this block.
+    .insights-filter-toggle-label {
+      color: $vc-muted-on-dark !important;
+    }
 
     @media (hover: hover) {
       &:hover {

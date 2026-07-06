@@ -27,8 +27,10 @@
       border-color: rgba($vc-secondary, 0.55);
       box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
+      // Inner-image zoom inside the overflow-hidden frame is the hover
+      // affordance; the saturation shift (grayscale -> full colour) is the
+      // banned tint hover, so the image keeps its resting grayscale(0.25).
       .insight-card-img {
-        filter: grayscale(0);
         transform: scale(1.06);
       }
 
@@ -43,7 +45,6 @@
     box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
 
     .insight-card-img {
-      filter: grayscale(0);
       transform: scale(1.06);
     }
 
@@ -71,10 +72,15 @@
     transition: filter 0.45s ease, transform 0.6s ease;
   }
 
+  // A post with no featured image still gets a designed frame: a soft ember
+  // glow rising from the plate corner over the neutral fill, echoing the forge
+  // hero, so the card reads as intentional rather than an empty box.
   .insight-card-media-empty {
     position: absolute;
     inset: 0;
-    background: $vc-grey-100;
+    background:
+      radial-gradient(120% 90% at 100% 0%, $vc-glow-soft 0%, rgba($vc-primary, 0) 55%),
+      $vc-grey-100;
   }
 }
 
@@ -186,7 +192,9 @@
   }
 
   .insight-card-media-empty {
-    background: $vc-background-dark !important;
+    background:
+      radial-gradient(120% 90% at 100% 0%, $vc-glow 0%, rgba($vc-primary, 0) 55%),
+      $vc-background-dark !important;
   }
 
   .insight-card-title {

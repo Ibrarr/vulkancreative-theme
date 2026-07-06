@@ -46,6 +46,8 @@
     gap: $space-5;
     margin-bottom: $space-6;
 
+    // Static, desaturated logos. These are non-interactive images, so they
+    // carry no hover, and the saturate-on-hover reveal is the banned tint hover.
     .trust-logo {
       height: 26px;
       width: auto;
@@ -53,12 +55,6 @@
       object-fit: contain;
       filter: grayscale(1);
       opacity: 0.6;
-      transition: opacity .3s, filter .3s;
-
-      &:hover {
-        opacity: 1;
-        filter: grayscale(0);
-      }
     }
 
     @include media-breakpoint-down(md) {
@@ -85,10 +81,6 @@
   .trust-logos .trust-logo {
     filter: grayscale(1) brightness(0) invert(1) !important;
     opacity: 0.55 !important;
-
-    &:hover {
-      opacity: 0.9 !important;
-    }
   }
 
   // Spotlight dark rules live with the shared component partial.

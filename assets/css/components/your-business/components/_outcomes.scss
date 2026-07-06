@@ -1,28 +1,20 @@
 .yb-outcomes {
-  background: $vc-background-dark;
-  padding: 120px 0;
+  background: $dark-vc-background-dark;
+  @include vc-section-padding;
   position: relative;
   z-index: 1;
   overflow: hidden;
   transition: background 0.3s;
 
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
-
   .content {
-    margin-bottom: 60px;
+    margin-bottom: $space-8;
 
     @include media-breakpoint-down(lg) {
-      margin-bottom: 30px;
-    }
-
-    .tag {
-      @include vc-tag($vc-primary);
+      margin-bottom: $space-4;
     }
 
     .split-text-yb-outcomes {
-      @include vc-h1($vc-text-light);
+      @include vc-display-2($vc-text-light);
       will-change: transform;
 
       & * {
@@ -39,42 +31,23 @@
     .outcome-item {
       display: flex;
       align-items: flex-start;
-      gap: 30px;
-      padding: 35px 0;
-      border-top: 1px solid rgba($vc-primary, 0.2);
+      gap: $space-3;
+      padding: $space-4 0;
+      border-top: 1px solid $vc-ember-line;
 
       @include media-breakpoint-down(lg) {
-        gap: 20px;
-        padding: 25px 0;
+        gap: $space-2;
+        padding: $space-3 0;
       }
 
       &:last-child {
-        border-bottom: 1px solid rgba($vc-primary, 0.2);
-      }
-
-      .outcome-number {
-        font-family: $vc-font-family;
-        font-weight: $vc-bold;
-        font-size: 48px;
-        line-height: 1;
-        color: $vc-primary;
-        opacity: 0.3;
-        flex-shrink: 0;
-        min-width: 70px;
-        user-select: none;
-
-        @include media-breakpoint-down(lg) {
-          font-size: 32px;
-          min-width: 45px;
-        }
+        border-bottom: 1px solid $vc-ember-line;
       }
 
       .outcome-content {
-        padding-top: 5px;
-
         h3 {
-          @include vc-h4($vc-text-light);
-          margin-bottom: 8px;
+          @include vc-display-3($vc-text-light);
+          margin-bottom: $space-1;
         }
 
         p {
@@ -87,5 +60,5 @@
 }
 
 @at-root body.dark-mode .yb-outcomes {
-  background: $dark-vc-background-dark-alt !important;
+  background: $dark-vc-background-dark !important;
 }

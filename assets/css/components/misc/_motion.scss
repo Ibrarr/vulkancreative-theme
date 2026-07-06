@@ -118,7 +118,29 @@
   .cs-related .service-card,
   .cs-cta .content h2,
   .cs-cta .content .sub-heading,
-  .cs-cta .cta-actions {
+  .cs-cta .cta-actions,
+  // your-business page reveal targets (migrated to the forge reveal contract)
+  .yb-hero h1,
+  .split-text-yb-hero,
+  .yb-hero .hero-form-container,
+  .split-text-yb-problem,
+  .yb-problem .sub-heading,
+  .problem-card,
+  .split-text-yb-solution,
+  .yb-solution .sub-heading,
+  .pillar-content,
+  .split-text-yb-outcomes,
+  .outcome-item,
+  .split-text-yb-trust,
+  .testimonial-card,
+  .split-text-yb-cta,
+  .yb-cta .content p,
+  .split-text-yb-hero .line,
+  .split-text-yb-problem .line,
+  .split-text-yb-solution .line,
+  .split-text-yb-outcomes .line,
+  .split-text-yb-trust .line,
+  .split-text-yb-cta .line {
     opacity: 1 !important;
     transform: none !important;
   }

@@ -85,6 +85,12 @@ header {
     cursor: pointer;
     background: none;
     border: 0;
+    // 44px tap target around the sun/moon icon (was 32-40px).
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     padding: 0;
     line-height: 0;
     color: $vc-text-dark;

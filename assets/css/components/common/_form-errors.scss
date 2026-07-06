@@ -35,3 +35,18 @@
     }
   }
 }
+
+// The per-step validation summary banner (GF 2.5+) lists links to each errored
+// field. GF/Orbital colour that text and those links ~#212529, effectively
+// invisible on the dark form surface (#262626, ~1.05:1), so in dark mode a
+// failed step shows an unreadable list of what to fix. Remap it: light summary
+// text, brand-red field links. Light mode keeps GF's default, which is legible.
+@at-root body.dark-mode .gform_wrapper {
+  .gform_validation_errors {
+    color: $vc-text-light !important;
+
+    a {
+      color: $vc-primary !important;
+    }
+  }
+}

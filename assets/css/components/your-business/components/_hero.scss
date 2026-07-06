@@ -10,6 +10,17 @@
   top: 0;
 }
 
+// No-JS safety: the hero reveal script pre-hides the heading, subheading and
+// form, so without JS they would stay invisible. Show them when the `js` class
+// is absent (it is set pre-paint in header.php).
+@at-root html:not(.js) .yb-hero {
+  h1,
+  .split-text-yb-hero,
+  .hero-form-container {
+    opacity: 1;
+  }
+}
+
 .yb-hero-wrapper {
   min-height: 100vh;
   display: flex;
@@ -51,26 +62,13 @@
     flex-direction: column;
     justify-content: center;
 
-    .tag {
-      @include vc-tag($vc-primary);
-    }
-
     h1 {
-      @include vc-h1($vc-text-dark);
-      font-size: 64px;
+      @include vc-display-1($vc-text-dark);
       opacity: 0;
       transition: color 0.3s;
 
       span {
         color: $vc-primary;
-      }
-
-      @include media-breakpoint-down(xl) {
-        font-size: 48px;
-      }
-
-      @include media-breakpoint-down(lg) {
-        font-size: 40px;
       }
     }
 
@@ -168,9 +166,8 @@
       .gform_wrapper .gform_footer {
         input[type="submit"] {
           margin-top: 10px;
-          @include vc-button-big($vc-primary);
+          @include vc-button-forge;
           cursor: pointer !important;
-          padding: 18px 35px;
         }
       }
 
@@ -192,10 +189,6 @@
 @at-root body.dark-mode .yb-hero {
   h1, p {
     color: $vc-text-light !important;
-  }
-
-  .tag {
-    color: $vc-primary !important;
   }
 
   .hero-form-container {

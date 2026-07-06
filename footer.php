@@ -3,15 +3,16 @@
                 <div class="container px-4">
                     <?php
                     // No CTA band where the page already ends on its own
-                    // conversion moment: the Contact page, the services hub
-                    // and the free-website offer page end in the enquiry
-                    // form; service pages, single work pages and single case
-                    // studies end in their own CTA band. The work and
-                    // case-studies archives keep it: the grids have no
-                    // closing moment of their own.
+                    // conversion moment: the Contact page, the services hub,
+                    // the free-website offer page and the your-business landing
+                    // page end in their own enquiry form/CTA; service pages,
+                    // single work pages and single case studies end in their
+                    // own CTA band. The work and case-studies archives keep it:
+                    // the grids have no closing moment of their own.
                     $vc_hide_footer_cta = is_page_template( 'page-templates/page-contact-us.php' )
                         || is_page_template( 'page-templates/page-services-hub.php' )
                         || is_page_template( 'page-templates/page-free-website.php' )
+                        || is_page_template( 'page-templates/page-your-business.php' )
                         || is_tax( 'service' )
                         || is_singular( 'project' )
                         || is_singular( 'case_study' );
@@ -71,8 +72,8 @@
                             <div class="bottom">
                                 <p>© <?php echo date("Y"); ?> Vulkan Creative. All rights reserved.</p>
                                 <div class="legal">
-                                    <a href="/privacy-policy">Privacy Policy</a>
-                                    <a href="/cookie-policy">Cookie Settings</a>
+                                    <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a>
+                                    <a href="<?php echo esc_url( home_url( '/cookie-policy/' ) ); ?>">Cookie Settings</a>
                                 </div>
                             </div>
                         </div>

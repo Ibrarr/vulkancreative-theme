@@ -173,6 +173,11 @@ footer {
       margin: 0;
       cursor: pointer;
       font-size: 14px;
+      // 44px-tall tap target: the 22px icon sits centred with its label.
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
 
       &:hover {
         color: $vc-primary;

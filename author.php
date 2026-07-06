@@ -31,7 +31,6 @@ get_header();
                 <?php echo get_avatar( $author_id, 96, '', esc_attr( $author->display_name ), [ 'class' => 'author-avatar-img' ] ); ?>
             </span>
             <div class="author-identity-text">
-                <p class="insights-eyebrow">Author</p>
                 <h1 class="insights-title"><?php echo esc_html( $author->display_name ); ?></h1>
                 <?php if ( $job_title ) : ?>
                     <p class="author-role"><?php echo esc_html( $job_title ); ?></p>

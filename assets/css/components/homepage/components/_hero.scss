@@ -208,6 +208,7 @@
       align-items: center;
       justify-content: center;
 
+      // Non-interactive marquee logos: static, no hover state.
       img {
         height: 26px;
         width: auto;
@@ -215,11 +216,6 @@
         object-fit: contain;
         filter: grayscale(1) brightness(0) invert(1);
         opacity: 0.55;
-        transition: opacity .3s;
-      }
-
-      &:hover img {
-        opacity: 0.9;
       }
     }
   }

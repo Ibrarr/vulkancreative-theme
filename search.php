@@ -22,6 +22,13 @@ $query = new WP_Query( [
 
 <section class="insights-grid">
     <div class="container px-4">
+        <?php
+        // Give the results page a real search box (pre-filled with the current
+        // query) so a visitor can correct or refine without editing the URL.
+        // The grid here has no [data-insights-grid] hook, so the shared filter
+        // JS leaves the form as a plain GET resubmit to /?s=.
+        get_template_part( 'template-parts/insights-filter' );
+        ?>
         <h2 class="visually-hidden">Search results</h2>
         <?php if ( $query->have_posts() ) : ?>
             <div class="row g-4">
@@ -46,7 +53,12 @@ $query = new WP_Query( [
             </nav>
 
         <?php else : ?>
-            <p class="insights-empty">No results for that search. Try a different phrase.</p>
+            <p class="insights-empty">No results for that search. Try a different phrase above, or explore:</p>
+            <p class="insights-empty-links">
+                <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">Insights</a>
+                <a href="<?php echo esc_url( home_url( '/work/' ) ); ?>">Our Work</a>
+                <a href="<?php echo esc_url( home_url( '/case-studies/' ) ); ?>">Case Studies</a>
+            </p>
         <?php endif; ?>
 
     </div>

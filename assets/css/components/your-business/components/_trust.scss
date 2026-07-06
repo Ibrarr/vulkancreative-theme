@@ -1,19 +1,12 @@
 .yb-trust {
-  padding: 120px 0;
-
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
+  background: $vc-background-dark;
+  @include vc-section-padding;
 
   .content {
-    margin-bottom: 40px;
-
-    .tag {
-      @include vc-tag($vc-primary);
-    }
+    margin-bottom: $space-6;
 
     .split-text-yb-trust {
-      @include vc-h1($vc-text-dark);
+      @include vc-display-2($vc-text-dark);
       will-change: transform;
       transition: color 0.3s;
 
@@ -52,10 +45,10 @@
   #yb-testimonial-splide {
 
     .testimonial-card {
-      padding: 40px 32px;
-      border-radius: 0 0 10px 10px;
-      background: rgba($vc-text-light, 0.05);
-      border-top: 3px solid $vc-primary;
+      padding: $space-5 $space-4;
+      border-radius: 2px;
+      background: $vc-grey-dark-surface;
+      border: 1px solid $vc-grey-dark-border;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -122,12 +115,8 @@
     color: $vc-text-light !important;
   }
 
-  .tag {
-    color: $vc-primary !important;
-  }
-
   .testimonial-card {
-    background: rgba($vc-text-light, 0.04) !important;
+    background: $vc-grey-dark-surface !important;
 
     blockquote p {
       color: $vc-text-light !important;

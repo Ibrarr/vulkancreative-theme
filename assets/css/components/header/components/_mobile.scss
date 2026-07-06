@@ -57,19 +57,6 @@
           transition: color .3s;
           display: inline-block;
 
-          &::before {
-            content: "0" counter(menu-count);
-            font-family: $vc-font-family;
-            font-weight: $vc-semi-bold;
-            font-stretch: 100%;
-            font-size: 13px;
-            letter-spacing: 0.08em;
-            color: $vc-grey-600;
-            display: inline-block;
-            vertical-align: super;
-            margin-right: 12px;
-          }
-
           &:hover {
             color: $vc-primary !important;
             cursor: pointer;
@@ -247,10 +234,15 @@
   .mobile-socials {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 8px;
 
     a {
-      line-height: 0;
+      // 44px tap target around the 22px icon.
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
       color: $vc-text-dark;
       transition: color .3s;
 

@@ -1,23 +1,15 @@
 .yb-cta {
-  padding: 120px 0;
-  background: #222222;
-
-  @include media-breakpoint-down(lg) {
-    padding: 60px 0;
-  }
+  background: $dark-vc-background-dark;
+  @include vc-section-padding;
 
   .content {
     h2 {
-      @include vc-h1($vc-text-dark);
+      @include vc-display-2($vc-text-dark);
       transition: color 0.3s;
 
       span {
         color: $vc-primary;
       }
-    }
-
-    .tag {
-      @include vc-tag($vc-primary);
     }
 
     p {
@@ -114,9 +106,8 @@
 
       input[type="submit"] {
         margin-top: 10px;
-        @include vc-button-big($vc-primary);
+        @include vc-button-forge;
         cursor: pointer !important;
-        padding: 18px 35px;
       }
     }
 
@@ -137,10 +128,6 @@
 @at-root body.dark-mode .yb-cta {
   h2, p, input, .gform_confirmation_message, textarea {
     color: $vc-text-light !important;
-  }
-
-  .tag {
-    color: $vc-primary !important;
   }
 
   .button:hover {
