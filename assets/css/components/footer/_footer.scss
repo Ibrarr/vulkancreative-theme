@@ -93,27 +93,16 @@ footer {
           margin: 0;
           cursor: pointer;
           font-size: 14px;
-          position: relative;
+          transition: color 0.3s;
 
-          &::before {
-            content: '';
-            position: absolute;
-            left: -14px;
-            top: 50%;
-            width: 6px;
-            height: 2px;
-            background: $vc-primary;
-            opacity: 0;
-            transition: opacity .3s, left .3s;
+          @media (hover: hover) {
+            &:hover {
+              color: $vc-primary;
+            }
           }
 
-          &:hover {
+          &:focus-visible {
             color: $vc-primary;
-
-            &::before {
-              opacity: 1;
-              left: -10px;
-            }
           }
         }
       }
@@ -156,46 +145,42 @@ footer {
     }
   }
 
-  .socials {
-    @include media-breakpoint-down(lg) {
-      margin-top: $space-5;
-    }
-
-    .social-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+  // Social icons sit under the brand note in the left column: a compact row of
+  // 44px icon-only tap targets (no separate "Follow us" column).
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: $space-1;
+    margin-top: $space-2;
+    // Pull the row left by the icon's inset (the 22px icon is centred in a 44px
+    // tap target) so the first icon's glyph sits flush with the brand text.
+    margin-left: -11px;
 
     a {
-      @include vc-body($vc-text-light);
-      text-decoration: none;
-      margin: 0;
-      cursor: pointer;
-      font-size: 14px;
-      // 44px-tall tap target: the 22px icon sits centred with its label.
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      min-height: 44px;
-
-      &:hover {
-        color: $vc-primary;
-
-        path {
-          fill: $vc-primary;
-        }
-      }
+      justify-content: center;
+      width: 44px;
+      height: 44px;
 
       svg {
-        cursor: pointer !important;
         width: 22px;
         height: 22px;
 
         path {
           fill: $vc-text-light;
-          transition: $vc-transition-all;
+          transition: fill 0.3s;
         }
+      }
+
+      @media (hover: hover) {
+        &:hover path {
+          fill: $vc-primary;
+        }
+      }
+
+      &:focus-visible path {
+        fill: $vc-primary;
       }
     }
   }

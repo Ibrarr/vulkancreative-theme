@@ -266,6 +266,34 @@ add_filter(
 	}
 );
 
+// The footer "Explore" column renders the main menu but should read as the
+// header nav MINUS the services entry ("What We Do", which has its own footer
+// Services column) and the CTA button (not navigation). A flag set around the
+// footer render (see footer.php) scopes this, so the header menu is untouched.
+add_filter(
+	'wp_nav_menu_objects',
+	function ( $items, $args ) {
+		if ( empty( $GLOBALS['vc_footer_explore'] ) || ! is_array( $items ) ) {
+			return $items;
+		}
+		return array_values( array_filter( $items, function ( $item ) {
+			if ( (int) $item->menu_item_parent !== 0 ) {
+				return false; // drop the sub-items (the service links)
+			}
+			$classes = (array) $item->classes;
+			if ( in_array( 'menu-item-has-children', $classes, true ) ) {
+				return false; // drop the "What We Do" services entry
+			}
+			if ( in_array( 'menu-button', $classes, true ) ) {
+				return false; // drop the "Let's Talk" CTA button
+			}
+			return true;
+		} ) );
+	},
+	10,
+	2
+);
+
 // Parent menu items with a sub-menu ("What We Do") carry a visible caret so
 // the dropdown is discoverable. Rendered server-side for both main-menu
 // renders; the mobile overlay hides it (its injected disclosure button is

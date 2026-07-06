@@ -72,6 +72,10 @@ $space-8: 64px;
 $space-10: 80px;
 $space-15: 120px; // matches the existing desktop section rhythm
 
+// Header: below this width the nav collapses to the hamburger + mobile overlay
+// (a custom breakpoint between Bootstrap's lg 992 and xl 1200).
+$header-nav-bp: 1100px;
+
 // Z-index scale (replaces ad-hoc 99/1000/9999)
 $z-base: 1;
 $z-raised: 10;

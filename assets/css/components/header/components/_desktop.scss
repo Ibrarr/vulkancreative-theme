@@ -54,7 +54,7 @@
   }
 
   nav {
-    @include media-breakpoint-down(lg) {
+    @media (max-width: #{$header-nav-bp - 0.02px}) {
       display: none;
     }
 
@@ -133,17 +133,6 @@
         text-transform: none;
         letter-spacing: 0;
         padding: 11px 24px;
-
-        &::after {
-          content: '\2192';
-          display: inline-block;
-          margin-left: 8px;
-          transition: transform .3s ease;
-        }
-
-        &:hover::after {
-          transform: translateX(4px);
-        }
       }
 
       &::after {
@@ -165,7 +154,7 @@
     line-height: 0;
     cursor: pointer;
 
-    @include media-breakpoint-up(lg) {
+    @media (min-width: $header-nav-bp) {
       display: none;
     }
 

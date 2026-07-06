@@ -73,6 +73,19 @@ Follow-up round 2 (your feedback, 6 Jul 2026):
 - **LEG-WIDTH** `Status: done` — reverted the 72ch cap on the legal `.content-area` and widened its column from `col-lg-8` to `col-12`, so the content now runs full container width (~1296px) per your request. (Note: at 1440 this is ~180ch lines; say the word if you want a middle-ground max-width for readability.)
 - **BLOG-RED** `Status: done` — added brand red to the blog single hero: the breadcrumb links and the meta `·` separators (author/category/date) now read red instead of all-white, legible over the hero's dark bottom veil.
 
+Follow-up round 3 (footer, your feedback, 6 Jul 2026):
+
+- **FOOT-SOCIALS** `Status: done` — the footer socials were spread out vertically (the 44px tap-target fix in a column). Moved them under the brand note in the left column as a compact horizontal row of 44px icon-only links, and removed the standalone "Follow us" column.
+- **FOOT-MENUS** `Status: done` — added a **Services** footer column (the 6 service terms in their ACF order, rendered from the taxonomy, placed first) and made the **Explore** column mirror the header nav minus services: it now renders the main menu at depth 1 with a scoped `wp_nav_menu_objects` filter that strips the "What We Do" services entry and the CTA button. Result: Home, About Us, Our Work, Case Studies, Insights. (The `footer-menu` menu location is now unused; safe to leave or unassign.)
+- **FOOT-NOTE** `Status: done` — rewrote the footer note to "Brand, web and marketing that performs, built in-house and measured by results." (leads with the outcome, "in-house" is a clearer differentiator than "in person", ties to the forge "built to perform" line). Alternatives offered for your pick.
+- **FOOT-GRID** `Status: done` — footer columns set to your chosen widths: left `col-lg-5`, Services `col-lg-3`, Explore `col-lg-2`, Contact `col-lg-2` (5:3:2:2). Tightened the socials: gap to the note halved (32→16px) and the row pulled left 11px so the LinkedIn icon is flush with the brand text.
+- **FOOT-HOVER** `Status: done` — removed the sliding left-border tick (`::before`) on the footer menu links; hover/focus is now only the red colour change, on both the Services and Explore lists.
+
+Follow-up round 4 (header, your feedback, 6 Jul 2026):
+
+- **HDR-BP** `Status: done` — the desktop-nav/hamburger switch now happens at **1100px** instead of Bootstrap's `lg` (992px). Added a `$header-nav-bp: 1100px` variable and swapped the three switch rules (`_header.scss` + `_desktop.scss`) plus the free-website slim-header override (kept in sync so its actions still show below 1100). Verified: hamburger + working mobile menu at 1099, desktop nav (no wrap/overflow) at 1100; free-website header unaffected. No JS change needed (the header JS has no width gate).
+- **HDR-ARROW** `Status: done` — removed the `→` arrow (`::after`) from the "Let's Talk" nav CTA. (The free-website "Get Your Free Website" button keeps its own arrow — you asked only about Let's Talk.)
+
 Verified-not-an-issue / parked:
 
 - **SW-09** `Status: parked` — checked live: category pages render exactly one header/footer, so the `archive.php` double-`get_header` doesn't manifest. Left untouched to avoid breaking a working page.

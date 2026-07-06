@@ -67,7 +67,7 @@ header {
     }
   }
 
-  @include media-breakpoint-down(lg) {
+  @media (max-width: #{$header-nav-bp - 0.02px}) {
     .main-menu .menu-theme-toggle {
       display: none;
     }
