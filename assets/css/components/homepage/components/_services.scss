@@ -217,7 +217,7 @@
 
     .service-row {
       width: 440px;
-      min-height: 430px;
+      min-height: 400px;
       padding: $space-5;
 
       .service-icon {
@@ -244,7 +244,8 @@
       }
 
       .service-arrow {
-        margin-top: $space-4;
+        margin-top: auto;
+        padding-top: $space-4;
       }
 
       // Panel hover: surface fill, red frame, index fills solid (no movement)

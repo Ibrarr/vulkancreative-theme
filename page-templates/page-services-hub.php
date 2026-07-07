@@ -252,7 +252,7 @@ get_template_part( 'template-parts/page', 'hero', [
 					<p class="sub-heading"><?php echo esc_html( $cta_subheading ); ?></p>
 				</div>
 			</div>
-			<div class="col-lg-5 offset-lg-1 form">
+			<div class="col-lg-6 form">
 				<div class="form-container">
 					<?php vc_render_form( 2 ); ?>
 				</div>
