@@ -159,3 +159,20 @@ mix.setPublicPath('dist');
 mix.sourceMaps();
 mix.disableNotifications();
 mix.version();
+
+// Cache-safe lazy chunks. `mix.version()` only cache-busts the entry bundles
+// (homepage.js?id=...); the code-split chunks under js/global/ reuse the same
+// filename every build yet ship a 1-year cache header, so a CDN or browser can
+// serve a stale chunk that no longer matches a freshly-deployed entry bundle
+// (this silently dropped the homepage Spline statue to its poster). Content-
+// hashing the chunk filename gives each build's chunks a unique URL, so a
+// mismatch can never be served. `clean` prunes superseded hashes, scoped to
+// js/global/ so entry bundles, CSS and the Mix manifest are left untouched.
+mix.webpackConfig({
+    output: {
+        chunkFilename: 'js/global/[name].[contenthash:8].js',
+        clean: {
+            keep: (asset) => !asset.replace(/\\/g, '/').startsWith('js/global/'),
+        },
+    },
+});
