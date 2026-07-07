@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById("header");
 
-    // On the Your Business landing page, keep header static with no scroll behaviour
-    if (document.body.classList.contains('page-template-page-your-business')) {
+    // Landing template: the header is static (position: absolute) and scrolls
+    // away with the hero, so skip the surface/hide-on-scroll behaviour.
+    if (document.body.classList.contains('page-template-page-landing-page')) {
         return;
     }
 

@@ -140,9 +140,3 @@ header {
     transform: translateY(0);
   }
 }
-
-// The Your Business landing page keeps its own static, chrome-free header.
-@at-root body.page-template-page-your-business header {
-  background: transparent !important;
-  box-shadow: none !important;
-}

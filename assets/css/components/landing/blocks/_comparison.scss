@@ -1,0 +1,115 @@
+// Two clean columns: the usual way muted on the left, the Vulkan way bold and
+// red-headed on the right. No boxes, no strikethrough; the right column earns
+// focus through the red heading and heavier, larger type. Row hairlines aid
+// scanning. Stacks Vulkan-first below md.
+.lp-comparison {
+  .compare-table {
+    margin-top: $space-8;
+
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-5;
+    }
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: $space-8;
+    align-items: baseline;
+  }
+
+  .compare-row--head {
+    padding-bottom: $space-3;
+
+    .cr-head {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .cr-head--usual {
+      color: $vc-grey-700;
+      transition: color 0.3s;
+    }
+
+    .cr-head--vulkan {
+      color: $vc-primary;
+    }
+  }
+
+  .compare-row:not(.compare-row--head) {
+    padding: $space-4 0;
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
+
+    .cr-usual {
+      @include vc-body($vc-grey-600);
+      line-height: 1.55;
+      max-width: 42ch;
+      transition: color 0.3s;
+    }
+
+    .cr-vulkan {
+      font-family: $vc-font-family;
+      font-weight: $vc-bold;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      color: $vc-text-dark;
+      max-width: 42ch;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1.0625rem;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .compare-row {
+      grid-template-columns: 1fr;
+    }
+
+    .compare-row--head {
+      padding-bottom: $space-2;
+
+      .cr-head--usual {
+        display: none;
+      }
+    }
+
+    .compare-row:not(.compare-row--head) {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: $space-3 0;
+
+      .cr-vulkan {
+        order: -1;
+        max-width: none;
+      }
+
+      .cr-usual {
+        max-width: none;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode.page-template-page-landing-page .lp-comparison {
+  .compare-row--head .cr-head--usual {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .compare-row:not(.compare-row--head) {
+    border-top-color: $vc-ember-line !important;
+
+    .cr-usual {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .cr-vulkan {
+      color: $vc-text-light !important;
+    }
+  }
+}

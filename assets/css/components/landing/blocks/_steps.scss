@@ -1,0 +1,129 @@
+// Numbered rail: horizontal across the top on desktop, vertical down the left
+// below lg. The rail draws on scroll (landing/steps-scroll.js) and each numeral
+// forges solid as the rail reaches it. Numerals mask the rail with the band's
+// own colour (--lp-surface) so the line never shows behind a number.
+.lp-steps {
+  .lp-steps-head {
+    margin-bottom: $space-8;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+
+  .lp-steps-rail-wrap {
+    position: relative;
+  }
+
+  .lp-steps-rail {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    z-index: 0;
+    background: $vc-ember-line-light;
+    transform-origin: left center;
+
+    @include media-breakpoint-down(lg) {
+      top: 0;
+      bottom: 0;
+      left: 25px;
+      right: auto;
+      width: 1px;
+      height: 100%;
+      transform-origin: center top;
+    }
+  }
+
+  .lp-steps-list {
+    list-style: none;
+    display: grid;
+    // Always one row on desktop: one column per step so the horizontal rail
+    // spans them all (the rail measurement breaks if steps wrap to a 2nd row).
+    grid-template-columns: repeat(var(--lp-steps-count, 3), minmax(0, 1fr));
+    gap: $space-5;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: 1fr;
+      gap: $space-8;
+    }
+  }
+
+  .lp-step {
+    position: relative;
+    padding-top: $space-8;
+
+    .step-index {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      padding: 0 $space-2;
+      margin-left: -$space-2;
+      background: var(--lp-surface, #{$vc-surface-white});
+      font-family: $vc-display-font;
+      font-stretch: $vc-display-stretch;
+      font-weight: $vc-black;
+      font-size: 44px;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px $vc-primary;
+      transition: color 0.45s ease;
+    }
+
+    &.is-passed .step-index {
+      color: $vc-primary;
+    }
+
+    .step-title {
+      @include vc-display-3($vc-text-dark);
+      margin: 0 0 $space-1;
+      transition: color 0.3s;
+    }
+
+    .step-desc {
+      @include vc-body($vc-grey-600);
+      margin: 0;
+      max-width: 42ch;
+    }
+
+    @include media-breakpoint-down(lg) {
+      padding-top: 0;
+      padding-left: 64px;
+      min-height: 40px;
+
+      .step-index {
+        top: -2px;
+        left: 0;
+        width: 40px;
+        padding: 4px 0;
+        margin-left: 0;
+        font-size: 30px;
+        text-align: center;
+      }
+
+      .step-title {
+        padding-top: 2px;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode.page-template-page-landing-page .lp-steps {
+  .lp-steps-rail {
+    background: $vc-ember-line !important;
+  }
+
+  .lp-step .step-title {
+    color: $vc-text-light !important;
+  }
+
+  .lp-step .step-desc {
+    color: $vc-muted-on-dark !important;
+  }
+}

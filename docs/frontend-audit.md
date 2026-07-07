@@ -86,6 +86,16 @@ Follow-up round 4 (header, your feedback, 6 Jul 2026):
 - **HDR-BP** `Status: done` — the desktop-nav/hamburger switch now happens at **1100px** instead of Bootstrap's `lg` (992px). Added a `$header-nav-bp: 1100px` variable and swapped the three switch rules (`_header.scss` + `_desktop.scss`) plus the free-website slim-header override (kept in sync so its actions still show below 1100). Verified: hamburger + working mobile menu at 1099, desktop nav (no wrap/overflow) at 1100; free-website header unaffected. No JS change needed (the header JS has no width gate).
 - **HDR-ARROW** `Status: done` — removed the `→` arrow (`::after`) from the "Let's Talk" nav CTA. (The free-website "Get Your Free Website" button keeps its own arrow — you asked only about Let's Talk.)
 
+Follow-up round 5 (your-business section redesign, your feedback "still feels disconnected", 6 Jul 2026):
+
+The token migration made yb forge-compatible but its section composition still read as generic. Diagnosed the specific tells against the homepage + About forge references (taste-skill + impeccable + ui-ux-pro-max) and elevated each section. All style-only — no copy, content or ACF data-source changes. Verified live at 1440 + 375 dark (yb is dark-forced), 0px overflow, no new console errors.
+
+- **YB-CAPS** `Status: done` — every forge hero and section head runs all-caps (`.home.page`/`.about` both carry `section .content h2 { text-transform: uppercase }`); yb didn't. Added the rule (hero h1 + section h2) to `_your-business.scss`. This was the single biggest "feels different" tell — the page now reads "READY TO FORGE AHEAD?", "SOUND FAMILIAR?", "THE RESULTS THAT MATTER" etc. like the rest of the site.
+- **YB-OUTCOMES-LEDGER** `Status: done` — the outcomes list was a flat stack of 5 rows each with an identical ember `border-top` (the exact "repeated identical mark = AI scaffolding" tell the tick-restraint decision warns about). Rebuilt as the forge ember-rail ledger (the About `how` treatment): one scrubbed grey→red rail binds the rows by proximity, rows are clean title + muted-body. Added the rail markup, the `outcomes.js` matchMedia scrub (mirrors `about/how.js`, removed the dead `.tag`/`.outcome-number` code), and the reduced-motion safety-net entry (`.yb-outcomes .outcomes-progress`).
+- **YB-TESTIMONIAL** `Status: done` — the trust testimonial was a boxy 2-up card carousel; the forge house treatment is the single open editorial spotlight. Restyled to one quote per view (Splide `perPage: 1`): oversized red quote mark, large Poppins quote, ember hairline over a quiet normal-case cite (no box, no italic). Keeps the yb ACF data source (`yb_trust_testimonials`), so no content change.
+- **YB-SOLUTION-HEAD** `Status: done` — the solution head was the only centre-aligned section head on the whole site (forge is consistently left). Left-aligned it and constrained the sub-heading to a 62ch measure.
+- **YB-GLOW** `Status: done` — molten punctuation was only on the hero. Added the sparing forge glow to the solution (#121212 anchor, lower-left bloom) and the CTA (#1E1E1E close, top-right bloom) so the page bookends against the hero glow, matching how the homepage punctuates its dark bands.
+
 Verified-not-an-issue / parked:
 
 - **SW-09** `Status: parked` — checked live: category pages render exactly one header/footer, so the `archive.php` double-`get_header` doesn't manifest. Left untouched to avoid breaking a working page.
@@ -94,7 +104,7 @@ Verified-not-an-issue / parked:
 
 Ignored per your instruction: **BLOGS-01** (Gemini/Claude post — local test data).
 
-Still to do: the **your-business forge migration** (YB-*, next focused pass; its pillar/outcome numerals depend on the numbered-marker decision), and the content/`[SAMPLE]` items left to you (§5).
+Still to do: the content/`[SAMPLE]` items left to you (§5). The your-business forge migration (YB-*) and section redesign (YB-CAPS/OUTCOMES-LEDGER/TESTIMONIAL/SOLUTION-HEAD/GLOW) are both done; the only remaining yb legacy item is its single-field `yb_heading()` headings (not yet on the three-part `_start`/`_red`/`_end` system), parked as a non-visual editor-tidiness task.
 
 ---
 

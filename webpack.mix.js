@@ -54,16 +54,6 @@ mix.js([
 ], 'js/single-blog.js');
 
 mix.js([
-    'assets/js/your-business/hero.js',
-    'assets/js/your-business/logo-bar.js',
-    'assets/js/your-business/problem.js',
-    'assets/js/your-business/solution.js',
-    'assets/js/your-business/outcomes.js',
-    'assets/js/your-business/testimonials.js',
-    'assets/js/your-business/cta.js',
-], 'js/your-business.js');
-
-mix.js([
     'assets/js/contact/reveal.js',
     'assets/js/contact/next-steps.js',
     'assets/js/contact/form-progress.js',
@@ -136,6 +126,20 @@ mix.js([
     // #testimonial-splide (the about/services-hub precedent).
     'assets/js/homepage/testimonials.js',
 ], 'js/free-website.js');
+
+// Reusable Landing Page (flexible-content blocks). Modules query all instances
+// of each block so blocks can repeat/reorder. Shared modules: the testimonial
+// spotlight (#testimonial-splide) and the results counter (.results .stat-number).
+mix.js([
+    'assets/js/landing/reveal.js',
+    'assets/js/landing/steps-scroll.js',
+    'assets/js/landing/checklist.js',
+    'assets/js/landing/faq.js',
+    'assets/js/landing/sticky-cta.js',
+    'assets/js/landing/logos.js',
+    'assets/js/homepage/testimonials.js',
+    'assets/js/homepage/counter.js',
+], 'js/landing.js');
 
 mix.sass('assets/css/app.scss', 'css/app.css')
     .options({

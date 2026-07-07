@@ -1,0 +1,166 @@
+// Itemised checklist plate with a quiet stamp and an optional big red total.
+// The plate is a raised bordered surface so it reads on either surface pair.
+// Rows + total animate in via landing/checklist.js.
+.lp-checklist {
+  .lp-checklist-head {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 130px;
+    }
+
+    .sub-heading {
+      max-width: 34ch;
+      margin: $space-2 0 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+
+  .lp-checklist-plate {
+    background: $vc-surface-white;
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    padding: $space-6 $space-5;
+    transition: background 0.3s, border-color 0.3s;
+
+    @include media-breakpoint-down(sm) {
+      padding: $space-4 $space-3;
+    }
+  }
+
+  .checklist-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .checklist-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'name stamp'
+      'detail detail';
+    align-items: baseline;
+    column-gap: $space-3;
+    padding: $space-3 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    & + .checklist-row {
+      border-top: 1px solid $vc-grey-100;
+      transition: border-color 0.3s;
+    }
+
+    .item-name {
+      grid-area: name;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 17px;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 16px;
+      }
+    }
+
+    .checklist-stamp {
+      @include vc-eyebrow($vc-grey-600);
+      grid-area: stamp;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .item-detail {
+      grid-area: detail;
+      @include vc-body($vc-grey-600);
+      margin-top: 4px;
+      max-width: 56ch;
+    }
+  }
+
+  .checklist-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $space-2;
+    margin-top: $space-6;
+    padding-top: $space-4;
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
+
+    .total-label {
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 22px;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 18px;
+      }
+    }
+
+    .total-value {
+      font-family: $vc-display-font;
+      font-stretch: $vc-display-stretch;
+      font-weight: $vc-black;
+      font-size: clamp(56px, 7vw, 96px);
+      line-height: 0.9;
+      color: $vc-primary;
+    }
+
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-1;
+
+      .total-value {
+        font-size: clamp(48px, 16vw, 72px);
+      }
+    }
+  }
+
+  .checklist-note {
+    @include vc-body($vc-grey-600);
+    margin: $space-1 0 0;
+    max-width: 48ch;
+  }
+}
+
+@at-root body.dark-mode.page-template-page-landing-page .lp-checklist {
+  .lp-checklist-plate {
+    background: $dark-vc-background-dark !important;
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .checklist-row + .checklist-row {
+    border-top-color: $vc-grey-dark-border !important;
+  }
+
+  .checklist-row .item-name {
+    color: $vc-text-light !important;
+  }
+
+  .checklist-row .item-detail,
+  .checklist-row .checklist-stamp,
+  .checklist-note {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .checklist-total {
+    border-top-color: $vc-ember-line !important;
+
+    .total-label {
+      color: $vc-text-light !important;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+// Testimonials band. The spotlight itself is the shared component
+// (common/_testimonial-spotlight.scss); this only sets the heading rhythm.
+.lp-proof {
+  .content h2 {
+    margin-bottom: $space-8;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+}

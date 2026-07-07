@@ -49,3 +49,6 @@ require VC_INC_PATH . '/ajax-calls.php';
 
 // Gravity Forms (multi-step enquiry form hooks)
 require VC_INC_PATH . '/gravity-forms.php';
+
+// Landing Page flexible-content field group
+require VC_INC_PATH . '/landing-page-fields.php';

@@ -1,0 +1,46 @@
+// Intro / rich-text block. Full-width heading, then the body in one lead column
+// or two paragraph columns on an alternating surface.
+.lp-intro {
+  .lp-intro-head {
+    margin-bottom: $space-5;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-4;
+    }
+  }
+
+  .lp-intro-cols {
+    @include media-breakpoint-down(lg) {
+      row-gap: $space-4;
+    }
+  }
+
+  .lp-intro-body {
+    @include vc-p($vc-grey-600);
+    font-size: clamp(1.0625rem, 0.4vw + 0.95rem, 1.25rem);
+    line-height: 1.65;
+    transition: color 0.3s;
+
+    &--single {
+      max-width: 68ch;
+    }
+
+    p {
+      margin: 0 0 $space-2;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    a {
+      color: $vc-primary;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+@at-root body.dark-mode.page-template-page-landing-page .lp-intro .lp-intro-body {
+  color: $vc-muted-on-dark !important;
+}

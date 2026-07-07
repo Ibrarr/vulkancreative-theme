@@ -51,13 +51,13 @@ function register_custom_page_templates() {
  * Compose a section heading from its three editable parts (start, red, end).
  * The red part renders as the standard <span> highlight. Joining is
  * punctuation-aware, so an end part of '.' or '?' attaches without a space.
- * When every part is blank (or the fields do not exist), $fallback — an
- * already-highlighted HTML string — is returned instead.
+ * When every part is blank, $fallback — an already-highlighted HTML string —
+ * is returned instead. Shared by the field and sub-field readers below.
  */
-function vc_heading_parts( $base, $acf_id = false, $fallback = '' ) {
-	$start = trim( (string) get_field( $base . '_start', $acf_id ) );
-	$red   = trim( (string) get_field( $base . '_red', $acf_id ) );
-	$end   = trim( (string) get_field( $base . '_end', $acf_id ) );
+function vc_compose_heading_parts( $start, $red, $end, $fallback = '' ) {
+	$start = trim( (string) $start );
+	$red   = trim( (string) $red );
+	$end   = trim( (string) $end );
 
 	if ( '' === $start && '' === $red && '' === $end ) {
 		return $fallback;
@@ -82,4 +82,69 @@ function vc_heading_parts( $base, $acf_id = false, $fallback = '' ) {
 		$out = $join( $out, esc_html( $end ) );
 	}
 	return $out;
+}
+
+/**
+ * Compose a heading from the {base}_start / _red / _end ACF fields on a post,
+ * option or taxonomy context.
+ */
+function vc_heading_parts( $base, $acf_id = false, $fallback = '' ) {
+	return vc_compose_heading_parts(
+		get_field( $base . '_start', $acf_id ),
+		get_field( $base . '_red', $acf_id ),
+		get_field( $base . '_end', $acf_id ),
+		$fallback
+	);
+}
+
+/**
+ * As vc_heading_parts() but reads sub-fields — for a heading composed from
+ * {base}_start / _red / _end inside a have_rows() / the_row() loop (repeater or
+ * flexible-content row). Must be called inside the row context.
+ */
+function vc_heading_parts_sub( $base, $fallback = '' ) {
+	return vc_compose_heading_parts(
+		get_sub_field( $base . '_start' ),
+		get_sub_field( $base . '_red' ),
+		get_sub_field( $base . '_end' ),
+		$fallback
+	);
+}
+
+/**
+ * Templates that use the slim header variant (logo + theme toggle + one CTA,
+ * no nav, no hamburger) and the mobile sticky CTA: the free-website offer page
+ * and the reusable Landing Page template. Keep this list as the single source
+ * for every slim-header conditional across header.php / footer.php / enqueues.
+ */
+function vc_is_slim_templates() {
+	return array(
+		'page-templates/page-free-website.php',
+		'page-templates/page-landing-page.php',
+	);
+}
+
+function vc_is_slim_header() {
+	foreach ( vc_is_slim_templates() as $tpl ) {
+		if ( is_page_template( $tpl ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * The slim header's single CTA as [ label, href ], per slim template. The
+ * landing template exposes editable label + target; the free-website page
+ * reads its own label and links to its enquire anchor.
+ */
+function vc_slim_header_cta() {
+	if ( is_page_template( 'page-templates/page-landing-page.php' ) ) {
+		$label = get_field( 'lp_header_cta_label' );
+		$href  = get_field( 'lp_header_cta_target' );
+		return array( $label ?: 'Get in Touch', $href ?: '#lp-cta' );
+	}
+
+	$label = get_field( 'fw_header_cta_label' );
+	return array( $label ?: 'Get Your Free Website', '#enquire' );
 }

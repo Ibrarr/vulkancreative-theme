@@ -31,12 +31,16 @@ function add_custom_scripts() {
         wp_enqueue_script( 'archive-author', VC_TEMPLATE_URI . mix('/js/archive-author.js'), [ 'jquery' ], null, true );
     }
 
-    if ( is_page_template( 'page-templates/page-your-business.php' ) ) {
-        wp_enqueue_script( 'your-business', VC_TEMPLATE_URI . mix('/js/your-business.js'), [ 'jquery' ], null, true );
-    }
-
     if ( is_page_template( 'page-templates/page-free-website.php' ) ) {
         wp_enqueue_script( 'free-website', VC_TEMPLATE_URI . mix('/js/free-website.js'), [ 'jquery' ], null, true );
+    }
+
+    if ( is_page_template( 'page-templates/page-landing-page.php' ) ) {
+        wp_enqueue_script( 'landing', VC_TEMPLATE_URI . mix('/js/landing.js'), [ 'jquery' ], null, true );
+        // A landing CTA block can embed the multi-step enquiry form (id 5); its
+        // bundle/SCSS key on the `enquiry-form` cssClass, so this covers either
+        // the multi-step or a single-step form with no extra wiring.
+        wp_enqueue_script( 'enquiry-form', VC_TEMPLATE_URI . mix('/js/enquiry-form.js'), [ 'jquery' ], null, true );
     }
 
     if ( is_page_template( 'page-templates/page-contact-us.php' ) ) {

@@ -1,0 +1,169 @@
+// Reusable Landing Page (page-templates/page-landing-page.php). A stack of
+// forge blocks composed in ACF Flexible Content. Content blocks alternate the
+// surface pairs via .is-surface-a / .is-surface-b; hero and CTA are dark anchor
+// bands in both modes. Ported from the free-website section language.
+.page-template-page-landing-page {
+
+  // Surface bands: section background + the --lp-surface var (used by block
+  // internals that must match the band, e.g. the steps numeral knockout).
+  .is-surface-a,
+  .is-surface-b {
+    @include vc-section-padding;
+    transition: background 0.3s;
+  }
+
+  .is-surface-a {
+    background: $vc-surface-white;
+    --lp-surface: #{$vc-surface-white};
+  }
+
+  .is-surface-b {
+    background: $vc-background-white;
+    --lp-surface: #{$vc-background-white};
+  }
+
+  // Shared heading + sub-heading on surface bands (light mode: dark text).
+  .is-surface-a,
+  .is-surface-b {
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      text-transform: uppercase;
+      transition: color 0.3s;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .sub-heading {
+      @include vc-p($vc-grey-600);
+      transition: color 0.3s;
+    }
+  }
+
+  // Stats block reuses the shared .results band; keep its heading all-caps.
+  .lp-stats .content h2 {
+    text-transform: uppercase;
+  }
+
+  // Split head used across blocks (steps, comparison): a big display heading on
+  // the left with a supporting line on the right, bottom-aligned to it. The
+  // display heading's own margin-bottom is what pushes the right text too low,
+  // so zero both margins and let flex-end sit their text bottoms level. Stacks
+  // (heading over text) below lg.
+  .lp-split-head {
+    align-items: flex-end;
+
+    .content h2 {
+      margin-bottom: 0;
+    }
+
+    .sub-heading {
+      margin: 0;
+    }
+
+    @include media-breakpoint-down(lg) {
+      align-items: flex-start;
+
+      .content h2 {
+        margin-bottom: $space-2;
+      }
+    }
+  }
+
+  @import "blocks/header";
+  @import "blocks/hero";
+  @import "blocks/intro";
+  @import "blocks/steps";
+  @import "blocks/checklist";
+  @import "blocks/comparison";
+  @import "blocks/proof";
+  @import "blocks/faq";
+  @import "blocks/cta";
+}
+
+// Dark mode: flip the surface bands + their text.
+@at-root body.dark-mode.page-template-page-landing-page {
+  .is-surface-a {
+    background: $dark-vc-background-dark !important;
+    --lp-surface: #{$dark-vc-background-dark};
+  }
+
+  .is-surface-b {
+    background: $dark-vc-background-dark-alt !important;
+    --lp-surface: #{$dark-vc-background-dark-alt};
+  }
+
+  .is-surface-a,
+  .is-surface-b {
+    .content h2 {
+      color: $vc-text-light !important;
+    }
+
+    .sub-heading {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+}
+
+// The landing header is not sticky: it sits at the top and scrolls away with
+// the hero (header.js skips the scroll behaviour here).
+@at-root body.page-template-page-landing-page header {
+  position: absolute;
+  top: 0;
+}
+
+// Mobile-only sticky CTA bar (ported from free-website): sticky-cta.js drives
+// .is-visible between the hero and the CTA anchor. Deep frosted bar; hidden
+// state is unfocusable.
+.lp-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-sticky;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba($vc-background-deep, 0.92);
+  transform: translateY(110%);
+  visibility: hidden;
+  transition: transform 0.35s ease, visibility 0s 0.35s;
+
+  @supports (backdrop-filter: blur(1px)) {
+    background: rgba($vc-background-deep, 0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .button {
+    @include vc-button-forge;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  &.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.35s ease, visibility 0s;
+  }
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+// Hero entrance targets are pre-hidden only while JS runs; a failsafe reveals
+// them at 2.8s if the script never gets there, and reduced-motion / no-JS keep
+// them visible (misc/_motion.scss forces opacity: 1).
+@at-root html.js body.page-template-page-landing-page {
+  .lp-hero [data-reveal] {
+    opacity: 0;
+    animation: vc-lp-reveal-failsafe 0s 2.8s forwards;
+  }
+}
+
+@keyframes vc-lp-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}

@@ -118,29 +118,7 @@
   .cs-related .service-card,
   .cs-cta .content h2,
   .cs-cta .content .sub-heading,
-  .cs-cta .cta-actions,
-  // your-business page reveal targets (migrated to the forge reveal contract)
-  .yb-hero h1,
-  .split-text-yb-hero,
-  .yb-hero .hero-form-container,
-  .split-text-yb-problem,
-  .yb-problem .sub-heading,
-  .problem-card,
-  .split-text-yb-solution,
-  .yb-solution .sub-heading,
-  .pillar-content,
-  .split-text-yb-outcomes,
-  .outcome-item,
-  .split-text-yb-trust,
-  .testimonial-card,
-  .split-text-yb-cta,
-  .yb-cta .content p,
-  .split-text-yb-hero .line,
-  .split-text-yb-problem .line,
-  .split-text-yb-solution .line,
-  .split-text-yb-outcomes .line,
-  .split-text-yb-trust .line,
-  .split-text-yb-cta .line {
+  .cs-cta .cta-actions {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -217,6 +195,23 @@
   .fw-hero .hero-rule,
   .fw-how .fw-how-rail {
     transform: none !important;
+  }
+
+  // Landing page: every reveal target (and stagger child) shows its finished
+  // state; the hero rule + steps rail stay drawn and the numerals forged.
+  .page-template-page-landing-page [data-reveal],
+  .page-template-page-landing-page [data-reveal="stagger"] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .page-template-page-landing-page .lp-hero .hero-rule,
+  .page-template-page-landing-page .lp-steps .lp-steps-rail {
+    transform: none !important;
+  }
+
+  .page-template-page-landing-page .lp-step .step-index {
+    color: $vc-primary !important;
   }
 
   .fw-how .how-step .step-index {

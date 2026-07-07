@@ -1,0 +1,150 @@
+// Dark forge hero, #121212 in both modes. Typographic; optional outlined
+// monument, and an optional global-logo marquee scrolling across the bottom.
+// Closes on the standard ember hairline seam every site hero/header carries
+// (see common/_page-hero.scss); the band stays dark in both modes so the
+// on-dark ember line is correct without a dark-mode override.
+.lp-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 92vh;
+  padding-top: 160px;
+  background: $vc-background-dark;
+  border-bottom: 1px solid $vc-ember-line;
+  scroll-margin-top: 110px;
+
+  @include media-breakpoint-down(lg) {
+    min-height: 0;
+    padding-top: 140px;
+  }
+
+  // Content area: flex-fills the space above any marquee and centres.
+  .lp-hero-inner {
+    flex: 1;
+    display: grid;
+    align-content: center;
+    padding: $space-8 0;
+
+    @include media-breakpoint-down(lg) {
+      padding: $space-6 0;
+    }
+  }
+
+  // Global-logo marquee (white silhouettes on the dark band), pinned to the
+  // hero base with a hairline seam. Mounted by landing/logos.js.
+  .lp-hero-marquee {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid $vc-grey-dark-border;
+    padding: $space-4 0;
+
+    .lp-logo-splide {
+      overflow: hidden;
+    }
+
+    .splide__slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        height: 26px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+        filter: grayscale(1) brightness(0) invert(1);
+        opacity: 0.55;
+      }
+    }
+  }
+
+  .lp-hero-glow {
+    position: absolute;
+    left: -18%;
+    bottom: -35%;
+    width: 68vw;
+    height: 68vw;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 62%);
+    pointer-events: none;
+  }
+
+  .lp-hero-mark {
+    position: absolute;
+    right: -3%;
+    bottom: -8%;
+    z-index: 0;
+    font-family: $vc-display-font;
+    font-stretch: $vc-display-stretch;
+    font-weight: $vc-black;
+    font-size: clamp(220px, 32vw, 500px);
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba($vc-text-light, 0.08);
+    pointer-events: none;
+    user-select: none;
+
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .content {
+    h1 {
+      @include vc-display-1($vc-text-light);
+      text-transform: uppercase;
+      text-wrap: balance;
+
+      span {
+        color: $vc-primary;
+      }
+    }
+
+    .sub-heading {
+      @include vc-p($vc-muted-on-dark);
+      max-width: 56ch;
+      margin: $space-2 0 0;
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-light);
+    }
+  }
+
+  .hero-note {
+    @include vc-eyebrow($vc-muted-on-dark);
+    margin: $space-5 0 0;
+    letter-spacing: 0.06em;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 10px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  .hero-rule {
+    display: block;
+    width: 220px;
+    height: 1px;
+    margin-top: $space-2;
+    background: $vc-ember-line;
+    transform-origin: left center;
+  }
+}

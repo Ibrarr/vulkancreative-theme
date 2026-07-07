@@ -36,7 +36,6 @@
     <!-- End Meta Pixel Code -->
 </head>
 <body <?php body_class(); ?>>
-<?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
 <script>
     try {
         if (localStorage.getItem('darkMode') === 'disabled') {
@@ -44,22 +43,22 @@
         }
     } catch (e) {}
 </script>
-<?php endif; ?>
 <?php wp_body_open(); ?>
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="hero-active">
-        <div class="<?php if ( is_page_template( 'page-templates/page-your-business.php' ) || is_page_template( 'page-templates/page-free-website.php' ) ) { echo 'container '; } ?>px-4">
+        <div class="<?php if ( vc_is_slim_header() ) { echo 'container '; } ?>px-4">
             <div class="main-menu">
                 <div class="logo">
                     <a href="/" aria-label="Home">
                         <?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?>
                     </a>
                 </div>
-                <?php if ( is_page_template( 'page-templates/page-free-website.php' ) ) : ?>
-                <?php // Slim header for the free-website offer page: one CTA plus the theme toggle, no nav. ?>
+                <?php if ( vc_is_slim_header() ) : ?>
+                <?php // Slim header for the offer / landing templates: one CTA plus the theme toggle, no nav. ?>
+                <?php list( $vc_slim_cta_label, $vc_slim_cta_href ) = vc_slim_header_cta(); ?>
                 <div class="menu-theme-toggle fw-header-actions">
-                    <a class="fw-header-cta" href="#enquire"><?php echo esc_html( get_field( 'fw_header_cta_label' ) ?: 'Get Your Free Website' ); ?></a>
+                    <a class="fw-header-cta" href="<?php echo esc_attr( $vc_slim_cta_href ); ?>"><?php echo esc_html( $vc_slim_cta_label ); ?></a>
                     <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
@@ -91,7 +90,7 @@
                         </svg>
                     </button>
                 </div>
-                <?php elseif ( ! is_page_template( 'page-templates/page-your-business.php' ) ) : ?>
+                <?php else : ?>
                 <div class="menu-theme-toggle">
                     <nav id="nav" role="navigation" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
@@ -139,7 +138,7 @@
                 <?php endif; ?>
             </div>
 
-            <?php if ( ! is_page_template( 'page-templates/page-your-business.php' ) && ! is_page_template( 'page-templates/page-free-website.php' ) ) : ?>
+            <?php if ( ! vc_is_slim_header() ) : ?>
             <div class="mobile-menu" id="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
                     <nav id="nav-mobile" role="navigation" itemscope

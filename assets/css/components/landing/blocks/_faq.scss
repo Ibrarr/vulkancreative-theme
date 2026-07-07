@@ -1,0 +1,174 @@
+// Accessible disclosure accordion. Server-renders open; landing/faq.js
+// collapses on init. Plus glyph drawn in CSS; the vertical bar collapses on
+// open. Sticky head with an optional ghost CTA.
+.lp-faq {
+  .lp-faq-head {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 130px;
+    }
+
+    .button-ghost {
+      @include vc-button-ghost($vc-text-dark);
+      margin-top: $space-3;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+
+      .button-ghost {
+        display: none;
+      }
+    }
+  }
+
+  .lp-faq-item {
+    border-top: 1px solid $vc-ember-line-light;
+    transition: border-color 0.3s;
+
+    &:last-child {
+      border-bottom: 1px solid $vc-ember-line-light;
+    }
+
+    .faq-q {
+      margin: 0;
+    }
+
+    .faq-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-3;
+      width: 100%;
+      min-height: 44px;
+      padding: $space-3 0;
+      background: none;
+      border: 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 18px;
+      line-height: 1.4;
+      color: $vc-text-dark;
+      transition: color 0.3s;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 16px;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary;
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+      }
+    }
+
+    .faq-icon {
+      position: relative;
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        background: currentColor;
+        transition: transform 0.3s ease;
+      }
+
+      &::before {
+        left: 0;
+        right: 0;
+        top: 7px;
+        height: 2px;
+      }
+
+      &::after {
+        top: 0;
+        bottom: 0;
+        left: 7px;
+        width: 2px;
+      }
+    }
+
+    .faq-toggle[aria-expanded="true"] .faq-icon::after {
+      transform: scaleY(0);
+    }
+
+    .faq-a {
+      overflow: hidden;
+
+      &[hidden] {
+        display: none;
+      }
+    }
+
+    .faq-a-inner {
+      padding: 0 0 $space-3;
+      max-width: 65ch;
+
+      p {
+        @include vc-body($vc-grey-700);
+        margin: 0 0 $space-2;
+        line-height: 1.7;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode.page-template-page-landing-page .lp-faq {
+  .lp-faq-head .button-ghost {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.45) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        border-color: $vc-primary !important;
+      }
+    }
+
+    &:focus-visible {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+
+  .lp-faq-item {
+    border-top-color: $vc-ember-line !important;
+
+    &:last-child {
+      border-bottom-color: $vc-ember-line !important;
+    }
+
+    .faq-toggle {
+      color: $vc-text-light !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary !important;
+      }
+    }
+
+    .faq-a-inner p {
+      color: $vc-muted-on-dark !important;
+    }
+  }
+}

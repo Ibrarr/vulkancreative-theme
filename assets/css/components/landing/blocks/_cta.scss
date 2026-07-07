@@ -1,0 +1,132 @@
+// Closing CTA band, #121212 in both modes. Form mode sits on a panel so the
+// shared enquiry-form styling keeps contrast in light mode; Buttons mode
+// renders a forge button.
+.lp-cta {
+  position: relative;
+  overflow: hidden;
+  @include vc-section-padding;
+  background: $vc-background-dark;
+  scroll-margin-top: 90px;
+
+  .lp-cta-glow {
+    position: absolute;
+    right: -18%;
+    bottom: -40%;
+    width: 58vw;
+    height: 58vw;
+    background: radial-gradient(circle, $vc-glow 0%, transparent 62%);
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .content h2 {
+    @include vc-display-2($vc-text-light);
+    text-transform: uppercase;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .sub-heading {
+    @include vc-p($vc-muted-on-dark);
+    max-width: 46ch;
+    margin: $space-2 0 0;
+  }
+
+  .hero-actions {
+    margin-top: $space-4;
+
+    .button {
+      @include vc-button-forge;
+    }
+  }
+
+  // Dark form panel in both modes (the CTA band is always #121212). The form
+  // inside is forced to its dark-surface treatment regardless of colour mode,
+  // so it never renders as a white panel in light mode.
+  .form-container {
+    background: $dark-vc-background-dark;
+    border: 1px solid $vc-grey-dark-border;
+    border-radius: 2px;
+    padding: $space-5;
+    scroll-margin-top: 110px;
+
+    @include media-breakpoint-down(sm) {
+      padding: $space-3;
+    }
+
+    .gform_wrapper.enquiry-form_wrapper {
+      .gfield_label,
+      label {
+        color: $vc-muted-on-dark !important;
+      }
+
+      .gfield:focus-within > label,
+      .gfield:focus-within .gfield_label {
+        color: $vc-primary !important;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="url"],
+      input[type="tel"],
+      textarea {
+        color: $vc-text-light !important;
+        border-bottom-color: rgba($vc-text-light, 0.35) !important;
+
+        &:focus {
+          border-bottom-color: $vc-primary !important;
+        }
+
+        &::placeholder {
+          color: $vc-muted-on-dark !important;
+        }
+      }
+
+      .ginput_container_select select {
+        color: $vc-text-light !important;
+        border-bottom-color: rgba($vc-text-light, 0.35) !important;
+      }
+    }
+
+    // Confirmation message reads on the dark panel in both modes.
+    .gform_confirmation_wrapper .gform_confirmation_message {
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      color: $vc-text-light;
+      margin: 0;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  // Nudge the form wider than the base col-lg-5 (41.7%) so it doesn't read as
+  // cramped, while keeping the intro column wide enough that the display
+  // heading wraps rather than clips against the band's overflow: hidden.
+  @include media-breakpoint-up(lg) {
+    .lp-cta-intro {
+      flex: 0 0 55%;
+      max-width: 55%;
+    }
+
+    .lp-cta-form {
+      flex: 0 0 45%;
+      max-width: 45%;
+    }
+  }
+
+  @include media-breakpoint-down(lg) {
+    .lp-cta-form {
+      margin-top: $space-6;
+    }
+  }
+}
