@@ -67,8 +67,11 @@ function loadSpline(container) {
 
             container.appendChild(splineEl);
         })
-        .catch(() => {
-            // Scene failed to load: fall back to the static poster.
+        .catch((err) => {
+            // Scene failed to load (missing/mismatched chunk, blocked eval,
+            // etc.): fall back to the static poster, but surface why so a stale
+            // deploy does not fail silently again.
+            console.warn('[vc] Spline viewer failed to load; showing poster fallback.', err);
             addPoster(container);
         });
 }
