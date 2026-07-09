@@ -53,12 +53,20 @@
   }
 
   > .sub-menu.sub-menu--mega {
+    // The panel box spans the header bar itself: anchored to .main-menu, so
+    // left:0/right:0 reach its content box (the logo's left edge to the theme
+    // toggle's right edge). The dropdown is the same width as the menu, not the
+    // narrower page container.
     left: 0;
     right: 0;
     width: auto;
     min-width: 0;
     max-width: none;
-    padding: $space-4;
+    // Sit close to the bar (was a 26px float) so the panel reads as an extension
+    // of it, not a detached slab.
+    margin-top: $space-1;
+    padding-block: $space-4 $space-5;
+    padding-inline: $space-4;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: $space-4;
@@ -67,13 +75,13 @@
     align-items: start;
 
     // The panel anchors to the bar (bottom ~83px), not the item (link bottom
-    // ~63px), so the base 18px bridge leaves a dead band between the link and
-    // the panel where the hover drops and the panel vanishes before you reach
-    // it. The measured open gap is 38px; extend the invisible bridge to span it
-    // (plus 2px of overlap into the link) so the pointer never loses hover.
+    // ~63px), so the base bridge leaves a dead band where the hover drops. With
+    // the tighter gap the open link-to-panel gap is ~28px; extend the invisible
+    // bridge to span it (plus a little into the link) so the pointer never loses
+    // hover crossing it.
     &::before {
-      top: -40px;
-      height: 40px;
+      top: -30px;
+      height: 30px;
     }
 
     > li.mega-col {
@@ -161,51 +169,60 @@
 // ---------------------------------------------------------------------------
 .mobile-menu nav ul li.menu-item-mega .sub-menu--mega {
   display: block;
-  padding-left: 0;
+  // Indent the whole pillar block so it reads as one level inside "What We Do"
+  // rather than a separate list grafted between the giant top-level items.
+  padding-left: $space-3;
+  // Zero the 4px top padding inherited from the base .sub-menu: when collapsed
+  // that padding keeps the wrapper 4px tall (not 0), which throws the "What We
+  // Do" row's label ~2px off-centre versus the text-only rows. The first pillar
+  // carries its own top padding, so the open panel keeps its breathing room.
+  padding-top: 0;
 
-  // Each pillar is a full-width row: the label (a link to the pillar hub) fills
-  // the row and its chevron sits hard right, so the chevrons line up in one tidy
-  // column instead of floating at the end of every label. A hairline separates
-  // the pillars so the open panel reads as a clean list, not a scatter.
+  // One even row per pillar, no divider lines (the hairlines read as a settings
+  // list, not this menu). Rhythm comes from consistent row padding instead. Grid
+  // keeps the label in column 1 (wrapping its own text if ever long) and the
+  // chevron pinned to column 2, so a long name never shoves the chevron onto its
+  // own line; the child list spans the full width on the next row.
   .mega-col {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    flex-wrap: wrap;
     column-gap: $space-2;
-    border-top: 1px solid $vc-ember-line-light;
-
-    &:first-child {
-      border-top: 0;
-    }
 
     &::after {
       display: none;
     }
+
+    > .submenu-wrap,
+    > .mega-col-list {
+      grid-column: 1 / -1;
+    }
   }
 
+  // Pillars carry the menu's Archivo display voice a clear step below the giant
+  // top-level items, so the sub-menu reads as the same menu one level in.
   .mega-col-head {
-    // Fill the row so the chevron is pushed to the right edge; min-width: 0 lets
-    // a long pillar name wrap rather than shove the chevron off-screen.
-    flex: 1 1 auto;
     min-width: 0;
-    font-family: $vc-font-family;
-    font-weight: $vc-semi-bold;
+    font-family: $vc-display-font;
+    font-weight: $vc-bold;
+    // Normal width (not the top level's 125% expanded) so even the longest
+    // pillar name holds one line, keeping every row the same height.
     font-stretch: 100%;
-    font-size: 16px;
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    text-transform: none;
-    color: $vc-grey-700;
+    font-size: 15px;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: $vc-text-dark;
     display: flex;
     align-items: center;
     min-height: 44px;
-    padding: 10px 0;
+    padding: 8px 0;
     transition: color 0.3s;
   }
 
-  // Lighter, borderless chevron a size down from the boxed top-level one, so the
-  // pillar level reads as one step deeper. The 44px tap target is preserved by
-  // the button box; only the glyph shrinks.
+  // Small borderless chevron; the 44px tap target is kept by the button box,
+  // only the glyph is small. The focus ring is inset so it can never clip at
+  // the right edge of the overlay.
   .mega-col .submenu-toggle {
     flex: 0 0 auto;
     width: 44px;
@@ -215,22 +232,22 @@
     justify-content: center;
     background: transparent;
     border: 0;
-    border-radius: 2px;
     color: $vc-primary;
     cursor: pointer;
     padding: 0;
     transition: color 0.3s;
 
     svg {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       fill: none;
       transition: transform 0.3s ease;
     }
 
     &:focus-visible {
       outline: 2px solid $vc-primary;
-      outline-offset: 2px;
+      outline-offset: -8px;
+      border-radius: 2px;
     }
   }
 
@@ -238,10 +255,12 @@
     transform: rotate(180deg);
   }
 
+  // Child services are the third level: quieter Poppins, indented under the
+  // pillar, same even rhythm.
   .mega-col-list {
     width: 100%;
     padding-left: $space-3;
-    padding-bottom: $space-2;
+    padding-bottom: $space-1;
 
     li {
       opacity: 1;
@@ -251,14 +270,14 @@
     a {
       display: flex;
       align-items: center;
-      min-height: 44px;
-      padding: 9px 0;
+      min-height: 40px;
+      padding: 8px 0;
       font-family: $vc-font-family;
       font-weight: $vc-medium;
       font-stretch: 100%;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.3;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
       text-transform: none;
       color: $vc-grey-600;
       transition: color 0.3s;
@@ -304,10 +323,6 @@
 }
 
 @at-root body.dark-mode .mobile-menu nav ul li.menu-item-mega .sub-menu--mega {
-  .mega-col {
-    border-top-color: $vc-ember-line;
-  }
-
   .mega-col-head {
     color: $vc-text-light;
   }

@@ -35,6 +35,16 @@
       flex-direction: column;
       gap: $space-1;
 
+      // Uniform row height for the TOP-LEVEL items only (direct children of the
+      // menu ul, matched by its `.menu` class so the nested mega pillars and
+      // child services keep their own layout): the item carrying a disclosure
+      // toggle sits level with the text rows, and each gets a little more air.
+      &.menu > li:not(.menu-button) {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+      }
+
       li {
         counter-increment: menu-count;
         opacity: 0;
@@ -95,6 +105,10 @@
           // The label and the chevron always share one line (Ibrar review);
           // the sub-list wraps beneath via its full-width .submenu-wrap.
           flex-wrap: wrap;
+          // Centre the flex lines in the row so the collapsed sub-list wrapper
+          // (a zero-height wrapped line) doesn't nudge the label up a couple of
+          // pixels; keeps this row's centre level with the text-only rows.
+          align-content: center;
 
           > a {
             flex: 0 0 auto;
@@ -109,6 +123,10 @@
             flex: 0 0 auto;
           }
 
+          // A clean brand-red chevron, not a boxed button: the border box read
+          // as a heavy plate beside the display-size link. The 44px tap target
+          // is kept by the button box; only the glyph shows. Inset focus ring so
+          // it never clips at the overlay edge.
           .submenu-toggle {
             width: 44px;
             height: 44px;
@@ -116,30 +134,23 @@
             align-items: center;
             justify-content: center;
             background: transparent;
-            border: 1px solid $vc-grey-400;
-            border-radius: 2px;
-            // The brand-red chevron makes the disclosure unmissable beside
-            // the display-size link; red is fine on an interactive control.
+            border: 0;
             color: $vc-primary;
             cursor: pointer;
             padding: 0;
-            transition: border-color 0.3s, color 0.3s;
+            transition: color 0.3s;
 
             svg {
-              width: 22px;
-              height: 22px;
+              width: 18px;
+              height: 18px;
               fill: none;
               transition: transform 0.3s ease;
             }
 
-            @media (hover: hover) {
-              &:hover {
-                border-color: $vc-primary;
-              }
-            }
-
             &:focus-visible {
-              border-color: $vc-primary;
+              outline: 2px solid $vc-primary;
+              outline-offset: -8px;
+              border-radius: 2px;
             }
           }
 
@@ -298,19 +309,8 @@
 
   nav li.menu-item-has-children {
     .submenu-toggle {
-      border-color: $vc-grey-dark-border;
       // The chevron stays brand red in both modes (interactive control).
       color: $vc-primary !important;
-
-      @media (hover: hover) {
-        &:hover {
-          border-color: $vc-primary;
-        }
-      }
-
-      &:focus-visible {
-        border-color: $vc-primary;
-      }
     }
 
     .sub-menu a {
