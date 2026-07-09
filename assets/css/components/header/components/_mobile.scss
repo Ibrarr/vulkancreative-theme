@@ -143,7 +143,11 @@
             }
           }
 
-          &.is-open .submenu-toggle svg {
+          // Child combinator: a descendant selector here would also rotate the
+          // nested mega-panel pillar chevrons whenever "What We Do" is open,
+          // flipping every closed pillar's chevron up. Rotate only this item's
+          // own toggle.
+          &.is-open > .submenu-toggle svg {
             transform: rotate(180deg);
           }
 

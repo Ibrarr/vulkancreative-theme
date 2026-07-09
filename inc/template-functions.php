@@ -148,3 +148,63 @@ function vc_slim_header_cta() {
 	$label = get_field( 'fw_header_cta_label' );
 	return array( $label ?: 'Get Your Free Website', '#enquire' );
 }
+
+/**
+ * The ordered parent services for a placement, driven by the Global Settings
+ * "Service List" (inc/service-list-fields.php). $location is one of 'menu',
+ * 'footer', 'homepage', 'hub' — rows with that placement toggle off are
+ * skipped — or null for the full ordered list (used by the archive filters).
+ * Falls back to all top-level service terms by name until the list is set up.
+ *
+ * @return WP_Term[]
+ */
+function vc_ordered_services( $location = null ) {
+	$toggle = $location ? 'show_' . $location : '';
+	$terms  = array();
+
+	if ( function_exists( 'have_rows' ) && have_rows( 'service_list', 'options' ) ) {
+		while ( have_rows( 'service_list', 'options' ) ) {
+			the_row();
+			$term_id = (int) get_sub_field( 'service' );
+			if ( ! $term_id ) {
+				continue;
+			}
+			if ( $toggle && ! get_sub_field( $toggle ) ) {
+				continue;
+			}
+			$term = get_term( $term_id, 'service' );
+			if ( $term && ! is_wp_error( $term ) ) {
+				$terms[] = $term;
+			}
+		}
+	}
+
+	if ( $terms ) {
+		return $terms;
+	}
+
+	// Fallback until the Service List is configured: top-level terms by name.
+	$fallback = get_terms( array(
+		'taxonomy'   => 'service',
+		'hide_empty' => false,
+		'parent'     => 0,
+		'orderby'    => 'name',
+	) );
+	return is_wp_error( $fallback ) ? array() : $fallback;
+}
+
+/**
+ * A parent service's child services, alphabetically. Used on pillar pages and
+ * in the mega menu. Returns an empty array for a leaf term (no children).
+ *
+ * @return WP_Term[]
+ */
+function vc_service_children( $parent_id ) {
+	$children = get_terms( array(
+		'taxonomy'   => 'service',
+		'hide_empty' => false,
+		'parent'     => (int) $parent_id,
+		'orderby'    => 'name',
+	) );
+	return is_wp_error( $children ) ? array() : $children;
+}

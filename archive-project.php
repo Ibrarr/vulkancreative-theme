@@ -51,10 +51,16 @@ if ( have_posts() ) {
 	wp_reset_postdata();
 }
 
-// Chips in the same order as everywhere else: the term's ACF order field.
+// Chips in the same order as everywhere else: the global Service List order,
+// with any term outside that list falling to the end alphabetically.
 $work_terms = array_values( $work_terms );
-usort( $work_terms, function ( $a, $b ) {
-	return (int) get_field( 'order', 'service_' . $a->term_id ) <=> (int) get_field( 'order', 'service_' . $b->term_id );
+$work_order = wp_list_pluck( vc_ordered_services(), 'term_id' );
+usort( $work_terms, function ( $a, $b ) use ( $work_order ) {
+	$ai = array_search( $a->term_id, $work_order, true );
+	$bi = array_search( $b->term_id, $work_order, true );
+	$ai = ( false === $ai ) ? PHP_INT_MAX : $ai;
+	$bi = ( false === $bi ) ? PHP_INT_MAX : $bi;
+	return $ai === $bi ? strcasecmp( $a->name, $b->name ) : $ai <=> $bi;
 } );
 
 // A slug with no chip (hand-typed URL) falls back to showing everything.

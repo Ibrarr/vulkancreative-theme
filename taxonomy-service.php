@@ -18,6 +18,12 @@ $term_desc = wp_strip_all_tags( term_description( $term_id ) );
 // The homepage is the single source for the sitewide process steps.
 $front_page_id = (int) get_option( 'page_on_front' );
 
+// Parent (pillar) terms become mini-hubs that list their child services; child
+// (leaf) terms keep the full single-service layout. Only the deliverables vs
+// children-grid section and the "related" set differ — everything else shared.
+$is_pillar = ( 0 === (int) $term->parent );
+$children  = $is_pillar ? vc_service_children( $term_id ) : array();
+
 // Section headings are composed from three editable parts (start, red, end)
 // by vc_heading_parts() in inc/template-functions.php; the red part renders
 // as the standard <span> highlight. The hero fallback comes from the per-slug
@@ -25,9 +31,9 @@ $front_page_id = (int) get_option( 'page_on_front' );
 $sv_heading_highlights = [
 	'web-design-development' => 'Web Design & <span>Development</span>',
 	'seo-ai-search'          => 'SEO & <span>AI Search</span>',
-	'digital-marketing'      => 'Digital <span>Marketing</span>',
-	'paid-search-ppc'        => 'Paid Search & <span>PPC</span>',
-	'content-creation'       => 'Content <span>Creation</span>',
+	'paid-media'             => 'Paid <span>Media</span>',
+	'content-marketing'      => 'Content <span>Marketing</span>',
+	'strategy-analytics'     => 'Strategy & <span>Analytics</span>',
 	'branding'               => '<span>Branding</span>',
 ];
 $sv_hero_fallback = isset( $sv_heading_highlights[ $term->slug ] ) ? $sv_heading_highlights[ $term->slug ] : esc_html( $term->name );
@@ -38,6 +44,8 @@ $hero_subheading  = get_field( 'sv_hero_subheading', $acf_id ) ?: $term_desc;
 $intro_statement      = get_field( 'sv_intro_statement', $acf_id );
 $intro_support        = get_field( 'sv_intro_support', $acf_id );
 $deliverables_heading = vc_heading_parts( 'sv_deliverables_heading', $acf_id, 'What you <span>get</span>.' );
+$children_heading     = vc_heading_parts( 'sv_children_heading', $acf_id, 'Explore our <span>services</span>.' );
+$children_support     = get_field( 'sv_children_support', $acf_id );
 $deliverables         = [];
 if ( have_rows( 'sv_deliverables', $acf_id ) ) {
 	while ( have_rows( 'sv_deliverables', $acf_id ) ) {
@@ -46,12 +54,21 @@ if ( have_rows( 'sv_deliverables', $acf_id ) ) {
 	}
 }
 
-// Process: per-term steps, falling back to the sitewide homepage steps.
-$process_heading    = vc_heading_parts( 'sv_process_heading', $acf_id, 'How this <span>engagement</span> runs.' );
+// Process: per-term steps, then the parent pillar's (for a leaf), then the
+// sitewide homepage steps.
+$process_heading    = vc_heading_parts( 'sv_process_heading', $acf_id, 'From brief to <span>results</span>.' );
 $process_subheading = get_field( 'sv_process_subheading', $acf_id );
 $process_steps      = [];
 if ( have_rows( 'sv_process_steps', $acf_id ) ) {
 	while ( have_rows( 'sv_process_steps', $acf_id ) ) {
+		the_row();
+		$process_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
+	}
+}
+// A leaf with no steps of its own inherits its parent pillar's process, so it
+// never falls through to the generic homepage steps.
+if ( ! $process_steps && ! $is_pillar && $term->parent && have_rows( 'sv_process_steps', 'service_' . $term->parent ) ) {
+	while ( have_rows( 'sv_process_steps', 'service_' . $term->parent ) ) {
 		the_row();
 		$process_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
 	}
@@ -73,24 +90,13 @@ if ( have_rows( 'sv_results_stats', $acf_id ) ) {
 	}
 }
 
-// Related services: the other terms, in the shared order, first three.
-$related_terms = get_terms([
-	'taxonomy'   => 'service',
-	'hide_empty' => false,
-]);
-if ( is_wp_error( $related_terms ) ) {
-	$related_terms = [];
-}
-foreach ( $related_terms as $key => $related_term ) {
-	if ( $related_term->term_id === $term_id ) {
-		unset( $related_terms[ $key ] );
-		continue;
-	}
-	$related_terms[ $key ]->order = (int) get_field( 'order', 'service_' . $related_term->term_id );
-}
-usort( $related_terms, function ( $a, $b ) {
-	return $a->order - $b->order;
-} );
+// Related services: sibling pillars for a parent page (the shared Service List
+// order), sibling children for a leaf page (alphabetical). Current term
+// removed, first three.
+$related_terms = $is_pillar ? vc_ordered_services() : vc_service_children( $term->parent );
+$related_terms = array_values( array_filter( $related_terms, function ( $t ) use ( $term_id ) {
+	return (int) $t->term_id !== (int) $term_id;
+} ) );
 $related_terms = array_slice( $related_terms, 0, 3 );
 
 // Work + case studies + insights + related: editable three-part headings.
@@ -159,6 +165,16 @@ if ( $case_studies_query->have_posts() ) {
 $cta_heading    = vc_heading_parts( 'sv_cta_heading', $acf_id, 'Ready to <span>start</span>?' );
 $cta_subheading = get_field( 'sv_cta_subheading', $acf_id ) ?: "Tell us about your project and we'll reply within one working day with a clear next step.";
 
+// FAQ: an accordion plus aggregated FAQPage schema (renders only with rows).
+$faq_heading = vc_heading_parts( 'sv_faq_heading', $acf_id, 'Good to <span>know</span>.' );
+$faqs        = [];
+if ( have_rows( 'sv_faqs', $acf_id ) ) {
+	while ( have_rows( 'sv_faqs', $acf_id ) ) {
+		the_row();
+		$faqs[] = [ 'question' => get_sub_field( 'question' ), 'answer' => get_sub_field( 'answer' ) ];
+	}
+}
+
 // Alternating surface classes: every rendered section consumes a slot, so the
 // pairing rule (first section after the hero is the lighter pair) survives
 // the conditional sections.
@@ -180,7 +196,7 @@ get_template_part( 'template-parts/page', 'hero', [
 ] );
 ?>
 
-<?php if ( $deliverables || $intro_statement || $intro_support ) : ?>
+<?php if ( ! $is_pillar && ( $deliverables || $intro_statement || $intro_support ) ) : ?>
 <?php
 // The welded lattice: the whole section is one fused hairline spec plate that
 // assembles as you scroll — deliverables.js scrubs the weld rules drawing in,
@@ -237,6 +253,48 @@ get_template_part( 'template-parts/page', 'hero', [
 					<a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
 				</div>
 			</div>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
+
+<?php if ( $is_pillar && $children ) : ?>
+<?php
+// Pillar pages list their child services as cards — the hub grid pattern on a
+// service term page, with a split head (heading + intro-lead). The child cards
+// are the shared service-card partial; children are alphabetical.
+?>
+<section class="service-children <?php echo esc_attr( $sv_surface() ); ?>" id="services">
+	<div class="container px-4">
+		<div class="row service-children-head">
+			<div class="col-lg-6">
+				<div class="content">
+					<h2><?php echo wp_kses_post( $children_heading ); ?></h2>
+				</div>
+			</div>
+			<?php if ( $intro_statement || $children_support ) : ?>
+			<div class="col-lg-5 offset-lg-1">
+				<div class="intro-lead">
+					<?php if ( $intro_statement ) : ?>
+						<p class="intro-statement"><?php echo wp_kses_post( $intro_statement ); ?></p>
+					<?php endif; ?>
+					<?php if ( $children_support ) : ?>
+						<p class="intro-support"><?php echo esc_html( $children_support ); ?></p>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php endif; ?>
+		</div>
+		<div class="row g-4 services-grid">
+			<?php foreach ( $children as $child ) : ?>
+				<div class="col-lg-4 col-md-6 col-12 service-card-col">
+					<?php get_template_part( 'template-parts/service', 'card', [
+						'term'       => $child,
+						'variant'    => 'grid',
+						'show_index' => false,
+					] ); ?>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
@@ -388,7 +446,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 				get_template_part( 'template-parts/service', 'card', [
 					'term'       => $related_term,
 					'index'      => $related_i,
-					'variant'    => 'related',
+					'variant'    => 'grid',
 					'show_index' => false,
 				] );
 				echo '</div>';
@@ -400,19 +458,59 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 </section>
 <?php endif; ?>
 
+<?php if ( $faqs ) : ?>
+<section class="service-faq <?php echo esc_attr( $sv_surface() ); ?>" id="faq">
+	<div class="container px-4">
+		<div class="row gx-5">
+			<div class="col-lg-4">
+				<div class="service-faq-head">
+					<div class="content">
+						<h2><?php echo wp_kses_post( $faq_heading ); ?></h2>
+					</div>
+					<a class="button-ghost" href="#enquire">Start a project</a>
+				</div>
+			</div>
+			<div class="col-lg-7 offset-lg-1">
+				<div class="service-faq-list">
+					<?php foreach ( $faqs as $i => $faq ) :
+						$q_id = 'sv-faq-q-' . ( $i + 1 );
+						$a_id = 'sv-faq-a-' . ( $i + 1 ); ?>
+						<div class="service-faq-item">
+							<h3 class="faq-q">
+								<button type="button" class="faq-toggle" id="<?php echo esc_attr( $q_id ); ?>" aria-expanded="true" aria-controls="<?php echo esc_attr( $a_id ); ?>">
+									<span class="faq-q-text"><?php echo esc_html( $faq['question'] ); ?></span>
+									<span class="faq-icon" aria-hidden="true"></span>
+								</button>
+							</h3>
+							<div class="faq-a" id="<?php echo esc_attr( $a_id ); ?>" role="region" aria-labelledby="<?php echo esc_attr( $q_id ); ?>">
+								<div class="faq-a-inner"><?php echo wpautop( esc_html( $faq['answer'] ) ); ?></div>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
+
 <section class="service-cta <?php echo esc_attr( $sv_surface() ); ?>" id="enquire">
 	<?php // Oversized outlined service name as the closing brand moment (the footer wordmark recipe). ?>
 	<span class="cta-wordmark" aria-hidden="true"><?php echo esc_html( $term->name ); ?></span>
 	<div class="container px-4">
-		<div class="row">
-			<div class="col-lg-8">
+		<div class="row gx-5">
+			<div class="col-lg-6">
 				<div class="content">
 					<h2><?php echo wp_kses_post( $cta_heading ); ?></h2>
 					<p class="sub-heading"><?php echo esc_html( $cta_subheading ); ?></p>
 				</div>
 				<div class="cta-actions">
-					<a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
 					<a class="button-ghost" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All services</a>
+				</div>
+			</div>
+			<div class="col-lg-6 form">
+				<div class="form-container">
+					<?php vc_render_form( 2 ); ?>
 				</div>
 			</div>
 		</div>
@@ -434,6 +532,22 @@ if ( ! is_wp_error( $term_link ) ) {
 			'url'         => $term_link,
 			'provider'    => [ '@id' => home_url( '/#organization' ) ],
 		], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
+		. '</script>';
+}
+
+// FAQPage node from the service FAQs (aggregated), for rich results and AI search.
+$faq_entities = [];
+foreach ( $faqs as $faq ) {
+	$q = trim( wp_strip_all_tags( (string) $faq['question'] ) );
+	$a = trim( wp_strip_all_tags( (string) $faq['answer'] ) );
+	if ( '' === $q || '' === $a ) {
+		continue;
+	}
+	$faq_entities[] = [ '@type' => 'Question', 'name' => $q, 'acceptedAnswer' => [ '@type' => 'Answer', 'text' => $a ] ];
+}
+if ( $faq_entities ) {
+	echo '<script type="application/ld+json">'
+		. wp_json_encode( [ '@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $faq_entities ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
 		. '</script>';
 }
 

@@ -153,32 +153,6 @@
     }
   }
 
-  // Related-strip variant (service pages): the same bordered card as the hub
-  // grid — matching by standing decision — just compact, without the index
-  // numeral (the partial skips it via show_index), and its surface colour
-  // never changes on hover (Ibrar: "it should stay as it is always for these").
-  &--related {
-    padding: $space-3;
-
-    .service-card-icon {
-      right: -16px;
-      bottom: -16px;
-      width: 120px;
-      height: 120px;
-    }
-
-    .service-card-desc {
-      -webkit-line-clamp: 2;
-    }
-
-    @include media-breakpoint-up(md) {
-      min-height: 200px;
-    }
-
-    @include media-breakpoint-up(lg) {
-      min-height: 216px;
-    }
-  }
 }
 
 @at-root body.dark-mode .service-card {
@@ -228,16 +202,4 @@
     }
   }
 
-  // The related variant's surface never changes on hover or focus.
-  &.service-card--related {
-    @media (hover: hover) {
-      &:hover {
-        background: transparent !important;
-      }
-    }
-
-    &:focus-visible {
-      background: transparent !important;
-    }
-  }
 }

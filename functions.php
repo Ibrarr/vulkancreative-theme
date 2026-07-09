@@ -29,14 +29,11 @@ require VC_INC_PATH . '/custom-post-types.php';
 // Custom Taxonomies
 require VC_INC_PATH . '/custom-taxonomies.php';
 
-// Service content seeder (Settings > Seed Services)
-require VC_INC_PATH . '/service-seed.php';
+// Global Service list (order + placement control on Global Settings)
+require VC_INC_PATH . '/service-list-fields.php';
 
-// Work content seeder (Settings > Seed Work)
-require VC_INC_PATH . '/project-seed.php';
-
-// Case study content seeder (Settings > Seed Case Studies)
-require VC_INC_PATH . '/case-study-seed.php';
+// "What We Do" dynamic mega menu (renders services from the taxonomy)
+require VC_INC_PATH . '/mega-menu.php';
 
 // ACF
 require VC_INC_PATH . '/acf.php';

@@ -188,18 +188,9 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
         <div class="service-rail">
             <div class="service-track">
             <?php
-            $services = get_terms([
-                'taxonomy' => 'service',
-                'hide_empty' => false,
-            ]);
-
-            foreach ($services as $key => $service) {
-                $services[$key]->order = get_field('order', 'service_' . $service->term_id);
-            }
-
-            usort($services, function ($a, $b) {
-                return $a->order - $b->order;
-            });
+            // Parent services in the order set in Global Settings > Service List
+            // (parents ticked to show on the homepage rail).
+            $services = vc_ordered_services( 'homepage' );
 
             $service_i = 1;
             foreach ($services as $service) {

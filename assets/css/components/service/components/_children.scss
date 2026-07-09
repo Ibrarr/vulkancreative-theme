@@ -1,0 +1,31 @@
+// Parent (pillar) service pages list their child services as cards — the hub
+// grid pattern on a service term page. The split head mirrors the hub (heading
+// left, intro-lead right); the cards are the shared service-card partial and
+// the intro-lead is common/_intro-lead.scss. Surface and dark backgrounds come
+// from the .tax-service section.surface-* rules in _service.scss.
+.service-children {
+  @include vc-section-padding;
+
+  .service-children-head {
+    margin-bottom: $space-6;
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      transition: color 0.3s;
+    }
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: $space-5;
+    }
+  }
+
+  .intro-lead {
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-3;
+    }
+  }
+}
+
+@at-root body.dark-mode.tax-service .service-children .service-children-head .content h2 {
+  color: $vc-text-light !important;
+}

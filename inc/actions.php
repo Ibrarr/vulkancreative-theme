@@ -96,13 +96,32 @@ register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) 
 add_action( 'template_redirect', 'vc_service_slug_redirect', 0 );
 function vc_service_slug_redirect() {
 	$path = wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
-	if ( ! $path || ! preg_match( '#^/service/([^/]+)/?$#', $path, $matches ) ) {
+	if ( ! $path ) {
 		return;
 	}
-	$term = get_term_by( 'slug', sanitize_title( $matches[1] ), 'service' );
-	if ( $term && ! is_wp_error( $term ) ) {
-		wp_safe_redirect( get_term_link( $term ), 301 );
-		exit;
+
+	// Legacy singular base: /service/{slug} -> the term's canonical URL.
+	if ( preg_match( '#^/service/([^/]+)/?$#', $path, $matches ) ) {
+		$term = get_term_by( 'slug', sanitize_title( $matches[1] ), 'service' );
+		if ( $term && ! is_wp_error( $term ) ) {
+			wp_safe_redirect( get_term_link( $term ), 301 );
+			exit;
+		}
+		return;
+	}
+
+	// Renamed pillars (July 2026 restructure): /services/{old}/ -> new pillar.
+	$renamed = array(
+		'paid-socials-ppc'  => 'paid-media',
+		'content-creation'  => 'content-marketing',
+		'digital-marketing' => 'strategy-analytics',
+	);
+	if ( preg_match( '#^/services/([^/]+)/?$#', $path, $m ) && isset( $renamed[ $m[1] ] ) ) {
+		$term = get_term_by( 'slug', $renamed[ $m[1] ], 'service' );
+		if ( $term && ! is_wp_error( $term ) ) {
+			wp_safe_redirect( get_term_link( $term ), 301 );
+			exit;
+		}
 	}
 }
 

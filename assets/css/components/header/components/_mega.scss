@@ -1,0 +1,318 @@
+// The "What We Do" mega menu (inc/mega-menu.php builds .sub-menu--mega). Desktop:
+// a wide contained multi-column panel, one column per pillar with its child
+// services beneath, anchored to the bar so a six-column grid never runs off the
+// right edge. Mobile: a two-level accordion inside the overlay (What We Do ->
+// pillars -> children). It reuses the base .sub-menu surface, ember seam, hover
+// bridge and reveal from _desktop.scss; this file adds only the wide layout and
+// the pillar/child treatment. Hover is a colour shift only — nothing moves — and
+// :focus-visible mirrors it. Selectors are scoped through li.menu-item-mega so
+// they outrank the base single-column .sub-menu rules without !important.
+
+// ---------------------------------------------------------------------------
+// Desktop: wide, contained panel
+// ---------------------------------------------------------------------------
+.main-menu {
+  position: relative;
+}
+
+.menu-theme-toggle nav ul li.menu-item-mega {
+  // Anchor the panel to the full-width bar rather than the item, so the grid
+  // stays on screen wherever "What We Do" sits in the nav.
+  position: static;
+
+  // The base scrollspy tick is li::after, anchored to the LI (normally
+  // position:relative). Making this item static so the panel can span the bar
+  // re-anchors that tick to .main-menu and stretches it edge-to-edge — the
+  // stray red line under the bar. Disable the LI tick and redraw it on the
+  // link (its own positioning context) so the current-page tick still shows,
+  // contained under the label.
+  &::after {
+    display: none;
+  }
+
+  > a {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 0;
+      height: 2px;
+      background: $vc-primary;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &.current-menu-item > a::after,
+  &.current-anchor > a::after {
+    transform: scaleX(1);
+  }
+
+  > .sub-menu.sub-menu--mega {
+    left: 0;
+    right: 0;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    padding: $space-4;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $space-4;
+    // The bar's nav sets ul { align-items: center }; top-align the columns so
+    // their headings line up regardless of how many children each has.
+    align-items: start;
+
+    // The panel anchors to the bar (bottom ~83px), not the item (link bottom
+    // ~63px), so the base 18px bridge leaves a dead band between the link and
+    // the panel where the hover drops and the panel vanishes before you reach
+    // it. The measured open gap is 38px; extend the invisible bridge to span it
+    // (plus 2px of overlap into the link) so the pointer never loses hover.
+    &::before {
+      top: -40px;
+      height: 40px;
+    }
+
+    > li.mega-col {
+      display: flex;
+      flex-direction: column;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .mega-col-head {
+      display: block;
+      min-height: 0;
+      padding: 0 0 $space-1;
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      color: $vc-text-dark;
+      border-bottom: 1px solid $vc-ember-line-light;
+      transition: color 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary;
+      }
+    }
+
+    .mega-col-list {
+      margin-top: $space-2;
+      // The desktop nav sets every <ul> to flex-row with align-items:center for
+      // the bar; force the child list back to a full-width vertical stack.
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      li {
+        display: block;
+      }
+
+      a {
+        display: block;
+        min-height: 0;
+        padding: 7px 0;
+        font-family: $vc-font-family;
+        font-weight: $vc-medium;
+        font-size: 14px;
+        line-height: 1.35;
+        color: $vc-grey-600;
+        transition: color 0.3s;
+
+        @media (hover: hover) {
+          &:hover {
+            color: $vc-primary;
+          }
+        }
+
+        &:focus-visible {
+          color: $vc-primary;
+        }
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .menu-theme-toggle nav ul li.menu-item-mega > .sub-menu.sub-menu--mega {
+  .mega-col-head {
+    color: $vc-text-light;
+    border-bottom-color: $vc-ember-line;
+  }
+
+  .mega-col-list a {
+    color: $vc-muted-on-dark;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile: two-level accordion inside the overlay
+// ---------------------------------------------------------------------------
+.mobile-menu nav ul li.menu-item-mega .sub-menu--mega {
+  display: block;
+  padding-left: 0;
+
+  // Each pillar is a full-width row: the label (a link to the pillar hub) fills
+  // the row and its chevron sits hard right, so the chevrons line up in one tidy
+  // column instead of floating at the end of every label. A hairline separates
+  // the pillars so the open panel reads as a clean list, not a scatter.
+  .mega-col {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: $space-2;
+    border-top: 1px solid $vc-ember-line-light;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .mega-col-head {
+    // Fill the row so the chevron is pushed to the right edge; min-width: 0 lets
+    // a long pillar name wrap rather than shove the chevron off-screen.
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-stretch: 100%;
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: $vc-grey-700;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 0;
+    transition: color 0.3s;
+  }
+
+  // Lighter, borderless chevron a size down from the boxed top-level one, so the
+  // pillar level reads as one step deeper. The 44px tap target is preserved by
+  // the button box; only the glyph shrinks.
+  .mega-col .submenu-toggle {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    border-radius: 2px;
+    color: $vc-primary;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      transition: transform 0.3s ease;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $vc-primary;
+      outline-offset: 2px;
+    }
+  }
+
+  .mega-col.is-open > .submenu-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .mega-col-list {
+    width: 100%;
+    padding-left: $space-3;
+    padding-bottom: $space-2;
+
+    li {
+      opacity: 1;
+      transform: none;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 9px 0;
+      font-family: $vc-font-family;
+      font-weight: $vc-medium;
+      font-stretch: 100%;
+      font-size: 15px;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: $vc-grey-600;
+      transition: color 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-primary;
+      }
+    }
+  }
+
+  // Nested collapse for the child list — the same grid-rows technique the
+  // top-level accordion uses. No JS means no wrapper, so the list stays visible.
+  .mega-col .submenu-wrap {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+
+    > .mega-col-list {
+      overflow: hidden;
+      min-height: 0;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0s linear 0.35s;
+    }
+  }
+
+  .mega-col.is-open .submenu-wrap {
+    grid-template-rows: 1fr;
+
+    > .mega-col-list {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.3s ease 0.05s, visibility 0s;
+    }
+  }
+}
+
+@at-root body.dark-mode .mobile-menu nav ul li.menu-item-mega .sub-menu--mega {
+  .mega-col {
+    border-top-color: $vc-ember-line;
+  }
+
+  .mega-col-head {
+    color: $vc-text-light;
+  }
+
+  .mega-col-list a {
+    color: $vc-muted-on-dark;
+  }
+}

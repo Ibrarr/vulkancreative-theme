@@ -91,6 +91,7 @@ mix.js([
     'assets/js/service/reveal.js',
     'assets/js/service/deliverables.js',
     'assets/js/service/journey.js',
+    'assets/js/service/faq.js',
     // Shared modules: grid.js staggers the related-services cards
     // (.services-grid), counter.js binds .results .stat-number, our-work.js
     // drives the recent-work wheel (#work-wheel).

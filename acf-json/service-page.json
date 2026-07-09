@@ -87,6 +87,90 @@
             "new_lines": ""
         },
         {
+            "key": "field_680b0301",
+            "label": "Children Heading Start",
+            "name": "sv_children_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown on a parent service page above the list of its child services. The red part carries the emphasis. Leave all three blank for a sensible default.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0302",
+            "label": "Children Heading (Red)",
+            "name": "sv_children_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0303",
+            "label": "Children Heading End",
+            "name": "sv_children_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0304",
+            "label": "Children Support",
+            "name": "sv_children_support",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "A short paragraph shown beside the child-services heading on a parent service page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
             "key": "field_680b0101",
             "label": "Intro Statement",
             "name": "sv_intro_statement",
@@ -273,7 +357,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "How this",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -294,7 +378,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "engagement",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -315,7 +399,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "runs.",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -793,6 +877,137 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_680b0250",
+            "label": "FAQ Heading Start",
+            "name": "sv_faq_heading_start",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The red part carries the emphasis. Leave all three blank for the standard heading.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0251",
+            "label": "FAQ Heading (Red)",
+            "name": "sv_faq_heading_red",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0252",
+            "label": "FAQ Heading End",
+            "name": "sv_faq_heading_end",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_680b0253",
+            "label": "FAQs",
+            "name": "sv_faqs",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Three or four common questions per service. Short, self-contained answers (roughly 40 to 60 words) read best and work well for AI search and rich results.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "field_680b0254",
+            "button_label": "Add FAQ",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_680b0254",
+                    "label": "Question",
+                    "name": "question",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_680b0253"
+                },
+                {
+                    "key": "field_680b0255",
+                    "label": "Answer",
+                    "name": "answer",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "rows": 3,
+                    "new_lines": "",
+                    "parent_repeater": "field_680b0253"
+                }
+            ]
         },
         {
             "key": "field_680b0219",

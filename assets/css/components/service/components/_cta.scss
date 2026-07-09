@@ -1,7 +1,11 @@
-// Closing CTA: forge button to the Contact page, ghost back to the hub. The
-// spokes stay lean — the enquiry form itself lives on the hub and Contact.
-// The oversized outlined service name closes the page as a brand moment (the
-// footer wordmark recipe), cropped by the section's overflow.
+// Closing enquiry band: heading + subheading on the left, the enquiry form
+// (Gravity Form 2) in a raised panel on the right — every service page is a
+// point of enquiry (July 2026). The oversized outlined service name closes the
+// page as a brand moment (the footer wordmark recipe), cropped by overflow.
+// The Gravity Forms field block below mirrors its siblings in
+// homepage/components/_contact.scss, services-hub/components/_cta.scss and
+// contact-us/components/_main.scss — four copies of one form treatment, keep
+// them in sync.
 .service-cta {
   @include vc-section-padding;
   position: relative;
@@ -9,7 +13,7 @@
 
   .cta-wordmark {
     position: absolute;
-    right: -0.05em;
+    left: -0.05em;
     bottom: -0.18em;
     font-family: $vc-display-font;
     font-weight: $vc-black;
@@ -50,12 +54,127 @@
     gap: $space-2;
     margin-top: $space-4;
 
-    .button {
-      @include vc-button-forge;
-    }
-
     .button-ghost {
       @include vc-button-ghost($vc-text-dark);
+    }
+  }
+
+  .form {
+    @include media-breakpoint-down(lg) {
+      margin-top: $space-5;
+    }
+
+    .form-container {
+      background: $vc-surface-white;
+      border: 1px solid $vc-grey-200;
+      border-radius: 2px;
+      padding: $space-5;
+      transition: background-color .3s, border-color .3s;
+
+      @include media-breakpoint-down(md) {
+        padding: $space-4 $space-3;
+      }
+    }
+
+    .gform_wrapper.contact-form_wrapper .contact-form {
+      .gform_heading {
+        display: none;
+      }
+
+      .gform_validation_errors {
+        margin-bottom: 30px;
+      }
+
+      .gform_fields {
+        row-gap: 20px !important;
+      }
+
+      .ginput_container_consent {
+        cursor: pointer;
+      }
+
+      label {
+        font-family: $vc-font-family;
+        font-size: 14px;
+        color: $vc-grey-600;
+        font-weight: $vc-semi-bold;
+        margin: 0;
+        transition: $vc-transition-all;
+
+        .gfield_required {
+          display: none;
+        }
+      }
+
+      textarea {
+        font-family: $vc-font-family;
+        font-size: 16px !important;
+        color: $vc-text-dark;
+        min-height: 180px;
+      }
+
+      // Active field turns its label red, and only the underline colour
+      // transitions, so there is no animated focus box between fields.
+      .gfield:focus-within > label,
+      .gfield:focus-within .gfield_label {
+        color: $vc-primary !important;
+      }
+
+      input:focus, textarea:focus {
+        border-color: $vc-primary;
+        --gf-local-shadow: none;
+        --gf-local-outline-color: none;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      input[type="text"], input[type="email"], textarea {
+        font-family: $vc-font-family;
+        font-weight: $vc-medium;
+        font-size: 16px !important;
+        border: none;
+        border-bottom: 1px solid $vc-grey-400;
+        border-radius: 0;
+        background: none;
+        box-shadow: none !important;
+        padding: 0;
+        height: 50px;
+        min-height: 50px;
+        transition: border-color 0.3s;
+        cursor: text;
+
+        &:focus {
+          border-bottom: 1px solid $vc-primary;
+        }
+      }
+
+      .gfield--type-textarea {
+        label {
+          margin-bottom: 10px;
+        }
+
+        textarea {
+          height: 100px;
+          min-height: 100px;
+        }
+      }
+
+      input[type="submit"] {
+        margin-top: 10px;
+        @include vc-button-forge;
+        cursor: pointer !important;
+        padding: 16px 35px;
+      }
+    }
+
+    .gform_confirmation_wrapper .gform_confirmation_message {
+      font-family: $vc-font-family;
+      font-size: 16px;
+      color: $vc-text-dark;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -87,6 +206,31 @@
     &:focus-visible {
       color: $vc-primary !important;
       border-color: $vc-primary !important;
+    }
+  }
+
+  .form {
+    input[type="text"], input[type="email"], textarea, .gform_confirmation_message {
+      color: $vc-text-light !important;
+    }
+
+    label {
+      color: $vc-muted-on-dark !important;
+    }
+
+    .form-container {
+      background: $vc-grey-dark-surface !important;
+      border-color: $vc-grey-dark-border !important;
+    }
+
+    .gform_wrapper.contact-form_wrapper .contact-form {
+      input[type="text"], input[type="email"], textarea {
+        border-bottom-color: rgba($vc-text-light, 0.35) !important;
+
+        &:focus {
+          border-bottom-color: $vc-primary !important;
+        }
+      }
     }
   }
 }

@@ -39,17 +39,9 @@
                             </div>
                         </div>
                         <?php
-                        // Services menu: the service terms in their configured order,
-                        // rendered straight from the taxonomy (no admin menu to keep in sync).
-                        $footer_services = get_terms( array( 'taxonomy' => 'service', 'hide_empty' => false ) );
-                        if ( ! is_wp_error( $footer_services ) && $footer_services ) {
-                            foreach ( $footer_services as $fs_key => $fs_term ) {
-                                $footer_services[ $fs_key ]->order = (int) get_field( 'order', 'service_' . $fs_term->term_id );
-                            }
-                            usort( $footer_services, function ( $a, $b ) { return $a->order - $b->order; } );
-                        } else {
-                            $footer_services = array();
-                        }
+                        // Services menu: the parent services in the order set in Global
+                        // Settings > Service List (parents ticked to show in the footer).
+                        $footer_services = vc_ordered_services( 'footer' );
                         ?>
                         <?php if ( $footer_services ) : ?>
                         <div class="col-lg-3 footer-menu footer-services">

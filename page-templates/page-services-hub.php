@@ -26,21 +26,10 @@ if ( ! $grid_statement || 'Everything you need to grow, under one roof.' === $gr
 }
 $grid_support   = get_field('sh_grid_support') ?: 'Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.';
 
-// The grid is taxonomy-driven: every service term gets a card, sorted by the
-// same ACF order field the homepage services rail uses.
-$services = get_terms([
-	'taxonomy'   => 'service',
-	'hide_empty' => false,
-]);
-if ( is_wp_error( $services ) ) {
-	$services = [];
-}
-foreach ( $services as $key => $service ) {
-	$services[ $key ]->order = (int) get_field( 'order', 'service_' . $service->term_id );
-}
-usort( $services, function ( $a, $b ) {
-	return $a->order - $b->order;
-} );
+// The grid lists the parent services in the order set in Global Settings >
+// Service List (parents ticked to show on the hub). Each parent's children
+// live on its own page.
+$services = vc_ordered_services( 'hub' );
 
 // Process (steps cross-read from the homepage so the site keeps one process)
 $process_heading    = vc_heading_parts( 'sh_process_heading', false, 'From brief to <span>results</span>.' );

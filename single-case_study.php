@@ -408,7 +408,7 @@ while ( have_posts() ) :
 								get_template_part( 'template-parts/service-card', null, [
 									'term'       => $cs_term,
 									'index'      => $cs_term_i + 1,
-									'variant'    => 'related',
+									'variant'    => 'grid',
 									'show_index' => false,
 								] );
 								?>
