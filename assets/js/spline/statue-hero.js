@@ -8,7 +8,10 @@ if (typeof window !== 'undefined' && window.__vc_public_path) {
     __webpack_public_path__ = window.__vc_public_path;
 }
 
-const BASE = `${window.location.origin}/wp-content/themes/vulkancreative-theme/assets`;
+// Resolve the theme's assets URL from the same theme URI PHP hands the webpack chunks
+// (window.__vc_public_path = "<theme-url>/dist/"), so the model + posters load on ANY host
+// (staging, a subfolder, a CDN, http/https) — not only when the site sits at the domain root.
+const BASE = (window.__vc_public_path || `${window.location.origin}/wp-content/themes/vulkancreative-theme/dist/`).replace(/dist\/?$/, 'assets');
 const MODEL_URL = `${BASE}/models/statue-marble.glb`;
 const POSTER_URL = `${BASE}/images/hero/statue-desktop.webp`;
 // Below lg the poster is a forward-facing transparent cut-out (face and hammer
