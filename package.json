@@ -32,6 +32,7 @@
     "gsap": "^3.12.5",
     "split-type": "^0.3.4",
     "theme-toggles": "^4.10.1",
+    "three": "^0.160.0",
     "videojs-youtube": "^3.0.1"
   },
   "browserslist": [

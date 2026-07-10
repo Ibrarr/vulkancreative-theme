@@ -20,7 +20,7 @@ mix.js([
 ], 'js/footer.js');
 
 mix.js([
-    'assets/js/spline/spline-viewer.js',
+    'assets/js/spline/statue-hero.js',
     'assets/js/homepage/hero.js',
     'assets/js/homepage/marquee.js',
     'assets/js/homepage/why.js',

@@ -15,30 +15,34 @@
     pointer-events: none;
     background:
       radial-gradient(52% 62% at 76% 44%, $vc-glow 0%, transparent 70%),
-      radial-gradient(42% 38% at 8% 102%, rgba($vc-secondary, 0.14) 0%, transparent 70%);
+      radial-gradient(54% 50% at 4% 104%, rgba($vc-primary, 0.22) 0%, transparent 66%);
+  }
+
+  // No background scrim: the hero stays a true #121212. The subheading can sit over
+  // the hammer during the mouse follow, so it carries a soft text-shadow instead,
+  // which is invisible on the dark bg and only reads against the lighter marble.
+  .split-text-hero {
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85), 0 0 3px rgba(0, 0, 0, 0.6);
   }
 
   .graphic {
     position: absolute;
     top: 0;
-    right: -10%;
+    left: 24%;
+    right: -4%;
     bottom: 0;
-    width: 62%;
     z-index: 1;
     will-change: transform;
-    mask-image: linear-gradient(to right, transparent 0%, black 65%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 65%);
 
     @include media-breakpoint-down(xl) {
-      width: 68%;
-      right: -12%;
+      left: 16%;
+      right: -6%;
     }
 
-    // Below lg the poster is the forward-facing transparent cut-out, so no
-    // blend mask is needed; the crop keeps the face and raised hammer in
-    // frame behind the headline.
+    // Below lg the poster is the forward-facing transparent cut-out, so it
+    // spans the full width behind the headline.
     @include media-breakpoint-down(lg) {
-      width: 100%;
+      left: 0;
       right: 0;
       opacity: 0.4;
       mask-image: none;
@@ -56,7 +60,7 @@
 
     .hero-poster {
       object-fit: cover;
-      object-position: center right;
+      object-position: center;
       opacity: 1;
       transition: opacity 0.9s ease;
 
