@@ -280,7 +280,7 @@ eval("{__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpa
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/global/" + chunkId + "." + "0e4a1014" + ".js";
+/******/ 			return "js/global/" + chunkId + "." + "59544c74" + ".js";
 /******/ 		};
 /******/ 	}();
 /******/ 	

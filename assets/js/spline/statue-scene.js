@@ -17,24 +17,24 @@ export function buildScene(container, canvas, modelUrl, onFail) {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0); // transparent: the molten glow shows through
-    renderer.toneMapping = THREE.ACESFilmicToneMapping; // identical look to the approved preview
-    renderer.toneMappingExposure = 0.62;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.55; // lower than before so the marble reads as natural stone, not blown-out white
 
     const scene = new THREE.Scene(); // no background -> the canvas is transparent
     const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.02).texture; // soft studio IBL = the marble sheen
-    try { scene.environmentIntensity = 2.3; } catch (e) { /* older three */ }
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.02).texture; // soft studio IBL = even fill + marble sheen
+    try { scene.environmentIntensity = 2.7; } catch (e) { /* older three */ }
 
     const cam = new THREE.PerspectiveCamera(35, 1, 0.01, 500); // FIXED camera, never moves after framing
     const camTarget = new THREE.Vector3();
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.16));
-    const key = new THREE.DirectionalLight(0xffffff, 0.9); key.position.set(-4, 2.5, 3.5); scene.add(key);
-    const fill = new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(4.5, 2.3, 3.5); scene.add(fill);
-    const rim = new THREE.DirectionalLight(0xffffff, 0.8); rim.position.set(-1.5, 3, -5); scene.add(rim);
+    const amb = new THREE.AmbientLight(0xffffff, 0.82); scene.add(amb); // strong even base so the baked-in occlusion crevices lift to grey, never black
+    const key = new THREE.DirectionalLight(0xffffff, 0.28); key.position.set(0.6, 4.2, 3.6); scene.add(key); // gentle light from ABOVE + IN FRONT; kept low so shadows stay soft
+    const fill = new THREE.DirectionalLight(0xffffff, 0.50); fill.position.set(-3.5, 1.3, 3); scene.add(fill); // side fill to open the shadowed side
+    const rim = new THREE.DirectionalLight(0xffffff, 0.32); rim.position.set(2, 3, -4.5); scene.add(rim); // subtle back edge
 
     const cfg = {
-        headEase: 0.18, bodyEase: 0.05, armEase: 0.06, idleAfter: 2600, idleYaw: 0.15, idlePitch: 0.06,
+        headEase: 0.035, bodyEase: 0.016, armEase: 0.02, idleAfter: 2600, idleYaw: 0.15, idlePitch: 0.06, // very low eases = strong lag/drag behind the cursor (lower headEase = more lag)
         yawSign: 1, pitchSign: 1,
         lookYaw: 0.62, lookPitch: 0.52, pitchBias: 0.06, pitchMax: 0.85, // head aims at the cursor RELATIVE to the head's on-screen spot; bias is a small residual only
         neckShare: 0.4,
@@ -47,7 +47,7 @@ export function buildScene(container, canvas, modelUrl, onFail) {
         hammerFollow: [0.012, 0.013, 0.0], // small hammer follow -> keeps the wrist near its sculpted angle so the grip never clips
         hammerTurn: 0.0 // keep the hammer exactly as posed in the .blend
     };
-    window.__H = { cfg, reframe: () => { computeFrame(); applyFrame(); } }; // reframe() re-applies the camera framing live after tuning cfg.frameTopPad/frameBotPad
+    window.__H = { cfg, reframe: () => { computeFrame(); applyFrame(); }, renderer, scene, lights: { amb, key, fill, rim } }; // reframe() re-applies framing; renderer/lights exposed for live look tuning
 
     let BONES = {}, base = {}, ready = false, revealed = false, frameData = null, model = null, hammerRig = null, leftGrip = null, introStart = -1;
     let restHeadWorld = null, headRefX = 0, headRefY = 0; // the head's rest on-screen spot (NDC), so the look-at aims from where the head actually sits
