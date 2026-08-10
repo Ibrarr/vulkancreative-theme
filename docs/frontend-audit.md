@@ -144,7 +144,7 @@ Grouped by area within each page. IDs are stable; tick Status as fixed.
 - **HOME-02** · design-slop · important · `Status: open` — **Trust logos saturate on hover (banned).** `_testimonials.scss:60` flips `grayscale(1)→grayscale(0)` on hover of non-interactive `<img>` logos; not gated behind `@media (hover:hover)`. Remove the hover filter; keep logos static. (Shared fix SW-02 covers the card version.)
 - **HOME-03** · design-slop · minor · `Status: open` — **Marquee/trust logos opacity hover.** `_hero.scss:221-223` and `_testimonials.scss:89-91` shift opacity on hover of non-interactive logos, ungated for touch. Remove or gate behind `@media (hover:hover)`.
 - **HOME-04** · design-slop · nice-to-have · `Status: done` — **Service card `01–06` numerals.** Decorative numbered-marker scaffolding on a non-sequential set. Demote or drop the `.service-index` (keep the numerals on the genuinely sequential Process rail). Also appears on the Services hub (see SHUB-01).
-- **HOME-05** · design-slop · nice-to-have · `Status: open` — **Service card 3px red top strip on hover** (`_services.scss:64-75`). A solid red top bar reads closer to the banned top-accent strip than to "border heat". Prefer border-heat/glow only.
+- **HOME-05** · design-slop · nice-to-have · `Status: done` — **Service card 3px red top strip on hover** (`_services.scss:64-75`). A solid red top bar reads closer to the banned top-accent strip than to "border heat". Prefer border-heat/glow only.
 - **HOME-06** · performance · nice-to-have · `Status: open` (artefact-corrected) — **No time-based reveal failsafe below the hero.** Counters and section reveals *do* fire correctly on scroll (verified live: `0+`→`120+`, `4.9`, `2.3x`, `10+`). The "stuck at 0/blank" the analysis saw was a screenshot artefact. Remaining point: unlike the hero, below-fold targets have no CSS timeout failsafe if `fonts.ready` ever stalls. Hardening only — fold into SW-04.
 - **HOME-07** · seo-schema · minor · `Status: open` — **Title front-loads a soft phrase.** "Turning Creative Sparks Into Powerful Brands | Vulkan Creative" leads with brand poetry, not core service keywords. Consider fronting a service/keyword phrase. (Low urgency — it's the one page with the correct `|` separator.)
 - **HOME-08** · design-slop · minor · `Status: done` — **Mobile menu numbers nav items `01–06`.** Verified in the open overlay: each nav link carries a small red numeral. A nav is not an ordered sequence; remove the numerals (numbered-marker slop on a primary surface).
@@ -155,8 +155,8 @@ Grouped by area within each page. IDs are stable; tick Status as fixed.
 
 - **AB-01** · seo-schema · important · `Status: open` — **Bare title + wrong separator.** "About - Vulkan Creative" (23 chars): no keywords/value prop, and `-` vs the house `|`. Set a Yoast title ~50–60 chars with `|`, e.g. "Meet the Founders | Vulkan Creative". (Separator is the site-wide SW-03.)
 - **AB-02** · seo-schema · minor · `Status: open` — Meta description 124 chars; extend toward 150–160.
-- **AB-03** · performance · nice-to-have · `Status: open` — Founder fallback headshot `avatar-placeholder` is a **1.37MB 1000×1000 PNG** (real portraits are correct 800×800 webp). Replace the fallback with an optimised webp.
-- **AB-04** · design-slop · minor · `Status: open` — Values section base/reduced-motion state paints four **giant solid-red words** (a red wash, not an accent). Ensure the no-JS/reduced-motion fallback keeps red as an accent.
+- **AB-03** · performance · nice-to-have · `Status: done` — Founder fallback headshot `avatar-placeholder` is a **1.37MB 1000×1000 PNG** (real portraits are correct 800×800 webp). Replace the fallback with an optimised webp.
+- **AB-04** · design-slop · minor · `Status: done` — Values section base/reduced-motion state paints four **giant solid-red words** (a red wash, not an accent). Ensure the no-JS/reduced-motion fallback keeps red as an accent.
 - **AB-05** · conversion · nice-to-have · `Status: open` — No in-body enquiry CTA across five sections; only the footer band converts. Consider one mid-page CTA.
 - **AB-06** · conversion · nice-to-have · `Status: open` — "Watch the Film" scrolls to `#watch` but doesn't start playback; consider auto-playing on click.
 
@@ -198,21 +198,21 @@ Grouped by area within each page. IDs are stable; tick Status as fixed.
 ### 3.7 Work single (`single-project.php`, e.g. `/work/sample-northbridge-property-group/`)
 
 - **WKS-01** · consistency · important · `Status: for-Ibrar` — **Wrong client's hero image.** The Northbridge (property developer) page shows `aldermere-events-collateral-*.jpg` with alt "Aldermere Events lanyards, wristbands and tickets". Since the sample is the editorial template, fix the seed so the hero image + alt match the client. (Sample data, but it ships as the copy-paste template.)
-- **WKS-02** · accessibility · minor · `Status: open` — Service taxonomy links in hero meta + fact ledger ~20px tall on mobile (<44px).
+- **WKS-02** · accessibility · minor · `Status: done` — Service taxonomy links in hero meta + fact ledger ~20px tall on mobile (<44px).
 - **WKS-03** · accessibility · minor · `Status: done` — Footer socials 22×22 (SW-05).
-- **WKS-04** · seo-schema · nice-to-have · `Status: open` — CreativeWork `dateCreated` is a bare year ("2025"); a full ISO date is a stronger signal.
+- **WKS-04** · seo-schema · nice-to-have · `Status: parked` — CreativeWork `dateCreated` is a bare year ("2025"); a full ISO date is a stronger signal.
 
 ### 3.8 Case studies archive (`/case-studies/`, `archive-case_study.php`)
 
 - **CSA-01** · seo-schema · important · `Status: done` — Lone "HOME" breadcrumb (instance of SW-01) — "Home > Case Studies" collapses to "Home".
-- **CSA-02** · design-slop · minor · `Status: open` — 3 cards in a 2-up grid leaves ~half the second row blank; no odd-count treatment. Add a fill/centre rule.
+- **CSA-02** · design-slop · minor · `Status: done` — 3 cards in a 2-up grid leaves ~half the second row blank; no odd-count treatment. Add a fill/centre rule.
 - **CSA-03** · conversion · minor · `Status: done` — Filter shows 6 service chips but only 3 map to content; consider hiding empty chips.
 - **CSA-04** · seo-schema · nice-to-have · `Status: open` — Title "Case Studies - Vulkan Creative" (30 chars) thin + `-` separator (SW-03).
 
 ### 3.9 Case study single (`single-case_study.php`)
 
 - **CSS-01** · seo-schema · minor · `Status: done` (corrected) — **JSON-LD keywords double-encode the ampersand** (`"Web Design &amp; Development"`). Verified: the *visible* on-page labels are correct; only the structured-data keyword string is affected. Fix the JSON encoding in `single-case_study.php` (use `wp_json_encode`, not `esc_html`, for the keywords). Not a DB change.
-- **CSS-02** · conversion · minor · `Status: open` — Duplicate "Start a Project" CTAs (results-band ghost + closing primary) to the same `/contact/`; the results-band label is also hardcoded (not ACF).
+- **CSS-02** · conversion · minor · `Status: parked` — Duplicate "Start a Project" CTAs (results-band ghost + closing primary) to the same `/contact/`; the results-band label is also hardcoded (not ACF).
 - **CSS-03** · seo-schema · minor · `Status: open` — `[SAMPLE]` prefix in `<title>`/og:title/breadcrumb schema; `-` separator; meta 102 chars. (Noindexed for now.)
 - **CSS-04** · design-slop · nice-to-have · `Status: open` — `cs_approach_gallery` unseeded → approach section renders copy-only; seed the gallery or the section reads thin.
 - **CSS-05** · accessibility · nice-to-have · `Status: open` — Below-fold sections rely on reveal with only the hero failsafe (hardening, SW-04).
@@ -269,8 +269,8 @@ This whole template is being migrated to the forge system (your decision). The s
 - **BLOGS-01** · copy · **broken** · `Status: for-Ibrar` — **Content mismatch.** Verified: H1/excerpt/meta/FAQs are "Gemini 3.1 Pro"; every body H2 and 58 mentions are "Claude Sonnet 5". Live and `index,follow`. Reconcile the post (replace the body with real Gemini content **or** retitle to Claude Sonnet 5), and set it to draft/noindex until reconciled. Content/data fix — check `_edit_last`.
 - **BLOGS-02** · seo-schema · important · `Status: open` — **Title has no brand suffix** ("Gemini 3.1 Pro: What's New and How to Use It Today", 50 chars, no "| Vulkan Creative"). Add the suffix so it matches every other page (SW-03).
 - **BLOGS-03** · copy · minor · `Status: open` — Hero standfirst is verbatim identical to the meta description; differentiate.
-- **BLOGS-04** · consistency · minor · `Status: open` — Sidebar TOC omits the FAQ H2 (built only from intro/content headings).
-- **BLOGS-05** · accessibility · nice-to-have · `Status: open` — TOC anchors use `sanitize_title()` on raw heading text; duplicate/identical headings collide. De-dupe ids.
+- **BLOGS-04** · consistency · minor · `Status: done` — Sidebar TOC omits the FAQ H2 (built only from intro/content headings).
+- **BLOGS-05** · accessibility · nice-to-have · `Status: done` — TOC anchors use `sanitize_title()` on raw heading text; duplicate/identical headings collide. De-dupe ids.
 - **BLOGS-06** · seo-schema · nice-to-have · `Status: open` — Meta 140 chars; nudge toward 155.
 
 ### 3.15 Category archive (`archive.php` + `template-parts/archive-category.php`, `/blog/category/ai/`)
@@ -294,14 +294,14 @@ This whole template is being migrated to the forge system (your decision). The s
 
 - **SR-01** · conversion · important · `Status: done` — **No search input on the results page.** `home.php`/category include `template-parts/insights-filter.php`; `search.php` doesn't, so users can't refine/correct without editing the URL. Add `get_template_part('template-parts/insights-filter')` above the grid (the archive-blog JS already loads on `is_search()`).
 - **SR-02** · conversion · important · `Status: done` — **Dead-end empty state.** "No results… Try a different phrase." with no field to type into and no suggested links. Once SR-01 lands it gives the field; also add 2–3 hub links (Insights, Our Work, Case Studies).
-- **SR-03** · design-slop · minor · `Status: open` — One result pins to a narrow `col-lg-4` third with two-thirds blank; handle sparse result counts.
-- **SR-04** · seo-schema · minor · `Status: open` — Query is `['post','video']` but every result renders through `content-card.php` (built for posts); video results may render oddly.
+- **SR-03** · design-slop · minor · `Status: done` — One result pins to a narrow `col-lg-4` third with two-thirds blank; handle sparse result counts.
+- **SR-04** · seo-schema · minor · `Status: done` — Query is `['post','video']` but every result renders through `content-card.php` (built for posts); video results may render oddly.
 
 ### 3.18 404 (`404.php` / `content-404.php`, previewed at `/404-preview/`)
 
 - **E404-01** · seo-schema · important · `Status: done` — **The `/404-preview/` page is indexable** (`index,follow`, self-canonical, returns 200). Google can index a "Page not found" page. Set this specific template to noindex in Yoast (the real `404.php` correctly returns 404 status). *Note: this is separate from the local-only redirect behaviour you flagged as staging-fine.*
 - **E404-02** · seo-schema · minor · `Status: open` — Title "404 Preview - Vulkan Creative" leaks the internal "Preview" name.
-- **E404-03** · copy · minor · `Status: open` — Sub-heading offers to "tell us what you were looking for" but the page only links home/contact (no search field). Align copy to the actual options.
+- **E404-03** · copy · minor · `Status: done` — Sub-heading offers to "tell us what you were looking for" but the page only links home/contact (no search field). Align copy to the actual options.
 - **E404-04** · accessibility · minor · `Status: done` — Footer socials 22×22 (SW-05).
 
 ---
@@ -388,30 +388,30 @@ This whole template is being migrated to the forge system (your decision). The s
 ### Site-wide (SW, continued)
 
 - **SW-12** · seo-schema · important · `Status: open` — **og:title separator and brand drift on 60 of 92 URLs.** The `wpseo_title` filter fixed `<title>` only: og:title still reads ` - Vulkan Creative` on 46 pages and omits the brand entirely on 18 (posts + authors). og:description is absent on 30 URLs. Fix at source: set Yoast's separator setting to `|` (making the title filter a safety net) and mirror the brand suffix on `wpseo_opengraph_title`.
-- **SW-13** · consistency · important · `Status: open` — **Hover styles ungated for touch at source.** `vc-button-forge` (`_mixins.scss:202`) and `vc-button-ghost` (`:233`) have raw `&:hover`, so every button sitewide leaks hover on touch. Same in header (`_header.scss:57,105,125`, `_desktop.scss:94,393`, `_mobile.scss:70,270,339`), footer (`_footer.scss:136,212`), breadcrumbs, body links, testimonial arrows, enquiry buttons (full file list in the static sweep evidence). One asymmetry: `_enquiry-form.scss` gates the dark prev-button hover (`:801`) but not the light twins (`:512,554`). Wrap at the mixin level plus a sweep.
-- **SW-14** · accessibility · important · `Status: open` — **Form control sizes under target.** GF submit buttons render 38px tall on every form (measured on forms 2, 3, 5); the blog sidebar newsletter email input is 14px font (the one sub-16px input left on the site, iOS zoom trigger). Lift button height to 44px minimum and the input to 16px in the shared form SCSS.
-- **SW-15** · accessibility · minor · `Status: open` — **Sub-24px text-link targets on shared furniture.** Footer menu/services/contact links 20px, legal links 21px, breadcrumb links 17 to 19px, work single fact-ledger service links 20 to 23px, mega child links 33px, mobile menu top-level anchors measured at 27px live (the `min-height` sits on the `li`, verify the `<a>` box at fix). WCAG 2.2 target minimum is 24px unless spacing exempts; pad the anchors, keep 44px for icon controls.
-- **SW-16** · consistency · minor · `Status: open` — **Shadow values untokenised.** The card hover glow `0 16px 44px rgba($vc-primary,.22)` and its dark twin `0 18px 56px rgba($vc-primary,.4)` are copy-pasted across 7 files (post-grid, service-card, case-study-card, work-wheel, project index, case-study band, related); `_mixins.scss:206` uses a third value. Hoist to tokens; the glows themselves are sanctioned hover treatment.
-- **SW-17** · consistency · minor · `Status: open` — **Raw hex duplicating tokens in 9 component files** (13 code occurrences: `#FFFFFF` for `$vc-surface-white`, `#0D0D0D` for `$vc-background-deep`), plus `#FFFFFF` inside `vc-button-forge` and a hardcoded `--bs-body-bg: #F5F5F5` in `_variables.scss`. Mechanical swap.
-- **SW-18** · accessibility · important · `Status: open` — **Content-bearing images marked decorative.** 445 of 606 images carry `alt=""`, including every blog featured hero and every work single screenshot/gallery image. The captioned-card exemption is house style and stays; singles' heroes and galleries need real alt text (an ACF alt or the attachment alt).
-- **SW-19** · consistency · minor · `Status: open` — **Dead code.** `homepage/components/_story.scss` (88 lines, orphaned since the story moved to About), `misc/_preloader.scss` (retired, still on disk), `global/smooth-scrolling.js` (fully commented out yet bundled), mixins `vc-button`/`vc-button-big`/`vc-card` (zero call sites, 10px radii), 5 empty SCSS stubs, the stale saturation comment at `_post-grid.scss:5`, and `archive-author.js`/`archive-blog.js`/`single-blog.js` built from identical sources (one bundle would do).
-- **SW-20** · consistency · nice-to-have · `Status: open` — **Repo hygiene.** `assets/css/components/.impeccable/hook.cache.json` is tracked and `.impeccable/` is missing from `.gitignore`; 18 source maps are tracked and shipped in `dist/` (keep or strip: decision for Ibrar).
-- **SW-21** · copy · minor · `Status: open` — **Entity codes hardcoded in rendering templates.** `&ldquo;` decorative quote marks in 6 files (all inside `aria-hidden` wrappers), `&nbsp;` in headings/counters (`front-page.php:79,83` where a `str_replace` injects it into an ACF-editable heading, `:503`, `page-free-website.php:278`, `taxonomy-service.php:324`, `page-about-us.php:380`, `blocks/testimonials.php:53`, the wheel counter pattern), `&hellip;` in two placeholders, `&ldquo;/&rdquo;` around the search term in `search.php:19`. House rule is plain characters; use real glyphs or CSS.
-- **SW-22** · consistency · nice-to-have · `Status: open` — **Radius drift.** `.cite-avatar` at 8px (`_testimonial-spotlight.scss:169`, neither 2px nor a 10px media panel), the open founder-bio text plate at 10px (`_founders.scss:402-490`, 10px is documented for media panels only), and 50% circles on author avatars (sanctioned convention: document it rather than change it).
-- **SW-23** · design-slop · minor · `Status: open` — **The grandfathered wheel saturation hover now ships beyond its grandfather.** The tint hover lives in `common/_work-wheel.scss:294-320` and renders on service term pages and project singles via the shared `work-wheel.php`, not just the homepage Our Work section. See Decisions below; Ibrar's call.
+- **SW-13** · consistency · important · `Status: done` — **Hover styles ungated for touch at source.** `vc-button-forge` (`_mixins.scss:202`) and `vc-button-ghost` (`:233`) have raw `&:hover`, so every button sitewide leaks hover on touch. Same in header (`_header.scss:57,105,125`, `_desktop.scss:94,393`, `_mobile.scss:70,270,339`), footer (`_footer.scss:136,212`), breadcrumbs, body links, testimonial arrows, enquiry buttons (full file list in the static sweep evidence). One asymmetry: `_enquiry-form.scss` gates the dark prev-button hover (`:801`) but not the light twins (`:512,554`). Wrap at the mixin level plus a sweep.
+- **SW-14** · accessibility · important · `Status: done` — **Form control sizes under target.** GF submit buttons render 38px tall on every form (measured on forms 2, 3, 5); the blog sidebar newsletter email input is 14px font (the one sub-16px input left on the site, iOS zoom trigger). Lift button height to 44px minimum and the input to 16px in the shared form SCSS.
+- **SW-15** · accessibility · minor · `Status: done` — **Sub-24px text-link targets on shared furniture.** Footer menu/services/contact links 20px, legal links 21px, breadcrumb links 17 to 19px, work single fact-ledger service links 20 to 23px, mega child links 33px, mobile menu top-level anchors measured at 27px live (the `min-height` sits on the `li`, verify the `<a>` box at fix). WCAG 2.2 target minimum is 24px unless spacing exempts; pad the anchors, keep 44px for icon controls.
+- **SW-16** · consistency · minor · `Status: done` — **Shadow values untokenised.** The card hover glow `0 16px 44px rgba($vc-primary,.22)` and its dark twin `0 18px 56px rgba($vc-primary,.4)` are copy-pasted across 7 files (post-grid, service-card, case-study-card, work-wheel, project index, case-study band, related); `_mixins.scss:206` uses a third value. Hoist to tokens; the glows themselves are sanctioned hover treatment.
+- **SW-17** · consistency · minor · `Status: done` — **Raw hex duplicating tokens in 9 component files** (13 code occurrences: `#FFFFFF` for `$vc-surface-white`, `#0D0D0D` for `$vc-background-deep`), plus `#FFFFFF` inside `vc-button-forge` and a hardcoded `--bs-body-bg: #F5F5F5` in `_variables.scss`. Mechanical swap.
+- **SW-18** · accessibility · important · `Status: for-Ibrar` — **Content-bearing images marked decorative.** 445 of 606 images carry `alt=""`, including every blog featured hero and every work single screenshot/gallery image. The captioned-card exemption is house style and stays; singles' heroes and galleries need real alt text (an ACF alt or the attachment alt).
+- **SW-19** · consistency · minor · `Status: done` — **Dead code.** `homepage/components/_story.scss` (88 lines, orphaned since the story moved to About), `misc/_preloader.scss` (retired, still on disk), `global/smooth-scrolling.js` (fully commented out yet bundled), mixins `vc-button`/`vc-button-big`/`vc-card` (zero call sites, 10px radii), 5 empty SCSS stubs, the stale saturation comment at `_post-grid.scss:5`, and `archive-author.js`/`archive-blog.js`/`single-blog.js` built from identical sources (one bundle would do).
+- **SW-20** · consistency · nice-to-have · `Status: done` — **Repo hygiene.** `assets/css/components/.impeccable/hook.cache.json` is tracked and `.impeccable/` is missing from `.gitignore`; 18 source maps are tracked and shipped in `dist/` (keep or strip: decision for Ibrar).
+- **SW-21** · copy · minor · `Status: done` — **Entity codes hardcoded in rendering templates.** `&ldquo;` decorative quote marks in 6 files (all inside `aria-hidden` wrappers), `&nbsp;` in headings/counters (`front-page.php:79,83` where a `str_replace` injects it into an ACF-editable heading, `:503`, `page-free-website.php:278`, `taxonomy-service.php:324`, `page-about-us.php:380`, `blocks/testimonials.php:53`, the wheel counter pattern), `&hellip;` in two placeholders, `&ldquo;/&rdquo;` around the search term in `search.php:19`. House rule is plain characters; use real glyphs or CSS.
+- **SW-22** · consistency · nice-to-have · `Status: done` — **Radius drift.** `.cite-avatar` at 8px (`_testimonial-spotlight.scss:169`, neither 2px nor a 10px media panel), the open founder-bio text plate at 10px (`_founders.scss:402-490`, 10px is documented for media panels only), and 50% circles on author avatars (sanctioned convention: document it rather than change it).
+- **SW-23** · design-slop · minor · `Status: for-Ibrar` — **The grandfathered wheel saturation hover now ships beyond its grandfather.** The tint hover lives in `common/_work-wheel.scss:294-320` and renders on service term pages and project singles via the shared `work-wheel.php`, not just the homepage Our Work section. See Decisions below; Ibrar's call.
 
 ### Header and mega menu (MEGA)
 
-- **MEGA-01** · accessibility · important · `Status: open` — **`aria-expanded` points at nothing.** No panel in the dropdown system has an `id` and no trigger has `aria-controls` (desktop mega from `inc/mega-menu.php:81-105` and the mobile disclosure buttons alike). Add ids + `aria-controls`.
-- **MEGA-02** · accessibility · minor · `Status: open` — **Touch behaviour at 1100px and up.** The desktop bar shows from 1100px; a tap on What We Do navigates to `/services/` (a reasonable fallback since the hub lists everything) but first fires `mouseenter`, leaving `aria-expanded="true"` stuck on a closed panel. Sync state on `touchstart`/`click`, or accept the navigate-to-hub behaviour and keep the attribute truthful.
-- **MEGA-03** · accessibility · minor · `Status: open` — **Escape is inert while focus sits on the parent link.** `dropdown.js:31` requires `activeElement !== link`, so the reachable state (panel open via `:focus-within`, focus on the trigger) cannot be dismissed with Escape. Drop the guard.
+- **MEGA-01** · accessibility · important · `Status: done` — **`aria-expanded` points at nothing.** No panel in the dropdown system has an `id` and no trigger has `aria-controls` (desktop mega from `inc/mega-menu.php:81-105` and the mobile disclosure buttons alike). Add ids + `aria-controls`.
+- **MEGA-02** · accessibility · minor · `Status: done` — **Touch behaviour at 1100px and up.** The desktop bar shows from 1100px; a tap on What We Do navigates to `/services/` (a reasonable fallback since the hub lists everything) but first fires `mouseenter`, leaving `aria-expanded="true"` stuck on a closed panel. Sync state on `touchstart`/`click`, or accept the navigate-to-hub behaviour and keep the attribute truthful.
+- **MEGA-03** · accessibility · minor · `Status: done` — **Escape is inert while focus sits on the parent link.** `dropdown.js:31` requires `activeElement !== link`, so the reachable state (panel open via `:focus-within`, focus on the trigger) cannot be dismissed with Escape. Drop the guard.
 
 ### Forms (FRM) and emails (EM), first audit
 
 Verified working end to end: form 5 all four steps, per-step server validation, branded red field errors with the icon in both modes, the dynamic service picker (6 pillars + Something else, icons from term fields, renamed-slug conditional logic firing, entry meta keys correct: test entry 355 saved `1.1=web-design-development`, then deleted), the house spinner + container dim, dataLayer `enquiry_step` ×4 + `enquiry_submit`, focus moved to the confirmation. Email field validation rejects MX-less domains with a well written UK message. FAQ accordions carry a correct two-way ARIA cycle. reCAPTCHA does not render locally (env note: likely unkeyed on this copy).
 
-- **FRM-01** · consistency · important · `Status: open` — **Service term pages hard-lock to form 2.** `taxonomy-service.php:513` calls `vc_render_form( 2 )` with no ACF id, and `group_vc_form_settings` has no taxonomy location rule, so the editor-selectable-form convention silently fails on all 24 term pages. Add a term location rule + pass the term id, or document the hard default.
-- **FRM-02** · consistency · minor · `Status: open` — **`blocks/cta.php` defaults to form 10 while its docblock and CLAUDE.md say the landing default is 2.** Both live pages override via the picker so nothing breaks; align code and docs.
+- **FRM-01** · consistency · important · `Status: done` — **Service term pages hard-lock to form 2.** `taxonomy-service.php:513` calls `vc_render_form( 2 )` with no ACF id, and `group_vc_form_settings` has no taxonomy location rule, so the editor-selectable-form convention silently fails on all 24 term pages. Add a term location rule + pass the term id, or document the hard default.
+- **FRM-02** · consistency · minor · `Status: done` — **`blocks/cta.php` defaults to form 10 while its docblock and CLAUDE.md say the landing default is 2.** Both live pages override via the picker so nothing breaks; align code and docs.
 - **EM-01** · email · important · `Status: open` — **No reply-to on any notification** (all 7 forms). Replying to an enquiry email does not reach the enquirer. Set replyTo to the form's email merge tag per form.
 - **EM-02** · email · minor · `Status: open` — **Empty from-name on all 7** (mails arrive as a bare address). Set a from-name such as "Vulkan Creative Website".
 - **EM-03** · email · important · `Status: for-Ibrar` — **All 7 notifications route to `info@vulkancreative.test`.** The enquiry-form doc says "point at the live inbox at deploy" but nothing enforces it. Confirm the live value and add it to the deploy checklist; decide whether the local copy should mirror it.
@@ -424,13 +424,13 @@ Verified working end to end: form 5 all four steps, per-step server validation, 
 ### Correctness
 
 - **UTIL-01** · correctness · important · `Status: open` — **Root-level unknown URLs 301 to the homepage instead of 404** (`/qwertyasdf-nonexistent/` → `/`, and a missing `/wp-content/nope.jpg` returns the homepage HTML). Nested paths 404 correctly. The theme has no such redirect; this is host/server layer on the local copy. Verify on the live host before changing anything; if live matches, soft-404s at scale.
-- **SR-05** · correctness · important · `Status: open` — **Multi-word search always returns zero results** (`design` finds 1, `web design` finds 0, reproduced across terms). Single words work. Trace the query handling in `search.php`/the filter JS.
-- **IDX-01** · correctness · minor · `Status: open` — **`index.php` is empty** ("Silence is golden"), so any query that ever falls through renders a blank white page with no header or footer. Give it a minimal safe fallback (header + not-found body + footer).
-- **ARC-01** · correctness · minor · `Status: open` — **`archive.php` renders an empty body for every non-category archive** (`if (is_category())` with no else); date archives are noindexed but reachable. Add a generic branch or redirect. (Related to parked SW-09, same file.)
+- **SR-05** · correctness · important · `Status: done` — **Multi-word search always returns zero results** (`design` finds 1, `web design` finds 0, reproduced across terms). Single words work. Trace the query handling in `search.php`/the filter JS.
+- **IDX-01** · correctness · minor · `Status: done` — **`index.php` is empty** ("Silence is golden"), so any query that ever falls through renders a blank white page with no header or footer. Give it a minimal safe fallback (header + not-found body + footer).
+- **ARC-01** · correctness · minor · `Status: done` — **`archive.php` renders an empty body for every non-category archive** (`if (is_category())` with no else); date archives are noindexed but reachable. Add a generic branch or redirect. (Related to parked SW-09, same file.)
 
 ### Content, SEO and copy
 
-- **HOME-09** · copy · minor · `Status: open` — The one live em dash on the site: the homepage latest-insights standfirst "brand, web and marketing — what we're learning...". Fix at the source (ACF value or template fallback).
+- **HOME-09** · copy · minor · `Status: done` — The one live em dash on the site: the homepage latest-insights standfirst "brand, web and marketing — what we're learning...". Fix at the source (ACF value or template fallback).
 - **AUT-06** · copy · minor · `Status: open` — An author archive is titled with a raw address: "creativevulkan@gmail.com, Author at Vulkan Creative". Set the user's display name (DB).
 - **CAT-07** · copy · minor · `Status: open` — **The "Uncategorized" category is live** (9 visible renders + title), the only US spelling on the site. Rename or retire and reassign (DB).
 - **CAT-08** · copy · nice-to-have · `Status: open` — Category "Website performance" is sentence case while every sibling is title case (DB).
@@ -441,26 +441,26 @@ Verified working end to end: form 5 all four steps, per-step server validation, 
 
 ### CTA labels
 
-- **SVC-05** · consistency · minor · `Status: open` — "Start a project" (sentence case) on all 24 service term pages, three instances per pillar, against "Start a Project" everywhere else (73 instances). AMA title case per the house rule.
-- **SVC-06** · consistency · nice-to-have · `Status: open` — "All services" vs "All Case Studies": sibling view-all CTAs with different casing.
+- **SVC-05** · consistency · minor · `Status: done` — "Start a project" (sentence case) on all 24 service term pages, three instances per pillar, against "Start a Project" everywhere else (73 instances). AMA title case per the house rule.
+- **SVC-06** · consistency · nice-to-have · `Status: done` — "All services" vs "All Case Studies": sibling view-all CTAs with different casing.
 - **LP-02** · copy · minor · `Status: open` — `/seo-ai-search/` uses two labels for one offer: "Get My Free Visibility Report" (hero) and "Get My Free Report" (3 instances). Pick one.
 - **LP-03** · copy · nice-to-have · `Status: open` — `/your-business/` pairs "Book a Free Consultation" with "Book a Call" for the same intent.
-- **WKS-05** · accessibility · nice-to-have · `Status: open` — "View Live Site" concatenates its screen-reader suffix without a space ("View Live Site(opens in a new tab)"). Add the space inside the sr-only span.
+- **WKS-05** · accessibility · nice-to-have · `Status: done` — "View Live Site" concatenates its screen-reader suffix without a space ("View Live Site(opens in a new tab)"). Add the space inside the sr-only span.
 
 ### Landing template
 
-- **LP-01** · correctness · minor · `Status: open` — **The h1 exists only if an editor adds a hero block.** A landing page built without one ships h2s with no h1. Backfill a visually-hidden h1 from the page title when no hero layout is present.
-- **FW-05** · consistency · minor · `Status: open` — **The free-website template misses the `enquiry-form` bundle** the landing template deliberately gets: it silently loses the entrance stagger, the `enquiry_step`/`enquiry_submit` dataLayer events, confirmation focus management, and leaves `.form-container.is-submitting` as dead CSS. Enqueue it for parity.
+- **LP-01** · correctness · minor · `Status: done` — **The h1 exists only if an editor adds a hero block.** A landing page built without one ships h2s with no h1. Backfill a visually-hidden h1 from the page title when no hero layout is present.
+- **FW-05** · consistency · minor · `Status: done` — **The free-website template misses the `enquiry-form` bundle** the landing template deliberately gets: it silently loses the entrance stagger, the `enquiry_step`/`enquiry_submit` dataLayer events, confirmation focus management, and leaves `.form-container.is-submitting` as dead CSS. Enqueue it for parity.
 
 ### Motion
 
 - **MO-01** · motion · nice-to-have · `Status: open` — The hero rolling word paints over the H1 line above it mid-swap (seen in stills at both 1440 and capture states; eyeball live at fix and clip the line box if it shows at real speed).
-- **MO-02** · motion · minor · `Status: open` — `header/mobile-menu.js:88` uses jQuery `.animate({scrollTop})`, which ignores reduced motion and sits outside the CSS safety net. Guard it or use native `scrollTo`.
+- **MO-02** · motion · minor · `Status: done` — `header/mobile-menu.js:88` uses jQuery `.animate({scrollTop})`, which ignores reduced motion and sits outside the CSS safety net. Guard it or use native `scrollTo`.
 - **SW-04 (extended)** · `Status: open` — Pass 2 mapping: hero bands all carry the 2.5 to 2.8s CSS failsafe; below-fold JS pre-hides have none (homepage reveal/work/why/services/our-work, blog family with no failsafe file at all, project/case-study/service/services-hub/about/free-website/landing reveal modules, contact next-steps). Safety-net gaps for JS-only pre-hides: `.checklist-row/total/note` (the landing port dropped what its free-website sibling has), `.why-cell`, `.work .case-row/.case-stage`, `.services-grid .service-card`, `.services .service-row`, `#work-wheel .wheel-card`. Extend `misc/_motion.scss` + the timeout failsafe pattern.
 
 ### Documentation
 
-- **DOC-01** · docs · minor · `Status: open` — CLAUDE.md/docs drift: the free-website slug is now `/free-website-for-small-business/`; pillar term pages carry the full single-service layout plus the children grid (not "children grid + enquiry form" only); the YB section here is superseded; several cited line numbers have shifted; `_post-grid.scss` header comment describes a removed hover.
+- **DOC-01** · docs · minor · `Status: done` — CLAUDE.md/docs drift: the free-website slug is now `/free-website-for-small-business/`; pillar term pages carry the full single-service layout plus the children grid (not "children grid + enquiry form" only); the YB section here is superseded; several cited line numbers have shifted; `_post-grid.scss` header comment describes a removed hover.
 
 ## Decisions and disagreements
 
@@ -496,3 +496,53 @@ Branch: `fix/frontend-audit-pass-2` off `staging` (this commit). Build once per 
 - **B6 template copy sweep:** HOME-09 if template-side, remaining entity/casing strays, DOC-01 documentation updates.
 - **B7 the DB pack (every value listed verbatim for approval before applying):** Yoast separator setting + og filters (SW-12), meta descriptions I draft for META-01 surfaces, notification reply-to/from-name/subjects (EM-01/02/05), autoresponder proposals (EM-04), form 2 confirmation rewrite (EM-06), category fixes (CAT-07/08 + descriptions), author display name (AUT-06), homepage standfirst em dash if ACF-held (HOME-09), llms.txt regeneration (SEO-01). For-Ibrar content items (LAUNCH-01, LEG-01/02/03/07, EM-03) stay his.
 
+
+## Fix log — session 2 (10 Aug 2026)
+
+Branch `fix/frontend-audit-pass-2` off `staging`, five commits, `npm run production` per batch, verified live with Playwright (dark and light, 375 and 1440 spot checks per change, console first-party clean).
+
+- **B0** — the dormant `gravityformsactivecampaign` plugin folder deleted (instructed; it was inactive with zero feeds, so no DB change existed to make). Test entry from the audit's form 5 submission deleted (entry 355).
+- **SW-16/SW-17** `done` — shadow glows and duplicate hex tokenised (`$vc-glow-card`, `$vc-glow-card-dark`, `$vc-glow-button`; 29 shadow swaps, 14 hex swaps); the Bootstrap body-bg override moved below the tokens and reads `$vc-background-white`.
+- **SW-13** `done` — forge/ghost button and breadcrumb mixins hover-gated at source; chrome hovers gated across header, mobile menu, footer, spotlight arrows, enquiry next/prev. Body-copy underline hovers were left ungated deliberately (harmless on touch); listed here so the scope is honest.
+- **SW-14** `done` — GF buttons floored at 44px via a new shared `common/_gf-buttons.scss` keyed on `.gform_wrapper` (the per-embed submit rules turned out not to reach GF Orbital's themed button; verified 38 to 44px live on the homepage). Newsletter input to 16px.
+- **SW-15** `done` — footer menu/contact/legal links padded to 29px boxes, project hero meta links padded, mega child links 40px flex rows, mobile top-level anchors 44px (verified live).
+- **SW-19/SW-20** `done` — dead files deleted (`_story.scss` orphan, `_preloader.scss`, `smooth-scrolling.js` and its bundle line, 5 stubs, the two legacy 10px-radius button mixins and `vc-card`); `.impeccable/` ignored and the tracked cache removed; the triplicate insights bundles left as-is (build-level duplication only, parked). Source maps stay pending the open question.
+- **SW-21** `done` — typographic entity codes swapped for real characters across 10 templates (`&amp;` kept where it is correct HTML escaping).
+- **SW-22** `done` — cite-avatar to 2px. The founder-bio open plate keeps its 10px: it shipped in the reviewed July founders build, so it is recorded as owner-approved rather than changed.
+- **MEGA-01/02/03** `done` — panels and disclosure wraps get ids with `aria-controls` on their triggers; hover only reports open on hover-capable devices (no more stuck `aria-expanded` on touch); Escape now closes the panel even with focus on the parent link (`is-escaped` + CSS override; verified live: panel visible on focus, hidden after Escape).
+- **SW-04** `partly` — safety net extended with the missing pre-hidden selectors; the insights family gained a 4s reveal failsafe in `blog/reveal.js` (it had none at all). The same failsafe pattern still wants wiring into the other below-fold reveal modules (homepage work/why/services/our-work, project, case-study, service, services-hub, about, free-website, landing): listed as the remaining SW-04 work.
+- **MO-02** `done` — mobile menu anchor scroll branches to an instant jump under reduced motion.
+- **HOME-05** `done` — the service-card 3px red top strip removed on hover and focus; border heat, background tint, watermark drift and title shift stay.
+- **IDX-01/ARC-01** `done` — `index.php` renders the shell plus the not-found body; non-category archives 301 to `/blog/` before output. Note: on this local copy the host layer still swallows `/2026/07/` to the homepage before WordPress sees it (UTIL-01), so the archive redirect shows its worth only where requests reach WP.
+- **SR-03/04/05** — sparse search results widen to half-width (`is-sparse`, verified 648px of 1296); the dead `video` post type removed; SR-05 reclassified after a decisive test (`?s=wordpress+2026` matches): multi-word search works and requires all terms, so "web design" legitimately finds nothing in a corpus that says "website". No code defect.
+- **FRM-01/02** `done` — the form picker gains a `service` taxonomy location rule and the term pages pass their term id, so every service page's form is now editor-selectable; the landing CTA default is documented as form 10 (code was right, the docs disagreed).
+- **FW-05** `done` — free-website now enqueues the enquiry bundle (entrance, dataLayer events, confirmation focus), matching the landing template.
+- **SVC-05/06** `done` — "Start a Project" and "All Services" title-cased on the service templates (verified live).
+- **LP-01** `done` — landing pages without a hero block emit a visually-hidden h1 from the page title.
+- **WKS-05** `done` — the live-link screen-reader suffix gets its missing space.
+- **AB-03** `done` — the 1.37MB avatar placeholder is now a 22KB 800px webp across all seven fallback call sites.
+- **AB-04** `done` — values words rest in the text colour in both modes (dark override added); the red arrives only through the scrub fill, which is untouched (verified: reduced-motion rest state neutral, scrub clip animating).
+- **CSA-02** `done` — the odd last case-study card runs full width (verified 648/648/1296).
+- **BLOGS-04/05** `done` — the TOC now lists the FAQs section and duplicate headings get suffixed anchors, applied identically at injection and render (verified live).
+- **E404-03 / CON-07 / HOME-09 (template half)** `done` — the 404 copy matches its real options; the contact next-steps heading is an h2; the homepage standfirst fallback loses its em dash (the saved ACF value is in the DB pack below).
+- **WKS-04** `parked` — a bare year is valid ISO 8601 for `dateCreated`; padding it to January the 1st would fabricate precision. Revisit if real project dates arrive.
+- **CSS-02** `parked` — two Start a Project moments on a long single matches the house long-page pattern (the homepage does the same); the hardcoded label rides with SVC-04's ACF plumbing when that happens.
+- **SW-18** `for-Ibrar` — reclassified: the card-grid `alt=""` exemption is correct house style, and the singles' hero/gallery alts come from the media library, where the attachment alt fields are empty. That is content entry (or a one-off script naming each from its project), not template work.
+- **SW-12** `open` — the Yoast separator setting and og:title brand suffix are in the DB pack below; the matching `wpseo_opengraph_title` filter lands with the pack so both move together.
+- **MO-01** `open` — the rolling-word overlap wants a human eye at real speed before any clip is added; watch the hero once and say the word.
+- Awaiting your call from the Decisions section: SW-23 (wheel hover grandfather), the TOC hover rule, source maps (SW-20 note). `/review-animations` over `b76f1a1..HEAD` is ready for you to run; the changes were built against emil-design-eng's bands.
+
+## B7: the DB pack (apply only on your yes)
+
+Every value verbatim; nothing below has been applied. Say yes to all, or strike lines.
+
+1. **Yoast separator** (Search Appearance): set the title separator to `|`. This also fixes og:title's ` - ` on 46 pages; the `wpseo_title` filter stays as a safety net.
+2. **og:title brand suffix for posts** (code, ships with the pack): a `wpseo_opengraph_title` filter appending ` | Vulkan Creative` when absent, mirroring the title filter.
+3. **Notifications, all 7 forms:** from-name `Vulkan Creative Website`; subject unified to `New enquiry from {form_title}` (forms 2 and 3 currently say "submission"); reply-to set to each form's email field merge tag (form 2 `{Email:4}` pending id check, form 3 `{Email:1}`, form 5 `{Email:11}`, forms 6/7/8/10 their email field ids, read from the saved form JSONs at apply time). Recipient stays `info@vulkancreative.test` locally until you answer the deploy question (EM-03).
+4. **Submitter autoresponder** (EM-04), one per enquiry form (not the newsletter), subject `We have your enquiry | Vulkan Creative`, body: "Thanks for getting in touch. Your enquiry has reached the team and we will reply within one working day. If anything is urgent, call us on 020 3576 7525. Vulkan Creative".
+5. **Form 2 confirmation** (EM-06) rewritten to: "Thank you. Your enquiry is on its way to the team, and we will reply within one working day. If anything is urgent, call us instead." (matches form 5).
+6. **Homepage standfirst** (`hp_latest_subheading`): "Fresh thinking on brand, web and marketing: what we're learning, building and watching."
+7. **Categories:** rename `Uncategorized` (you pick the label: "General"?) with a UK slug, or retire it and reassign its posts; recase `Website performance` to `Website Performance`; term descriptions for the 19 categories drafted on your nod (they double as the hero standfirsts).
+8. **Author display name:** the `creativevulkan@gmail.com` account gets a human display name (your call what it should read).
+9. **Meta descriptions** (Yoast fields): Contact: "Tell us about your project and we will reply within one working day. Call, email or use the enquiry form to talk to the Vulkan Creative team in London." SEO and AI Search page: "Get found on Google and in AI answers. Request a free visibility report and see exactly where your business stands in search today." Privacy and Cookie Policy: one line each stating what the page covers.
+10. **llms.txt:** regenerate through Yoast v28.2 after the noindex decision, fixing the escaped markdown, stale titles and the "Fee Business Website" typo.
