@@ -16,7 +16,7 @@
             <div class="col-lg-8 content">
                 <p class="error-code" aria-hidden="true">4<span>0</span>4</p>
                 <h1>Page <span>not found</span>.</h1>
-                <p class="sub-heading">The link may be broken or the page may have moved. Head back to the homepage, or tell us what you were looking for and we will point you the right way.</p>
+                <p class="sub-heading">The link may be broken or the page may have moved. Head back to the homepage, or start a project and tell us what you were after.</p>
                 <div class="bottom">
                     <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button">Back to the Homepage</a>
                     <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button-ghost">Start a Project</a>

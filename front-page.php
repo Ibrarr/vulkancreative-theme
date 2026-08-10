@@ -85,7 +85,7 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 // Latest insights
 $latest_heading    = vc_heading_parts( 'hp_latest_heading', false, 'Latest <span>insights</span>.' );
-$latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing — what we’re learning, building and watching.';
+$latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing: what we’re learning, building and watching.';
 $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>
 
