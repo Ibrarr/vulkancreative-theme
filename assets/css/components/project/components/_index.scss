@@ -113,7 +113,7 @@
     @media (hover: hover) {
       &:hover {
         border-color: rgba($vc-secondary, 0.55);
-        box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+        box-shadow: $vc-glow-card;
 
         .work-card-img {
           transform: scale(1.06);
@@ -133,7 +133,7 @@
 
     &:focus-visible {
       border-color: rgba($vc-secondary, 0.55);
-      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+      box-shadow: $vc-glow-card;
 
       .work-card-img {
         transform: scale(1.06);
@@ -172,13 +172,13 @@
     @media (hover: hover) {
       &:hover {
         border-color: rgba($vc-secondary, 0.55) !important;
-        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+        box-shadow: $vc-glow-card-dark !important;
       }
     }
 
     &:focus-visible {
       border-color: rgba($vc-secondary, 0.55) !important;
-      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+      box-shadow: $vc-glow-card-dark !important;
     }
   }
 

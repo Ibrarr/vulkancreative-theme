@@ -1,57 +1,3 @@
-@mixin vc-button($color, $hover-color-text: $color) {
-  position: relative;
-  font-family: $vc-font-family;
-  font-weight: $vc-bold;
-  background-color: $color;
-  color: $vc-text-light;
-  padding: 10px 23px;
-  transition: $vc-transition-all;
-  border: 2px solid $color;
-  border-radius: 10px;
-  text-decoration: none;
-  display: block;
-  width: fit-content;
-  font-size: 16px;
-  opacity: 1;
-  z-index: 1;
-
-  @include media-breakpoint-down(lg) {
-    font-size: 14px;
-  }
-
-  &:hover {
-    background-color: unset;
-    color: $hover-color-text;
-  }
-}
-
-@mixin vc-button-big($color, $hover-color-text: $color) {
-  position: relative;
-  font-family: $vc-font-family;
-  font-weight: $vc-bold;
-  background-color: $color;
-  color: $vc-text-light;
-  padding: 15px 35px;
-  transition: $vc-transition-all;
-  border: 2px solid $color;
-  border-radius: 10px;
-  text-decoration: none;
-  display: block;
-  width: fit-content;
-  font-size: 16px;
-  opacity: 1;
-  z-index: 1;
-
-  @include media-breakpoint-down(lg) {
-    font-size: 14px;
-  }
-
-  &:hover {
-    background-color: unset;
-    color: $hover-color-text;
-  }
-}
-
 @mixin vc-h1($color) {
   font-family: $vc-font-family;
   font-weight: $vc-bold;
@@ -168,8 +114,10 @@
     text-decoration: none;
     @include vc-general-p($color);
 
-    &:hover {
-      text-decoration: underline;
+    @media (hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -185,7 +133,7 @@
   font-weight: $vc-bold;
   font-size: 16px;
   background-color: $vc-primary;
-  color: #FFFFFF;
+  color: $vc-surface-white;
   padding: 14px 30px;
   border: 1px solid $vc-primary;
   border-radius: 2px;
@@ -199,11 +147,13 @@
     padding: 12px 24px;
   }
 
-  &:hover {
-    color: #FFFFFF;
-    background-color: $vc-secondary;
-    border-color: $vc-secondary;
-    box-shadow: 0 8px 30px rgba($vc-primary, 0.35);
+  @media (hover: hover) {
+    &:hover {
+      color: $vc-surface-white;
+      background-color: $vc-secondary;
+      border-color: $vc-secondary;
+      box-shadow: $vc-glow-button;
+    }
   }
 }
 
@@ -230,9 +180,11 @@
     padding: 12px 24px;
   }
 
-  &:hover {
-    color: $vc-primary;
-    border-color: $vc-primary;
+  @media (hover: hover) {
+    &:hover {
+      color: $vc-primary;
+      border-color: $vc-primary;
+    }
   }
 }
 
@@ -316,16 +268,3 @@
   }
 }
 
-// Neutral-led card (hairline border, soft surface) — red reserved for accents
-@mixin vc-card($bg, $border: $vc-grey-200) {
-  background: $bg;
-  border: 1px solid $border;
-  border-radius: 10px;
-  padding: $space-5 $space-4;
-  height: 100%;
-  transition: $vc-transition-all;
-
-  @include media-breakpoint-down(lg) {
-    padding: $space-4 $space-3;
-  }
-}

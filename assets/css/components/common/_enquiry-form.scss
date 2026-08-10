@@ -499,7 +499,7 @@
       font-size: 16px !important;
       font-weight: $vc-bold !important;
       background: $vc-primary !important;
-      color: #FFFFFF !important;
+      color: $vc-surface-white !important;
       border: 1px solid $vc-primary !important;
       border-radius: 2px !important;
       padding: 16px 35px !important;
@@ -512,8 +512,8 @@
       &:hover {
         background: $vc-secondary !important;
         border-color: $vc-secondary !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 8px 30px rgba($vc-primary, 0.35) !important;
+        color: $vc-surface-white !important;
+        box-shadow: $vc-glow-button !important;
       }
 
       // Mouse clicks get no ring (GF paints its blue one otherwise);

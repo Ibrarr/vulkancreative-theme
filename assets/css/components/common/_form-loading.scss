@@ -33,8 +33,8 @@
     height: 20px;
     margin: 0;
     padding: 0;
-    border: 2px solid rgba(#ffffff, 0.35);
-    border-top-color: #ffffff;
+    border: 2px solid rgba($vc-surface-white, 0.35);
+    border-top-color: $vc-surface-white;
     border-radius: 50%; // spinners are round — the sanctioned exception to 2px
     transform: translate(-50%, -50%) rotate(0deg);
     animation: vc-spin 0.7s linear infinite;
@@ -58,6 +58,6 @@
 // Dark mode: the primary/next buttons stay red, so the white ring is still
 // correct. Only the ghost Back button flips to light text, so its ring does too.
 @at-root body.dark-mode .gform_wrapper .vc-form-spinner--prev {
-  border-color: rgba(#ffffff, 0.3);
-  border-top-color: #ffffff;
+  border-color: rgba($vc-surface-white, 0.3);
+  border-top-color: $vc-surface-white;
 }
