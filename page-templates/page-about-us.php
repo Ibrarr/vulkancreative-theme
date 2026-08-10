@@ -65,7 +65,7 @@ if ( have_rows('ab_founders') ) {
 $founders = $founders ?: $founders_fallback;
 // The testimonial placeholder headshot reads as intentional under the duotone
 // treatment; real photos replace it via the Media Library.
-$founder_photo_fallback = VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png';
+$founder_photo_fallback = VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp';
 
 // Solid icons supplied by Ibrar (Font Awesome Free 7.3.0) for the founder
 // contact rows; fill inherits currentColor so the plate carries the red.
@@ -130,7 +130,7 @@ if ( $testimonial_posts->have_posts() ) {
 			'quote'   => get_field('tm_quote'),
 			'name'    => get_field('tm_name'),
 			'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
 		];
 	}
 	wp_reset_postdata();

@@ -1,0 +1,10 @@
+// Gravity Forms buttons, globally: whatever theme framework or embed styling
+// a form carries, its buttons meet the 44px control floor. Keyed on
+// .gform_wrapper (the house convention), !important because GF's Orbital
+// variables win the cascade otherwise.
+.gform_wrapper .gform_footer .gform_button,
+.gform_wrapper .gfield--type-submit .gform_button,
+.gform_wrapper .gform_footer input[type="submit"],
+.gform_wrapper .gfield--type-submit input[type="submit"] {
+  min-height: 44px !important;
+}

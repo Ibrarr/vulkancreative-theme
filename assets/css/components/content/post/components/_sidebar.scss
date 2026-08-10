@@ -241,7 +241,7 @@
       input[type="submit"] {
         @include vc-button-forge;
         width: 100%;
-        min-height: 44px;
+        min-height: 44px !important;
         text-align: center;
         cursor: pointer !important;
       }

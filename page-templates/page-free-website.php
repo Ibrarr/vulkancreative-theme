@@ -90,7 +90,7 @@ if ( $testimonial_posts->have_posts() ) {
 			'quote'   => get_field('tm_quote'),
 			'name'    => get_field('tm_name'),
 			'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
 		];
 	}
 	wp_reset_postdata();

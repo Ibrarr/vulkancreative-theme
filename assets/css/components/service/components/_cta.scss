@@ -162,7 +162,7 @@
       input[type="submit"] {
         margin-top: 10px;
         @include vc-button-forge;
-        min-height: 44px;
+        min-height: 44px !important;
         cursor: pointer !important;
         padding: 16px 35px;
       }
