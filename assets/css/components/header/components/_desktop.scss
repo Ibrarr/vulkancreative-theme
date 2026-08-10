@@ -91,12 +91,14 @@
           // Light surfaces: red 15px text fails contrast, so hover keeps the
           // text colour and shows a red underline instead. Dark contexts
           // (dark mode, transparent over the hero) restore red text below.
-          &:hover {
-            text-decoration: underline;
-            text-decoration-color: $vc-primary;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 6px;
-            cursor: pointer;
+          @media (hover: hover) {
+            &:hover {
+              text-decoration: underline;
+              text-decoration-color: $vc-primary;
+              text-decoration-thickness: 2px;
+              text-underline-offset: 6px;
+              cursor: pointer;
+            }
           }
         }
 
@@ -310,6 +312,15 @@
       transform: translateY(0);
       transition: opacity 0.24s cubic-bezier(0.33, 1, 0.68, 1), transform 0.24s cubic-bezier(0.33, 1, 0.68, 1), visibility 0s;
     }
+
+    // Escape pressed while focus is still inside: :focus-within would hold the
+    // panel open, so dropdown.js stamps is-escaped to force it shut until the
+    // pointer leaves or focus moves on.
+    &.is-escaped > .sub-menu {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
   }
 }
 
@@ -390,9 +401,11 @@
   nav ul li:not(.menu-button) > a {
     color: $vc-text-light;
 
-    &:hover {
-      color: $vc-primary !important;
-      text-decoration: none;
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        text-decoration: none;
+      }
     }
   }
 

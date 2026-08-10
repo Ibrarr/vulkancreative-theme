@@ -166,7 +166,7 @@
         width: 52px;
         height: 52px;
         flex: 0 0 auto;
-        border-radius: 8px;
+        border-radius: 2px;
         overflow: hidden;
         border: 1px solid $vc-grey-200;
         background: $vc-text-dark;
@@ -281,9 +281,11 @@
             height: 18px;
           }
 
-          &:hover {
-            border-color: $vc-primary;
-            color: $vc-primary;
+          @media (hover: hover) {
+            &:hover {
+              border-color: $vc-primary;
+              color: $vc-primary;
+            }
           }
         }
       }
@@ -336,9 +338,11 @@
       border-color: rgba($vc-text-light, 0.35) !important;
       color: $vc-text-light !important;
 
-      &:hover {
-        border-color: $vc-primary !important;
-        color: $vc-primary !important;
+      @media (hover: hover) {
+        &:hover {
+          border-color: $vc-primary !important;
+          color: $vc-primary !important;
+        }
       }
     }
   }

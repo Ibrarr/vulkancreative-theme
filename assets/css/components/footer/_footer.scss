@@ -93,6 +93,10 @@ footer {
           margin: 0;
           cursor: pointer;
           font-size: 14px;
+          // Grow the tap box past 24px without moving the rhythm.
+          display: inline-block;
+          padding-block: 4px;
+          margin-block: -4px;
           transition: color 0.3s;
 
           @media (hover: hover) {
@@ -131,10 +135,15 @@ footer {
         a {
           color: $vc-text-light;
           text-decoration: none;
+          display: inline-block;
+          padding-block: 4px;
+          margin-block: -4px;
           transition: color 0.3s;
 
-          &:hover {
-            color: $vc-primary;
+          @media (hover: hover) {
+            &:hover {
+              color: $vc-primary;
+            }
           }
 
           &:focus-visible {
@@ -208,9 +217,14 @@ footer {
 
       a {
         cursor: pointer;
+        display: inline-block;
+        padding-block: 4px;
+        margin-block: -4px;
 
-        &:hover {
-          color: $vc-primary;
+        @media (hover: hover) {
+          &:hover {
+            color: $vc-primary;
+          }
         }
       }
 

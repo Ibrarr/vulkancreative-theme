@@ -76,11 +76,11 @@ $testimonials_rating_value = get_field('hp_testimonials_rating_value') ?: '4.9';
 $testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'average client rating';
 
 // Contact
-$contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you&nbsp;want to&nbsp;discuss?' );
+$contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you want to discuss?' );
 // Non-breaking spaces keep "you want" and "to discuss" together once the
 // SplitText reveal reverts (the nbsp only holds after the revert, not during
 // the split). The fallback above already carries them, so this is a no-op there.
-$contact_heading    = str_replace( array( 'you want', 'to discuss' ), array( 'you&nbsp;want', 'to&nbsp;discuss' ), $contact_heading );
+$contact_heading    = str_replace( array( 'you want', 'to discuss' ), array( 'you want', 'to discuss' ), $contact_heading );
 $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you want to be. We will reply within one working day with a clear next step.';
 
 // Latest insights
@@ -476,7 +476,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                         <?php endforeach; ?>
                     </div>
                     <div class="spotlight-main">
-                        <div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+                        <div class="spotlight-mark" aria-hidden="true">“</div>
                         <div class="splide__track">
                             <ul class="splide__list">
                                 <?php foreach ( $testimonial_items as $tm_item ) : ?>
@@ -500,7 +500,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                         <div class="spotlight-footer">
                             <div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
                             <div class="spotlight-controls">
-                                <span class="spotlight-counter" aria-hidden="true"><span class="current">01</span>&nbsp;/&nbsp;<span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
+                                <span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
                                 <div class="splide__arrows">
                                     <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>

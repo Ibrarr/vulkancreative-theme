@@ -457,3 +457,11 @@
     color: $vc-muted-on-dark !important;
   }
 }
+
+// Search with one or two hits: let the cards breathe at half width instead of
+// pinning a lone result to a third of the row.
+.search .insights-grid .row.is-sparse .insight-card {
+  @include media-breakpoint-up(lg) {
+    width: 50%;
+  }
+}

@@ -129,8 +129,9 @@
       }
 
       a {
-        display: block;
-        min-height: 0;
+        display: flex;
+        align-items: center;
+        min-height: 40px;
         padding: 7px 0;
         font-family: $vc-font-family;
         font-weight: $vc-medium;

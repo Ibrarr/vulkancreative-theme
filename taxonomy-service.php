@@ -321,7 +321,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 						<p class="sub-heading"><?php echo esc_html( $process_subheading ); ?></p>
 					<?php endif; ?>
 				</div>
-				<span class="journey-counter" aria-hidden="true"><span class="counter-current"><?php echo esc_html( $journey_total ); ?></span>&nbsp;/&nbsp;<span class="counter-total"><?php echo esc_html( $journey_total ); ?></span></span>
+				<span class="journey-counter" aria-hidden="true"><span class="counter-current"><?php echo esc_html( $journey_total ); ?></span> / <span class="counter-total"><?php echo esc_html( $journey_total ); ?></span></span>
 			</div>
 			<div class="journey-rail">
 				<div class="journey-track">
@@ -510,7 +510,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 			</div>
 			<div class="col-lg-6 form">
 				<div class="form-container">
-					<?php vc_render_form( 2 ); ?>
+					<?php vc_render_form( 2, 'service_' . $term->term_id ); ?>
 				</div>
 			</div>
 		</div>

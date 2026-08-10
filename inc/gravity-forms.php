@@ -226,6 +226,9 @@ function vc_register_form_picker_fields() {
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-services-hub.php' ] ],
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-free-website.php' ] ],
 			[ [ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/page-landing-page.php' ] ],
+			// Service term pages embed a form too; without this rule the
+			// picker never appears there and the template's default is stuck.
+			[ [ 'param' => 'taxonomy', 'operator' => '==', 'value' => 'service' ] ],
 		],
 		'menu_order'      => 20,
 		'position'        => 'side',

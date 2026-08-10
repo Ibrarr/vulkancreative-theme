@@ -85,7 +85,13 @@ jQuery(document).ready(function($) {
             const $target = $(target);
             if ($target.length) {
                 const offset = $target.offset().top;
-                $('html, body').animate({ scrollTop: offset });
+                // jQuery animate ignores prefers-reduced-motion, so branch:
+                // reduced motion gets an instant jump.
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    window.scrollTo(0, offset);
+                } else {
+                    $('html, body').animate({ scrollTop: offset });
+                }
             }
         }
     });

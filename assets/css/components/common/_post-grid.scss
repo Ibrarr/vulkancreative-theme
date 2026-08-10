@@ -2,7 +2,7 @@
 // for the blog index, category/author archives, search and the single-post
 // "More insights" row: a desaturated 16:9 media frame with a solid category
 // plate, then a clean card body on a raised surface. The whole card is one
-// link; hover/focus heats the frame and saturates the image but never moves
+// link; hover/focus heats the frame and zooms the inner image but never moves
 // the card. Defined globally (unique class names) so it works under every
 // body class and inside the single article.
 .insight-card {

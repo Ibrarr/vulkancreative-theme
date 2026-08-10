@@ -353,7 +353,7 @@ get_template_part( 'template-parts/page', 'hero', [
 						<?php endforeach; ?>
 					</div>
 					<div class="spotlight-main">
-						<div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+						<div class="spotlight-mark" aria-hidden="true">“</div>
 						<div class="splide__track">
 							<ul class="splide__list">
 								<?php foreach ( $testimonial_items as $tm_item ) : ?>
@@ -377,7 +377,7 @@ get_template_part( 'template-parts/page', 'hero', [
 						<div class="spotlight-footer">
 							<div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
 							<div class="spotlight-controls">
-								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span>&nbsp;/&nbsp;<span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
+								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
 								<div class="splide__arrows">
 									<button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>

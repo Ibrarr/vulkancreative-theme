@@ -172,7 +172,7 @@ get_template_part( 'template-parts/page', 'hero', [
 						<?php endforeach; ?>
 					</div>
 					<div class="spotlight-main">
-						<div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+						<div class="spotlight-mark" aria-hidden="true">“</div>
 						<div class="splide__track">
 							<ul class="splide__list">
 								<?php foreach ( $testimonial_items as $tm_item ) : ?>

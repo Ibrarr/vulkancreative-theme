@@ -39,7 +39,7 @@ if ( $filter_current_id ) {
 			<circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
 			<path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 		</svg>
-		<input type="search" name="s" class="insights-filter-input" placeholder="Search articles&hellip;" aria-label="Search articles" value="<?php echo esc_attr( $filter_search ); ?>" autocomplete="off">
+		<input type="search" name="s" class="insights-filter-input" placeholder="Search articles…" aria-label="Search articles" value="<?php echo esc_attr( $filter_search ); ?>" autocomplete="off">
 		<button type="button" class="insights-filter-clear" aria-label="Clear search"<?php echo $filter_search ? '' : ' hidden'; ?>>
 			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
 				<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -59,7 +59,7 @@ if ( $filter_current_id ) {
 
 		<div class="insights-filter-panel" id="insights-cat-panel" hidden>
 			<div class="insights-filter-panel-search">
-				<input type="text" class="insights-filter-cat-search" placeholder="Find a category&hellip;" aria-label="Find a category" autocomplete="off">
+				<input type="text" class="insights-filter-cat-search" placeholder="Find a category…" aria-label="Find a category" autocomplete="off">
 			</div>
 			<ul class="insights-filter-list">
 				<li class="insights-filter-item">

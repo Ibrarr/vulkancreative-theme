@@ -65,11 +65,16 @@
           color: $vc-text-dark;
           opacity: 1;
           transition: color .3s;
-          display: inline-block;
+          // Full-height tap box for the top-level rows (the text box alone ran short).
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
 
-          &:hover {
-            color: $vc-primary !important;
-            cursor: pointer;
+          @media (hover: hover) {
+            &:hover {
+              color: $vc-primary !important;
+              cursor: pointer;
+            }
           }
         }
 
@@ -267,8 +272,10 @@
         fill: currentColor;
       }
 
-      &:hover {
-        color: $vc-primary;
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
       }
     }
   }
@@ -336,8 +343,10 @@
     color: $vc-text-light;
   }
 
-  .mobile-socials a:hover {
-    color: $vc-primary;
+  @media (hover: hover) {
+    .mobile-socials a:hover {
+      color: $vc-primary;
+    }
   }
 
   nav .menu-button a {
