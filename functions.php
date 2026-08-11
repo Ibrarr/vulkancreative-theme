@@ -49,3 +49,6 @@ require VC_INC_PATH . '/gravity-forms.php';
 
 // Landing Page flexible-content field group
 require VC_INC_PATH . '/landing-page-fields.php';
+
+// Publishing pipeline REST endpoint (vc/v1/publish)
+require VC_INC_PATH . '/rest-publish.php';
