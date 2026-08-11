@@ -12,6 +12,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 
 export function buildScene(container, canvas, modelUrl, onFail) {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -88,16 +89,22 @@ export function buildScene(container, canvas, modelUrl, onFail) {
         applyFrame();
     }
 
-    new GLTFLoader().load(modelUrl, (g) => {
+    const loader = new GLTFLoader();
+    // The model ships with EXT_meshopt_compression (69% smaller than the raw
+    // export), so the decoder is required, not optional.
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    loader.load(modelUrl, (g) => {
         model = g.scene; scene.add(model);
         model.traverse((o) => { if (o.isBone) BONES[o.name] = o; });
         for (const n of [...SPINES, ...ARMS]) { if (BONES[n]) base[n] = BONES[n].quaternion.clone(); }
         model.updateWorldMatrix(true, true); scene.updateMatrixWorld(true);
         // Lock the hammer to the right hand: it is a separate rig, so attach it to HandR so it rides the arm and never slides out.
         hammerRig = model.getObjectByName('Hammer_Rig');
-        if (hammerRig && BONES.HandR) { BONES.HandR.attach(hammerRig); }
-        hammerRig.updateWorldMatrix(true, false);
-        leftGrip = hammerRig.worldToLocal(BONES.HandL.getWorldPosition(new THREE.Vector3()));
+        if (hammerRig && BONES.HandR) {
+            BONES.HandR.attach(hammerRig);
+            hammerRig.updateWorldMatrix(true, false);
+        }
+        leftGrip = hammerRig ? hammerRig.worldToLocal(BONES.HandL.getWorldPosition(new THREE.Vector3())) : null;
         const hpR = BONES.HandR.getWorldPosition(new THREE.Vector3()), hpL = BONES.HandL.getWorldPosition(new THREE.Vector3());
         const axisHR = hpL.clone().sub(hpR).normalize().applyQuaternion(BONES.HandR.getWorldQuaternion(new THREE.Quaternion()).invert());
         base.HandR.multiply(new THREE.Quaternion().setFromAxisAngle(axisHR, cfg.hammerTurn));

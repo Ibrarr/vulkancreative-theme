@@ -523,7 +523,7 @@ All libraries are npm-installed and bundled (no CDN scripts):
 | GSAP | 3.12.5 | Animations (with ScrollTrigger, SplitText, DrawSVGPlugin plugins) |
 | SplitType | 0.3.4 | Installed but unused; GSAP SplitText does the text splitting |
 | Splide | 4.1.4 | Carousels: hero logo marquee, testimonials (with AutoScroll 0.5.3 extension) |
-| Spline Viewer | 1.9.98 | 3D statue scene (web component, lazy-loaded via dynamic import on desktop) |
+| three.js | 0.160 | Hero statue: GLTFLoader + meshopt decoder render assets/models/statue-marble-2.glb (2.2MB, legs cropped below the frame) with procedural parallax/IK in assets/js/spline/statue-scene.js; lazy desktop-only chunk |
 | Video.js | 8.21.0 | Video player (with YouTube plugin 3.0.1, city theme) |
 | Theme Toggles | 4.10.1 | Dark mode toggle component |
 | jQuery | WP core | Used as script dependency; several modules use jQuery syntax |
@@ -546,7 +546,7 @@ All enqueuing happens in `inc/styles-scripts.php` via the `add_custom_scripts()`
 
 **Conditional (page-specific):** `homepage` (`is_front_page()`), `single-blog` (`is_singular('post')` — not `is_single()`, which is true for CPT singles too), `archive-blog` (`is_home() || is_category()`), `archive-author` (`is_author()`), `project` (`is_post_type_archive('project') || is_singular('project')`), `case-study` (`is_post_type_archive('case_study') || is_singular('case_study')`), `contact`/`about`/`free-website`/`landing` (matching `is_page_template(...)`; landing also enqueues `enquiry-form` for its CTA form), `services-hub`/`service` (hub template / `is_tax('service')`). All load in the footer, all depend on `jquery`.
 
-The `homepage` handle also gets an inline `window.__vc_public_path` variable (via `wp_add_inline_script`) so webpack's dynamically imported chunks -- the Spline viewer -- resolve under the theme's `dist/` directory instead of the site root.
+The `homepage` handle also gets an inline `window.__vc_public_path` variable (via `wp_add_inline_script`) so webpack's dynamically imported chunks -- the three.js statue scene -- resolve under the theme's `dist/` directory instead of the site root.
 
 ### Adding a new page-specific bundle
 
@@ -570,9 +570,8 @@ The `homepage` handle also gets an inline `window.__vc_public_path` variable (vi
 - **Animated icons:** WebP format in `assets/images/animated-icons/`. No longer used on the homepage (the why section dropped them); kept on disk.
 - **Social icons:** Inline SVGs in footer.
 - **Fonts:** Self-hosted Poppins and Archivo (variable) woff2 files in `assets/fonts/`. Archivo-Variable and key Poppins weights are preloaded in `header.php`.
-- **Hero statue posters:** `assets/images/hero/statue-poster.webp` (desktop stand-in for the Spline scene) and `statue-forward.webp` (the below-lg poster, a forward-facing transparent cut-out), chosen by viewport in `spline-viewer.js`.
+- **Hero statue posters:** `assets/images/hero/statue-desktop.webp` and `statue-mobile.webp`, chosen by viewport in `statue-hero.js` (below 992px and reduced motion always get the poster; desktop gets the three.js scene).
 - **Logo marquee images:** uploaded to the media library and selected in the Global Settings options page (`worked_with_logos` repeater).
-- **Spline 3D scene:** `assets/spline/scene.splinecode`.
 - **Lazy loading:** `loading="lazy"` attribute used on images.
 
 ## Code Style

@@ -12,7 +12,9 @@ if (typeof window !== 'undefined' && window.__vc_public_path) {
 // (window.__vc_public_path = "<theme-url>/dist/"), so the model + posters load on ANY host
 // (staging, a subfolder, a CDN, http/https) — not only when the site sits at the domain root.
 const BASE = (window.__vc_public_path || `${window.location.origin}/wp-content/themes/vulkancreative-theme/dist/`).replace(/dist\/?$/, 'assets');
-const MODEL_URL = `${BASE}/models/statue-marble.glb`;
+// Versioned filename: the model URL is hand-built (no mix manifest), so a new
+// revision must ship under a new name or long-lived caches serve the old one.
+const MODEL_URL = `${BASE}/models/statue-marble-2.glb`;
 const POSTER_URL = `${BASE}/images/hero/statue-desktop.webp`;
 // Below lg the poster is a forward-facing transparent cut-out (face and hammer
 // to camera) rather than the bowed-head scene render.
