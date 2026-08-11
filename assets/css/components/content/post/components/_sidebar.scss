@@ -57,7 +57,6 @@
     @media (hover: hover) {
       &:hover {
         color: $vc-primary;
-        border-left-color: $vc-primary;
       }
     }
 
@@ -292,7 +291,6 @@
     @media (hover: hover) {
       &:hover {
         color: $vc-primary !important;
-        border-left-color: $vc-primary !important;
       }
     }
 

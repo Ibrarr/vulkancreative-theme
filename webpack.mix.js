@@ -156,7 +156,7 @@ mix.options({
 });
 
 mix.setPublicPath('dist');
-mix.sourceMaps();
+if (!mix.inProduction()) mix.sourceMaps();
 mix.disableNotifications();
 mix.version();
 
