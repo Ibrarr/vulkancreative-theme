@@ -61,19 +61,6 @@
     overflow: hidden;
     transition: background-color .3s, border-color .3s;
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 3px;
-      background: $vc-primary;
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform .3s ease;
-    }
-
     // The icon sits as a big faded watermark in the bottom-right corner;
     // the content stacks above it.
     .service-icon {
@@ -139,10 +126,6 @@
     &:focus-visible {
       background: $vc-primary-tint;
 
-      &::before {
-        transform: scaleX(1);
-      }
-
       .service-icon {
         opacity: 0.14;
       }
@@ -161,10 +144,6 @@
     @media (hover: hover) {
       &:hover {
         background: $vc-primary-tint;
-
-        &::before {
-          transform: scaleX(1);
-        }
 
         .service-icon {
           opacity: 0.14;

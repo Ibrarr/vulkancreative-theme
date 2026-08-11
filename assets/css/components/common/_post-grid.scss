@@ -2,7 +2,7 @@
 // for the blog index, category/author archives, search and the single-post
 // "More insights" row: a desaturated 16:9 media frame with a solid category
 // plate, then a clean card body on a raised surface. The whole card is one
-// link; hover/focus heats the frame and saturates the image but never moves
+// link; hover/focus heats the frame and zooms the inner image but never moves
 // the card. Defined globally (unique class names) so it works under every
 // body class and inside the single article.
 .insight-card {
@@ -25,7 +25,7 @@
   @media (hover: hover) {
     &:hover {
       border-color: rgba($vc-secondary, 0.55);
-      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+      box-shadow: $vc-glow-card;
 
       // Inner-image zoom inside the overflow-hidden frame is the hover
       // affordance; the saturation shift (grayscale -> full colour) is the
@@ -42,7 +42,7 @@
 
   &:focus-visible {
     border-color: rgba($vc-secondary, 0.55);
-    box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+    box-shadow: $vc-glow-card;
 
     .insight-card-img {
       transform: scale(1.06);
@@ -114,13 +114,13 @@
   @media (hover: hover) {
     &:hover {
       background: $vc-primary;
-      color: #FFFFFF;
+      color: $vc-surface-white;
     }
   }
 
   &:focus-visible {
     background: $vc-primary;
-    color: #FFFFFF;
+    color: $vc-surface-white;
   }
 }
 
@@ -169,7 +169,7 @@
     @media (hover: hover) {
       &:hover {
         border-color: rgba($vc-secondary, 0.55) !important;
-        box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+        box-shadow: $vc-glow-card-dark !important;
 
         .insight-card-title {
           color: $vc-primary !important;
@@ -179,7 +179,7 @@
 
     &:focus-visible {
       border-color: rgba($vc-secondary, 0.55) !important;
-      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+      box-shadow: $vc-glow-card-dark !important;
 
       .insight-card-title {
         color: $vc-primary !important;

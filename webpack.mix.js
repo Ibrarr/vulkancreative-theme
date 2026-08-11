@@ -3,7 +3,6 @@ const mix = require('laravel-mix');
 mix.js([
     'assets/js/global/dark-mode.js',
     'assets/js/global/load-at-top.js',
-    'assets/js/global/smooth-scrolling.js',
     'assets/js/global/remove-anchor-from-url.js',
     'assets/js/global/form-loading.js',
 ], 'js/global.js');
@@ -157,7 +156,7 @@ mix.options({
 });
 
 mix.setPublicPath('dist');
-mix.sourceMaps();
+if (!mix.inProduction()) mix.sourceMaps();
 mix.disableNotifications();
 mix.version();
 

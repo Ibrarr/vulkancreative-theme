@@ -33,6 +33,10 @@ function add_custom_scripts() {
 
     if ( is_page_template( 'page-templates/page-free-website.php' ) ) {
         wp_enqueue_script( 'free-website', VC_TEMPLATE_URI . mix('/js/free-website.js'), [ 'jquery' ], null, true );
+        // Form 7 carries the `enquiry-form` cssClass, so it gets the same
+        // entrance, dataLayer events and confirmation focus handling the
+        // landing template already loads (parity fix, Aug 2026).
+        wp_enqueue_script( 'enquiry-form', VC_TEMPLATE_URI . mix('/js/enquiry-form.js'), [ 'jquery' ], null, true );
     }
 
     if ( is_page_template( 'page-templates/page-landing-page.php' ) ) {

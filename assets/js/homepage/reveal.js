@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(SplitText);
 
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hide up front, before the user can ever see these sections.
     gsap.set([...headings, ...fades, ...steps, ...latestCards], { opacity: 0, y: 24 });
+    revealFailsafe([...headings, ...fades, ...steps, ...latestCards], 4000);
 
     const showHeading = (el) => {
         SplitText.create(el, {

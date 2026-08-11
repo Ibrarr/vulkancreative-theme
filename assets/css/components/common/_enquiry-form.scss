@@ -493,27 +493,31 @@
     // class stack + attribute selectors), so the brand properties carry force
     // here — the same accepted trade-off as the theme's other GF overrides.
     input[type="submit"],
+    button.gform_button,
+    button.gform-button,
     .gform_next_button {
       @include vc-button-forge;
       font-family: $vc-font-family !important;
       font-size: 16px !important;
       font-weight: $vc-bold !important;
       background: $vc-primary !important;
-      color: #FFFFFF !important;
+      color: $vc-surface-white !important;
       border: 1px solid $vc-primary !important;
       border-radius: 2px !important;
       padding: 16px 35px !important;
       height: auto !important;
-      min-height: 0 !important;
+      min-height: 44px !important;
       line-height: normal !important;
       box-shadow: none !important;
       cursor: pointer !important;
 
-      &:hover {
-        background: $vc-secondary !important;
-        border-color: $vc-secondary !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 8px 30px rgba($vc-primary, 0.35) !important;
+      @media (hover: hover) {
+        &:hover {
+          background: $vc-secondary !important;
+          border-color: $vc-secondary !important;
+          color: $vc-surface-white !important;
+          box-shadow: $vc-glow-button !important;
+        }
       }
 
       // Mouse clicks get no ring (GF paints its blue one otherwise);
@@ -542,7 +546,7 @@
       border-radius: 2px !important;
       padding: 16px 28px !important;
       height: auto !important;
-      min-height: 0 !important;
+      min-height: 44px !important;
       line-height: normal !important;
       box-shadow: none !important;
       cursor: pointer !important;
@@ -551,10 +555,12 @@
       // keeps Back on the left while Continue/Send float right.
       margin: 0 auto 0 0 !important;
 
-      &:hover {
-        color: $vc-primary !important;
-        border-color: $vc-primary !important;
-        background: transparent !important;
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+          border-color: $vc-primary !important;
+          background: transparent !important;
+        }
       }
 
       &:focus {

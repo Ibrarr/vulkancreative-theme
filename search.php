@@ -8,7 +8,7 @@ $query = new WP_Query( [
     's'              => $term,
     'posts_per_page' => 8,
     'paged'          => $paged,
-    'post_type'      => [ 'post', 'video' ],
+    'post_type'      => 'post',
 ] );
 ?>
 
@@ -16,7 +16,7 @@ $query = new WP_Query( [
 	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
-        <h1 class="insights-title">Results for &ldquo;<?php echo esc_html( $term ); ?>&rdquo;</h1>
+        <h1 class="insights-title">Results for “<?php echo esc_html( $term ); ?>”</h1>
     </div>
 </section>
 
@@ -31,7 +31,7 @@ $query = new WP_Query( [
         ?>
         <h2 class="visually-hidden">Search results</h2>
         <?php if ( $query->have_posts() ) : ?>
-            <div class="row g-4">
+            <div class="row g-4<?php echo $query->found_posts < 3 ? ' is-sparse' : ''; ?>">
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
                     <?php get_template_part( 'template-parts/content', 'card' ); ?>
                 <?php endwhile; ?>

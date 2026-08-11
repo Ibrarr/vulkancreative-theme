@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addEntrance = () => {
         if (!('IntersectionObserver' in window)) return () => {};
         gsap.set(panels, { opacity: 0, y: 36 });
+        revealFailsafe(panels, 4000);
         const io = new IntersectionObserver((entries, obs) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;

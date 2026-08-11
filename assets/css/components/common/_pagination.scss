@@ -45,7 +45,7 @@
   .page-numbers.current {
     background: $vc-primary;
     border-color: $vc-primary;
-    color: #FFFFFF;
+    color: $vc-surface-white;
     font-weight: $vc-semi-bold;
   }
 }
@@ -71,6 +71,6 @@
   .page-numbers.current {
     background: $vc-primary !important;
     border-color: $vc-primary !important;
-    color: #FFFFFF !important;
+    color: $vc-surface-white !important;
   }
 }

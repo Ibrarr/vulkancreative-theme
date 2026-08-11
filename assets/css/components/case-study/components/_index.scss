@@ -6,6 +6,14 @@
 .cs-index {
   @include vc-section-padding;
 
+  // Three cards in a two-up grid: the odd last card runs full width rather
+  // than leaving a blank cell beside it.
+  .cs-grid > *:last-child:nth-child(odd) {
+    @include media-breakpoint-up(md) {
+      width: 100%;
+    }
+  }
+
   .work-empty {
     @include vc-p($vc-grey-600);
     margin: $space-4 0 0;

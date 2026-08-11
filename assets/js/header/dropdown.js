@@ -9,6 +9,7 @@
 // unreachable.
 document.addEventListener('DOMContentLoaded', () => {
     // ----- Desktop bar -----
+    let submenuId = 0;
     document.querySelectorAll('.menu-theme-toggle nav li.menu-item-has-children').forEach((item) => {
         const link = item.querySelector(':scope > a');
         if (!link) return;
@@ -16,23 +17,38 @@ document.addEventListener('DOMContentLoaded', () => {
         link.setAttribute('aria-haspopup', 'true');
         link.setAttribute('aria-expanded', 'false');
 
-        const setExpanded = (open) => link.setAttribute('aria-expanded', open ? 'true' : 'false');
+        // aria-expanded needs a target: stamp the panel and point at it.
+        const panel = item.querySelector(':scope > .sub-menu');
+        if (panel) {
+            if (!panel.id) panel.id = 'vc-submenu-' + (++submenuId);
+            link.setAttribute('aria-controls', panel.id);
+        }
 
-        item.addEventListener('mouseenter', () => setExpanded(true));
+        const setExpanded = (open) => link.setAttribute('aria-expanded', open ? 'true' : 'false');
+        const hoverable = window.matchMedia('(hover: hover)');
+
+        // A tap on touch fires mouseenter with no matching mouseleave and then
+        // navigates, so only hover-capable devices report the hover-open state.
+        item.addEventListener('mouseenter', () => { if (hoverable.matches) setExpanded(true); });
         item.addEventListener('mouseleave', () => setExpanded(false));
         item.addEventListener('focusin', () => setExpanded(true));
         item.addEventListener('focusout', () => {
             if (!item.contains(document.activeElement)) setExpanded(false);
         });
 
-        // Escape closes the panel and hands focus back to the parent link.
+        // Escape closes the panel even while focus sits on the parent link:
+        // :focus-within keeps it open, so is-escaped (see _desktop.scss)
+        // forces it shut until the pointer leaves or focus moves on.
         item.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (item.contains(document.activeElement) && document.activeElement !== link) {
-                e.stopPropagation();
-                link.focus();
-            }
+            if (!item.contains(document.activeElement)) return;
+            e.stopPropagation();
+            item.classList.add('is-escaped');
+            setExpanded(false);
+            link.focus();
         });
+        item.addEventListener('mouseleave', () => item.classList.remove('is-escaped'));
+        link.addEventListener('blur', () => item.classList.remove('is-escaped'));
     });
 
     // ----- Mobile overlay accordion (two levels) -----
@@ -40,9 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wrap a sub-list in a single grid child (.submenu-wrap) and inject a 44px
     // disclosure button after `afterEl`, toggling `is-open` on `item`.
+    let wrapId = 0;
     const addDisclosure = (item, afterEl, list, label) => {
         const wrap = document.createElement('div');
         wrap.className = 'submenu-wrap';
+        wrap.id = 'vc-subwrap-' + (++wrapId);
         list.parentNode.insertBefore(wrap, list);
         wrap.appendChild(list);
 
@@ -50,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.type = 'button';
         toggle.className = 'submenu-toggle';
         toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-controls', wrap.id);
         toggle.setAttribute('aria-label', label);
         toggle.innerHTML = CHEVRON;
         afterEl.after(toggle);

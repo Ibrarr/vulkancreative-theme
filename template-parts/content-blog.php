@@ -31,10 +31,18 @@ $content      = get_field( 'content' );
 $full_content = $intro . $content;
 
 if ( $full_content ) {
+    // Duplicate headings would collide on the same anchor; suffix repeats so
+    // every TOC link lands on its own heading. The TOC renderer below runs the
+    // same rules in the same order, so the ids always match.
+    $vc_anchor_counts = [];
     $full_content = preg_replace_callback(
         '/<h([1-2])>(.*?)<\/h\1>/',
-        function ( $matches ) {
+        function ( $matches ) use ( &$vc_anchor_counts ) {
             $id = sanitize_title( $matches[2] );
+            $vc_anchor_counts[ $id ] = ( $vc_anchor_counts[ $id ] ?? 0 ) + 1;
+            if ( $vc_anchor_counts[ $id ] > 1 ) {
+                $id .= '-' . $vc_anchor_counts[ $id ];
+            }
             return '<h' . $matches[1] . ' id="' . esc_attr( $id ) . '">' . $matches[2] . '</h' . $matches[1] . '>';
         },
         $full_content
@@ -159,10 +167,18 @@ $related = new WP_Query( [
                                 <p class="insight-sidebar-label">On this page</p>
                                 <ul>
                                     <?php
+                                    $vc_toc_counts = [];
                                     foreach ( $toc_matches as $match ) {
                                         $heading = strip_tags( $match[1] );
                                         $anchor  = sanitize_title( $heading );
+                                        $vc_toc_counts[ $anchor ] = ( $vc_toc_counts[ $anchor ] ?? 0 ) + 1;
+                                        if ( $vc_toc_counts[ $anchor ] > 1 ) {
+                                            $anchor .= '-' . $vc_toc_counts[ $anchor ];
+                                        }
                                         echo '<li><a href="#' . esc_attr( $anchor ) . '">' . esc_html( $heading ) . '</a></li>';
+                                    }
+                                    if ( have_rows( 'faqs' ) ) {
+                                        echo '<li><a href="#faqs-heading">FAQs</a></li>';
                                     }
                                     ?>
                                 </ul>

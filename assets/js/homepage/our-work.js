@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // The work wheel: every card sits on the rim of a huge invisible wheel whose
 // centre is far below the stage. One progress value drives the whole thing —
@@ -254,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!reduceMotion && 'IntersectionObserver' in window) {
         state.spread = 0;
         gsap.set(cards, { opacity: 0 });
+        revealFailsafe(cards, 4000, { opacity: 1 });
         render();
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach((entry) => {

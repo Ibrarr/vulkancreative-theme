@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.set(headWeld, { scaleX: 0 });
         gsap.set(joints, { scale: 0 });
         gsap.set(inners, { opacity: 0, y: 16 });
+        revealFailsafe(inners, 4000);
 
         // The structure breathes with the scroll (welds scrub both ways, each
         // led by its ember-hot tip, which cools away once the line lands; the

@@ -33,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set([...headings, ...fades], { opacity: 0, y: 24 });
     grids.forEach((grid) => gsap.set(grid.querySelectorAll('.insight-card'), { opacity: 0, y: 24 }));
 
+    // Failsafe: nothing on the insights family stays hidden if a reveal never
+    // fires (a stalled script, an observer that misses). Already-revealed
+    // targets are untouched.
+    setTimeout(() => {
+        gsap.to([...headings, ...fades], { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', overwrite: false });
+        grids.forEach((grid) => gsap.to(grid.querySelectorAll('.insight-card'), { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', overwrite: false }));
+    }, 4000);
+
     const showHeading = (el) => {
         SplitText.create(el, {
             type: 'lines',

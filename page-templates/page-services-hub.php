@@ -69,7 +69,7 @@ if ( $testimonial_posts->have_posts() ) {
 			'quote'   => get_field('tm_quote'),
 			'name'    => get_field('tm_name'),
 			'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
 		];
 	}
 	wp_reset_postdata();
@@ -172,7 +172,7 @@ get_template_part( 'template-parts/page', 'hero', [
 						<?php endforeach; ?>
 					</div>
 					<div class="spotlight-main">
-						<div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+						<div class="spotlight-mark" aria-hidden="true">“</div>
 						<div class="splide__track">
 							<ul class="splide__list">
 								<?php foreach ( $testimonial_items as $tm_item ) : ?>

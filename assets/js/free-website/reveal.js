@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(SplitText);
 
@@ -65,11 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const formPanel = document.querySelector('.fw-enquire .form-container');
 
     gsap.set([...headings, ...fades, ...faqItems], { opacity: 0, y: 24 });
+    revealFailsafe([...headings, ...fades, ...faqItems], 4000);
     // Steps rise on entrance only; their opacity and the rail belong to the
     // scroll fill in how-scroll.js.
     gsap.set(steps, { y: 24 });
     if (formPanel) gsap.set(formPanel, { opacity: 0, y: 28 });
+    if (formPanel) revealFailsafe(formPanel, 4000);
     if (contrastRows.length) gsap.set(contrastRows, { opacity: 0, y: 22 });
+    if (contrastRows.length) revealFailsafe(contrastRows, 4000);
 
     const showHeading = (el) => {
         SplitText.create(el, {

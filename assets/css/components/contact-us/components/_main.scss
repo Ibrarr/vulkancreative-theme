@@ -26,7 +26,7 @@
     padding-top: $space-4;
     transition: border-color 0.3s;
 
-    h3 {
+    h2 {
       @include vc-eyebrow($vc-grey-600);
       margin: 0 0 $space-3;
     }
@@ -273,6 +273,7 @@
     input[type="submit"] {
       margin-top: 10px;
       @include vc-button-forge;
+      min-height: 44px !important;
       cursor: pointer !important;
       padding: 16px 35px;
     }
@@ -302,7 +303,7 @@
     color: $vc-muted-on-dark !important;
   }
 
-  .contact-next h3 {
+  .contact-next h2 {
     color: $vc-muted-on-dark !important;
   }
 

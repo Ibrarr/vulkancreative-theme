@@ -106,7 +106,7 @@
   @media (hover: hover) {
     &:hover {
       border-color: rgba($vc-secondary, 0.55);
-      box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+      box-shadow: $vc-glow-card;
 
       .service-card-icon {
         opacity: 0.14;
@@ -131,7 +131,7 @@
 
   &:focus-visible {
     border-color: rgba($vc-secondary, 0.55);
-    box-shadow: 0 16px 44px rgba($vc-primary, 0.22);
+    box-shadow: $vc-glow-card;
 
     .service-card-icon {
       opacity: 0.14;
@@ -174,7 +174,7 @@
     &:hover {
       background: $vc-grey-dark-surface !important;
       border-color: rgba($vc-primary, 0.6) !important;
-      box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+      box-shadow: $vc-glow-card-dark !important;
 
       .service-card-title,
       .service-card-arrow {
@@ -190,7 +190,7 @@
   &:focus-visible {
     background: $vc-grey-dark-surface !important;
     border-color: rgba($vc-primary, 0.6) !important;
-    box-shadow: 0 18px 56px rgba($vc-primary, 0.4) !important;
+    box-shadow: $vc-glow-card-dark !important;
 
     .service-card-title,
     .service-card-arrow {

@@ -117,7 +117,7 @@ get_template_part( 'template-parts/page', 'hero', [
 
 				<?php if ( $next_steps ) : ?>
 					<div class="contact-next">
-						<h3><?php echo esc_html( $next_heading ); ?></h3>
+						<h2><?php echo esc_html( $next_heading ); ?></h2>
 						<?php // The wrapper keeps the ember rail's coordinate space aligned with the list. ?>
 						<div class="next-rail-wrap">
 							<span class="next-progress" aria-hidden="true"></span>

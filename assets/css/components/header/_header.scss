@@ -54,8 +54,10 @@ header {
     .theme-toggle {
       color: $vc-text-light;
 
-      &:hover {
-        color: $vc-primary;
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+        }
       }
     }
 
@@ -102,8 +104,10 @@ header {
       transition: $vc-transition-all;
     }
 
-    &:hover {
-      color: $vc-primary;
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+      }
     }
   }
 }
@@ -122,13 +126,17 @@ header {
   .theme-toggle {
     color: $vc-text-light !important;
 
-    &:hover {
-      color: $vc-primary !important;
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+      }
     }
   }
 
-  .menu-button:hover a {
-    color: $vc-text-light !important;
+  @media (hover: hover) {
+    .menu-button:hover a {
+      color: $vc-text-light !important;
+    }
   }
 }
 

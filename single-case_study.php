@@ -340,7 +340,7 @@ while ( have_posts() ) :
 							</div>
 						<?php endif; ?>
 						<div class="spotlight-main">
-							<div class="spotlight-mark" aria-hidden="true">&ldquo;</div>
+							<div class="spotlight-mark" aria-hidden="true">“</div>
 							<blockquote>
 								<p class="spotlight-quote"><?php echo esc_html( $cs_tm['quote'] ); ?></p>
 								<cite>

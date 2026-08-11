@@ -191,7 +191,7 @@ get_template_part( 'template-parts/page', 'hero', [
 	'heading'    => $hero_heading,
 	'subheading' => $hero_subheading,
 	'class'      => 'service-hero',
-	'cta_label'  => 'Start a project',
+	'cta_label'  => 'Start a Project',
 	'cta_url'    => home_url( '/contact/' ),
 ] );
 ?>
@@ -250,7 +250,7 @@ get_template_part( 'template-parts/page', 'hero', [
 				<span class="weld-joint" aria-hidden="true"></span>
 				<div class="cell-inner">
 					<p class="cell-nudge">Scoped to your goals, priced before we start.</p>
-					<a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
+					<a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
 				</div>
 			</div>
 		</div>
@@ -321,7 +321,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 						<p class="sub-heading"><?php echo esc_html( $process_subheading ); ?></p>
 					<?php endif; ?>
 				</div>
-				<span class="journey-counter" aria-hidden="true"><span class="counter-current"><?php echo esc_html( $journey_total ); ?></span>&nbsp;/&nbsp;<span class="counter-total"><?php echo esc_html( $journey_total ); ?></span></span>
+				<span class="journey-counter" aria-hidden="true"><span class="counter-current"><?php echo esc_html( $journey_total ); ?></span> / <span class="counter-total"><?php echo esc_html( $journey_total ); ?></span></span>
 			</div>
 			<div class="journey-rail">
 				<div class="journey-track">
@@ -370,7 +370,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 			<?php endforeach; ?>
 		</div>
 		<div class="anchor-actions">
-			<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a>
+			<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
 		</div>
 	</div>
 </section>
@@ -467,7 +467,7 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 					<div class="content">
 						<h2><?php echo wp_kses_post( $faq_heading ); ?></h2>
 					</div>
-					<a class="button-ghost" href="#enquire">Start a project</a>
+					<a class="button-ghost" href="#enquire">Start a Project</a>
 				</div>
 			</div>
 			<div class="col-lg-7 offset-lg-1">
@@ -505,12 +505,12 @@ $journey_total = str_pad( count( $process_steps ), 2, '0', STR_PAD_LEFT );
 					<p class="sub-heading"><?php echo esc_html( $cta_subheading ); ?></p>
 				</div>
 				<div class="cta-actions">
-					<a class="button-ghost" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All services</a>
+					<a class="button-ghost" href="<?php echo esc_url( home_url( '/services/' ) ); ?>">All Services</a>
 				</div>
 			</div>
 			<div class="col-lg-6 form">
 				<div class="form-container">
-					<?php vc_render_form( 2 ); ?>
+					<?php vc_render_form( 2, 'service_' . $term->term_id ); ?>
 				</div>
 			</div>
 		</div>

@@ -1,7 +1,8 @@
-// Values as giant display words. Base CSS renders each word SOLID RED (the
-// finished state) so no-JS and reduced-motion read the section perfectly;
-// values.js adds .is-scrub (motion allowed only), which switches the base
-// word to a hairline outline and scrubs the red .value-fill duplicate in
+// Values as giant display words. Base CSS renders each word in the text
+// colour (red stays an accent, not a wash) so no-JS and reduced-motion read
+// the section perfectly; values.js adds .is-scrub (motion allowed only),
+// which switches the base word to a hairline outline and scrubs the red
+// .value-fill duplicate in
 // with a clip-path as the word passes through the viewport (the process
 // numeral fill motif at display scale). Static content: no hover states.
 .about-values {
@@ -40,7 +41,9 @@
     font-size: clamp(3rem, 7vw + 0.5rem, 7.5rem);
     line-height: 0.95;
     text-transform: uppercase;
-    color: $vc-primary;
+    // At rest (no JS, reduced motion) the words read as text, not a red wash;
+    // the red arrives only through the scrub fill below.
+    color: $vc-text-dark;
     margin: 0;
 
     .value-fill {
@@ -48,6 +51,7 @@
       inset: 0;
       color: $vc-primary;
       pointer-events: none;
+      display: none;
     }
   }
 
@@ -67,6 +71,7 @@
     -webkit-text-stroke: 1.5px rgba($vc-text-dark, 0.35);
 
     .value-fill {
+      display: block;
       -webkit-text-stroke: 1.5px transparent;
       clip-path: inset(0 100% 0 0);
     }
@@ -97,4 +102,8 @@
       -webkit-text-stroke-color: transparent !important;
     }
   }
+}
+
+@at-root body.dark-mode .about-values .value-word {
+  color: $vc-text-light !important;
 }

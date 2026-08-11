@@ -24,6 +24,12 @@ if ( have_rows( 'lp_sections' ) ) {
 $lp_last_cta = -1;
 foreach ( $lp_seq as $k => $l ) { if ( 'cta' === $l ) { $lp_last_cta = $k; } }
 
+// The h1 lives in the hero block; a page built without one still needs a
+// document heading, so fall back to a visually-hidden page title.
+if ( ! in_array( 'hero', $lp_seq, true ) ) {
+	echo '<h1 class="visually-hidden">' . esc_html( get_the_title() ) . '</h1>';
+}
+
 // Pass 2: render.
 if ( have_rows( 'lp_sections' ) ) :
 	$row_i = -1;
@@ -128,7 +134,7 @@ if ( have_rows( 'lp_sections' ) ) :
 							'quote'   => get_sub_field( 'quote' ),
 							'name'    => get_sub_field( 'name' ),
 							'company' => trim( get_sub_field( 'role' ) . ', ' . get_sub_field( 'company' ), ', ' ),
-							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
 						];
 					}
 				} else {
@@ -139,7 +145,7 @@ if ( have_rows( 'lp_sections' ) ) :
 							'quote'   => get_field( 'tm_quote' ),
 							'name'    => get_field( 'tm_name' ),
 							'company' => trim( get_field( 'tm_role' ) . ', ' . get_field( 'tm_company' ), ', ' ),
-							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.png',
+							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
 						];
 					}
 					wp_reset_postdata();

@@ -77,7 +77,7 @@ while ( have_posts() ) :
 								<a class="button-ghost" href="<?php echo esc_url( $pj_case_study_url ); ?>">Read the Case Study</a>
 							<?php endif; ?>
 							<?php if ( $pj_link ) : ?>
-								<a class="button-ghost hero-live-link" href="<?php echo esc_url( $pj_link ); ?>" target="_blank" rel="noopener">View Live Site<svg class="live-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden">(opens in a new tab)</span></a>
+								<a class="button-ghost hero-live-link" href="<?php echo esc_url( $pj_link ); ?>" target="_blank" rel="noopener">View Live Site<svg class="live-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
@@ -146,7 +146,7 @@ while ( have_posts() ) :
 						<?php if ( $pj_link ) : ?>
 							<div class="fact-row">
 								<dt>Live site</dt>
-								<dd><a class="fact-live-link" href="<?php echo esc_url( $pj_link ); ?>" target="_blank" rel="noopener"><?php echo esc_html( wp_parse_url( $pj_link, PHP_URL_HOST ) ?: $pj_link ); ?><svg class="live-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden">(opens in a new tab)</span></a></dd>
+								<dd><a class="fact-live-link" href="<?php echo esc_url( $pj_link ); ?>" target="_blank" rel="noopener"><?php echo esc_html( wp_parse_url( $pj_link, PHP_URL_HOST ) ?: $pj_link ); ?><svg class="live-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a></dd>
 							</div>
 						<?php endif; ?>
 					</dl>
