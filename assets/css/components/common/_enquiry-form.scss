@@ -493,6 +493,8 @@
     // class stack + attribute selectors), so the brand properties carry force
     // here — the same accepted trade-off as the theme's other GF overrides.
     input[type="submit"],
+    button.gform_button,
+    button.gform-button,
     .gform_next_button {
       @include vc-button-forge;
       font-family: $vc-font-family !important;
