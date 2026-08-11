@@ -327,6 +327,16 @@ The theme's **first and only ACF Flexible Content system**: a reusable page buil
 
 ---
 
+## Publishing pipeline (August 2026)
+
+Content publishes from local files through a theme-owned REST layer; nothing is pasted into wp-admin. Server side: `inc/rest-publish.php` registers `POST /wp-json/vc/v1/publish` (composite create-or-update keyed on type + slug), `GET /publish-schema` (the resolved per-type model) and `GET /media?hash=` (idempotent uploads). Application Password auth with `manage_options`; drafts by default; non-destructive updates unless overwrite; validation runs in full before any write; ACF names resolve to field keys against the live registry (per layout for flexible content); Yoast title/metadesc and primary-term meta are written directly, then the post is touched so Yoast rebuilds its indexable. One write-path gotcha is load-bearing: values are pre-slashed for `update_field` because `update_metadata` unslashes once, which otherwise eats literal backslashes.
+
+Client side: the `vc-publish` Node CLI and all content sources live in `~/repos/vulkancreative-content` (a separate repo, so client drafts and source images never ride a theme deploy). Authoring runs through five global skills: `vulkan-creative-publish` (mechanics), plus the interview-driven `vulkan-creative-blog`, `vulkan-creative-work`, `vulkan-creative-case-study` and `vulkan-creative-landing-page`. Full endpoint contract, per-type format reference and the PARKED live-rollout checklist: `docs/publishing-pipeline.md`. The pipeline targets the local site only until that checklist is run deliberately.
+
+**Browser QA note (August 2026):** the Playwright MCP only writes screenshots inside its allowed roots; pass filenames under `.playwright-mcp/`, sweep the captures to the session scratchpad afterwards, and delete the session's console/page logs from `.playwright-mcp/` before finishing. QA artefacts never stay in the project tree.
+
+---
+
 ## Project Overview
 
 This is the WordPress site for Vulkan Creative. The custom theme lives at `wp-content/themes/vulkancreative-theme/`.
