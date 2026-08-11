@@ -570,3 +570,5 @@ Ibrar delegated the remaining "yours" items and supplied the live-site WXR expor
 - **SW-23 closed as kept:** the work-tile saturation hover stays grandfathered per the standing decision.
 - **llms.txt:** the "Fee Business Website" typo was a real page title, now fixed at source (page 880 renamed "Free Business Website"); the file regenerates on Yoast's own schedule from corrected sources, locally and on live.
 - **Still open, genuinely:** `/review-animations` over the branch (the skill only accepts your invocation), the `[placeholder]` figures on the two landing pages (LP-02/03: real numbers only you have), and the live-site deploy questions (SMTP transport, HubSpot add-on state).
+
+- **/review-animations verdict (11 Aug): Approve.** One finding: the GF button press transform ran on the default ease; now `transform .12s ease-out` per the press-feedback standard. Everything else passed: the strip deletion follows the remedial hierarchy, the failsafe is GPU-only and converges with live reveals, dismissals snap, reduced motion is honoured.

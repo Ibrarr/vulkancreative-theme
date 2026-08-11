@@ -23,7 +23,7 @@
     line-height: normal !important;
     box-shadow: none !important;
     cursor: pointer;
-    transition: background-color .3s, border-color .3s, box-shadow .3s, transform .12s;
+    transition: background-color .3s, border-color .3s, box-shadow .3s, transform .12s ease-out;
 
     @media (hover: hover) {
       &:hover {
