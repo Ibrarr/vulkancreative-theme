@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // Work index: hovering or focusing a case row mirrors its is-active class
 // onto the matching stage image (decorative crossfade; all text is always
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!targets.length) return;
 
     gsap.set(targets, { opacity: 0, y: 36 });
+    revealFailsafe(targets, 4000);
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {

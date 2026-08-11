@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const rows = section.querySelectorAll('.service-row');
         gsap.set(rows, { opacity: 0, y: 24 });
+        revealFailsafe(rows, 4000);
 
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach((entry) => {

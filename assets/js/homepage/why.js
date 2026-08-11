@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // Bento cells are visible by default (set in CSS). With motion allowed they
 // are hidden at load (the section sits below the fold) and staggered in once
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cells.length) return;
 
     gsap.set(cells, { opacity: 0, y: 28 });
+    revealFailsafe(cells, 4000);
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {

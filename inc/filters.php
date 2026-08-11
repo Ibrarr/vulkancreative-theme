@@ -118,25 +118,27 @@ add_filter(
 // title uses the house pipe. Normalise the separator that sits before the brand
 // name to "|", and guarantee the brand suffix on any title that omits it (some
 // posts), so every SERP result carries "… | Vulkan Creative" consistently.
-add_filter(
-	'wpseo_title',
-	function ( $title ) {
-		$brand = get_bloginfo( 'name' );
-		if ( '' === $title || '' === $brand ) {
-			return $title;
-		}
-		$title = preg_replace(
-			'/\s[-\x{2013}\x{2014}]\s(' . preg_quote( $brand, '/' ) . ')\s*$/u',
-			' | $1',
-			$title
-		);
-		if ( false === strpos( $title, $brand ) ) {
-			$title .= ' | ' . $brand;
-		}
+function vc_normalise_brand_title( $title ) {
+	$brand = get_bloginfo( 'name' );
+	if ( '' === $title || '' === $brand ) {
 		return $title;
-	},
-	20
-);
+	}
+	$title = preg_replace(
+		'/\s[-\x{2013}\x{2014}]\s(' . preg_quote( $brand, '/' ) . ')\s*$/u',
+		' | $1',
+		$title
+	);
+	if ( false === strpos( $title, $brand ) ) {
+		$title .= ' | ' . $brand;
+	}
+	return $title;
+}
+add_filter( 'wpseo_title', 'vc_normalise_brand_title', 20 );
+
+// og:title goes out through a different Yoast pipe and missed the fix above
+// (46 pages carried the dash separator, posts had no brand at all), so social
+// previews now run the same normalisation as the SERP title.
+add_filter( 'wpseo_opengraph_title', 'vc_normalise_brand_title', 20 );
 
 // The 404-preview page (page-templates/page-404-preview.php) exists only so the
 // team can view the 404 design at a stable, crawlable URL; the real 404.php

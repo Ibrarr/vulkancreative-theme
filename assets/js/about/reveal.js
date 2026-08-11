@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(SplitText);
 
@@ -24,8 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // its `forwards` fill outranks inline styles, so left alive it would force
     // below-fold targets visible early and swallow their entrance.
     gsap.set([...headings, ...fades], { opacity: 0, y: 24, animation: 'none' });
+    revealFailsafe([...headings, ...fades], 4000);
     groups.forEach((group) => {
         gsap.set(group.querySelectorAll('.how-row'), { opacity: 0, y: 16 });
+        revealFailsafe(group.querySelectorAll('.how-row'), 4000);
     });
 
     const showHeading = (el) => {

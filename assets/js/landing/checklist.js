@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // Checklist entrance: rows rise in sequence, then the total settles from a
 // slight scale, then the note fades. One instance per checklist block. Under
@@ -17,8 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!rows.length) return;
 
         gsap.set(rows, { opacity: 0, y: 18 });
+        revealFailsafe(rows, 4000);
         if (total) gsap.set(total, { opacity: 0, scale: 1.04, transformOrigin: 'left bottom' });
+        if (total) revealFailsafe(total, 4000);
         if (note) gsap.set(note, { opacity: 0 });
+        if (note) revealFailsafe(note, 4000);
 
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach((entry) => {

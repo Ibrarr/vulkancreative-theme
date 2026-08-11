@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(SplitText);
 
@@ -63,10 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = el.getAttribute('data-reveal');
         if ('stagger' === type) {
             gsap.set(Array.from(el.children), { opacity: 0, y: 22 });
+            revealFailsafe(Array.from(el.children), 4000);
         } else if ('rule' === type) {
             gsap.set(el, { scaleX: 0 });
         } else {
             gsap.set(el, { opacity: 0, y: 24 });
+            revealFailsafe(el, 4000);
         }
     });
 

@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // Staggered entrance for service card grids. Binds by the .services-grid
 // class, so the same module serves the hub grid and the service pages'
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = grid.querySelectorAll('.service-card');
         if (!cards.length) return;
         gsap.set(cards, { opacity: 0, y: 24 });
+        revealFailsafe(cards, 4000);
         observer.observe(grid);
     });
 });

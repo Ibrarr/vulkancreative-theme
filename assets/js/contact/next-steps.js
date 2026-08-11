@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { prefersReducedMotion } from '../components/reduced-motion';
+import { revealFailsafe } from '../components/reveal-failsafe';
 
 // The "what happens next" ember rail: on first view the rail draws down the
 // list (scaleY 0 -> 1) while the steps stagger in, and each step's index heats
@@ -19,7 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Take over from the CSS pre-hide; animation:none cancels the 2.5s failsafe
     // whose `forwards` fill would otherwise outrank the timeline's inline styles.
     gsap.set(block, { opacity: 0, animation: 'none' });
+    revealFailsafe(block, 4000);
     gsap.set(steps, { opacity: 0, y: 16 });
+    revealFailsafe(steps, 4000);
     gsap.set(rail, { scaleY: 0 });
 
     const observer = new IntersectionObserver((entries, obs) => {
