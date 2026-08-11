@@ -1,10 +1,82 @@
-// Gravity Forms buttons, globally: whatever theme framework or embed styling
-// a form carries, its buttons meet the 44px control floor. Keyed on
-// .gform_wrapper (the house convention), !important because GF's Orbital
-// variables win the cascade otherwise.
+// Gravity Forms default embeds (homepage/hub/service form 2, the blog
+// newsletter): GF Orbital renders <button class="gform_button"> with its own
+// blue theme, which the legacy input[type="submit"] rules never reach. This
+// partial gives every non-bespoke embed the forge button and readable
+// placeholders in both modes. The enquiry family is excluded: it carries its
+// own full treatment in _enquiry-form.scss. !important throughout because
+// Orbital's variables win the cascade otherwise (the documented house fight).
+.gform_wrapper:not(.enquiry-form_wrapper) {
+  // GF emits both class spellings: gform_button (legacy) and gform-button
+  // (Orbital, with variants like --white on the newsletter).
+  button.gform_button,
+  button.gform-button,
+  input[type="submit"] {
+    font-family: $vc-font-family !important;
+    font-size: 16px !important;
+    font-weight: $vc-bold !important;
+    background: $vc-primary !important;
+    color: $vc-surface-white !important;
+    border: 1px solid $vc-primary !important;
+    border-radius: 2px !important;
+    padding: 12px 30px !important;
+    min-height: 44px !important;
+    line-height: normal !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: background-color .3s, border-color .3s, box-shadow .3s, transform .12s;
+
+    @media (hover: hover) {
+      &:hover {
+        background: $vc-secondary !important;
+        border-color: $vc-secondary !important;
+        box-shadow: $vc-glow-button !important;
+      }
+    }
+
+    // Mouse clicks get no ring (GF paints its blue one otherwise);
+    // keyboard focus keeps the house red ring.
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    &:focus-visible {
+      background: $vc-secondary !important;
+      border-color: $vc-secondary !important;
+      outline: 2px solid $vc-primary !important;
+      outline-offset: 2px !important;
+    }
+
+    &:active {
+      transform: scale(0.985);
+    }
+  }
+}
+
+// The 44px control floor for every GF button, bespoke embeds included.
 .gform_wrapper .gform_footer .gform_button,
+.gform_wrapper .gform_footer .gform-button,
 .gform_wrapper .gfield--type-submit .gform_button,
+.gform_wrapper .gfield--type-submit .gform-button,
 .gform_wrapper .gform_footer input[type="submit"],
 .gform_wrapper .gfield--type-submit input[type="submit"] {
   min-height: 44px !important;
+}
+
+// Placeholders: Orbital's dark-navy rgba(17,35,55,.7) disappears on the dark
+// surfaces. House muted colours in both modes; bespoke embeds may still
+// sharpen these with their own more specific rules.
+.gform_wrapper {
+  input::placeholder,
+  textarea::placeholder {
+    color: $vc-grey-600 !important;
+    opacity: 1 !important;
+  }
+}
+
+@at-root body.dark-mode .gform_wrapper {
+  input::placeholder,
+  textarea::placeholder {
+    color: rgba($vc-muted-on-dark, 0.8) !important;
+  }
 }
