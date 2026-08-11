@@ -60,7 +60,7 @@ Config in `~/.config/vc-publish/config.json` (Application Password, 600 permissi
 
 ## Authoring
 
-Formats are documented where they are used: each skill carries its `references/format.md`, and the content repo README summarises them. The five skills, all in `~/.claude/skills/`:
+Formats are documented where they are used: each skill carries its `references/format.md`, and the content repo README summarises them. The five skills, all in `~/.claude/skills/`, all invocation-only (run with `/name`; they never fire automatically, so other clients' sessions stay untouched):
 
 | Skill | Job |
 |---|---|
