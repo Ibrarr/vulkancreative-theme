@@ -112,6 +112,24 @@ function vc_heading_parts_sub( $base, $fallback = '' ) {
 }
 
 /**
+ * Echo a plain-text field as one or more <p> tags of the given class,
+ * splitting on blank lines, single newlines kept as <br>. The
+ * multi-paragraph textareas (overview support, results narrative) store
+ * raw text with no new_lines processing, so paragraph rendering is the
+ * template's job; without this their breaks collapse into one block.
+ */
+function vc_text_paragraphs( $text, $class ) {
+	$paragraphs = preg_split( '/\r?\n\s*\r?\n/', trim( (string) $text ) );
+	foreach ( $paragraphs as $paragraph ) {
+		$paragraph = trim( $paragraph );
+		if ( '' === $paragraph ) {
+			continue;
+		}
+		echo '<p class="' . esc_attr( $class ) . '">' . nl2br( esc_html( $paragraph ) ) . "</p>\n";
+	}
+}
+
+/**
  * Templates that use the slim header variant (logo + theme toggle + one CTA,
  * no nav, no hamburger) and the mobile sticky CTA: the free-website offer page
  * and the reusable Landing Page template. Keep this list as the single source

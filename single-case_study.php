@@ -140,7 +140,7 @@ while ( have_posts() ) :
 						<div class="overview-lead">
 							<p class="overview-statement"><?php echo esc_html( $cs_ov_statement ?: $cs_summary ); ?></p>
 							<?php if ( $cs_ov_support ) : ?>
-								<p class="overview-support"><?php echo esc_html( $cs_ov_support ); ?></p>
+								<?php vc_text_paragraphs( $cs_ov_support, 'overview-support' ); ?>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
@@ -312,7 +312,7 @@ while ( have_posts() ) :
 					</div>
 				<?php endif; ?>
 				<?php if ( $cs_narrative ) : ?>
-					<p class="results-narrative"><?php echo esc_html( $cs_narrative ); ?></p>
+					<?php vc_text_paragraphs( $cs_narrative, 'results-narrative' ); ?>
 				<?php endif; ?>
 				<div class="results-actions">
 					<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
