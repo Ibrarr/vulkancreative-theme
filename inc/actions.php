@@ -90,8 +90,10 @@ register_nav_menus( array( 'footer-menu' => esc_html__( 'Footer Menu', 'vc' ) ) 
 
 /**
  * The service taxonomy moved from /service/{slug} to /services/{slug} (under
- * the Services hub page), so the old base 301s to the same term's new home.
- * Priority 0 so it runs ahead of any other template_redirect handling.
+ * the Services hub page), so the old base 301s to the same term's new home,
+ * and retired pillar slugs (vc_service_slug_aliases()) 301 to their
+ * replacement. Priority 0 so it runs ahead of any other template_redirect
+ * handling.
  */
 add_action( 'template_redirect', 'vc_service_slug_redirect', 0 );
 function vc_service_slug_redirect() {
@@ -99,10 +101,13 @@ function vc_service_slug_redirect() {
 	if ( ! $path ) {
 		return;
 	}
+	$renamed = vc_service_slug_aliases();
 
-	// Legacy singular base: /service/{slug} -> the term's canonical URL.
+	// Legacy singular base: /service/{slug} -> the term's canonical URL,
+	// through the alias map too.
 	if ( preg_match( '#^/service/([^/]+)/?$#', $path, $matches ) ) {
-		$term = get_term_by( 'slug', sanitize_title( $matches[1] ), 'service' );
+		$slug = sanitize_title( $matches[1] );
+		$term = get_term_by( 'slug', $renamed[ $slug ] ?? $slug, 'service' );
 		if ( $term && ! is_wp_error( $term ) ) {
 			wp_safe_redirect( get_term_link( $term ), 301 );
 			exit;
@@ -110,19 +115,70 @@ function vc_service_slug_redirect() {
 		return;
 	}
 
-	// Renamed pillars (July 2026 restructure): /services/{old}/ -> new pillar.
-	$renamed = array(
-		'paid-socials-ppc'  => 'paid-media',
-		'content-creation'  => 'content-marketing',
-		'digital-marketing' => 'strategy-analytics',
-	);
-	if ( preg_match( '#^/services/([^/]+)/?$#', $path, $m ) && isset( $renamed[ $m[1] ] ) ) {
-		$term = get_term_by( 'slug', $renamed[ $m[1] ], 'service' );
-		if ( $term && ! is_wp_error( $term ) ) {
-			wp_safe_redirect( get_term_link( $term ), 301 );
+	// /services/{pillar}/ and /services/{pillar}/{child}/. The rewrite is
+	// hierarchical, so WP resolves a child by its LAST segment whatever the
+	// first says: /services/content-marketing/copywriting/ would render the
+	// copywriting page 200 at a stale URL. 301 to the child's canonical link
+	// when the first segment is not its live parent; a bare or unresolvable
+	// path under a renamed pillar goes to the pillar itself. Canonical URLs
+	// never match and fall through.
+	if ( ! preg_match( '#^/services/([^/]+)(?:/([^/]+))?/?$#', $path, $m ) ) {
+		return;
+	}
+	$first  = sanitize_title( $m[1] );
+	$second = isset( $m[2] ) ? sanitize_title( $m[2] ) : '';
+	$target = null;
+
+	if ( $second ) {
+		$child = get_term_by( 'slug', $second, 'service' );
+		if ( $child && ! is_wp_error( $child ) && $child->parent ) {
+			$parent = get_term( (int) $child->parent, 'service' );
+			if ( $parent && ! is_wp_error( $parent ) && $parent->slug !== $first ) {
+				$target = $child;
+			}
+		}
+	}
+	if ( ! $target && isset( $renamed[ $first ] ) ) {
+		$target = get_term_by( 'slug', $renamed[ $first ], 'service' );
+	}
+	if ( $target && ! is_wp_error( $target ) ) {
+		$link = get_term_link( $target );
+		if ( ! is_wp_error( $link ) ) {
+			wp_safe_redirect( $link, 301 );
 			exit;
 		}
 	}
+}
+
+/**
+ * Renamed blog categories: /blog/category/{old}/... -> the live category,
+ * keeping any trailing path (pagination, feed). Aug 2026: "Content Marketing"
+ * became "Content & Social" alongside the service pillar of the same name.
+ */
+add_action( 'template_redirect', 'vc_category_slug_redirect', 0 );
+function vc_category_slug_redirect() {
+	$path = wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH );
+	if ( ! $path || ! preg_match( '#^/blog/category/([^/]+)(/.*)?$#', $path, $m ) ) {
+		return;
+	}
+	$renamed = array(
+		'content-marketing' => 'content-social',
+	);
+	$slug = sanitize_title( $m[1] );
+	if ( ! isset( $renamed[ $slug ] ) ) {
+		return;
+	}
+	$term = get_term_by( 'slug', $renamed[ $slug ], 'category' );
+	if ( ! $term || is_wp_error( $term ) ) {
+		return;
+	}
+	$link = get_term_link( $term );
+	if ( is_wp_error( $link ) ) {
+		return;
+	}
+	$rest = isset( $m[2] ) ? ltrim( $m[2], '/' ) : '';
+	wp_safe_redirect( trailingslashit( $link ) . $rest, 301 );
+	exit;
 }
 
 /**

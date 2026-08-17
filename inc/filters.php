@@ -192,7 +192,10 @@ add_filter(
 add_filter( 'request', 'vc_work_service_request' );
 function vc_work_service_request( $qv ) {
 	if ( isset( $qv['post_type'], $qv['service'] ) && in_array( $qv['post_type'], array( 'project', 'case_study' ), true ) ) {
-		$qv['vc_work_service'] = sanitize_title( (string) $qv['service'] );
+		$slug = sanitize_title( (string) $qv['service'] );
+		// Old bookmarks with a retired pillar slug still preselect the live chip.
+		$aliases              = function_exists( 'vc_service_slug_aliases' ) ? vc_service_slug_aliases() : array();
+		$qv['vc_work_service'] = isset( $aliases[ $slug ] ) ? $aliases[ $slug ] : $slug;
 		unset( $qv['service'] );
 	}
 	return $qv;
