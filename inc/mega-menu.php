@@ -3,7 +3,7 @@
 // The "What We Do" mega menu. The header main menu keeps a single "What We Do"
 // item; its dropdown is rendered dynamically from the service taxonomy — the
 // pillars in the Global Settings > Service List order (menu-ticked), each with
-// its child services alphabetically — rather than hand-placed child menu items,
+// its child services in that row's child order, rather than hand-placed child menu items,
 // so the menu maintains itself. Built as nav-menu filters that reuse the
 // existing dropdown contract (.menu-item-has-children > .sub-menu) so the header
 // CSS and dropdown.js keep working; the panel carries an extra .sub-menu--mega
