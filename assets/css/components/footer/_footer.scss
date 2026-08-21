@@ -194,6 +194,122 @@ footer {
     }
   }
 
+  // Quiet trust row: three bottom-aligned groups on one hairline at lg+ (the
+  // press credit with the wordmark under its label, the partner badges under
+  // theirs, the Google rating), stacked below lg. Same seam recipe as .bottom
+  // so the footer closes with two evenly rhythmed rows. Rendered only when
+  // Global Settings holds press logos, partner badges or the reviews data.
+  .footer-trust {
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid $vc-grey-dark-border;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-5;
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: $space-4 $space-6;
+    }
+
+    .footer-heading {
+      margin-bottom: $space-2;
+    }
+
+    .footer-press-logos {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: $space-3;
+      // Every content row in the trust row stands 44px tall (this row, the
+      // badge items, the Google link) so the three labels share one line and
+      // the wordmark, badges and rating share another.
+      min-height: 44px;
+    }
+
+    .footer-press-logo {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+
+      img {
+        display: block;
+        height: 20px;
+        width: auto;
+        // The house knockout for marks on the dark footer; the navy wordmark
+        // reads white. The Google G is the one mark never filtered.
+        filter: grayscale(1) brightness(0) invert(1);
+        opacity: 0.55;
+        transition: opacity 0.3s;
+      }
+    }
+
+    a.footer-press-logo {
+      @media (hover: hover) {
+        &:hover img {
+          opacity: 0.85;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+
+        img {
+          opacity: 0.85;
+        }
+      }
+    }
+
+    .footer-google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      text-decoration: none;
+
+      img {
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        @include vc-body($vc-muted-on-dark);
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-google-value {
+        color: $vc-text-light;
+        font-weight: 600;
+      }
+
+      .footer-google-dot {
+        margin: 0 6px;
+      }
+
+      @media (hover: hover) {
+        &:hover span {
+          color: $vc-text-light;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+
+        span {
+          color: $vc-text-light;
+        }
+      }
+    }
+  }
+
   .bottom {
     padding-top: 40px;
     margin-top: 40px;
@@ -249,9 +365,12 @@ footer {
     font-family: $vc-display-font;
     font-weight: $vc-black;
     font-stretch: $vc-display-stretch;
-    font-size: clamp(6rem, 19vw, 19rem);
+    // Sized from the word's measured width (about 5.6x the font size) so it
+    // fits every viewport; the 6rem floor and -0.02em tracking it replaced
+    // overflowed small screens and ran the K into the A.
+    font-size: min(16.5vw, 19rem);
     line-height: 0.72;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     text-align: center;
     color: rgba($vc-text-light, 0.05);

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
     const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .our-work .content h2, .why .content h2, .process .content h2, .testimonials .content h2, .latest-insights .content h2');
-    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading, .latest-insights .content .sub-heading, .latest-insights .latest-insights-all');
+    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading, .latest-insights .content .sub-heading, .latest-insights .latest-insights-all, .why .partner-logos');
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
     const latestCards = gsap.utils.toArray('.latest-insights .insight-card');
 

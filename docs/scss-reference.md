@@ -20,6 +20,7 @@ assets/css/
     │   └── components/
     │       ├── _founders.scss            # incl. the merged section head + intro-lead
     │       ├── _how.scss
+    │       ├── _press.scss               # As-featured-in band (Aug 2026)
     │       ├── _proof.scss
     │       ├── _story.scss
     │       └── _values.scss
@@ -43,9 +44,10 @@ assets/css/
     │   ├── _pagination.scss
     │   ├── _post-grid.scss
     │   ├── _process.scss                 # shared process band (homepage, services hub, service pages)
+    │   ├── _partner-logos.scss           # partner badge strip (homepage why band + About proof, Aug 2026)
     │   ├── _results.scss                 # shared results band (homepage + the service results anchor base)
     │   ├── _service-card.scss            # shared service card (hub grid + service pages' related strip)
-    │   ├── _testimonial-spotlight.scss   # shared spotlight (homepage testimonials + About proof)
+    │   ├── _testimonial-spotlight.scss   # shared spotlight + the Google-backed rating chip (Aug 2026: a.rating-chip link states, .rating-line/.rating-google-mark/.rating-asof; the G is never filtered)
     │   └── _work-wheel.scss              # shared work wheel (homepage Our Work + service pages' recent work)
     ├── contact-us/
     │   ├── _contact-us.scss

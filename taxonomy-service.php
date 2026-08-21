@@ -32,7 +32,7 @@ $sv_heading_highlights = [
 	'web-design-development' => 'Web Design & <span>Development</span>',
 	'seo-ai-search'          => 'SEO & <span>AI Search</span>',
 	'paid-media'             => 'Paid <span>Media</span>',
-	'content-marketing'      => 'Content <span>Marketing</span>',
+	'content-social'         => 'Content & <span>Social</span>',
 	'strategy-analytics'     => 'Strategy & <span>Analytics</span>',
 	'branding'               => '<span>Branding</span>',
 ];
@@ -90,10 +90,20 @@ if ( have_rows( 'sv_results_stats', $acf_id ) ) {
 	}
 }
 
-// Related services: sibling pillars for a parent page (the shared Service List
-// order), sibling children for a leaf page (alphabetical). Current term
-// removed, first three.
-$related_terms = $is_pillar ? vc_ordered_services() : vc_service_children( $term->parent );
+// Related services: the editorial pick (sv_related_services, in the order
+// chosen) when set; otherwise derived: sibling pillars for a parent page (the
+// shared Service List order), sibling children for a leaf page (the pillar's
+// child order). Current term removed, first three.
+$related_terms = array();
+foreach ( array_filter( array_map( 'intval', (array) get_field( 'sv_related_services', $acf_id ) ) ) as $related_id ) {
+	$related_pick = get_term( $related_id, 'service' );
+	if ( $related_pick && ! is_wp_error( $related_pick ) ) {
+		$related_terms[] = $related_pick;
+	}
+}
+if ( ! $related_terms ) {
+	$related_terms = $is_pillar ? vc_ordered_services() : vc_service_children( $term->parent );
+}
 $related_terms = array_values( array_filter( $related_terms, function ( $t ) use ( $term_id ) {
 	return (int) $t->term_id !== (int) $term_id;
 } ) );
@@ -262,7 +272,8 @@ get_template_part( 'template-parts/page', 'hero', [
 <?php
 // Pillar pages list their child services as cards — the hub grid pattern on a
 // service term page, with a split head (heading + intro-lead). The child cards
-// are the shared service-card partial; children are alphabetical.
+// are the shared service-card partial, in the Service List's child order
+// (vc_service_children(): listed first, unlisted after them alphabetically).
 ?>
 <section class="service-children <?php echo esc_attr( $sv_surface() ); ?>" id="services">
 	<div class="container px-4">

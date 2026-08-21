@@ -194,17 +194,100 @@ function vc_ordered_services( $location = null ) {
 }
 
 /**
- * A parent service's child services, alphabetically. Used on pillar pages and
- * in the mega menu. Returns an empty array for a leaf term (no children).
+ * Retired service slugs => the live slug that replaced them. The single source
+ * for the URL shim (inc/actions.php), the enquiry-form conditional-logic remap
+ * (inc/gravity-forms.php) and the archive ?service= chip shim (inc/filters.php),
+ * so the three can never drift apart again. Targets are resolved live, so an
+ * entry is inert until its term exists.
+ */
+function vc_service_slug_aliases() {
+	return array(
+		'paid-socials-ppc'  => 'paid-media',         // July 2026 restructure
+		'paid-search-ppc'   => 'paid-media',         // legacy flat term, deleted Aug 2026
+		'digital-marketing' => 'strategy-analytics', // July 2026 restructure; legacy flat term deleted Aug 2026
+		'content-creation'  => 'content-social',     // legacy flat term, deleted Aug 2026
+		'content-marketing' => 'content-social',     // pillar renamed Content & Social, Aug 2026
+	);
+}
+
+/**
+ * The editorial child order per pillar from the Global Settings Service List
+ * (the "children" sub-repeater on each pillar row), built once per request.
+ * Reads through get_field() rather than have_rows() so it can never disturb an
+ * outer have_rows( 'service_list' ) loop.
+ *
+ * @return array<int, int[]> parent term id => ordered child term ids
+ */
+function vc_service_child_order() {
+	static $map = null;
+	if ( null !== $map ) {
+		return $map;
+	}
+	$map  = array();
+	$rows = function_exists( 'get_field' ) ? get_field( 'service_list', 'options' ) : null;
+	foreach ( ( is_array( $rows ) ? $rows : array() ) as $row ) {
+		$parent_id = isset( $row['service'] ) ? (int) $row['service'] : 0;
+		if ( ! $parent_id || empty( $row['children'] ) || ! is_array( $row['children'] ) ) {
+			continue;
+		}
+		$ids = array();
+		foreach ( $row['children'] as $child_row ) {
+			$child_id = isset( $child_row['service'] ) ? (int) $child_row['service'] : 0;
+			if ( $child_id && ! in_array( $child_id, $ids, true ) ) {
+				$ids[] = $child_id;
+			}
+		}
+		if ( $ids ) {
+			$map[ $parent_id ] = $ids;
+		}
+	}
+	return $map;
+}
+
+/**
+ * A parent service's child services: the Service List's editorial order first
+ * (only ids that really are live children of this pillar), then any unlisted
+ * child alphabetically so a new child never disappears; plain alphabetical
+ * when the row lists nothing. Used on pillar pages, in a leaf page's related
+ * strip and in the mega menu, so cached per request. Empty array for a leaf.
  *
  * @return WP_Term[]
  */
 function vc_service_children( $parent_id ) {
+	static $cache = array();
+	$parent_id = (int) $parent_id;
+	if ( isset( $cache[ $parent_id ] ) ) {
+		return $cache[ $parent_id ];
+	}
+
 	$children = get_terms( array(
 		'taxonomy'   => 'service',
 		'hide_empty' => false,
-		'parent'     => (int) $parent_id,
+		'parent'     => $parent_id,
 		'orderby'    => 'name',
 	) );
-	return is_wp_error( $children ) ? array() : $children;
+	if ( is_wp_error( $children ) || ! $children ) {
+		$cache[ $parent_id ] = array();
+		return $cache[ $parent_id ];
+	}
+
+	$order = vc_service_child_order();
+	if ( empty( $order[ $parent_id ] ) ) {
+		$cache[ $parent_id ] = array_values( $children );
+		return $cache[ $parent_id ];
+	}
+
+	$by_id = array();
+	foreach ( $children as $child ) {
+		$by_id[ (int) $child->term_id ] = $child;
+	}
+	$ordered = array();
+	foreach ( $order[ $parent_id ] as $child_id ) {
+		if ( isset( $by_id[ $child_id ] ) ) {
+			$ordered[] = $by_id[ $child_id ];
+			unset( $by_id[ $child_id ] );
+		}
+	}
+	$cache[ $parent_id ] = array_merge( $ordered, array_values( $by_id ) );
+	return $cache[ $parent_id ];
 }

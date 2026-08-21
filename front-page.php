@@ -43,7 +43,7 @@ $why_items_default = [
 	[
 		'title'       => 'Results You Can Measure',
 		'description' => 'We tie every engagement to numbers that matter: enquiries, rankings, revenue. You always know what is working and why.',
-		'proof'       => '4.9 average client rating',
+		'proof'       => '5.0 rating on Google',
 	],
 ];
 $why_items = [];
@@ -70,10 +70,8 @@ $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 $process_heading     = vc_heading_parts( 'hp_process_heading', false, 'A Clear Path From <span>Spark to Scale</span>' );
 $process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
 
-// Testimonials
-$testimonials_heading      = vc_heading_parts( 'hp_testimonials_heading', false, 'Trusted by <span>Ambitious Brands</span>' );
-$testimonials_rating_value = get_field('hp_testimonials_rating_value') ?: '4.9';
-$testimonials_rating_label = get_field('hp_testimonials_rating_label') ?: 'average client rating';
+// Testimonials (the rating chip reads Global Settings via vc_google_reviews())
+$testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'Trusted by <span>Ambitious Brands</span>' );
 
 // Contact
 $contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you want to discuss?' );
@@ -146,15 +144,15 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 <?php while ( have_rows('hp_results_stats') ) : the_row(); ?>
                     <div class="col-lg-3 col-6">
                         <div class="stat">
-                            <span class="stat-number"><?php echo esc_html( get_sub_field('value') ); ?></span>
-                            <p class="stat-label"><?php echo esc_html( get_sub_field('label') ); ?></p>
+                            <span class="stat-number"><?php echo esc_html( vc_review_tokens( get_sub_field('value') ) ); ?></span>
+                            <p class="stat-label"><?php echo esc_html( vc_review_tokens( get_sub_field('label') ) ); ?></p>
                         </div>
                     </div>
                 <?php endwhile; ?>
             <?php else :
                 $placeholder_stats = [
                     [ '120+', 'Projects delivered' ],
-                    [ '4.9',  'Average client rating' ],
+                    [ '5.0',  'Rating on Google' ],
                     [ '2.3x', 'Average lead growth' ],
                     [ '10+',  'Years combined experience' ],
                 ];
@@ -371,6 +369,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 <a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php echo esc_html( $why_cta_label ); ?></a>
             </div>
         </div>
+        <?php get_template_part( 'template-parts/partner-logos', null, [ 'surface' => 'dark' ] ); ?>
     </div>
 </section>
 
@@ -428,14 +427,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             <div class="content">
                 <h2><?php echo wp_kses_post( $testimonials_heading ); ?></h2>
             </div>
-            <div class="rating-chip">
-                <span class="rating-stars" aria-hidden="true">
-                    <?php for ( $star_i = 0; $star_i < 5; $star_i++ ) : ?>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2l2.92 6.26 6.83.62-5.17 4.56 1.54 6.7L12 16.67 5.88 20.14l1.54-6.7L2.25 8.88l6.83-.62L12 2z"/></svg>
-                    <?php endfor; ?>
-                </span>
-                <span class="rating-text"><span class="rating-value"><?php echo esc_html( $testimonials_rating_value ); ?></span> <?php echo esc_html( $testimonials_rating_label ); ?></span>
-            </div>
+            <?php get_template_part( 'template-parts/rating-chip' ); ?>
         </div>
         <?php if ( have_rows('hp_testimonials_logos') ) : ?>
             <div class="trust-logos">

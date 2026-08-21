@@ -1,0 +1,229 @@
+// "As featured in" press band closing the About page (after proof), fed by
+// the ab_press_* fields. A split head (heading left, body + CTA right) over
+// the PRINT RUN: the feature spread repeated as overlapping, fanned copies on
+// two slow counter-scrolling rows (a smaller, dimmer row behind), tilted as
+// one plane and cut by the band's edges. Every visible slice is the left of
+// the spread (the headline and the statue) because each copy overlaps the
+// one before it. Hairline paper edges, 2px corners, no shadows, resting
+// desaturation; the CSS marquee follows the homepage text-marquee recipe and
+// the reduced-motion safety net flattens it to a still rack.
+.about-press {
+  @include vc-section-padding;
+  // The print run is the band's bottom edge: no padding under it at any
+  // width (the mixin's small-screen padding would otherwise reopen a gap).
+  padding-bottom: 0;
+  position: relative;
+
+  @include media-breakpoint-down(lg) {
+    padding-bottom: 0;
+  }
+
+  // clip, not hidden: hidden makes the band a scroll container that anchors
+  // and focus can scroll internally by the run's overflow (the homepage
+  // text-marquee precedent).
+  overflow: clip;
+  background: $vc-background-white;
+  transition: background 0.3s;
+
+  // The head sits above the run (the faint far row starts behind it).
+  .press-head {
+    position: relative;
+    z-index: 2;
+  }
+
+  .content h2 {
+    @include vc-display-2($vc-text-dark);
+    margin-bottom: 0;
+    transition: color 0.3s;
+
+    span {
+      color: $vc-primary;
+    }
+  }
+
+  .press-lead {
+    margin-top: $space-4;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: 0;
+    }
+  }
+
+  .press-body {
+    @include vc-p($vc-grey-600);
+    max-width: 48ch;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .press-cta {
+    @include vc-button-ghost($vc-text-dark);
+    margin-top: $space-4;
+  }
+
+  // The rack: a fixed-height stage the tilted plane overflows; the section
+  // clips it at the sides and the bottom, a short mask sinks its top into
+  // the band. It starts behind the head (negative top margin) so the run
+  // reaches up under the copy and no row is ever cut by the stage's top.
+  // Decorative and inert: it never takes pointer events.
+  .press-rack {
+    position: relative;
+    z-index: 1;
+    height: 380px;
+    margin-top: -$space-8;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
+
+    @include media-breakpoint-up(lg) {
+      height: 560px;
+      margin-top: -$space-15;
+    }
+  }
+
+  .press-rack-plane {
+    position: absolute;
+    top: 0;
+    right: -12%;
+    bottom: -60px;
+    left: -12%;
+    // Pivot on the bottom-right so the right end of the run sits on the
+    // band's seam and the left end sinks below it.
+    transform: rotate(-5deg);
+    transform-origin: 100% 100%;
+  }
+
+  // Three rows, smaller and fainter towards the back. Each row's set width
+  // (count x step) comes from the --set-count the template prints, so the
+  // track is exactly two sets wide and the loop slides by exactly one.
+  .press-rack-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    --set-w: calc(var(--set-count) * var(--copy-step));
+
+    &.is-far {
+      --copy-w: 160px;
+      --copy-step: 88px;
+      top: 10px;
+      opacity: 0.1;
+    }
+
+    &.is-back {
+      --copy-w: 220px;
+      --copy-step: 122px;
+      top: 120px;
+      opacity: 0.35;
+    }
+
+    &.is-front {
+      --copy-w: 300px;
+      --copy-step: 166px;
+      top: 250px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      &.is-far {
+        --copy-w: 240px;
+        --copy-step: 132px;
+        top: 20px;
+      }
+
+      &.is-back {
+        --copy-w: 320px;
+        --copy-step: 178px;
+        top: 150px;
+      }
+
+      &.is-front {
+        --copy-w: 470px;
+        --copy-step: 260px;
+        top: 300px;
+      }
+    }
+  }
+
+  .press-rack-track {
+    display: flex;
+    align-items: flex-start;
+    width: calc(2 * var(--set-w));
+    will-change: transform;
+    animation: vc-press-rack 96s linear infinite;
+  }
+
+  .is-back .press-rack-track {
+    animation-duration: 150s;
+    animation-direction: reverse;
+  }
+
+  .is-far .press-rack-track {
+    animation-duration: 210s;
+  }
+
+  .press-print {
+    display: block;
+    flex: 0 0 auto;
+    width: var(--copy-w);
+    height: auto;
+    // The fan: each copy overlaps the one before by (width - step), all on
+    // one baseline so the run reads as a continuous stack.
+    margin-right: calc(var(--copy-step) - var(--copy-w));
+    border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    background: $vc-background-dark;
+    filter: grayscale(0.25);
+    transition: border-color 0.3s;
+  }
+
+  // The back row stacks the other way: each copy's left neighbour sits on
+  // top, so the visible slice is the right-hand page (the founders' story
+  // panel) and the row reads differently from the two around it.
+  .is-back .press-print {
+    position: relative;
+    z-index: calc(2 * var(--set-count) - var(--i));
+  }
+}
+
+// Slides by exactly one set (the row's --set-w), so the second set lands
+// where the first began and the loop never shows a seam.
+@keyframes vc-press-rack {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-1 * var(--set-w)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-press .press-rack-track {
+    animation: none;
+  }
+}
+
+@at-root body.dark-mode .about-press {
+  background: $dark-vc-background-dark-alt !important;
+
+  .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .press-body {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .press-cta {
+    color: $vc-text-light !important;
+    border-color: rgba($vc-text-light, 0.35) !important;
+
+    &:hover {
+      color: $vc-primary !important;
+      border-color: $vc-primary !important;
+    }
+  }
+
+  .press-print {
+    border-color: $vc-grey-dark-border !important;
+  }
+}

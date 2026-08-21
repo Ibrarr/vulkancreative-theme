@@ -112,11 +112,8 @@ $how_items = $how_items ?: $how_fallback;
 
 // Proof: testimonials from the CPT (the homepage spotlight component) plus
 // the client logo marquee from Global Settings. The rating chip reads the
-// homepage's fields so the site has one aggregate rating, edited in one place.
-$proof_heading      = vc_heading_parts( 'ab_proof_heading', false, "Don't take <span>our word</span> for it." );
-$front_page_id      = (int) get_option( 'page_on_front' );
-$proof_rating_value = get_field( 'hp_testimonials_rating_value', $front_page_id ) ?: '4.9';
-$proof_rating_label = get_field( 'hp_testimonials_rating_label', $front_page_id ) ?: 'average client rating';
+// shared Google reviews options via vc_google_reviews().
+$proof_heading = vc_heading_parts( 'ab_proof_heading', false, "Don't take <span>our word</span> for it." );
 $testimonial_posts = new WP_Query([
 	'post_type'      => 'testimonial',
 	'posts_per_page' => 6,
@@ -141,6 +138,18 @@ $story_heading     = vc_heading_parts( 'ab_story_heading', false, 'Our <span>Sto
 $story_description = get_field('ab_story_description') ?: "We started Vulkan because agency work had drifted: bloated teams, vague reports and clients kept at arm's length. We do it differently: in person, honest about what works and measured by what it returns. Press play for the story in our own words.";
 $story_button      = get_field('ab_story_button_label') ?: 'Watch the Film';
 $story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.com/wp-content/VulkanTrailer.mp4';
+
+// Press feature (As featured in). The raw parts gate the section: wiping every
+// press field in admin removes it; the fallbacks only cover partial blanks.
+$press_has_content = get_field('ab_press_heading_start') || get_field('ab_press_heading_red') || get_field('ab_press_heading_end') || get_field('ab_press_body');
+$press_heading = vc_heading_parts( 'ab_press_heading', false, 'As featured in <span>Your Business</span> magazine.' );
+$press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.';
+$press_label   = get_field('ab_press_link_label') ?: 'Read the Feature';
+$press_url     = get_field('ab_press_link_url') ?: 'https://europe.nxtbook.com/emp/AtHome/your-business-with-james-caan-spring-2026/index.php#/p/50';
+$press_image   = get_field('ab_press_image');
+if ( $press_image && ! is_array( $press_image ) && function_exists( 'acf_get_attachment' ) ) {
+	$press_image = acf_get_attachment( (int) $press_image ) ?: null;
+}
 ?>
 
 <?php
@@ -335,14 +344,7 @@ get_template_part( 'template-parts/page', 'hero', [
 			<div class="content">
 				<h2><?php echo wp_kses_post( $proof_heading ); ?></h2>
 			</div>
-			<div class="rating-chip">
-				<span class="rating-stars" aria-hidden="true">
-					<?php for ( $star_i = 0; $star_i < 5; $star_i++ ) : ?>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2l2.92 6.26 6.83.62-5.17 4.56 1.54 6.7L12 16.67 5.88 20.14l1.54-6.7L2.25 8.88l6.83-.62L12 2z"/></svg>
-					<?php endfor; ?>
-				</span>
-				<span class="rating-text"><span class="rating-value"><?php echo esc_html( $proof_rating_value ); ?></span> <?php echo esc_html( $proof_rating_label ); ?></span>
-			</div>
+			<?php get_template_part( 'template-parts/rating-chip' ); ?>
 		</div>
 		<?php if ( $testimonial_items ) : ?>
 			<div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">
@@ -412,6 +414,58 @@ get_template_part( 'template-parts/page', 'hero', [
 		<?php endif; ?>
 	</div>
 </section>
+
+<?php if ( $press_has_content ) : ?>
+<section class="about-press" id="press">
+	<div class="container px-4">
+		<div class="row align-items-lg-end press-head">
+			<div class="col-lg-6">
+				<div class="content">
+					<h2><?php echo wp_kses_post( $press_heading ); ?></h2>
+				</div>
+			</div>
+			<div class="col-lg-5 offset-lg-1 press-lead">
+				<?php if ( $press_body ) : ?>
+					<p class="press-body"><?php echo esc_html( $press_body ); ?></p>
+				<?php endif; ?>
+				<?php if ( $press_url && $press_label ) : ?>
+					<a class="button press-cta" href="<?php echo esc_url( $press_url ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $press_label ); ?></a>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<?php if ( $press_image ) :
+		// The print run: the spread repeated as overlapping, fanned copies on
+		// three slow rows (smaller and dimmer towards the back, the middle row
+		// running the other way), tilted as one plane and cut by the band's
+		// edges. Decorative: the head above carries the information, so the
+		// rack is hidden from assistive tech. Each row renders its set twice
+		// and the CSS sizes the track from the count, so the loop slides by
+		// exactly one set; counts are sized so one set outspans the plane on
+		// viewports up to 2560px wide.
+		$rack_src = esc_url( $press_image['url'] );
+		$rack_w   = (int) $press_image['width'];
+		$rack_h   = (int) $press_image['height'];
+		$rack_row = function ( $class, $count ) use ( $rack_src, $rack_w, $rack_h ) {
+			echo '<div class="press-rack-row ' . esc_attr( $class ) . '" style="--set-count: ' . (int) $count . '"><div class="press-rack-track">';
+			for ( $i = 0; $i < 2 * $count; $i++ ) {
+				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
+			}
+			echo '</div></div>';
+		};
+		?>
+		<div class="press-rack" aria-hidden="true">
+			<div class="press-rack-plane">
+				<?php
+				$rack_row( 'is-far', 26 );
+				$rack_row( 'is-back', 19 );
+				$rack_row( 'is-front', 14 );
+				?>
+			</div>
+		</div>
+	<?php endif; ?>
+</section>
+<?php endif; ?>
 
 <?php
 // Person nodes for the two founders, attached to Yoast's Organization node

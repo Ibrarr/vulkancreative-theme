@@ -68,9 +68,10 @@ function vc_enquiry_service_choice_icons( $choice_markup, $choice, $field, $valu
 // again at validation and submission so the server collects and saves the same
 // list. Keyed on the `service-picker` cssClass, never a form id.
 //
-// The same pass remaps the three pillar slugs renamed in the July 2026
-// restructure wherever step-2 conditional logic still references an old value,
-// so the "current website" / "new or redesign" fields keep firing.
+// The same pass remaps retired pillar slugs (vc_service_slug_aliases(): the July
+// 2026 restructure and the Aug 2026 Content & Social rename) wherever step-2
+// conditional logic still references an old value, so the "current website" /
+// "new or redesign" fields keep firing.
 // -----------------------------------------------------------------------------
 
 add_filter( 'gform_pre_render', 'vc_enquiry_populate_service_picker' );
@@ -90,13 +91,9 @@ function vc_enquiry_populate_service_picker( $form ) {
 		return $form;
 	}
 
-	// The three pillars renamed in the restructure; any step-2 conditional rule
-	// still keyed on an old value is remapped to the live slug below.
-	$renamed = [
-		'digital-marketing' => 'strategy-analytics',
-		'paid-search-ppc'   => 'paid-media',
-		'content-creation'  => 'content-marketing',
-	];
+	// Retired pillar slugs; any step-2 conditional rule still keyed on an old
+	// value is remapped to the live slug below (single source: template-functions).
+	$renamed = function_exists( 'vc_service_slug_aliases' ) ? vc_service_slug_aliases() : [];
 
 	$picker_id = 0;
 

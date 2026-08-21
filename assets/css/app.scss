@@ -84,6 +84,9 @@ body {
 // Shared case study card (/case-studies/ archive grid, service pages' strip).
 @import "components/common/case-study-card";
 
+// Shared partner badge strip (homepage why band, About proof).
+@import "components/common/partner-logos";
+
 // Multi-step enquiry form (Contact page today; scoped to the GF wrapper class
 // so it travels with the form wherever it is embedded).
 @import "components/common/enquiry-form";

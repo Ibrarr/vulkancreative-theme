@@ -816,6 +816,32 @@
             "append": ""
         },
         {
+            "key": "field_680b0260",
+            "label": "Related Services",
+            "name": "sv_related_services",
+            "aria-label": "",
+            "type": "taxonomy",
+            "instructions": "Hand-pick the services shown in the \"More ways we can help\" strip, in order (drag to reorder; the first three are shown and this service itself is skipped). Leave empty for the automatic list: sibling services in the Service List order.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "service",
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "id",
+            "field_type": "multi_select",
+            "allow_null": 1,
+            "allow_in_bindings": 0,
+            "bidirectional": 0,
+            "multiple": 0,
+            "bidirectional_target": []
+        },
+        {
             "key": "field_680b0216",
             "label": "Related Heading Start",
             "name": "sv_related_heading_start",
@@ -1115,5 +1141,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783103486
+    "modified": 1786994192
 }
