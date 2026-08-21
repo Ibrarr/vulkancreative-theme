@@ -56,17 +56,18 @@
   }
 
   // The rack: a fixed-height stage the tilted plane overflows; the section
-  // clips it at the sides and the bottom, a mask sinks its top into the band.
+  // clips it at the sides and the bottom, a short mask sinks its top into
+  // the band. Sits close under the head.
   .press-rack {
     position: relative;
     height: 300px;
-    margin-top: $space-6;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 24%);
-    mask-image: linear-gradient(to bottom, transparent 0, #000 24%);
+    margin-top: $space-3;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
 
     @include media-breakpoint-up(lg) {
       height: 440px;
-      margin-top: $space-8;
+      margin-top: $space-4;
     }
   }
 
@@ -82,10 +83,21 @@
     transform-origin: 100% 100%;
   }
 
+  // Three rows, smaller and fainter towards the back. Each row's set width
+  // (count x step) comes from the --set-count the template prints, so the
+  // track is exactly two sets wide and the loop slides by exactly one.
   .press-rack-row {
     position: absolute;
     left: 0;
     right: 0;
+    --set-w: calc(var(--set-count) * var(--copy-step));
+
+    &.is-far {
+      --copy-w: 160px;
+      --copy-step: 88px;
+      top: -96px;
+      opacity: 0.18;
+    }
 
     &.is-back {
       --copy-w: 220px;
@@ -101,6 +113,12 @@
     }
 
     @include media-breakpoint-up(lg) {
+      &.is-far {
+        --copy-w: 240px;
+        --copy-step: 132px;
+        top: -130px;
+      }
+
       &.is-back {
         --copy-w: 320px;
         --copy-step: 178px;
@@ -117,7 +135,7 @@
   .press-rack-track {
     display: flex;
     align-items: flex-start;
-    width: max-content;
+    width: calc(2 * var(--set-w));
     will-change: transform;
     animation: vc-press-rack 96s linear infinite;
   }
@@ -127,33 +145,35 @@
     animation-direction: reverse;
   }
 
+  .is-far .press-rack-track {
+    animation-duration: 210s;
+  }
+
   .press-print {
     display: block;
     flex: 0 0 auto;
     width: var(--copy-w);
     height: auto;
-    // The fan: each copy overlaps the one before by (width - step).
+    // The fan: each copy overlaps the one before by (width - step), all on
+    // one baseline so the run reads as a continuous stack.
     margin-right: calc(var(--copy-step) - var(--copy-w));
     border: 1px solid $vc-grey-200;
     border-radius: 2px;
     background: $vc-background-dark;
     filter: grayscale(0.25);
     transition: border-color 0.3s;
-
-    // A hand-stacked unevenness: every other copy sits a touch lower.
-    &:nth-child(even) {
-      margin-top: 12px;
-    }
   }
 }
 
+// Slides by exactly one set (the row's --set-w), so the second set lands
+// where the first began and the loop never shows a seam.
 @keyframes vc-press-rack {
   from {
     transform: translateX(0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-1 * var(--set-w)));
   }
 }
 

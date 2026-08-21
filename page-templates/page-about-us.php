@@ -436,25 +436,31 @@ get_template_part( 'template-parts/page', 'hero', [
 	</div>
 	<?php if ( $press_image ) :
 		// The print run: the spread repeated as overlapping, fanned copies on
-		// two slow counter-scrolling rows (a smaller, dimmer row behind), tilted
-		// as one plane and cut by the band's edges. Decorative: the head above
-		// carries the information, so the rack is hidden from assistive tech.
-		// Even counts per set keep the stacked offsets seamless across the loop.
+		// three slow rows (smaller and dimmer towards the back, the middle row
+		// running the other way), tilted as one plane and cut by the band's
+		// edges. Decorative: the head above carries the information, so the
+		// rack is hidden from assistive tech. Each row renders its set twice
+		// and the CSS sizes the track from the count, so the loop slides by
+		// exactly one set; counts are sized so one set outspans the plane on
+		// viewports up to 2560px wide.
 		$rack_src = esc_url( $press_image['url'] );
 		$rack_w   = (int) $press_image['width'];
 		$rack_h   = (int) $press_image['height'];
-		$rack_row = function ( $count ) use ( $rack_src, $rack_w, $rack_h ) {
-			for ( $set = 0; $set < 2; $set++ ) {
-				for ( $i = 0; $i < $count; $i++ ) {
-					echo '<img class="press-print" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
-				}
+		$rack_row = function ( $class, $count ) use ( $rack_src, $rack_w, $rack_h ) {
+			echo '<div class="press-rack-row ' . esc_attr( $class ) . '" style="--set-count: ' . (int) $count . '"><div class="press-rack-track">';
+			for ( $i = 0; $i < 2 * $count; $i++ ) {
+				echo '<img class="press-print" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
 			}
+			echo '</div></div>';
 		};
 		?>
 		<div class="press-rack" aria-hidden="true">
 			<div class="press-rack-plane">
-				<div class="press-rack-row is-back"><div class="press-rack-track"><?php $rack_row( 12 ); ?></div></div>
-				<div class="press-rack-row is-front"><div class="press-rack-track"><?php $rack_row( 10 ); ?></div></div>
+				<?php
+				$rack_row( 'is-far', 26 );
+				$rack_row( 'is-back', 19 );
+				$rack_row( 'is-front', 14 );
+				?>
 			</div>
 		</div>
 	<?php endif; ?>
