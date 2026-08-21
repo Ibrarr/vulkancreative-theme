@@ -37,8 +37,11 @@
       font-stretch: $vc-display-stretch;
       font-size: 18px;
       color: $vc-text-dark;
-      margin-right: 2px;
       transition: color .3s;
+    }
+
+    .rating-dot {
+      margin: 0 7px;
     }
   }
 

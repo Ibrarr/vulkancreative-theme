@@ -5,8 +5,8 @@
 // the same reason as inc/service-list-fields.php: the options page already
 // exists in the ACF database, so a hand-edited acf-json file would sit behind
 // a manual Sync. The badges render through template-parts/partner-logos.php
-// (homepage why band, About proof); the press logos through the footer trust
-// row and, as a fallback image, the About press section.
+// (homepage why band, footer trust row); the press logos through the footer
+// trust row and the About press credit line.
 add_action( 'acf/init', 'vc_register_trust_signals_fields' );
 function vc_register_trust_signals_fields() {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
@@ -22,46 +22,37 @@ function vc_register_trust_signals_fields() {
 				'label'         => 'Strip Label',
 				'name'          => 'partner_logos_heading',
 				'type'          => 'text',
-				'instructions'  => 'The short line above the badges.',
+				'instructions'  => 'The line above the badges on the homepage strip.',
 				'default_value' => 'Official partners of the platforms we build on',
+				'wrapper'       => [ 'width' => '60' ],
+			],
+			[
+				'key'           => 'field_vc_partner_logos_footer_label',
+				'label'         => 'Footer Label',
+				'name'          => 'partner_logos_footer_label',
+				'type'          => 'text',
+				'instructions'  => 'The short label above the badges in the footer.',
+				'default_value' => 'Official partners',
+				'wrapper'       => [ 'width' => '40' ],
 			],
 			[
 				'key'          => 'field_vc_partner_logos',
 				'label'        => 'Partners',
 				'name'         => 'partner_logos',
 				'type'         => 'repeater',
-				'instructions' => 'Official partner badges, shown as issued (never recoloured). The main badge must read on a dark background; add a light-surface version where the main file is white artwork, or that partner is skipped on light sections in light mode.',
+				'instructions' => 'Official partner badges, shown as issued (never recoloured) on the homepage why band and in the footer, both dark surfaces.',
 				'layout'       => 'table',
 				'button_label' => 'Add Partner',
 				'sub_fields'   => [
 					[
 						'key'           => 'field_vc_partner_logo',
-						'label'         => 'Badge (dark surfaces)',
+						'label'         => 'Badge',
 						'name'          => 'logo',
 						'type'          => 'image',
 						'return_format' => 'array',
 						'preview_size'  => 'medium',
 						'library'       => 'all',
 						'required'      => 1,
-					],
-					[
-						'key'           => 'field_vc_partner_logo_light',
-						'label'         => 'Badge (light surfaces)',
-						'name'          => 'logo_light',
-						'type'          => 'image',
-						'return_format' => 'array',
-						'preview_size'  => 'medium',
-						'library'       => 'all',
-					],
-					[
-						'key'           => 'field_vc_partner_dark_only',
-						'label'         => 'Dark surfaces only',
-						'name'          => 'dark_only',
-						'type'          => 'true_false',
-						'instructions'  => 'Tick when the main badge is white artwork that vanishes on light backgrounds. It then shows on dark surfaces only, until a light-surface version is added above.',
-						'ui'            => 1,
-						'default_value' => 0,
-						'wrapper'       => [ 'width' => '20' ],
 					],
 					[
 						'key'   => 'field_vc_partner_name',

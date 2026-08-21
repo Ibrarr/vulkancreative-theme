@@ -1,9 +1,13 @@
 // "As featured in" press band closing the About page (after proof), fed by
-// the ab_press_* fields. The media column prefers the supplied cover or
-// spread image (a genuine media panel, 10px corners) and falls back to the
-// first Press Features wordmark from Global Settings (a logo, not a panel).
+// the ab_press_* fields. The spread renders as a printed page lying across
+// the band: tilted, oversized and cut by the section's own edges (overflow
+// hidden on the section), a hairline paper edge, 2px corners (a page, not a
+// media panel), no shadow, resting desaturation. The credit line under the
+// body carries the first Press Features wordmark plus the issue detail.
 .about-press {
   @include vc-section-padding;
+  position: relative;
+  overflow: hidden;
   background: $vc-background-white;
   transition: background 0.3s;
 
@@ -23,45 +27,85 @@
     transition: color 0.3s;
   }
 
+  .press-credit {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $space-2;
+    margin: $space-4 0 0;
+
+    .press-credit-mark {
+      display: block;
+      height: 22px;
+      width: auto;
+      filter: grayscale(1);
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .press-credit-text {
+      @include vc-body($vc-grey-600);
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+  }
+
   .press-cta {
     @include vc-button-ghost($vc-text-dark);
     margin-top: $space-5;
   }
 
+  // The media column is a fixed-height stage; the sheet hangs out of it to
+  // the right and below, and the section clips it.
   .press-media {
+    position: relative;
+    height: 260px;
     margin-top: $space-6;
 
     @include media-breakpoint-up(lg) {
+      // Stretch to the copy column's height and hang the page off the
+      // bottom, so the band's edge cuts it on desktop too.
+      align-self: stretch;
+      height: auto;
+      min-height: 380px;
       margin-top: 0;
     }
   }
 
-  .press-cover {
-    border-radius: 10px;
-    overflow: hidden;
+  .press-sheet {
+    position: absolute;
+    top: $space-4;
+    left: -2%;
+    width: 112%;
+    transform: rotate(-3deg);
+    transform-origin: top left;
     border: 1px solid $vc-grey-200;
+    border-radius: 2px;
+    overflow: hidden;
     line-height: 0;
+    background: $vc-background-dark;
     transition: border-color 0.3s;
 
     img {
+      display: block;
       width: 100%;
       height: auto;
       filter: grayscale(0.25);
     }
-  }
-
-  .press-wordmark {
-    display: block;
-    width: 100%;
-    max-width: 420px;
-    height: auto;
-    filter: grayscale(1);
-    opacity: 0.6;
-    margin: 0 auto;
 
     @include media-breakpoint-up(lg) {
-      margin: 0 0 0 auto;
+      top: auto;
+      bottom: -140px;
+      left: 6%;
+      width: 124%;
+      transform: rotate(-4deg);
+      transform-origin: bottom left;
     }
+  }
+
+  // Tighter bottom padding on small screens so the page meets the band edge.
+  @include media-breakpoint-down(lg) {
+    padding-bottom: $space-4;
   }
 }
 
@@ -72,8 +116,14 @@
     color: $vc-text-light !important;
   }
 
-  .press-body {
+  .press-body,
+  .press-credit .press-credit-text {
     color: $vc-muted-on-dark !important;
+  }
+
+  .press-credit .press-credit-mark {
+    filter: grayscale(1) brightness(0) invert(1) !important;
+    opacity: 0.6 !important;
   }
 
   .press-cta {
@@ -86,12 +136,7 @@
     }
   }
 
-  .press-cover {
+  .press-sheet {
     border-color: $vc-grey-dark-border !important;
-  }
-
-  .press-wordmark {
-    filter: grayscale(1) brightness(0) invert(1) !important;
-    opacity: 0.55 !important;
   }
 }

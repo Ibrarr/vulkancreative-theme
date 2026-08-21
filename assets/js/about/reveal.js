@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
     const headings = gsap.utils.toArray('.about-hero h1, .about-founders .content h2, .about-values .content h2, .about-how .content h2, .about-proof .content h2, .about-press .content h2');
-    const fades = gsap.utils.toArray('.about-hero .sub-heading, .about-founders .intro-statement, .about-founders .intro-support, .about-how .content .sub-heading, .about-proof .partner-logos, .about-press .press-body');
+    const fades = gsap.utils.toArray('.about-hero .sub-heading, .about-founders .intro-statement, .about-founders .intro-support, .about-how .content .sub-heading, .about-press .press-body, .about-press .press-credit, .about-press .press-media');
     // Staggered groups: the observer watches the list, the items cascade in.
     const groups = gsap.utils.toArray('.about-how .how-rows');
 

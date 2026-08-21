@@ -194,31 +194,39 @@ footer {
     }
   }
 
-  // Quiet trust row: press credit left, the Google rating right, on the same
-  // seam recipe as .bottom so the footer closes with two evenly rhythmed
-  // hairline rows. Rendered only when Global Settings holds press logos or
-  // the Google reviews data (footer.php).
+  // Quiet trust row: three bottom-aligned groups on one hairline at lg+ (the
+  // press credit with the wordmark under its label, the partner badges under
+  // theirs, the Google rating), stacked below lg. Same seam recipe as .bottom
+  // so the footer closes with two evenly rhythmed rows. Rendered only when
+  // Global Settings holds press logos, partner badges or the reviews data.
   .footer-trust {
     padding-top: 40px;
     margin-top: 40px;
     border-top: 1px solid $vc-grey-dark-border;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: $space-3 $space-5;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-5;
 
-    .footer-press {
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: $space-4 $space-6;
+    }
+
+    .footer-heading {
+      margin-bottom: $space-2;
+    }
+
+    .footer-press-logos {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
       gap: $space-3;
-    }
-
-    .footer-press-label {
-      @include vc-body($vc-muted-on-dark);
-      font-size: 14px;
-      margin: 0;
+      // Match the badge row's height so the three group labels share a line.
+      min-height: 40px;
     }
 
     .footer-press-logo {
@@ -228,10 +236,10 @@ footer {
 
       img {
         display: block;
-        height: 18px;
+        height: 20px;
         width: auto;
         // The house knockout for marks on the dark footer; the navy wordmark
-        // reads white. The Google G below is the one mark never filtered.
+        // reads white. The Google G is the one mark never filtered.
         filter: grayscale(1) brightness(0) invert(1);
         opacity: 0.55;
         transition: opacity 0.3s;
@@ -277,6 +285,10 @@ footer {
       .footer-google-value {
         color: $vc-text-light;
         font-weight: 600;
+      }
+
+      .footer-google-dot {
+        margin: 0 6px;
       }
 
       @media (hover: hover) {
@@ -351,9 +363,12 @@ footer {
     font-family: $vc-display-font;
     font-weight: $vc-black;
     font-stretch: $vc-display-stretch;
-    font-size: clamp(6rem, 19vw, 19rem);
+    // Sized from the word's measured width (about 5.6x the font size) so it
+    // fits every viewport; the 6rem floor and -0.02em tracking it replaced
+    // overflowed small screens and ran the K into the A.
+    font-size: min(16.5vw, 19rem);
     line-height: 0.72;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     text-align: center;
     color: rgba($vc-text-light, 0.05);

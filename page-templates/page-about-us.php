@@ -111,8 +111,8 @@ if ( have_rows('ab_how_items') ) {
 $how_items = $how_items ?: $how_fallback;
 
 // Proof: testimonials from the CPT (the homepage spotlight component) plus
-// the client logo marquee and partner badges from Global Settings. The rating
-// chip reads the shared Google reviews options via vc_google_reviews().
+// the client logo marquee from Global Settings. The rating chip reads the
+// shared Google reviews options via vc_google_reviews().
 $proof_heading = vc_heading_parts( 'ab_proof_heading', false, "Don't take <span>our word</span> for it." );
 $testimonial_posts = new WP_Query([
 	'post_type'      => 'testimonial',
@@ -146,9 +146,14 @@ $press_heading = vc_heading_parts( 'ab_press_heading', false, 'As featured in <s
 $press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.';
 $press_label   = get_field('ab_press_link_label') ?: 'Read the Feature';
 $press_url     = get_field('ab_press_link_url') ?: 'https://europe.nxtbook.com/emp/AtHome/your-business-with-james-caan-spring-2026/index.php#/p/50';
+$press_credit  = get_field('ab_press_credit') ?: 'Spring 2026 issue, pages 50 and 51';
 $press_image   = get_field('ab_press_image');
+if ( $press_image && ! is_array( $press_image ) && function_exists( 'acf_get_attachment' ) ) {
+	$press_image = acf_get_attachment( (int) $press_image ) ?: null;
+}
+// The first Press Features wordmark (Global Settings) marks the credit line.
 $press_logo    = null;
-if ( ! $press_image && have_rows( 'press_features', 'options' ) ) {
+if ( have_rows( 'press_features', 'options' ) ) {
 	while ( have_rows( 'press_features', 'options' ) ) {
 		the_row();
 		$row_logo = get_sub_field( 'logo' );
@@ -419,7 +424,6 @@ get_template_part( 'template-parts/page', 'hero', [
 				</div>
 			</div>
 		<?php endif; ?>
-		<?php get_template_part( 'template-parts/partner-logos' ); ?>
 	</div>
 </section>
 
@@ -427,26 +431,33 @@ get_template_part( 'template-parts/page', 'hero', [
 <section class="about-press" id="press">
 	<div class="container px-4">
 		<div class="row align-items-lg-center">
-			<div class="col-lg-6">
+			<div class="col-lg-6 press-copy">
 				<div class="content">
 					<h2><?php echo wp_kses_post( $press_heading ); ?></h2>
 				</div>
 				<?php if ( $press_body ) : ?>
 					<p class="press-body"><?php echo esc_html( $press_body ); ?></p>
 				<?php endif; ?>
+				<?php if ( $press_logo || $press_credit ) : ?>
+					<p class="press-credit">
+						<?php if ( $press_logo ) : ?>
+							<img class="press-credit-mark" loading="lazy" src="<?php echo esc_url( $press_logo['url'] ); ?>" alt="<?php echo esc_attr( $press_logo['alt'] ?: $press_logo['title'] ); ?>" width="<?php echo (int) $press_logo['width']; ?>" height="<?php echo (int) $press_logo['height']; ?>">
+						<?php endif; ?>
+						<?php if ( $press_credit ) : ?>
+							<span class="press-credit-text"><?php echo esc_html( $press_credit ); ?></span>
+						<?php endif; ?>
+					</p>
+				<?php endif; ?>
 				<?php if ( $press_url && $press_label ) : ?>
 					<a class="button press-cta" href="<?php echo esc_url( $press_url ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $press_label ); ?></a>
 				<?php endif; ?>
 			</div>
-			<?php if ( $press_image || $press_logo ) : ?>
-				<div class="col-lg-5 offset-lg-1 press-media">
-					<?php if ( $press_image ) : ?>
-						<div class="press-cover">
-							<img loading="lazy" src="<?php echo esc_url( $press_image['url'] ); ?>" alt="<?php echo esc_attr( $press_image['alt'] ?: 'Your Business magazine feature' ); ?>" width="<?php echo (int) $press_image['width']; ?>" height="<?php echo (int) $press_image['height']; ?>">
-						</div>
-					<?php else : ?>
-						<img class="press-wordmark" loading="lazy" src="<?php echo esc_url( $press_logo['url'] ); ?>" alt="<?php echo esc_attr( $press_logo['alt'] ?: $press_logo['title'] ); ?>" width="<?php echo (int) $press_logo['width']; ?>" height="<?php echo (int) $press_logo['height']; ?>">
-					<?php endif; ?>
+			<?php if ( $press_image ) : ?>
+				<div class="col-lg-6 press-media">
+					<?php // The spread as a printed page lying across the band: tilted and cut by the section's edges (CSS). ?>
+					<div class="press-sheet">
+						<img loading="lazy" src="<?php echo esc_url( $press_image['url'] ); ?>" alt="<?php echo esc_attr( $press_image['alt'] ?: 'Vulkan Creative feature in Your Business magazine' ); ?>" width="<?php echo (int) $press_image['width']; ?>" height="<?php echo (int) $press_image['height']; ?>">
+					</div>
 				</div>
 			<?php endif; ?>
 		</div>

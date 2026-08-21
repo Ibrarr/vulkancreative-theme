@@ -1,10 +1,10 @@
 // Reusable platform-partner badge strip (template-parts/partner-logos.php),
 // fed by Global Settings > Partner Logos. Colour badges as issued: no filters,
 // no recolouring; containment does the quietening (hairline seam, muted label,
-// spacing). Hosts: the homepage why band close (is-on-dark) and the About
-// proof section (auto surface, light with the standard dark-mode pairing).
-// On auto surfaces the light/dark file pair per row is toggled by mode; a row
-// without a light-surface file carries .is-dark-only and shows in dark only.
+// spacing). Hosts: the homepage why band close (is-on-dark) and the footer
+// trust row (is-footer: compact, no seam of its own, footer-heading label).
+// The auto surface (light sections with the dark-mode pairing) is kept for
+// future placements; both live hosts are dark in every mode.
 .partner-logos {
   border-top: 1px solid $vc-grey-200;
   margin-top: $space-8;
@@ -64,16 +64,6 @@
         max-width: 180px;
       }
     }
-
-    // Auto-surface file switching: light mode shows the light-surface file;
-    // the dark-mode block below swaps in the main badge.
-    img.is-on-dark-file {
-      display: none;
-    }
-
-    &.is-dark-only {
-      display: none;
-    }
   }
 
   &.is-on-dark {
@@ -101,6 +91,35 @@
       }
     }
   }
+
+  // Footer group: the row's hairline is the footer trust row's own, the
+  // label takes the footer column-heading voice, badges sit smaller and
+  // left-aligned so the group reads with the press and Google credits.
+  &.is-footer {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+
+    .partner-logos-label {
+      @include vc-eyebrow($vc-muted-on-dark);
+      text-align: left;
+      margin: 0 0 $space-2;
+    }
+
+    .partner-logos-row {
+      justify-content: flex-start;
+      gap: $space-2 $space-4;
+    }
+
+    .partner-logos-item img {
+      height: 40px;
+
+      &.is-wide {
+        height: 20px;
+        max-width: 120px;
+      }
+    }
+  }
 }
 
 @at-root body.dark-mode .partner-logos {
@@ -108,17 +127,5 @@
 
   .partner-logos-label {
     color: $vc-muted-on-dark !important;
-  }
-
-  .partner-logos-item.is-dark-only {
-    display: flex !important;
-  }
-
-  .partner-logos-item img.is-on-light-file {
-    display: none !important;
-  }
-
-  .partner-logos-item img.is-on-dark-file {
-    display: block !important;
   }
 }

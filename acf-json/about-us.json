@@ -950,21 +950,26 @@
             "label": "Press Image",
             "name": "ab_press_image",
             "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": false,
-            "conditional_logic": false,
+            "type": "image",
+            "instructions": "The feature spread or cover, shown as a tilted page across the band. Leave empty to hide the page; the credit line keeps the wordmark.",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "0": false,
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
         },
         {
             "key": "field_ab124",
@@ -1004,6 +1009,27 @@
             "default_value": "https:\/\/europe.nxtbook.com\/emp\/AtHome\/your-business-with-james-caan-spring-2026\/index.php#\/p\/50",
             "allow_in_bindings": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_ab126",
+            "label": "Press Credit",
+            "name": "ab_press_credit",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The short issue detail beside the magazine wordmark under the body copy.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Spring 2026 issue, pages 50 and 51",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -1029,5 +1055,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787270656
+    "modified": 1787305301
 }

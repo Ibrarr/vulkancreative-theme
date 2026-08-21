@@ -95,37 +95,47 @@
                             </ul>
                         </div>
                         <?php
-                        // Quiet trust row: press credit + the Google rating, both from
-                        // Global Settings (Press Features / Reviews via vc_google_reviews()).
-                        // Renders only when either side has data.
-                        $footer_gr    = vc_google_reviews();
-                        $footer_gr_ok = $footer_gr['count'] > 0 && $footer_gr['url'];
-                        $footer_press = have_rows( 'press_features', 'options' );
+                        // Quiet trust row: the press credit, the partner badges and the
+                        // Google rating, all from Global Settings (Press Features / Partner
+                        // Logos / Reviews via vc_google_reviews()). Three bottom-aligned
+                        // groups on one hairline at lg+, stacked below. Each group renders
+                        // only with its own data; the row renders when any group has some.
+                        $footer_gr       = vc_google_reviews();
+                        $footer_gr_ok    = $footer_gr['count'] > 0 && $footer_gr['url'];
+                        $footer_press    = have_rows( 'press_features', 'options' );
+                        $footer_partners = (bool) get_field( 'partner_logos', 'options' );
                         ?>
-                        <?php if ( $footer_press || $footer_gr_ok ) : ?>
+                        <?php if ( $footer_press || $footer_partners || $footer_gr_ok ) : ?>
                             <div class="col-lg-12">
                                 <div class="footer-trust">
                                     <?php if ( $footer_press ) : ?>
                                         <div class="footer-press">
-                                            <span class="footer-press-label">As featured in</span>
-                                            <?php while ( have_rows( 'press_features', 'options' ) ) : the_row();
-                                                $ft_logo = get_sub_field( 'logo' );
-                                                $ft_name = get_sub_field( 'name' );
-                                                $ft_link = get_sub_field( 'url' );
-                                                if ( ! $ft_logo ) { continue; }
-                                                $ft_img = '<img loading="lazy" src="' . esc_url( $ft_logo['url'] ) . '" alt="' . esc_attr( $ft_name ?: ( $ft_logo['alt'] ?: $ft_logo['title'] ) ) . '" width="' . (int) $ft_logo['width'] . '" height="' . (int) $ft_logo['height'] . '">';
-                                                if ( $ft_link ) : ?>
-                                                    <a class="footer-press-logo" href="<?php echo esc_url( $ft_link ); ?>" target="_blank" rel="noopener"><?php echo $ft_img; ?></a>
-                                                <?php else : ?>
-                                                    <span class="footer-press-logo"><?php echo $ft_img; ?></span>
-                                                <?php endif;
-                                            endwhile; ?>
+                                            <p class="footer-heading">As featured in</p>
+                                            <div class="footer-press-logos">
+                                                <?php while ( have_rows( 'press_features', 'options' ) ) : the_row();
+                                                    $ft_logo = get_sub_field( 'logo' );
+                                                    $ft_name = get_sub_field( 'name' );
+                                                    $ft_link = get_sub_field( 'url' );
+                                                    if ( ! $ft_logo ) { continue; }
+                                                    $ft_img = '<img loading="lazy" src="' . esc_url( $ft_logo['url'] ) . '" alt="' . esc_attr( $ft_name ?: ( $ft_logo['alt'] ?: $ft_logo['title'] ) ) . '" width="' . (int) $ft_logo['width'] . '" height="' . (int) $ft_logo['height'] . '">';
+                                                    if ( $ft_link ) : ?>
+                                                        <a class="footer-press-logo" href="<?php echo esc_url( $ft_link ); ?>" target="_blank" rel="noopener"><?php echo $ft_img; ?></a>
+                                                    <?php else : ?>
+                                                        <span class="footer-press-logo"><?php echo $ft_img; ?></span>
+                                                    <?php endif;
+                                                endwhile; ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ( $footer_partners ) : ?>
+                                        <div class="footer-partners">
+                                            <?php get_template_part( 'template-parts/partner-logos', null, [ 'variant' => 'footer' ] ); ?>
                                         </div>
                                     <?php endif; ?>
                                     <?php if ( $footer_gr_ok ) : ?>
-                                        <a class="footer-google" href="<?php echo esc_url( $footer_gr['url'] ); ?>" target="_blank" rel="noopener">
+                                        <a class="footer-google" href="<?php echo esc_url( $footer_gr['url'] ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( $footer_gr['rating'] . ' rating, ' . $footer_gr['count'] . ( 1 === (int) $footer_gr['count'] ? ' Google Review' : ' Google Reviews' ) . '. Opens our Google profile in a new tab.' ); ?>">
                                             <img src="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/google-g.webp' ); ?>" alt="" width="20" height="20">
-                                            <span><span class="footer-google-value"><?php echo esc_html( $footer_gr['rating'] ); ?></span> from <?php echo (int) $footer_gr['count']; ?> <?php echo 1 === (int) $footer_gr['count'] ? 'review' : 'reviews'; ?> on Google<?php echo $footer_gr['as_of'] ? ' · ' . esc_html( $footer_gr['as_of'] ) : ''; ?></span>
+                                            <span aria-hidden="true"><span class="footer-google-value"><?php echo esc_html( $footer_gr['rating'] ); ?></span><span class="footer-google-dot">·</span><?php echo (int) $footer_gr['count']; ?> <?php echo 1 === (int) $footer_gr['count'] ? 'Google Review' : 'Google Reviews'; ?></span>
                                         </a>
                                     <?php endif; ?>
                                 </div>
