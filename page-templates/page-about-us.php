@@ -449,7 +449,7 @@ get_template_part( 'template-parts/page', 'hero', [
 		$rack_row = function ( $class, $count ) use ( $rack_src, $rack_w, $rack_h ) {
 			echo '<div class="press-rack-row ' . esc_attr( $class ) . '" style="--set-count: ' . (int) $count . '"><div class="press-rack-track">';
 			for ( $i = 0; $i < 2 * $count; $i++ ) {
-				echo '<img class="press-print" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
+				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
 			}
 			echo '</div></div>';
 		};
