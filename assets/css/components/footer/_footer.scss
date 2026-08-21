@@ -225,8 +225,10 @@ footer {
       align-items: center;
       flex-wrap: wrap;
       gap: $space-3;
-      // Match the badge row's height so the three group labels share a line.
-      min-height: 40px;
+      // Every content row in the trust row stands 44px tall (this row, the
+      // badge items, the Google link) so the three labels share one line and
+      // the wordmark, badges and rating share another.
+      min-height: 44px;
     }
 
     .footer-press-logo {

@@ -111,6 +111,11 @@
       gap: $space-2 $space-4;
     }
 
+    // 44px rows, matching the footer's press and Google rows.
+    .partner-logos-item {
+      min-height: 44px;
+    }
+
     .partner-logos-item img {
       height: 40px;
 

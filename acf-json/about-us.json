@@ -1009,27 +1009,6 @@
             "default_value": "https:\/\/europe.nxtbook.com\/emp\/AtHome\/your-business-with-james-caan-spring-2026\/index.php#\/p\/50",
             "allow_in_bindings": 0,
             "placeholder": ""
-        },
-        {
-            "key": "field_ab126",
-            "label": "Press Credit",
-            "name": "ab_press_credit",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "The short issue detail beside the magazine wordmark under the body copy.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "Spring 2026 issue, pages 50 and 51",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
         }
     ],
     "location": [
@@ -1055,5 +1034,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787305301
+    "modified": 1787306691
 }
