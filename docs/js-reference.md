@@ -90,7 +90,7 @@ GSAP v3.12.5 is imported as an npm module. Plugins used:
 | `SplitText` | Homepage hero, reveal, contact; About reveal and story; the contact and blog reveals; the your-business modules | Text line/word splitting for reveal animations |
 | `DrawSVGPlugin` | `header/header.js` | SVG path draw animation for the logo |
 
-The newer homepage modules (`reveal.js`, `work.js`, `our-work.js`, `why.js`, `counter.js`) deliberately use `IntersectionObserver` instead of ScrollTrigger, so content can never be left stuck hidden under fast scrolling. Every animation module branches on the reduced-motion query, via the shared `prefersReducedMotion()` helper from `assets/js/components/reduced-motion.js`, or a `gsap.matchMedia('(prefers-reduced-motion: no-preference)')` context in the About founders/values/how modules, and falls back to a static, fully visible state.
+The newer homepage modules (`reveal.js`, `work.js`, `our-work.js`, `why.js`, `counter.js`) deliberately use `IntersectionObserver` instead of ScrollTrigger, so content can never be left stuck hidden under fast scrolling. Every animation module branches on the reduced-motion query, via the shared `prefersReducedMotion()` helper from `assets/js/components/reduced-motion.js`, or a `gsap.matchMedia('(prefers-reduced-motion: no-preference)')` context in the About founders/values/how modules, and falls back to a static, fully visible state. Aug 2026 trust-signals additions ride the existing lists with no new modules or bundles: `homepage/reveal.js` fades gained `.why .partner-logos`, and `about/reveal.js` gained `.about-press .content h2` (headings) plus `.about-proof .partner-logos` and `.about-press .press-body` (fades).
 
 Registration pattern:
 
