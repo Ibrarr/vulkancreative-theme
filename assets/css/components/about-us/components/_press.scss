@@ -70,14 +70,14 @@
     position: relative;
     z-index: 1;
     height: 380px;
-    margin-top: -$space-6;
+    margin-top: -$space-8;
     pointer-events: none;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
     mask-image: linear-gradient(to bottom, transparent 0, #000 16%);
 
     @include media-breakpoint-up(lg) {
       height: 560px;
-      margin-top: -$space-10;
+      margin-top: -$space-15;
     }
   }
 
@@ -106,7 +106,7 @@
       --copy-w: 160px;
       --copy-step: 88px;
       top: 10px;
-      opacity: 0.18;
+      opacity: 0.1;
     }
 
     &.is-back {
