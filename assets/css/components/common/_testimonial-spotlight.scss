@@ -41,6 +41,47 @@
       transition: color .3s;
     }
   }
+
+  .rating-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // The official Google G: full colour, never filtered or recoloured.
+  .rating-google-mark {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .rating-asof {
+    @include vc-body($vc-grey-600);
+    font-size: 11px;
+    transition: color .3s;
+  }
+}
+
+// The Google-backed variant is a real link out to the profile; feedback is
+// colour only (border heat + label underline), nothing moves.
+a.rating-chip {
+  text-decoration: none;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: $vc-primary;
+
+      .rating-text {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $vc-primary;
+    outline-offset: 3px;
+  }
 }
 
 @at-root body.dark-mode .rating-chip {
@@ -52,6 +93,18 @@
 
     .rating-value {
       color: $vc-text-light !important;
+    }
+  }
+
+  .rating-asof {
+    color: $vc-muted-on-dark !important;
+  }
+}
+
+@at-root body.dark-mode a.rating-chip {
+  @media (hover: hover) {
+    &:hover {
+      border-color: $vc-primary !important;
     }
   }
 }

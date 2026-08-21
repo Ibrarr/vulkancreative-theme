@@ -10,8 +10,8 @@ get_header();
 // parts are blank. The grid statement stays a single field: if it is empty
 // or still the plain default, the span-highlighted version is used.
 
-// The homepage is the single source for the sitewide process steps and the
-// aggregate rating chip (the About proof section reads them the same way).
+// The homepage is the single source for the sitewide process steps; the
+// rating chip reads the Global Settings Reviews fields via vc_google_reviews().
 $front_page_id = (int) get_option( 'page_on_front' );
 
 // Hero
@@ -51,10 +51,8 @@ if ( ! $process_steps ) {
 	];
 }
 
-// Proof
-$proof_heading      = vc_heading_parts( 'sh_proof_heading', false, '<span>Proof</span>, not promises.' );
-$proof_rating_value = get_field( 'hp_testimonials_rating_value', $front_page_id ) ?: '4.9';
-$proof_rating_label = get_field( 'hp_testimonials_rating_label', $front_page_id ) ?: 'average client rating';
+// Proof (the rating chip reads Global Settings via vc_google_reviews())
+$proof_heading = vc_heading_parts( 'sh_proof_heading', false, '<span>Proof</span>, not promises.' );
 
 $testimonial_posts = new WP_Query([
 	'post_type'      => 'testimonial',
@@ -154,14 +152,7 @@ get_template_part( 'template-parts/page', 'hero', [
 			<div class="content">
 				<h2><?php echo wp_kses_post( $proof_heading ); ?></h2>
 			</div>
-			<div class="rating-chip">
-				<span class="rating-stars" aria-hidden="true">
-					<?php for ( $star_i = 0; $star_i < 5; $star_i++ ) : ?>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2l2.92 6.26 6.83.62-5.17 4.56 1.54 6.7L12 16.67 5.88 20.14l1.54-6.7L2.25 8.88l6.83-.62L12 2z"/></svg>
-					<?php endfor; ?>
-				</span>
-				<span class="rating-text"><span class="rating-value"><?php echo esc_html( $proof_rating_value ); ?></span> <?php echo esc_html( $proof_rating_label ); ?></span>
-			</div>
+			<?php get_template_part( 'template-parts/rating-chip' ); ?>
 		</div>
 		<?php if ( $testimonial_items ) : ?>
 			<div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">

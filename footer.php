@@ -94,6 +94,43 @@
                                 <?php endif; ?>
                             </ul>
                         </div>
+                        <?php
+                        // Quiet trust row: press credit + the Google rating, both from
+                        // Global Settings (Press Features / Reviews via vc_google_reviews()).
+                        // Renders only when either side has data.
+                        $footer_gr    = vc_google_reviews();
+                        $footer_gr_ok = $footer_gr['count'] > 0 && $footer_gr['url'];
+                        $footer_press = have_rows( 'press_features', 'options' );
+                        ?>
+                        <?php if ( $footer_press || $footer_gr_ok ) : ?>
+                            <div class="col-lg-12">
+                                <div class="footer-trust">
+                                    <?php if ( $footer_press ) : ?>
+                                        <div class="footer-press">
+                                            <span class="footer-press-label">As featured in</span>
+                                            <?php while ( have_rows( 'press_features', 'options' ) ) : the_row();
+                                                $ft_logo = get_sub_field( 'logo' );
+                                                $ft_name = get_sub_field( 'name' );
+                                                $ft_link = get_sub_field( 'url' );
+                                                if ( ! $ft_logo ) { continue; }
+                                                $ft_img = '<img loading="lazy" src="' . esc_url( $ft_logo['url'] ) . '" alt="' . esc_attr( $ft_name ?: ( $ft_logo['alt'] ?: $ft_logo['title'] ) ) . '" width="' . (int) $ft_logo['width'] . '" height="' . (int) $ft_logo['height'] . '">';
+                                                if ( $ft_link ) : ?>
+                                                    <a class="footer-press-logo" href="<?php echo esc_url( $ft_link ); ?>" target="_blank" rel="noopener"><?php echo $ft_img; ?></a>
+                                                <?php else : ?>
+                                                    <span class="footer-press-logo"><?php echo $ft_img; ?></span>
+                                                <?php endif;
+                                            endwhile; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ( $footer_gr_ok ) : ?>
+                                        <a class="footer-google" href="<?php echo esc_url( $footer_gr['url'] ); ?>" target="_blank" rel="noopener">
+                                            <img src="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/google-g.webp' ); ?>" alt="" width="20" height="20">
+                                            <span><span class="footer-google-value"><?php echo esc_html( $footer_gr['rating'] ); ?></span> from <?php echo (int) $footer_gr['count']; ?> <?php echo 1 === (int) $footer_gr['count'] ? 'review' : 'reviews'; ?> on Google<?php echo $footer_gr['as_of'] ? ' · ' . esc_html( $footer_gr['as_of'] ) : ''; ?></span>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                         <div class="col-lg-12">
                             <div class="bottom">
                                 <p>© <?php echo date("Y"); ?> Vulkan Creative. All rights reserved.</p>

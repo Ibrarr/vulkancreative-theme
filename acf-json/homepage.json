@@ -638,48 +638,6 @@
             ]
         },
         {
-            "key": "field_hp_0038",
-            "label": "Testimonials Rating Value",
-            "name": "hp_testimonials_rating_value",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "4.9",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_hp_0039",
-            "label": "Testimonials Rating Label",
-            "name": "hp_testimonials_rating_label",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "average client rating",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_hp_0016",
             "label": "Hero Secondary Button Text",
             "name": "hp_hero_secondary_button_text",
@@ -1428,5 +1386,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783080655
+    "modified": 1787270656
 }

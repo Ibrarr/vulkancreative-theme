@@ -32,6 +32,12 @@ require VC_INC_PATH . '/custom-taxonomies.php';
 // Global Service list (order + placement control on Global Settings)
 require VC_INC_PATH . '/service-list-fields.php';
 
+// Google reviews source (Global Settings > Reviews) + vc_google_reviews()
+require VC_INC_PATH . '/google-reviews.php';
+
+// Trust signals: partner badge strip + press features (Global Settings)
+require VC_INC_PATH . '/trust-signals-fields.php';
+
 // "What We Do" dynamic mega menu (renders services from the taxonomy)
 require VC_INC_PATH . '/mega-menu.php';
 

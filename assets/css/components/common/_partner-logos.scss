@@ -1,0 +1,124 @@
+// Reusable platform-partner badge strip (template-parts/partner-logos.php),
+// fed by Global Settings > Partner Logos. Colour badges as issued: no filters,
+// no recolouring; containment does the quietening (hairline seam, muted label,
+// spacing). Hosts: the homepage why band close (is-on-dark) and the About
+// proof section (auto surface, light with the standard dark-mode pairing).
+// On auto surfaces the light/dark file pair per row is toggled by mode; a row
+// without a light-surface file carries .is-dark-only and shows in dark only.
+.partner-logos {
+  border-top: 1px solid $vc-grey-200;
+  margin-top: $space-8;
+  padding-top: $space-6;
+  transition: border-color 0.3s;
+
+  .partner-logos-label {
+    @include vc-body($vc-grey-600);
+    font-size: 14px;
+    text-align: center;
+    margin: 0 0 $space-5;
+    transition: color 0.3s;
+  }
+
+  .partner-logos-row {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: $space-4 $space-6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .partner-logos-item {
+    display: flex;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      transition: opacity 0.3s;
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+        opacity: 0.8;
+      }
+    }
+
+    img {
+      display: block;
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+
+      &.is-wide {
+        height: 30px;
+        max-width: 180px;
+      }
+    }
+
+    // Auto-surface file switching: light mode shows the light-surface file;
+    // the dark-mode block below swaps in the main badge.
+    img.is-on-dark-file {
+      display: none;
+    }
+
+    &.is-dark-only {
+      display: none;
+    }
+  }
+
+  &.is-on-dark {
+    border-top-color: $vc-grey-dark-border;
+
+    .partner-logos-label {
+      color: $vc-muted-on-dark;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    margin-top: $space-6;
+    padding-top: $space-5;
+
+    .partner-logos-row {
+      gap: $space-3 $space-5;
+    }
+
+    .partner-logos-item img {
+      height: 48px;
+
+      &.is-wide {
+        height: 24px;
+        max-width: 150px;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .partner-logos {
+  border-top-color: $vc-grey-dark-border !important;
+
+  .partner-logos-label {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .partner-logos-item.is-dark-only {
+    display: flex !important;
+  }
+
+  .partner-logos-item img.is-on-light-file {
+    display: none !important;
+  }
+
+  .partner-logos-item img.is-on-dark-file {
+    display: block !important;
+  }
+}

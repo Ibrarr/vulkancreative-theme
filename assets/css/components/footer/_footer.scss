@@ -194,6 +194,108 @@ footer {
     }
   }
 
+  // Quiet trust row: press credit left, the Google rating right, on the same
+  // seam recipe as .bottom so the footer closes with two evenly rhythmed
+  // hairline rows. Rendered only when Global Settings holds press logos or
+  // the Google reviews data (footer.php).
+  .footer-trust {
+    padding-top: 40px;
+    margin-top: 40px;
+    border-top: 1px solid $vc-grey-dark-border;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-3 $space-5;
+
+    .footer-press {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: $space-3;
+    }
+
+    .footer-press-label {
+      @include vc-body($vc-muted-on-dark);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .footer-press-logo {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+
+      img {
+        display: block;
+        height: 18px;
+        width: auto;
+        // The house knockout for marks on the dark footer; the navy wordmark
+        // reads white. The Google G below is the one mark never filtered.
+        filter: grayscale(1) brightness(0) invert(1);
+        opacity: 0.55;
+        transition: opacity 0.3s;
+      }
+    }
+
+    a.footer-press-logo {
+      @media (hover: hover) {
+        &:hover img {
+          opacity: 0.85;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+
+        img {
+          opacity: 0.85;
+        }
+      }
+    }
+
+    .footer-google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      text-decoration: none;
+
+      img {
+        display: block;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        @include vc-body($vc-muted-on-dark);
+        font-size: 14px;
+        transition: color 0.3s;
+      }
+
+      .footer-google-value {
+        color: $vc-text-light;
+        font-weight: 600;
+      }
+
+      @media (hover: hover) {
+        &:hover span {
+          color: $vc-text-light;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid $vc-primary;
+        outline-offset: 4px;
+
+        span {
+          color: $vc-text-light;
+        }
+      }
+    }
+  }
+
   .bottom {
     padding-top: 40px;
     margin-top: 40px;
