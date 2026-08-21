@@ -77,3 +77,16 @@ function vc_google_reviews() {
 	];
 	return apply_filters( 'vc_google_reviews', $data );
 }
+
+// Editor-entered text can carry {rating} and {reviews} tokens (the homepage
+// results stats use them), so the figure is typed once, on Global Settings.
+function vc_review_tokens( $text ) {
+	if ( ! is_string( $text ) || false === strpos( $text, '{' ) ) {
+		return $text;
+	}
+	$gr = vc_google_reviews();
+	return strtr( $text, [
+		'{rating}'  => (string) $gr['rating'],
+		'{reviews}' => (string) $gr['count'],
+	] );
+}

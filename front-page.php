@@ -144,8 +144,8 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 <?php while ( have_rows('hp_results_stats') ) : the_row(); ?>
                     <div class="col-lg-3 col-6">
                         <div class="stat">
-                            <span class="stat-number"><?php echo esc_html( get_sub_field('value') ); ?></span>
-                            <p class="stat-label"><?php echo esc_html( get_sub_field('label') ); ?></p>
+                            <span class="stat-number"><?php echo esc_html( vc_review_tokens( get_sub_field('value') ) ); ?></span>
+                            <p class="stat-label"><?php echo esc_html( vc_review_tokens( get_sub_field('label') ) ); ?></p>
                         </div>
                     </div>
                 <?php endwhile; ?>
