@@ -33,6 +33,10 @@
     @include vc-p($vc-muted-on-dark);
     max-width: 56ch;
     margin: $space-6 0 0;
+
+    + .results-narrative {
+      margin-top: $space-2;
+    }
   }
 
   .results-actions {

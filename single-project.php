@@ -106,7 +106,7 @@ while ( have_posts() ) :
 						<div class="overview-lead">
 							<p class="overview-statement"><?php echo esc_html( $pj_statement ?: $pj_description ); ?></p>
 							<?php if ( $pj_support ) : ?>
-								<p class="overview-support"><?php echo esc_html( $pj_support ); ?></p>
+								<?php vc_text_paragraphs( $pj_support, 'overview-support' ); ?>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
