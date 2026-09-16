@@ -18,7 +18,7 @@ Composite create-or-update keyed on `type` + `slug`. Supported types: `post`, `p
   "status": "draft",
   "overwrite": false,
   "dry_run": false,
-  "core": { "excerpt": "...", "featured_media": 123, "author": 2, "template": "page-templates/page-landing-page.php" },
+  "core": { "excerpt": "...", "featured_media": 123, "author": 2, "template": "page-templates/page-landing-page.php", "date": "2026-03-15" },
   "fields": { "cs_client_name": "...", "cs_results_stats": [ { "value": "1.8x", "label": "..." } ] },
   "refs": { "cs_testimonial": "client-name-testimonial" },
   "terms": { "service": ["branding"] },
@@ -33,6 +33,7 @@ Semantics, all verified by harness:
 - **Drafts by default.** `status` is only applied when sent; create defaults to draft. Publishing is an explicit choice.
 - **Non-destructive.** On update, non-empty fields are kept unless `overwrite` is true. The response carries a per-field report (`set`, `kept existing`, `skipped (empty incoming)`).
 - **`dry_run`** runs the full validation and returns a would-do diff without writing.
+- **`core.date`** (project and case_study, YYYY-MM-DD, Sep 2026) is the go-live date: it writes `post_date`/`post_date_gmt` on create and on update (with `edit_date`, or a draft's date resets to now), which is what orders /work/, /case-studies/ and the service-page strips. It is placement rather than editor content, so it applies on every run whatever `overwrite` says, and a re-run moves the entry. Future dates are rejected because WordPress would schedule the post.
 - **ACF by key.** `fields` arrive as names; the endpoint resolves them against the live ACF registry per type (per layout for `lp_sections` flexible content) and writes with `update_field()` by key, the pattern the retired seeders proved.
 - **Slashing.** Values are pre-slashed before `update_field` because `update_metadata` unslashes once; without it a literal backslash in content is silently eaten.
 - **Refs.** `refs` carry slugs (`pj_case_study`, `cs_testimonial`); the endpoint resolves them to IDs, errors when missing, warns when the target is not published (its section will not render).
@@ -82,6 +83,6 @@ Nothing below has been done. The pipeline currently talks to https://vulkancreat
 4. Enable Application Passwords on live (they are currently not advertised) and confirm the `Authorization` header survives Hostinger's stack; if `/wp-json/` is blocked at the edge, the query-string form `/?rest_route=/vc/v1/publish` is the fallback.
 5. Wordfence: check its login-security policy allows application passwords, and allowlist the publishing IP so bulk runs do not trip rate limiting. Large HTML payloads can hit WAF signatures; test with one real post before batches.
 6. Caching: publishes need a purge path through LiteSpeed, Hostinger hCDN and Cloudflare. Drafts are unaffected; test a published change end to end.
-7. Yoast: `project` and `case_study` (posts and archives) are currently noindexed while [SAMPLE] seeds are live. Replace or delete the sample content, then flip the four noindex toggles in Yoast Settings, Content types.
+7. Yoast: confirm `project` and `case_study` (posts and archives) are indexable on live once the real entries are in. Locally all four noindex toggles were already off and the sample content was deleted on 16 Sep 2026 (`feat/real-work-entries`).
 8. Review the live landing pages' `[placeholder]`-flagged figures before anything drives traffic at them.
 9. Fill the `live` profile in `~/.config/vc-publish/config.json` (URL, username, a fresh Application Password created on live). Publish one throwaway draft, verify, delete, then trust it.
