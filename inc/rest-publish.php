@@ -31,14 +31,14 @@ function vc_publish_types() {
 		],
 		'project'     => [
 			'post_type'  => 'project',
-			'core'       => [],
+			'core'       => [ 'date' ],
 			'taxonomies' => [ 'service' ],
 			'refs'       => [ 'pj_case_study' => 'case_study' ],
 			'require'    => [ 'terms:service' ],
 		],
 		'case_study'  => [
 			'post_type'  => 'case_study',
-			'core'       => [],
+			'core'       => [ 'date' ],
 			'taxonomies' => [ 'service' ],
 			'refs'       => [ 'cs_testimonial' => 'testimonial' ],
 			'require'    => [ 'field:cs_image', 'terms:service' ],
@@ -450,6 +450,23 @@ function vc_publish_document( array $payload ) {
 		$errors[] = [ 'field' => 'core.author', 'code' => 'missing_user', 'message' => 'No user with ID ' . $author . '.' ];
 	}
 
+	// Placement: a go-live date (YYYY-MM-DD) sets post_date, which orders the
+	// /work/ and /case-studies/ archives and the service-page strips. It is a
+	// placement instruction rather than editor content, so it applies on every
+	// run, overwrite or not, and a re-run can move an entry.
+	$date_local = '';
+	if ( in_array( 'date', $config['core'], true ) && ! vc_publish_is_blank( $core['date'] ?? null ) ) {
+		$date_in = trim( (string) $core['date'] );
+		$parsed  = DateTimeImmutable::createFromFormat( '!Y-m-d', $date_in, wp_timezone() );
+		if ( ! $parsed || $parsed->format( 'Y-m-d' ) !== $date_in ) {
+			$errors[] = [ 'field' => 'core.date', 'code' => 'bad_date', 'message' => 'Expected YYYY-MM-DD.' ];
+		} elseif ( $parsed->getTimestamp() > time() ) {
+			$errors[] = [ 'field' => 'core.date', 'code' => 'future_date', 'message' => 'The date is in the future; WordPress would schedule the post instead of publishing it.' ];
+		} else {
+			$date_local = $parsed->format( 'Y-m-d' ) . ' 09:00:00';
+		}
+	}
+
 	$template = null;
 	if ( 'page' === $type ) {
 		$template       = ! empty( $core['template'] ) ? (string) $core['template'] : $config['template'];
@@ -515,6 +532,9 @@ function vc_publish_document( array $payload ) {
 		} else {
 			$report['post'] = 'exists (' . $existing->post_status . '); would update';
 		}
+		if ( $date_local ) {
+			$report['date'] = ( $existing && substr( $existing->post_date, 0, 10 ) === substr( $date_local, 0, 10 ) ) ? 'unchanged' : 'would set ' . substr( $date_local, 0, 10 );
+		}
 		foreach ( $prepared as $name => $value ) {
 			$field = $registry[ $name ];
 			if ( vc_publish_is_blank( $value ) ) {
@@ -557,6 +577,10 @@ function vc_publish_document( array $payload ) {
 		}
 		if ( $template ) {
 			$postarr['page_template'] = $template;
+		}
+		if ( $date_local ) {
+			$postarr['post_date']     = $date_local;
+			$postarr['post_date_gmt'] = get_gmt_from_date( $date_local );
 		}
 		$post_id = wp_insert_post( wp_slash( $postarr ), true );
 		if ( is_wp_error( $post_id ) ) {
@@ -607,6 +631,12 @@ function vc_publish_document( array $payload ) {
 					$report['template'] = 'kept existing (overwrite off)';
 				}
 			}
+		}
+		if ( $date_local && substr( $existing->post_date, 0, 10 ) !== substr( $date_local, 0, 10 ) ) {
+			$delta['post_date']     = $date_local;
+			$delta['post_date_gmt'] = get_gmt_from_date( $date_local );
+			$delta['edit_date']     = true; // drafts otherwise get post_date reset to now on update
+			$report['date']         = 'set to ' . substr( $date_local, 0, 10 );
 		}
 		if ( $delta ) {
 			$delta['ID'] = $post_id;
