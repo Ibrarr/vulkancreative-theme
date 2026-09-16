@@ -38,10 +38,10 @@ and the related wheel), both gated on the linked case study being public.
   Article branch: archive → `CollectionPage`, single → `WebPage` (plus a
   `CreativeWork` JSON-LD node in the template).
 - Yoast: breadcrumbs emit `Home > Our Work > {name}` natively from
-  `has_archive`. Search Appearance holds the title templates and, while the
-  `[SAMPLE]` content is live, **noindex on both the singles and the archive**
-  (`wpseo_titles`: `noindex-project`, `noindex-ptarchive-project`). Flip both
-  when real client work replaces the samples.
+  `has_archive`. Search Appearance holds the title templates; the noindex
+  toggles (`wpseo_titles`: `noindex-project`, `noindex-ptarchive-project`)
+  are off locally since the `[SAMPLE]` content was deleted (Sep 2026).
+  Confirm them on live at deploy.
 - Menus: "Our Work" sits after "What We Do" in both `main-menu` and the footer
   Explore menu (custom items pointing at `/work/`).
 
