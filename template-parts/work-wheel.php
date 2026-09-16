@@ -29,6 +29,11 @@ foreach ( $wheel_projects as $pick_i => $wheel_project ) {
 }
 ksort( $wheel_slots );
 $wheel_projects = array_values( $wheel_slots );
+
+// Nothing to show renders nothing: a headed empty section is worse than none.
+if ( empty( $wheel_projects ) ) {
+	return;
+}
 ?>
 <div class="work-wheel" id="work-wheel">
 	<div class="shelf-head">
@@ -52,7 +57,6 @@ $wheel_projects = array_values( $wheel_slots );
 			</div>
 		<?php endif; ?>
 	</div>
-	<?php if ( ! empty( $wheel_projects ) ) : ?>
 		<div class="wheel-stage" role="group" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $wheel_label ); ?>">
 			<ul class="wheel-track">
 				<?php foreach ( $wheel_projects as $wheel_project ) :
@@ -92,5 +96,4 @@ $wheel_projects = array_values( $wheel_slots );
 				<?php endforeach; ?>
 			</ul>
 		</div>
-	<?php endif; ?>
 </div>

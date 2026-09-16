@@ -13,3 +13,16 @@
   // The why band below shares #121212, so an ember hairline marks the seam.
   border-bottom: 1px solid $vc-ember-line;
 }
+
+// With no featured case studies the work section above is absent, so the
+// wheel is the first section after services (#F5F5F5) and takes the white
+// pairing to keep the alternation; it then meets the why band on #121212
+// from #1E1E1E, so the seam hairline is not needed.
+.our-work.is-first-work {
+  background: $vc-surface-white;
+}
+
+@at-root body.dark-mode .our-work.is-first-work {
+  background: $dark-vc-background-dark !important;
+  border-bottom: 0;
+}

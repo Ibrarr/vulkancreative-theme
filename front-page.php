@@ -20,10 +20,74 @@ $services_description = get_field('hp_services_description') ?: 'Six services, o
 
 // Work
 $work_heading = vc_heading_parts( 'hp_work_heading', false, 'Forged with <span>our clients</span>.' );
+$work_cases   = [];
+$case_studies = new WP_Query([
+    'post_type'      => 'case_study',
+    'posts_per_page' => 3,
+    'no_found_rows'  => true,
+    'meta_key'       => 'cs_featured',
+    'meta_value'     => '1',
+]);
+if ( $case_studies->have_posts() ) {
+    while ( $case_studies->have_posts() ) { $case_studies->the_post();
+        $work_cases[] = [
+            'client'  => get_field('cs_client_name') ?: get_the_title(),
+            'sector'  => get_field('cs_sector'),
+            'summary' => get_field('cs_summary'),
+            'value'   => get_field('cs_metric_value'),
+            'label'   => get_field('cs_metric_label'),
+            'image'   => get_field('cs_image'),
+            // Cards link to the case studies' own pages (July 2026,
+            // the case-studies build); the outro keeps the contact route.
+            'link'    => get_permalink(),
+        ];
+    }
+    wp_reset_postdata();
+}
 
 // Our Work
 $our_work_heading    = vc_heading_parts( 'hp_our_work_heading', false, 'More of <span>our work</span>.' );
 $our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.';
+// Curated on the homepage: the hp_our_work_projects relationship field
+// sets both the selection and the order of the shelf.
+$our_work_ids  = get_field('hp_our_work_projects');
+$work_projects = [];
+if ( $our_work_ids ) {
+    foreach ( array_slice( (array) $our_work_ids, 0, 8 ) as $project_id ) {
+        $project_image = get_field('pj_image', $project_id);
+        if ( empty( $project_image ) ) { continue; }
+
+        // Service label: Yoast's primary term wins, then the first assigned term.
+        $service_label = '';
+        if ( function_exists('yoast_get_primary_term_id') ) {
+            $primary_id = yoast_get_primary_term_id( 'service', $project_id );
+            if ( $primary_id ) {
+                $primary_term = get_term( $primary_id, 'service' );
+                if ( $primary_term && ! is_wp_error( $primary_term ) ) {
+                    $service_label = $primary_term->name;
+                }
+            }
+        }
+        if ( ! $service_label ) {
+            $project_terms = get_the_terms( $project_id, 'service' );
+            if ( $project_terms && ! is_wp_error( $project_terms ) ) {
+                $service_label = $project_terms[0]->name;
+            }
+        }
+
+        $work_projects[] = [
+            'client'      => get_field('pj_client_name', $project_id) ?: get_the_title( $project_id ),
+            'sector'      => get_field('pj_sector', $project_id),
+            'description' => get_field('pj_description', $project_id),
+            'image'       => $project_image,
+            // Tiles link to the project's own page (July 2026, the
+            // work-pages build); the live-site link sits in that
+            // page's hero instead.
+            'link'        => get_permalink( $project_id ),
+            'service'     => $service_label,
+        ];
+    }
+}
 
 // Why
 $why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Why Choose <span>Vulkan</span>?' );
@@ -110,7 +174,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     <p class="split-text-hero"><?php echo esc_html( $hero_subheading ); ?></p>
                     <div class="bottom">
                         <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button"><?php echo esc_html( $hero_button ); ?></a>
-                        <a href="#work" class="button-ghost"><?php echo esc_html( $hero_secondary_button ); ?></a>
+                        <a href="<?php echo esc_url( $work_cases ? '#work' : ( $work_projects ? '#our-work' : home_url( '/work/' ) ) ); ?>" class="button-ghost"><?php echo esc_html( $hero_secondary_button ); ?></a>
                     </div>
                 </div>
             </div>
@@ -219,35 +283,13 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     </div>
 </section>
 
+<?php // Hidden outright until a featured case study exists (Sep 2026). ?>
+<?php if ( $work_cases ) : ?>
 <section class="work" id="work">
     <div class="container px-4">
         <div class="content">
             <h2><?php echo wp_kses_post( $work_heading ); ?></h2>
         </div>
-        <?php
-        $case_studies = new WP_Query([
-            'post_type'      => 'case_study',
-            'posts_per_page' => 3,
-            'no_found_rows'  => true,
-            'meta_key'       => 'cs_featured',
-            'meta_value'     => '1',
-        ]);
-        if ( $case_studies->have_posts() ) :
-            $work_cases = [];
-            while ( $case_studies->have_posts() ) { $case_studies->the_post();
-                $work_cases[] = [
-                    'client'  => get_field('cs_client_name') ?: get_the_title(),
-                    'sector'  => get_field('cs_sector'),
-                    'summary' => get_field('cs_summary'),
-                    'value'   => get_field('cs_metric_value'),
-                    'label'   => get_field('cs_metric_label'),
-                    'image'   => get_field('cs_image'),
-                    // Cards link to the case studies' own pages (July 2026,
-                    // the case-studies build); the outro keeps the contact route.
-                    'link'    => get_permalink(),
-                ];
-            }
-            wp_reset_postdata(); ?>
             <div class="work-showcase">
                 <div class="case-list">
                     <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
@@ -280,54 +322,16 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 </div>
             </div>
             <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a></p>
-        <?php endif; ?>
     </div>
 </section>
+<?php endif; ?>
 
-<section class="our-work" id="our-work">
+<?php // Hidden outright until the wheel has a project; is-first-work takes the
+// white pairing when the case-study section above is absent (Sep 2026). ?>
+<?php if ( $work_projects ) : ?>
+<section class="our-work<?php echo $work_cases ? '' : ' is-first-work'; ?>" id="our-work">
     <div class="container px-4">
         <?php
-        // Curated on the homepage: the hp_our_work_projects relationship field
-        // sets both the selection and the order of the shelf.
-        $our_work_ids  = get_field('hp_our_work_projects');
-        $work_projects = [];
-        if ( $our_work_ids ) {
-            foreach ( array_slice( (array) $our_work_ids, 0, 8 ) as $project_id ) {
-                $project_image = get_field('pj_image', $project_id);
-                if ( empty( $project_image ) ) { continue; }
-
-                // Service label: Yoast's primary term wins, then the first assigned term.
-                $service_label = '';
-                if ( function_exists('yoast_get_primary_term_id') ) {
-                    $primary_id = yoast_get_primary_term_id( 'service', $project_id );
-                    if ( $primary_id ) {
-                        $primary_term = get_term( $primary_id, 'service' );
-                        if ( $primary_term && ! is_wp_error( $primary_term ) ) {
-                            $service_label = $primary_term->name;
-                        }
-                    }
-                }
-                if ( ! $service_label ) {
-                    $project_terms = get_the_terms( $project_id, 'service' );
-                    if ( $project_terms && ! is_wp_error( $project_terms ) ) {
-                        $service_label = $project_terms[0]->name;
-                    }
-                }
-
-                $work_projects[] = [
-                    'client'      => get_field('pj_client_name', $project_id) ?: get_the_title( $project_id ),
-                    'sector'      => get_field('pj_sector', $project_id),
-                    'description' => get_field('pj_description', $project_id),
-                    'image'       => $project_image,
-                    // Tiles link to the project's own page (July 2026, the
-                    // work-pages build); the live-site link sits in that
-                    // page's hero instead.
-                    'link'        => get_permalink( $project_id ),
-                    'service'     => $service_label,
-                ];
-            }
-        }
-
         // The wheel itself is the shared template part (centre-out slotting
         // included), also used by the service pages' recent work section.
         get_template_part( 'template-parts/work-wheel', null, [
@@ -339,6 +343,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
         ?>
     </div>
 </section>
+<?php endif; ?>
 
 <section class="why" id="why">
     <div class="container px-4">
