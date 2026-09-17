@@ -43,8 +43,8 @@
   }
 
   .page-numbers.current {
-    background: $vc-primary;
-    border-color: $vc-primary;
+    background: $vc-button-red;
+    border-color: $vc-button-red;
     color: $vc-surface-white;
     font-weight: $vc-semi-bold;
   }
@@ -69,8 +69,8 @@
   }
 
   .page-numbers.current {
-    background: $vc-primary !important;
-    border-color: $vc-primary !important;
+    background: $vc-button-red !important;
+    border-color: $vc-button-red !important;
     color: $vc-surface-white !important;
   }
 }

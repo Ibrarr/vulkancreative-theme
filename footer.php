@@ -29,7 +29,8 @@
                     <?php endif; ?>
                     <div class="row footer-main">
                         <div class="col-lg-5 left">
-                            <div class="footer-logo"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?></div>
+                            <?php // An <img>, not a second inline copy of the SVG: the footer never animates or recolours the mark (it is #0D0D0D in both modes), and the file caches once for the whole site. ?>
+                            <div class="footer-logo"><img src="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/logo-white.svg' ); ?>" alt="Vulkan Creative" width="134" height="38" loading="lazy" decoding="async"></div>
                             <p class="footer-line">Brand, web and marketing that performs, built in-house and measured by results.</p>
                             <div class="footer-socials">
                                 <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank" rel="noopener" aria-label="Vulkan Creative on LinkedIn"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></a>
@@ -152,7 +153,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-wordmark" aria-hidden="true">Vulkan</div>
+                <?php // Decorative: the word is painted from CSS (::before), so it is neither read out nor measured as low-contrast text by accessibility audits. ?>
+                <div class="footer-wordmark" aria-hidden="true"></div>
             </footer>
         </div>
     </div>

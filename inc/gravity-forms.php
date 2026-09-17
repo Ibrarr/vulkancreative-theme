@@ -276,3 +276,22 @@ function vc_load_gravity_form_choices( $field ) {
 
 	return $field;
 }
+
+// reCAPTCHA v3 only where a form rendered. The add-on enqueues Google's script
+// on every front-end page so v3 can score the whole visit; that is roughly
+// 400KB of third-party JS on pages with no form to protect. By footer-print time
+// Gravity Forms has fired gform_enqueue_scripts for every form the template
+// rendered, so "no form on this page" is known and the two handles can go.
+// Trade-off, accepted Sep 2026: a visitor's first submission is scored on the
+// form page alone rather than on the pages before it.
+add_action( 'wp_print_footer_scripts', 'vc_recaptcha_only_with_forms', 1 );
+function vc_recaptcha_only_with_forms() {
+	if ( did_action( 'gform_enqueue_scripts' ) ) {
+		return;
+	}
+	if ( class_exists( 'GFFormDisplay' ) && ! empty( GFFormDisplay::$init_scripts ) ) {
+		return;
+	}
+	wp_dequeue_script( 'gforms_recaptcha_frontend' );
+	wp_dequeue_script( 'gforms_recaptcha_recaptcha' );
+}

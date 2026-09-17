@@ -122,9 +122,9 @@
   }
 }
 
-// Forge button — solid red primary with heat-glow hover (sharper geometry).
-// White label on brand red per client preference (3.6:1 — passes large-text
-// and UI thresholds; bold weight keeps it legible).
+// Forge button: solid red primary with heat-glow hover (sharper geometry).
+// White label on $vc-button-red, the deeper button red that reaches 4.5:1
+// (Sep 2026; brand red under white text measured 3.55:1).
 @mixin vc-button-forge {
   position: relative;
   display: inline-block;
@@ -132,10 +132,10 @@
   font-family: $vc-font-family;
   font-weight: $vc-bold;
   font-size: 16px;
-  background-color: $vc-primary;
+  background-color: $vc-button-red;
   color: $vc-surface-white;
   padding: 14px 30px;
-  border: 1px solid $vc-primary;
+  border: 1px solid $vc-button-red;
   border-radius: 2px;
   text-decoration: none;
   transition: box-shadow .3s, background-color .3s, color .3s, border-color .3s;
@@ -150,8 +150,8 @@
   @media (hover: hover) {
     &:hover {
       color: $vc-surface-white;
-      background-color: $vc-secondary;
-      border-color: $vc-secondary;
+      background-color: $vc-button-red-hover;
+      border-color: $vc-button-red-hover;
       box-shadow: $vc-glow-button;
     }
   }

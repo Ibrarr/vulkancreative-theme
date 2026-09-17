@@ -23,45 +23,20 @@ function vc_setup() {
 }
 
 /**
- * Register main stylesheet and jquery
+ * Front-end response headers. Cheap hardening the host does not add by default;
+ * HSTS is left to the host, which owns the certificate. On a full-page cache
+ * HIT PHP never runs, so if these go missing behind LiteSpeed, mirror them in
+ * .htaccess with `Header always set`.
  */
-add_action( 'wp_enqueue_scripts', 'vc_enqueue' );
-function vc_enqueue() {
-	wp_enqueue_style( 'vc-style', get_stylesheet_uri() );
-    wp_enqueue_script( 'jquery', false, [], false, true );
-}
-
-/**
- * Add script to the footer to check which device/browser the user is using
- */
-add_action( 'wp_footer', 'vc_footer' );
-function vc_footer() {
-	?>
-    <script>
-        jQuery(document).ready(function ($) {
-            var deviceAgent = navigator.userAgent.toLowerCase();
-            if (deviceAgent.match(/(iphone|ipod|ipad)/)) {
-                $("html").addClass("ios");
-                $("html").addClass("mobile");
-            }
-            if (deviceAgent.match(/(Android)/)) {
-                $("html").addClass("android");
-                $("html").addClass("mobile");
-            }
-            if (navigator.userAgent.search("MSIE") >= 0) {
-                $("html").addClass("ie");
-            } else if (navigator.userAgent.search("Chrome") >= 0) {
-                $("html").addClass("chrome");
-            } else if (navigator.userAgent.search("Firefox") >= 0) {
-                $("html").addClass("firefox");
-            } else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-                $("html").addClass("safari");
-            } else if (navigator.userAgent.search("Opera") >= 0) {
-                $("html").addClass("opera");
-            }
-        });
-    </script>
-	<?php
+add_action( 'send_headers', 'vc_security_headers' );
+function vc_security_headers() {
+	if ( is_admin() || headers_sent() ) {
+		return;
+	}
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'X-Frame-Options: SAMEORIGIN' );
+	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+	header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()' );
 }
 
 /**
@@ -285,14 +260,13 @@ add_action('wp_head', function () {
     $base = VC_TEMPLATE_URI . '/assets/images/logos/icon';
 
     $svg      = esc_url("$base/favicon.svg");
-    $ico      = esc_url("$base/favicon.ico");
     $png16    = esc_url("$base/favicon-16x16.png");
     $png32    = esc_url("$base/favicon-32x32.png");
     $png96    = esc_url("$base/favicon-96x96.png");
     $png192   = esc_url("$base/android-chrome-192x192.png");
     $png512   = esc_url("$base/android-chrome-512x512.png");
     $apple180 = esc_url("$base/apple-touch-icon.png");
-    $manifest = esc_url('/site.webmanifest');
+    $manifest = esc_url( home_url( '/site.webmanifest' ) );
     ?>
 
     <!-- Modern SVG -->
@@ -304,9 +278,6 @@ add_action('wp_head', function () {
     <link rel="icon" type="image/png" sizes="96x96" href="<?php echo $png96; ?>">
     <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $png192; ?>">
     <link rel="icon" type="image/png" sizes="512x512" href="<?php echo $png512; ?>">
-
-    <!-- Single ICO (drop the duplicate/shortcut line) -->
-    <link rel="icon" type="image/x-icon" href="<?php echo $ico; ?>">
 
     <!-- iOS -->
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $apple180; ?>">

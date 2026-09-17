@@ -113,13 +113,13 @@
   // It's a link to the category archive; heat to brand red on hover/focus.
   @media (hover: hover) {
     &:hover {
-      background: $vc-primary;
+      background: $vc-button-red;
       color: $vc-surface-white;
     }
   }
 
   &:focus-visible {
-    background: $vc-primary;
+    background: $vc-button-red;
     color: $vc-surface-white;
   }
 }

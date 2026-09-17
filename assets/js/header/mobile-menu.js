@@ -1,70 +1,65 @@
-jQuery(document).ready(function($) {
-    const $header = $('header');
-    const $menu = $('.mobile-menu');
-    const $toggle = $('.mobile-menu-toggle');
+// Mobile overlay menu: open/close, Escape, a Tab trap while open, and focus
+// handed back to the toggle on close. Vanilla JS: this was the theme's only
+// real jQuery module, and rewriting it lets jQuery leave every page that has
+// no Gravity Form.
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const menu = document.querySelector('.mobile-menu');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    if (!header || !menu || !toggle) return;
 
-    if (!$menu.length || !$toggle.length) {
-        return;
-    }
+    // Everything behind the overlay. Inert keeps screen-reader browse mode and
+    // stray taps out of the page while the menu covers it.
+    const page = document.getElementById('smooth-wrapper');
 
-    const focusableSelector = '.mobile-menu a, .mobile-menu button';
+    const isOpen = () => header.classList.contains('mobile-menu-active');
 
-    function openMenu() {
-        $header.addClass('mobile-menu-active');
-        $('body').addClass('no-scroll');
-        $toggle.attr('aria-expanded', 'true').attr('aria-label', 'Close menu');
+    const openMenu = () => {
+        header.classList.add('mobile-menu-active');
+        document.body.classList.add('no-scroll');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close menu');
+        if (page) page.setAttribute('inert', '');
 
-        // Move focus into the menu for keyboard users, once the overlay's
-        // visibility transition has finished (focus fails while hidden).
+        // Move focus into the menu once the overlay's visibility transition has
+        // finished (focus fails while the overlay is still hidden).
         setTimeout(() => {
-            if (!$header.hasClass('mobile-menu-active')) {
-                return;
-            }
-            const firstLink = $menu.find('a, button').first();
-            if (firstLink.length) {
-                firstLink.trigger('focus');
-            }
+            if (!isOpen()) return;
+            const first = menu.querySelector('a, button');
+            if (first) first.focus();
         }, 400);
-    }
+    };
 
-    function closeMenu(returnFocus = true) {
-        $header.removeClass('mobile-menu-active');
-        $('body').removeClass('no-scroll');
-        $toggle.attr('aria-expanded', 'false').attr('aria-label', 'Open menu');
+    const closeMenu = (returnFocus = true) => {
+        header.classList.remove('mobile-menu-active');
+        document.body.classList.remove('no-scroll');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+        if (page) page.removeAttribute('inert');
+        if (returnFocus) toggle.focus();
+    };
 
-        if (returnFocus) {
-            $toggle.trigger('focus');
-        }
-    }
+    toggle.addEventListener('click', () => (isOpen() ? closeMenu() : openMenu()));
 
-    $toggle.on('click.mobileMenu', function() {
-        if ($header.hasClass('mobile-menu-active')) {
+    document.addEventListener('keydown', (e) => {
+        if (!isOpen()) return;
+
+        if (e.key === 'Escape') {
             closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    // Escape closes the menu
-    $(document).on('keydown.mobileMenu', function(e) {
-        if (e.key === 'Escape' && $header.hasClass('mobile-menu-active')) {
-            closeMenu();
-        }
-    });
-
-    // Simple focus trap while the overlay is open
-    $(document).on('keydown.mobileMenuTrap', function(e) {
-        if (e.key !== 'Tab' || !$header.hasClass('mobile-menu-active')) {
             return;
         }
 
-        const focusable = $(focusableSelector).filter(':visible').add($toggle);
-        if (!focusable.length) {
-            return;
-        }
+        if (e.key !== 'Tab') return;
 
-        const first = focusable.first()[0];
-        const last = focusable.last()[0];
+        // Visible controls only (collapsed accordion panels are skipped), plus
+        // the toggle, which sits outside the overlay.
+        const focusable = [...menu.querySelectorAll('a, button')]
+            .filter((el) => el.offsetParent !== null)
+            .concat(toggle);
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
 
         if (e.shiftKey && document.activeElement === first) {
             e.preventDefault();
@@ -75,24 +70,9 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Handler for anchor links within the menu
-    $('.mobile-menu a').on('click.mobileMenu', function(e) {
-        const target = $(this).attr('href');
-        if (target && target.startsWith('#')) {
-            e.preventDefault();
-            closeMenu(false);
-
-            const $target = $(target);
-            if ($target.length) {
-                const offset = $target.offset().top;
-                // jQuery animate ignores prefers-reduced-motion, so branch:
-                // reduced motion gets an instant jump.
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    window.scrollTo(0, offset);
-                } else {
-                    $('html, body').animate({ scrollTop: offset });
-                }
-            }
-        }
+    // In-page anchors: close the overlay and leave the scroll to
+    // global/remove-anchor-from-url.js, which already honours reduced motion.
+    menu.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', () => closeMenu(false));
     });
 });

@@ -18,6 +18,12 @@ $vc-text-light: #F5F5F5;
 $vc-text-dark: #121212;
 $vc-primary: #FF3B30;
 $vc-secondary: #FF4500;
+// Solid red surfaces that carry white text (buttons, the current page number,
+// hot category plates). Brand red gives white only 3.55:1; these sit on the
+// same hue and reach 4.5:1 at rest and on hover. Everything else red on the
+// site (headings, metrics, rules, glows) stays $vc-primary.
+$vc-button-red: #D93B30;       // 4.55:1 with white
+$vc-button-red-hover: #DB3B00; // 4.53:1 with white, the hotter hover
 $vc-disabled: #c7c7c7;
 
 // Colors Dark Mode

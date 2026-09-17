@@ -18,7 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (window.location.hash) {
-        const target = document.querySelector(window.location.hash);
+        // getElementById, not querySelector: a hash such as #1 or #/path is not a
+        // valid CSS selector and threw an uncaught DOMException on load.
+        let target = null;
+        try {
+            target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        } catch (e) {
+            target = null;
+        }
         if (target) {
             setTimeout(() => {
                 target.scrollIntoView({ behavior: scrollBehavior() });

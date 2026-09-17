@@ -273,17 +273,27 @@ get_template_part( 'template-parts/page', 'hero', [
 				<div class="bottom"><a href="#watch" class="button"><?php echo esc_html( $story_button ); ?></a></div>
 			</div>
 		</div>
+		<?php // Native player: one progressive MP4 needs no player library. It ships
+		// with `controls` so it works without JS; about/story.js swaps them for the
+		// house play button until the film starts. preload="none" keeps the file
+		// off the wire until someone presses play. ?>
 		<div class="video-wrapper" id="watch">
 			<video
 					id="our-story"
-					class="video-js vjs-theme-city"
 					controls
-					preload="metadata"
-					poster="<?php echo VC_TEMPLATE_URI . '/assets/images/hero/story-poster.webp'; ?>"
+					playsinline
+					preload="none"
+					width="1280"
+					height="720"
+					poster="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/story-poster.webp' ); ?>"
 					title="Our story"
 			>
 				<source src="<?php echo esc_url( $story_video ); ?>" type="video/mp4" />
 			</video>
+			<button type="button" class="video-play" hidden>
+				<span class="visually-hidden">Play the film</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg>
+			</button>
 		</div>
 	</div>
 </section>
