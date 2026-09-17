@@ -598,7 +598,7 @@ All enqueuing happens in `inc/styles-scripts.php` via the `add_custom_scripts()`
 
 **Global (always loaded):** `site` (style, `mix('/css/app.css')`), `global` and `header` (JS). Every bundle goes through `vc_enqueue_bundle( $handle )`: `defer` strategy, printed in the head, no dependencies. There is no footer bundle.
 
-**Conditional (page-specific):** `homepage` (`is_front_page()`), `single-blog` (`is_singular('post')` — not `is_single()`, which is true for CPT singles too), `archive-blog` (`is_home() || is_category()`), `archive-author` (`is_author()`), `project` (`is_post_type_archive('project') || is_singular('project')`), `case-study` (`is_post_type_archive('case_study') || is_singular('case_study')`), `contact`/`about`/`free-website`/`landing` (matching `is_page_template(...)`; landing also enqueues `enquiry-form` for its CTA form), `services-hub`/`service` (hub template / `is_tax('service')`).
+**Conditional (page-specific):** `homepage` (`is_front_page()`), `single-blog` (`is_singular('post')`, not `is_single()`, which is true for CPT singles too), `archive-blog` (`is_home() || is_category()`), `archive-author` (`is_author()`), `project` (`is_post_type_archive('project') || is_singular('project')`), `case-study` (`is_post_type_archive('case_study') || is_singular('case_study')`), `contact`/`about`/`free-website`/`landing` (matching `is_page_template(...)`; landing also enqueues `enquiry-form` for its CTA form), `services-hub`/`service` (hub template / `is_tax('service')`).
 
 The `homepage` handle also gets an inline `window.__vc_public_path` variable (via `wp_add_inline_script`) so webpack's dynamically imported chunks -- the three.js statue scene -- resolve under the theme's `dist/` directory instead of the site root.
 
