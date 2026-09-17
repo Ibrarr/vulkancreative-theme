@@ -292,30 +292,49 @@ while ( have_posts() ) :
 		// The results band punctuates the story on the full-dark anchor
 		// surface (no alternation slot). Base .results classes keep
 		// counter.js binding to .stat-number unchanged.
-		$cs_stat_col = count( $cs_stats ) >= 4 ? 'col-lg-3 col-6' : 'col-lg-4 col-6';
+		// With a narrative the band splits at lg: the stats stack in one column of
+		// full-size figures beside the story, so the two columns balance (a two by
+		// two block left a tall empty area under it). From sm to lg they sit two by
+		// two above the story; below sm, one per row. Alone, they run across the
+		// full width. The longest value
+		// sets one number size for the whole set (--stat-chars, read by
+		// case-study/_results.scss), so no figure can outgrow its cell.
+		$cs_split      = ! empty( $cs_stats ) && $cs_narrative;
+		// Below sm each stat takes its own row, so the figures stay display size.
+		$cs_stat_col   = $cs_split ? 'col-lg-12 col-sm-6 col-12' : ( count( $cs_stats ) >= 4 ? 'col-lg-3 col-sm-6 col-12' : 'col-lg-4 col-sm-6 col-12' );
+		$cs_stat_chars = 1;
+		foreach ( (array) $cs_stats as $cs_stat ) {
+			$cs_stat_chars = max( $cs_stat_chars, mb_strlen( trim( (string) $cs_stat['value'] ) ) );
+		}
 		?>
 		<section class="cs-results results">
 			<div class="container px-4">
 				<div class="content">
 					<h2><?php echo wp_kses_post( vc_heading_parts( 'csp_results_heading', 'options', 'The <span>results</span>.' ) ); ?></h2>
 				</div>
-				<?php if ( ! empty( $cs_stats ) ) : ?>
-					<div class="row gx-4 gy-4 stats-grid">
-						<?php foreach ( $cs_stats as $cs_stat ) : ?>
-							<div class="<?php echo esc_attr( $cs_stat_col ); ?>">
-								<div class="stat">
-									<span class="stat-number"><?php echo esc_html( $cs_stat['value'] ); ?></span>
-									<p class="stat-label"><?php echo esc_html( $cs_stat['label'] ); ?></p>
-								</div>
+				<div class="row results-row<?php echo $cs_split ? ' is-split' : ''; ?>">
+					<?php if ( ! empty( $cs_stats ) ) : ?>
+						<div class="<?php echo $cs_split ? 'col-lg-5' : 'col-12'; ?>">
+							<div class="row gx-4 gy-4 stats-grid" style="--stat-chars: <?php echo (int) $cs_stat_chars; ?>;">
+								<?php foreach ( $cs_stats as $cs_stat ) : ?>
+									<div class="<?php echo esc_attr( $cs_stat_col ); ?>">
+										<div class="stat">
+											<span class="stat-number"><?php echo esc_html( $cs_stat['value'] ); ?></span>
+											<p class="stat-label"><?php echo esc_html( $cs_stat['label'] ); ?></p>
+										</div>
+									</div>
+								<?php endforeach; ?>
 							</div>
-						<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+					<div class="results-text <?php echo $cs_split ? 'col-lg-6 offset-lg-1' : 'col-12'; ?>">
+						<?php if ( $cs_narrative ) : ?>
+							<?php vc_text_paragraphs( $cs_narrative, 'results-narrative' ); ?>
+						<?php endif; ?>
+						<div class="results-actions">
+							<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
+						</div>
 					</div>
-				<?php endif; ?>
-				<?php if ( $cs_narrative ) : ?>
-					<?php vc_text_paragraphs( $cs_narrative, 'results-narrative' ); ?>
-				<?php endif; ?>
-				<div class="results-actions">
-					<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
 				</div>
 			</div>
 		</section>

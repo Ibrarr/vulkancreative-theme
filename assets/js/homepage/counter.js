@@ -12,15 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
     const parse = (raw) => {
-        const match = raw.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+        // Thousands-grouped figures (43,605) count as one number, not as 43
+        // with a ",605" suffix.
+        const match = raw.match(/^(\D*)(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)(.*)$/);
         if (!match) return null;
         const [, prefix, numStr, suffix] = match;
+        const grouped = numStr.includes(',');
         return {
             raw,
             prefix,
             suffix,
-            target: parseFloat(numStr),
-            decimals: (numStr.split('.')[1] || '').length,
+            grouped,
+            target: parseFloat(numStr.replace(/,/g, '')),
+            decimals: grouped ? 0 : (numStr.split('.')[1] || '').length,
         };
     };
 
@@ -60,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tick = (now) => {
             const t = Math.min((now - start) / duration, 1);
-            el.textContent = stat.prefix + (stat.target * easeOutCubic(t)).toFixed(stat.decimals) + stat.suffix;
+            const value = stat.target * easeOutCubic(t);
+            el.textContent = stat.prefix + (stat.grouped ? Math.round(value).toLocaleString('en-GB') : value.toFixed(stat.decimals)) + stat.suffix;
             if (t < 1) {
                 requestAnimationFrame(tick);
             } else {
