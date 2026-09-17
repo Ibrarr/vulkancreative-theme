@@ -93,7 +93,7 @@
     flex: 0 0 auto;
     width: 104px;
     height: 104px;
-    border-radius: 50%;
+    border-radius: 2px; // house corners, as on the testimonial headshots
     overflow: hidden;
     line-height: 0;
 
@@ -105,7 +105,7 @@
       // ($space-4) that would otherwise push the avatar down inside its circle.
       margin: 0;
       object-fit: cover;
-      border-radius: 50%;
+      border-radius: 2px; // house corners, as on the testimonial headshots
     }
   }
 
@@ -134,6 +134,23 @@
   .insight-author-role {
     @include vc-body($vc-grey-600);
     font-size: 14px;
+  }
+
+  .insight-author-linkedin {
+    @include vc-body($vc-text-dark);
+    font-size: 14px;
+    font-weight: $vc-semi-bold;
+    text-decoration: underline;
+    text-decoration-color: $vc-grey-400;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+        text-decoration-color: $vc-primary;
+      }
+    }
   }
 
   .insight-author-desc {
@@ -343,6 +360,18 @@
 
     .insight-author-role {
       color: $vc-muted-on-dark !important;
+    }
+
+    .insight-author-linkedin {
+      color: $vc-text-light !important;
+      text-decoration-color: rgba($vc-text-light, 0.4) !important;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary !important;
+          text-decoration-color: $vc-primary !important;
+        }
+      }
     }
 
     .insight-author-desc {

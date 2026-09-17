@@ -366,3 +366,45 @@ add_filter(
 	10,
 	4
 );
+
+/**
+ * Authors show the photo saved on their profile (the User group's
+ * profile_photo field) wherever WordPress asks for an avatar: the author box
+ * on articles, the author page, the admin. Without one the Gravatar default
+ * stands, which for the founders was the grey placeholder silhouette.
+ */
+add_filter( 'pre_get_avatar_data', 'vc_profile_photo_avatar', 10, 2 );
+function vc_profile_photo_avatar( $args, $id_or_email ) {
+	if ( ! function_exists( 'get_field' ) ) {
+		return $args;
+	}
+
+	$user_id = 0;
+	if ( is_numeric( $id_or_email ) ) {
+		$user_id = (int) $id_or_email;
+	} elseif ( $id_or_email instanceof WP_User ) {
+		$user_id = (int) $id_or_email->ID;
+	} elseif ( $id_or_email instanceof WP_Post ) {
+		$user_id = (int) $id_or_email->post_author;
+	} elseif ( $id_or_email instanceof WP_Comment ) {
+		$user_id = (int) $id_or_email->user_id;
+	} elseif ( is_string( $id_or_email ) && is_email( $id_or_email ) ) {
+		$user    = get_user_by( 'email', $id_or_email );
+		$user_id = $user ? (int) $user->ID : 0;
+	}
+	if ( ! $user_id ) {
+		return $args;
+	}
+
+	$photo_id = (int) get_field( 'profile_photo', 'user_' . $user_id );
+	if ( ! $photo_id ) {
+		return $args;
+	}
+
+	$source = wp_get_attachment_image_src( $photo_id, (int) $args['size'] <= 150 ? 'thumbnail' : 'medium' );
+	if ( $source ) {
+		$args['url']          = $source[0];
+		$args['found_avatar'] = true;
+	}
+	return $args;
+}

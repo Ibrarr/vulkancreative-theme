@@ -68,6 +68,8 @@ $read_time  = $read_words ? max( 1, (int) ceil( $read_words / 200 ) ) : 0;
 $author_id   = (int) get_the_author_meta( 'ID' );
 $author_bio  = get_the_author_meta( 'description', $author_id );
 $author_role = get_field( 'job_title', 'user_' . $author_id );
+// Yoast's profile field: the same URL feeds the Person schema's sameAs.
+$author_linkedin = get_the_author_meta( 'linkedin', $author_id );
 
 $has_hero_image = has_post_thumbnail();
 
@@ -167,6 +169,9 @@ $related = new WP_Query( [
                                 <a class="insight-author-name" href="<?php echo esc_url( get_author_posts_url( $author_id ) ); ?>"><?php the_author(); ?></a>
                                 <?php if ( $author_role ) : ?>
                                     <span class="insight-author-role"><?php echo esc_html( $author_role ); ?></span>
+                                <?php endif; ?>
+                                <?php if ( $author_linkedin ) : ?>
+                                    <a class="insight-author-linkedin" href="<?php echo esc_url( $author_linkedin ); ?>" target="_blank" rel="noopener me">LinkedIn<span class="visually-hidden"> profile of <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?> (opens in a new tab)</span></a>
                                 <?php endif; ?>
                             </span>
                         </div>

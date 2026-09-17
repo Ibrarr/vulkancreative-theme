@@ -5,6 +5,8 @@
  * One card design for the blog index, category and author archives, search
  * results and the single-post "More insights" row. Runs inside any post loop,
  * so it reads from the current post via get_the_*() and needs no arguments.
+ * One optional argument, 'lead' => true, renders the wide lead card that opens
+ * the blog index and category archives: full row, image beside the text.
  *
  * The card body is a single link to the post; the category plate is a separate
  * link to its category archive (a sibling, not nested, so there are two clean
@@ -46,9 +48,13 @@ if ( $card_cat ) {
 // Read time from the ACF content field; hidden when there is no content.
 $card_words     = str_word_count( strip_tags( (string) get_field( 'content' ) ) );
 $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
+
+$card_is_lead = ! empty( $args['lead'] );
+$card_classes = $card_is_lead ? 'insight-card is-lead col-12' : 'insight-card col-lg-4 col-md-6 col-12';
+$card_sizes   = $card_is_lead ? '(min-width: 992px) 760px, 100vw' : '(min-width: 992px) 420px, (min-width: 768px) 50vw, 100vw';
 ?>
 
-<article <?php post_class( 'insight-card col-lg-4 col-md-6 col-12' ); ?>>
+<article <?php post_class( $card_classes ); ?>>
 	<a class="insight-card-link" href="<?php the_permalink(); ?>">
 		<span class="insight-card-media">
 			<?php if ( has_post_thumbnail() ) : ?>
@@ -57,7 +63,7 @@ $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
 					'class'    => 'insight-card-img',
 					'loading'  => 'lazy',
 					'decoding' => 'async',
-					'sizes'    => '(min-width: 992px) 420px, (min-width: 768px) 50vw, 100vw',
+					'sizes'    => $card_sizes,
 					'alt'      => '',
 				] );
 				?>
@@ -71,7 +77,7 @@ $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
 		<div class="insight-card-body">
 			<h3 class="insight-card-title"><?php the_title(); ?></h3>
 
-			<p class="insight-card-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 28, '…' ) ); ?></p>
+			<p class="insight-card-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), $card_is_lead ? 48 : 28, '…' ) ); ?></p>
 
 			<span class="insight-card-meta">
 				<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></time>
