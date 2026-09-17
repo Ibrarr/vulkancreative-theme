@@ -62,7 +62,7 @@
                         <?php endif; ?>
                         <div class="col-lg-2 footer-menu">
                             <p class="footer-heading">Explore</p>
-                            <nav id="footer-menu" role="navigation" itemscope
+                            <nav id="footer-menu" aria-label="Explore" itemscope
                                  itemtype="https://schema.org/SiteNavigationElement">
                                 <?php
                                 // The Explore list mirrors the header nav minus the services

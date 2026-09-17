@@ -66,7 +66,8 @@
     }
 
     &.is-active {
-      color: $vc-primary;
+      // Button red on the light surface (4.55:1); dark mode keeps the brand red.
+      color: $vc-button-red;
       border-left-color: $vc-primary;
     }
   }
@@ -168,7 +169,7 @@
     align-items: center;
     gap: 6px;
     margin-top: $space-2;
-    @include vc-body($vc-primary);
+    @include vc-body($vc-button-red); // 4.55:1 on white; the dark override below restores the brand red
     font-weight: $vc-semi-bold;
     text-decoration: underline;
     text-decoration-thickness: 1px;
@@ -360,6 +361,10 @@
 
     .insight-author-role {
       color: $vc-muted-on-dark !important;
+    }
+
+    .insight-author-more {
+      color: $vc-primary !important;
     }
 
     .insight-author-linkedin {

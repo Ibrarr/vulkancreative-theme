@@ -96,7 +96,7 @@
                 </div>
                 <?php else : ?>
                 <div class="menu-theme-toggle">
-                    <nav id="nav" role="navigation" itemscope
+                    <nav id="nav" aria-label="Main" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
                         wp_nav_menu( array(
@@ -145,7 +145,7 @@
             <?php if ( ! vc_is_slim_header() ) : ?>
             <div class="mobile-menu" id="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
-                    <nav id="nav-mobile" role="navigation" itemscope
+                    <nav id="nav-mobile" aria-label="Main, mobile" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
                         wp_nav_menu( array(

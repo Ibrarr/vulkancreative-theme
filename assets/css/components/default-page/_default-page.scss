@@ -96,15 +96,17 @@
       }
     }
 
+    // As in the article body: the button red on white (4.55:1), the brand red
+    // in dark mode.
     a {
-      color: $vc-primary;
+      color: $vc-button-red;
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
       transition: color 0.3s;
 
       &:hover {
-        color: $vc-secondary;
+        color: $vc-button-red-hover;
       }
     }
 

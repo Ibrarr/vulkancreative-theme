@@ -59,7 +59,9 @@
   .why-cell {
     display: flex;
     flex-direction: column;
-    background: $vc-grey-dark-surface;
+    // #212121, not the usual #262626 raised surface: the red proof lines are
+    // 12px, and this is the lightest cell that still gives them 4.5:1.
+    background: #212121;
     border: 1px solid $vc-grey-dark-border;
     border-radius: 2px;
     padding: $space-4;

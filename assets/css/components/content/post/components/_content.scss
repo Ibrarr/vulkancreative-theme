@@ -55,15 +55,17 @@
     }
   }
 
+  // Body links on the white article surface take the button red: the brand
+  // red is 3.5:1 on white, this is 4.55:1. Dark mode keeps the brand red.
   a {
-    color: $vc-primary;
+    color: $vc-button-red;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     transition: color 0.3s;
 
     &:hover {
-      color: $vc-secondary;
+      color: $vc-button-red-hover;
     }
   }
 
