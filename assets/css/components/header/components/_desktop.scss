@@ -148,6 +148,13 @@
         text-transform: none;
         letter-spacing: 0;
         padding: 11px 24px;
+
+        // It is a button, not a nav link: the nav links' hover underline
+        // above must not reach it (the button's own hover is its fill and glow).
+        &:hover,
+        &:focus-visible {
+          text-decoration: none;
+        }
       }
 
       &::after {

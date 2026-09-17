@@ -1,7 +1,7 @@
 // The offer links row (template-parts/offer-links.php): one lead line and the
 // two standing offers as text links, ruled off above. Sits at the foot of a
-// section on the homepage and the services hub. Feedback is colour and the
-// arrow's nudge; nothing else moves.
+// section on the homepage and the services hub. Feedback is colour only;
+// nothing moves on hover.
 .offer-links {
   display: flex;
   flex-direction: column;
@@ -51,16 +51,11 @@
 
     svg {
       flex: 0 0 auto;
-      transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     @media (hover: hover) {
       &:hover {
         color: $vc-primary;
-
-        svg {
-          transform: translateX(3px);
-        }
       }
     }
   }

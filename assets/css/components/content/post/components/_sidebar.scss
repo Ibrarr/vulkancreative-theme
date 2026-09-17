@@ -183,10 +183,6 @@
     @media (hover: hover) {
       &:hover {
         color: $vc-secondary;
-
-        .insight-author-more-arrow {
-          transform: translateX(3px);
-        }
       }
     }
 

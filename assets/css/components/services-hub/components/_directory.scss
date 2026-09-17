@@ -3,8 +3,8 @@
 // one-line description and its child services as links, so the hub works as
 // a map of the whole offer rather than six teaser cards. The pillar link
 // stretches over its row; child links sit above it. Feedback on hover and
-// focus is colour plus the arrow's nudge; the row itself never moves. Rows
-// stagger in via services-hub/reveal.js.
+// focus is colour only: nothing in the row moves, the arrow included. Rows
+// rise in one by one via services-hub/reveal.js.
 .hub-services {
   @include vc-section-padding;
 
@@ -157,7 +157,6 @@
 
     svg {
       display: block;
-      transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
     }
   }
 
@@ -170,10 +169,6 @@
       .directory-arrow {
         border-color: $vc-primary;
         color: $vc-primary;
-
-        svg {
-          transform: translateX(3px);
-        }
       }
     }
   }
@@ -181,6 +176,14 @@
   .directory-row:focus-within .directory-arrow {
     border-color: $vc-primary;
     color: $vc-primary;
+  }
+
+  // The directory closes on its own bottom rule, so the offer row beneath it
+  // drops its top rule (two hairlines 48px apart read as a mistake).
+  .offer-links {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: $space-4;
   }
 }
 
