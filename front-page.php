@@ -7,16 +7,16 @@ get_header();
 // when all three parts are blank.
 
 // Hero
-$hero_subheading       = get_field('hp_hero_subheading') ?: 'Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.';
+$hero_subheading       = get_field('hp_hero_subheading') ?: 'Vulkan Creative is a London digital agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.';
 $hero_button           = get_field('hp_hero_button_text') ?: 'Start a Project';
-$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the Results';
+$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See Our Work';
 
 // Results
-$results_heading = vc_heading_parts( 'hp_results_heading', false, 'Results That <span>Matter</span>' );
+$results_heading = vc_heading_parts( 'hp_results_heading', false, 'The <span>numbers</span> so far' );
 
 // Services
-$services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Built around one goal: <span>your growth</span>.' );
-$services_description = get_field('hp_services_description') ?: 'Six services, one joined-up team. Pick what you need now and scale when you are ready.';
+$services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Six services, <span>one team</span>' );
+$services_description = get_field('hp_services_description') ?: 'Take one service or combine them. The same two founders lead every piece, so nothing is handed between suppliers.';
 
 // Work
 $work_heading = vc_heading_parts( 'hp_work_heading', false, 'Forged with <span>our clients</span>.' );
@@ -47,7 +47,15 @@ if ( $case_studies->have_posts() ) {
 
 // Our Work
 $our_work_heading    = vc_heading_parts( 'hp_our_work_heading', false, 'More of <span>our work</span>.' );
-$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.';
+// "More of our work" only reads right under the featured case studies. When
+// that section is absent this is the first work on the page, so the heading
+// drops its "More of" and becomes "Our work."
+if ( ! $work_cases ) {
+    $our_work_heading = preg_replace_callback( '/^More of\s+(<span>)?(\w)/iu', function ( $m ) {
+        return $m[1] . mb_strtoupper( $m[2] );
+    }, $our_work_heading );
+}
+$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered.';
 // Curated on the homepage: the hp_our_work_projects relationship field
 // sets both the selection and the order of the shelf.
 $our_work_ids  = get_field('hp_our_work_projects');
@@ -90,24 +98,24 @@ if ( $our_work_ids ) {
 }
 
 // Why
-$why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Why Choose <span>Vulkan</span>?' );
-$why_subheading = get_field('hp_why_subheading') ?: 'A dedicated partner, not a distant supplier. Three things we never compromise on.';
+$why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Three things we <span>do not compromise</span> on' );
+$why_subheading = get_field('hp_why_subheading') ?: 'You work directly with the two founders. These are the rules we hold to on every project.';
 
 $why_items_default = [
 	[
-		'title'       => 'Hands-On, In Person',
+		'title'       => 'Hands on and in person',
 		'description' => 'We sit down with you and learn how the business actually runs. You deal with the people doing the work, not an account queue.',
-		'proof'       => '25+ years combined experience',
+		'proof'       => 'Both founders on every call',
 	],
 	[
-		'title'       => 'Bespoke, Never Templated',
+		'title'       => 'Built for you, never from a template',
 		'description' => 'We build every brand, website and campaign around your audience, from the ground up. Nothing off the shelf, nothing recycled.',
-		'proof'       => '120+ bespoke projects delivered',
+		'proof'       => 'Every build from a blank canvas',
 	],
 	[
-		'title'       => 'Results You Can Measure',
+		'title'       => 'Results you can measure',
 		'description' => 'We tie every engagement to numbers that matter: enquiries, rankings, revenue. You always know what is working and why.',
-		'proof'       => '5.0 rating on Google',
+		'proof'       => 'Reported monthly in plain English',
 	],
 ];
 $why_items = [];
@@ -125,17 +133,17 @@ $why_items = array_slice( $why_items ?: $why_items_default, 0, 3 );
 
 $why_stat_value = get_field('hp_why_stat_value') ?: '2.3x';
 $why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients. The number we hold ourselves to.';
-$why_note_title = get_field('hp_why_note_title') ?: 'Not the cheapest. The most accountable.';
-$why_note_text  = get_field('hp_why_note_text') ?: 'One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.';
-$why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partner?';
+$why_note_title = get_field('hp_why_note_title') ?: 'You always know who is responsible';
+$why_note_text  = get_field('hp_why_note_text') ?: 'We are not the cheapest option. One partner is answerable for strategy, design, build and growth, and if something is not working you hear it from us first, with a plan to fix it.';
+$why_cta_text   = get_field('hp_why_cta_text') ?: 'Want to talk it through?';
 $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 
 // Process
-$process_heading     = vc_heading_parts( 'hp_process_heading', false, 'A Clear Path From <span>Spark to Scale</span>' );
-$process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
+$process_heading     = vc_heading_parts( 'hp_process_heading', false, 'How a <span>project</span> runs' );
+$process_description = get_field('hp_process_description') ?: 'Four stages, from the first conversation to reporting on results. The same two people lead each stage.';
 
 // Testimonials (the rating chip reads Global Settings via vc_google_reviews())
-$testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'Trusted by <span>Ambitious Brands</span>' );
+$testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'What <span>clients</span> say' );
 
 // Contact
 $contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you want to discuss?' );
@@ -147,7 +155,7 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 // Latest insights
 $latest_heading    = vc_heading_parts( 'hp_latest_heading', false, 'Latest <span>insights</span>.' );
-$latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing: what we’re learning, building and watching.';
+$latest_subheading = get_field('hp_latest_subheading') ?: 'Articles on web, SEO, AI and marketing, written by the two of us from what we build and test.';
 $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>
 
@@ -180,8 +188,8 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                         </span>
                         <?php // The rotating words are decorative; give assistive tech and search
                         // engines one clean, keyword-complete reading of the heading. ?>
-                        <span class="visually-hidden">brands, websites, marketing and content,</span>
-                        <span class="h1-line">built to perform<span class="red">.</span></span>
+                        <span class="visually-hidden">brands, websites, marketing and content</span>
+                        <span class="h1-line">that bring in customers<span class="red">.</span></span>
                     </h1>
                     <p class="split-text-hero"><?php echo esc_html( $hero_subheading ); ?></p>
                     <div class="bottom">
@@ -333,7 +341,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     <?php endforeach; ?>
                 </div>
             </div>
-            <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a></p>
+            <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a></p>
     </div>
 </section>
 <?php endif; ?>
@@ -389,14 +397,6 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
         <?php get_template_part( 'template-parts/partner-logos', null, [ 'surface' => 'dark' ] ); ?>
     </div>
 </section>
-
-<?php // The Our Story section moved to the About page (page-templates/page-about-us.php). ?>
-<div class="text-marquee" aria-hidden="true">
-    <div class="text-marquee-track">
-        <span class="text-marquee-row">Strategy<em>&bull;</em>Design<em>&bull;</em>Development<em>&bull;</em>Content<em>&bull;</em>SEO<em>&bull;</em>Paid media<em>&bull;</em></span>
-        <span class="text-marquee-row">Strategy<em>&bull;</em>Design<em>&bull;</em>Development<em>&bull;</em>Content<em>&bull;</em>SEO<em>&bull;</em>Paid media<em>&bull;</em></span>
-    </div>
-</div>
 
 <section class="process" id="process">
     <div class="container px-4">

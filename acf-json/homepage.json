@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.",
+            "default_value": "Vulkan Creative is a London digital agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -58,7 +58,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Trusted by ambitious brands",
+            "default_value": "Brands we have worked with",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -100,7 +100,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Results That",
+            "default_value": "The",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -121,7 +121,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Matter",
+            "default_value": "numbers",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -142,7 +142,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "so far",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -296,7 +296,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "A Clear Path From",
+            "default_value": "How a",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -317,7 +317,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Spark to Scale",
+            "default_value": "project",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -338,7 +338,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "runs",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -359,7 +359,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.",
+            "default_value": "Four stages, from the first conversation to reporting on results. The same two people lead each stage.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -469,7 +469,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Trusted by",
+            "default_value": "What",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -490,7 +490,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Ambitious Brands",
+            "default_value": "clients",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -511,7 +511,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "say",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -614,7 +614,7 @@
             "name": "hp_testimonials_logos",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Optional client\/partner logos shown above the testimonials.",
+            "instructions": "Optional client/partner logos shown above the testimonials.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -695,7 +695,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "See the results",
+            "default_value": "See Our Work",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -737,7 +737,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Built around one goal:",
+            "default_value": "Six services,",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -758,7 +758,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "your growth",
+            "default_value": "one team",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -779,7 +779,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": ".",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -800,7 +800,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Six services, one joined-up team. Pick what you need now and scale when you are ready.",
+            "default_value": "Take one service or combine them. The same two founders lead every piece, so nothing is handed between suppliers.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -968,7 +968,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.",
+            "default_value": "Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1042,7 +1042,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Why Choose",
+            "default_value": "Three things we",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1063,7 +1063,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Vulkan",
+            "default_value": "do not compromise",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1084,7 +1084,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "?",
+            "default_value": "on",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1105,12 +1105,144 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "A dedicated partner, not a distant supplier. Three things we never compromise on.",
+            "default_value": "You work directly with the two founders. These are the rules we hold to on every project.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
             "rows": 3,
             "new_lines": ""
+        },
+        {
+            "key": "field_hp_0031",
+            "label": "Why Items",
+            "name": "hp_why_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "The three rules in the Why section. Leave empty to show the defaults.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 3,
+            "collapsed": "",
+            "button_label": "Add Rule",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_hp_0031a",
+                    "label": "Title",
+                    "name": "title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_hp_0031"
+                },
+                {
+                    "key": "field_hp_0031b",
+                    "label": "Description",
+                    "name": "description",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "rows": 2,
+                    "new_lines": "",
+                    "parent_repeater": "field_hp_0031"
+                },
+                {
+                    "key": "field_hp_0031c",
+                    "label": "Proof",
+                    "name": "proof",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "One line of proof at the foot of the cell. Words, not figures: the Results row already carries the numbers.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_hp_0031"
+                }
+            ]
+        },
+        {
+            "key": "field_hp_0128",
+            "label": "Why Stat Value",
+            "name": "hp_why_stat_value",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "The one figure the Why section repeats from the Results row.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "2.3x",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_hp_0129",
+            "label": "Why Stat Label",
+            "name": "hp_why_stat_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Average lead growth across our clients. The number we hold ourselves to.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_hp_0034",
@@ -1126,7 +1258,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Not the cheapest. The most accountable.",
+            "default_value": "You always know who is responsible",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1147,7 +1279,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.",
+            "default_value": "We are not the cheapest option. One partner is answerable for strategy, design, build and growth, and if something is not working you hear it from us first, with a plan to fix it.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1168,7 +1300,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Sound like your kind of partner?",
+            "default_value": "Want to talk it through?",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1189,7 +1321,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Start a project",
+            "default_value": "Start a Project",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1378,7 +1510,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Fresh thinking on brand, web and marketing — what we’re learning, building and watching.",
+            "default_value": "Articles on web, SEO, AI and marketing, written by the two of us from what we build and test.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1430,5 +1562,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787310533
+    "modified": 1789632590
 }

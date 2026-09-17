@@ -101,9 +101,11 @@ body {
   }
 }
 
-// The skip link lands on <main>; it takes focus without drawing a ring
-// around the whole page.
-main#content:focus {
+// In-page anchors (the skip link included) hand focus to their target, a
+// section or <main> carrying tabindex -1. That is a landing point, not a
+// control, so it takes focus without a ring around the whole block.
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
   outline: none;
 }
 
