@@ -16,10 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reduceMotion = prefersReducedMotion();
 
+    // Two speeds, because the two moves are different interactions. Autoplay
+    // is ambient and can take its time; a press is deliberate and has to
+    // answer at once, so it snaps. Splide holds one speed, so it is swapped
+    // on the way into a user-driven move and put back once that move lands.
+    const AMBIENT = 700;
+    const SNAP = 260;
+
     const splide = new Splide(el, {
         type: 'fade',
         rewind: true,
-        speed: reduceMotion ? 0 : 700,
+        speed: reduceMotion ? 0 : AMBIENT,
         autoplay: !reduceMotion,
         interval: 6000,
         pauseOnHover: true,
@@ -112,6 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Leaving a slide closes an opened review, so the track returns to its
     // resting height once the fade has finished.
     splide.on('moved', closeAll);
+
+    // Capture phase, so the speed is already swapped before Splide's own arrow
+    // handler runs. pointerdown covers a press and a drag; click covers the
+    // keyboard, because Enter on the arrow button fires a click and no pointer
+    // event, and Splide binds no arrow keys of its own. Autoplay reaches
+    // neither, so it keeps AMBIENT.
+    if (!reduceMotion) {
+        const quicken = () => { splide.options = { speed: SNAP }; };
+        el.addEventListener('pointerdown', quicken, true);
+        el.addEventListener('click', quicken, true);
+        splide.on('moved', () => { splide.options = { speed: AMBIENT }; });
+    }
 
     splide.on('autoplay:playing', (rate) => {
         if (bar) {
