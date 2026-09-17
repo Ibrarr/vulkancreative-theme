@@ -12,7 +12,7 @@ get_header();
 
 // Hero
 $hero_heading    = vc_heading_parts( 'ab_hero_heading', false, 'The <span>two people</span> you will work with.' );
-$hero_subheading = get_field('ab_hero_subheading') ?: 'Vulkan Creative is a London digital agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.';
+$hero_subheading = get_field('ab_hero_subheading') ?: 'Vulkan Creative is a London digital marketing agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.';
 
 // Intro
 $intro_statement = get_field('ab_intro_statement');
@@ -28,7 +28,7 @@ $founders_fallback = [
 		'name'      => 'Flynn Forster',
 		'role'      => 'Co-Founder · Paid Media & PPC',
 		'short_bio' => 'Flynn runs the paid side of Vulkan: paid search, PPC and the campaigns that turn ad budgets into enquiries. More than ten years of managing spend have made him allergic to waste. If a campaign does not return, it does not run.',
-		'long_bio'  => '<p>Flynn has spent more than ten years planning and running paid campaigns: Google Ads, paid social and the digital marketing that sits around them. At Vulkan he owns everything paid, from first keyword research to the weekly optimisation calls, so the person who builds your campaign is the same person answering for its results.</p><p>He is direct about budgets. Before anything goes live you will know what we expect it to return, and once it is live you will see plain-English reports that show spend, results and what changes next. No dashboards you need a translator for, and no burying a bad month.</p><p>Flynn is also the one who will sit at your table and ask the awkward commercial questions early, because campaigns built on honest answers perform better.</p>',
+		'long_bio'  => '<p>Flynn plans and runs paid campaigns: Google Ads, paid social and the digital marketing that sits around them. At Vulkan he owns everything paid, from first keyword research to the weekly optimisation calls, so the person who builds your campaign is the same person answering for its results.</p><p>He is direct about budgets. Before anything goes live you will know what we expect it to return, and once it is live you will see plain-English reports that show spend, results and what changes next. No dashboards you need a translator for, and no burying a bad month.</p><p>Flynn is also the one who will sit at your table and ask the awkward commercial questions early, because campaigns built on honest answers perform better.</p>',
 		'photo'     => '',
 		'linkedin'  => 'https://www.linkedin.com/in/flynn-forster/',
 		'email'     => 'flynn@vulkancreative.com',
@@ -38,7 +38,7 @@ $founders_fallback = [
 		'name'      => 'Ibrarr Khan',
 		'role'      => 'Co-Founder · Web, SEO & AI',
 		'short_bio' => 'Ibrarr leads design, development and search: the websites Vulkan builds and the visibility that makes them earn. He has built sites for more than ten years, and pairs that craft with SEO and AI so every launch keeps earning.',
-		'long_bio'  => '<p>Ibrarr has designed and built websites for more than ten years, and at Vulkan he owns that whole side of the studio: design, development, SEO and the practical use of AI. When we build your site, his hands are on it, from the first wireframe to the code that ships.</p><p>His rule is that a site has to earn its keep. Design decisions get made for clarity and conversion, builds are fast and accessible, and search is planned in from the start rather than bolted on. As AI changes how people find and choose companies, he keeps Vulkan\'s clients visible in the answers as well as the rankings.</p><p>Ask him how something works and you will get a straight explanation, not jargon. He builds it, so he can explain it.</p>',
+		'long_bio'  => '<p>At Vulkan, Ibrarr owns the whole build side of the studio: design, development, SEO and the practical use of AI. When we build your site, his hands are on it, from the first wireframe to the code that ships.</p><p>His rule is that a site has to earn its keep. Design decisions get made for clarity and conversion, builds are fast and accessible, and search is planned in from the start rather than bolted on. As AI changes how people find and choose companies, he keeps Vulkan\'s clients visible in the answers as well as the rankings.</p><p>Ask him how something works and you will get a straight explanation, not jargon. He builds it, so he can explain it.</p>',
 		'photo'     => '',
 		'linkedin'  => 'https://www.linkedin.com/in/ibrarr-khan/',
 		'email'     => 'ibrarr@vulkancreative.com',
@@ -80,9 +80,9 @@ $ab_icons = [
 $values_heading  = vc_heading_parts( 'ab_values_heading', false, 'What we <span>stand by</span>.' );
 $values_fallback = [
 	[ 'word' => 'Honesty', 'line' => 'We tell you what will work and what will not, before you spend a penny.' ],
-	[ 'word' => 'Craft',   'line' => 'Design and build happen in-house, to a standard we are happy to put our name on.' ],
+	[ 'word' => 'Craft',   'line' => 'We design and build everything ourselves, to a standard we are happy to put our name on.' ],
 	[ 'word' => 'Proof',   'line' => 'Every project is measured by what it returns, and reported in plain English.' ],
-	[ 'word' => 'Graft',   'line' => 'Hands-on and quick to move: no layers, no waiting, no excuses.' ],
+	[ 'word' => 'Graft',   'line' => 'We are hands-on and quick to move, because the people you speak to are the people who do the work.' ],
 ];
 $values = [];
 if ( have_rows('ab_values') ) {
@@ -100,7 +100,7 @@ $how_fallback = [
 	[ 'title' => 'You talk to the founders',       'description' => 'Every call, plan and build decision involves one of us directly. Nothing is delegated to a team you have never met.' ],
 	[ 'title' => 'One team under one roof',        'description' => 'Strategy, design, development, content, SEO and paid media sit together, so nothing gets lost between suppliers.' ],
 	[ 'title' => 'In person where it counts',      'description' => 'We are London based and happy to sit around your table. Big decisions go better face to face.' ],
-	[ 'title' => 'Measured and reported plainly',  'description' => 'You see what we did, what it cost and what it returned, in reports written in plain English.' ],
+	[ 'title' => 'Measured and reported plainly',  'description' => 'You see what we did, what it cost and what it returned, every month.' ],
 ];
 $how_items = [];
 if ( have_rows('ab_how_items') ) {
@@ -127,7 +127,7 @@ $story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.
 // press field in admin removes it; the fallbacks only cover partial blanks.
 $press_has_content = get_field('ab_press_heading_start') || get_field('ab_press_heading_red') || get_field('ab_press_heading_end') || get_field('ab_press_body');
 $press_heading = vc_heading_parts( 'ab_press_heading', false, 'As featured in <span>Your Business</span> magazine.' );
-$press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.';
+$press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how we join strategy, design and campaigns under one team to turn attention into steady enquiries.';
 $press_label   = get_field('ab_press_link_label') ?: 'Read the Feature';
 $press_url     = get_field('ab_press_link_url') ?: 'https://europe.nxtbook.com/emp/AtHome/your-business-with-james-caan-spring-2026/index.php#/p/50';
 $press_image   = get_field('ab_press_image');

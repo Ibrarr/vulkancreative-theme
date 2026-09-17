@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Vulkan Creative is a London digital agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.",
+            "default_value": "Vulkan Creative is a London digital marketing agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -359,7 +359,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Four stages, from the first conversation to reporting on results. The same two people lead each stage.",
+            "default_value": "Four stages, from the first conversation to monthly reporting on results.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -800,7 +800,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Take one service or combine them. The same two founders lead every piece, so nothing is handed between suppliers.",
+            "default_value": "Take one service or combine several. One team plans and delivers all of it, so nothing is handed between suppliers.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -968,7 +968,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered.",
+            "default_value": "Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered for clients in law, finance, property, recruitment and hospitality.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1105,7 +1105,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "You work directly with the two founders. These are the rules we hold to on every project.",
+            "default_value": "They apply to every project, from a single landing page to a full marketing retainer.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1237,7 +1237,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Average lead growth across our clients. The number we hold ourselves to.",
+            "default_value": "Average lead growth across our clients, and the number we judge ourselves by.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1510,7 +1510,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Articles on web, SEO, AI and marketing, written by the two of us from what we build and test.",
+            "default_value": "Articles on marketing, web, SEO and AI, written from what we build and test for clients.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1562,5 +1562,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789632590
+    "modified": 1789643535
 }

@@ -614,7 +614,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Why free? Because we earn our keep monthly. We only do well if your website is good and you stay, so it is in our interest to build something that works and keep it working.",
+            "default_value": "Why free? We earn our fee monthly, so we only do well if your website is good enough that you stay.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -1096,5 +1096,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783270000
+    "modified": 1789643535
 }

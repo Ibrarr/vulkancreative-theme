@@ -57,7 +57,7 @@ $ledger_items = $ledger_items ?: $ledger_items_default;
 
 // Contrast
 $contrast_heading     = vc_heading_parts( 'fw_contrast_heading', false, "Most agencies charge <span>thousands</span>. We don't." );
-$contrast_note        = get_field('fw_contrast_note') ?: 'Why free? Because we earn our keep monthly. We only do well if your website is good and you stay, so it is in our interest to build something that works and keep it working.';
+$contrast_note        = get_field('fw_contrast_note') ?: 'Why free? We earn our fee monthly, so we only do well if your website is good enough that you stay.';
 $contrast_usual_title = get_field('fw_contrast_usual_title') ?: 'The usual way';
 $contrast_this_title  = get_field('fw_contrast_this_title') ?: 'The Vulkan way';
 $contrast_rows_default = [

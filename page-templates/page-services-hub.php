@@ -16,11 +16,11 @@ $front_page_id = (int) get_option( 'page_on_front' );
 
 // Hero
 $hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'Digital marketing services from <span>one London team</span>' );
-$hero_subheading = get_field('sh_hero_subheading') ?: 'Six services from one London team: web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one or combine them.';
+$hero_subheading = get_field('sh_hero_subheading') ?: 'Web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one service or combine several.';
 
 // Services grid
 $grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'What each <span>service</span> covers' );
-$grid_statement = get_field('sh_grid_statement') ?: 'Pick one service or combine several. The same two founders lead all of it.';
+$grid_statement = get_field('sh_grid_statement') ?: 'Each service works on its own. Combined, they run to one plan, so your website, search and ads pull in the same direction.';
 $grid_support   = get_field('sh_grid_support') ?: 'Every discipline here is handled by the same team, so nothing gets lost between agencies and you always know who to call.';
 
 // The directory lists the parent services in the order set in Global Settings >
@@ -43,7 +43,7 @@ if ( ! $process_steps ) {
 	$process_steps = [
 		[ 'title' => 'Discover',  'description' => 'We get to know your business, your customers and your goals, and audit where you are now.' ],
 		[ 'title' => 'Strategy',  'description' => 'We set the plan: positioning, priorities and the channels most likely to bring enquiries.' ],
-		[ 'title' => 'Build',     'description' => 'We design and develop the brand, website and campaigns, built bespoke around your audience.' ],
+		[ 'title' => 'Build',     'description' => 'We design and build the brand, website and campaigns set out in the plan.' ],
 		[ 'title' => 'Optimise',  'description' => 'We measure enquiries, rankings and revenue each month and adjust the work based on what the numbers show.' ],
 	];
 }

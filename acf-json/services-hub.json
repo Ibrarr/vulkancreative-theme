@@ -79,7 +79,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Six services from one London team: web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one or combine them.",
+            "default_value": "Web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one service or combine several.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -163,7 +163,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Pick one service or combine several. The same two founders lead all of it.",
+            "default_value": "Each service works on its own. Combined, they run to one plan, so your website, search and ads pull in the same direction.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -446,5 +446,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789634238
+    "modified": 1789643535
 }

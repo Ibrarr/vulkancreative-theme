@@ -7,7 +7,7 @@ get_header();
 // when all three parts are blank.
 
 // Hero
-$hero_subheading       = get_field('hp_hero_subheading') ?: 'Vulkan Creative is a London digital agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.';
+$hero_subheading       = get_field('hp_hero_subheading') ?: 'Vulkan Creative is a London digital marketing agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.';
 $hero_button           = get_field('hp_hero_button_text') ?: 'Start a Project';
 $hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See Our Work';
 
@@ -16,7 +16,7 @@ $results_heading = vc_heading_parts( 'hp_results_heading', false, 'The <span>num
 
 // Services
 $services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Six services, <span>one team</span>' );
-$services_description = get_field('hp_services_description') ?: 'Take one service or combine them. The same two founders lead every piece, so nothing is handed between suppliers.';
+$services_description = get_field('hp_services_description') ?: 'Take one service or combine several. One team plans and delivers all of it, so nothing is handed between suppliers.';
 
 // Work
 $work_heading = vc_heading_parts( 'hp_work_heading', false, 'Forged with <span>our clients</span>.' );
@@ -55,7 +55,7 @@ if ( ! $work_cases ) {
         return $m[1] . mb_strtoupper( $m[2] );
     }, $our_work_heading );
 }
-$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered.';
+$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered for clients in law, finance, property, recruitment and hospitality.';
 // Curated on the homepage: the hp_our_work_projects relationship field
 // sets both the selection and the order of the shelf.
 $our_work_ids  = get_field('hp_our_work_projects');
@@ -99,7 +99,7 @@ if ( $our_work_ids ) {
 
 // Why
 $why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Three things we <span>do not compromise</span> on' );
-$why_subheading = get_field('hp_why_subheading') ?: 'You work directly with the two founders. These are the rules we hold to on every project.';
+$why_subheading = get_field('hp_why_subheading') ?: 'They apply to every project, from a single landing page to a full marketing retainer.';
 
 $why_items_default = [
 	[
@@ -109,7 +109,7 @@ $why_items_default = [
 	],
 	[
 		'title'       => 'Built for you, never from a template',
-		'description' => 'We build every brand, website and campaign around your audience, from the ground up. Nothing off the shelf, nothing recycled.',
+		'description' => 'We build every brand, website and campaign around your audience, starting from a blank page. You never get a template with your logo dropped in.',
 		'proof'       => 'Every build from a blank canvas',
 	],
 	[
@@ -132,7 +132,7 @@ if ( have_rows('hp_why_items') ) {
 $why_items = array_slice( $why_items ?: $why_items_default, 0, 3 );
 
 $why_stat_value = get_field('hp_why_stat_value') ?: '2.3x';
-$why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients. The number we hold ourselves to.';
+$why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients, and the number we judge ourselves by.';
 $why_note_title = get_field('hp_why_note_title') ?: 'You always know who is responsible';
 $why_note_text  = get_field('hp_why_note_text') ?: 'We are not the cheapest option. One partner is answerable for strategy, design, build and growth, and if something is not working you hear it from us first, with a plan to fix it.';
 $why_cta_text   = get_field('hp_why_cta_text') ?: 'Want to talk it through?';
@@ -140,7 +140,7 @@ $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 
 // Process
 $process_heading     = vc_heading_parts( 'hp_process_heading', false, 'How a <span>project</span> runs' );
-$process_description = get_field('hp_process_description') ?: 'Four stages, from the first conversation to reporting on results. The same two people lead each stage.';
+$process_description = get_field('hp_process_description') ?: 'Four stages, from the first conversation to monthly reporting on results.';
 
 // Testimonials (the rating chip reads Global Settings via vc_google_reviews())
 $testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'What <span>clients</span> say' );
@@ -155,7 +155,7 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 // Latest insights
 $latest_heading    = vc_heading_parts( 'hp_latest_heading', false, 'Latest <span>insights</span>.' );
-$latest_subheading = get_field('hp_latest_subheading') ?: 'Articles on web, SEO, AI and marketing, written by the two of us from what we build and test.';
+$latest_subheading = get_field('hp_latest_subheading') ?: 'Articles on marketing, web, SEO and AI, written from what we build and test for clients.';
 $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>
 
@@ -421,7 +421,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 $placeholder_steps = [
                     [ 'Discover',  'We get to know your business, your customers and your goals, and audit where you are now.' ],
                     [ 'Strategy',  'We set the plan: positioning, priorities and the channels that will actually move the needle.' ],
-                    [ 'Build',     'We design and develop the brand, website and campaigns, built bespoke around your audience.' ],
+                    [ 'Build',     'We design and build the brand, website and campaigns set out in the plan.' ],
                     [ 'Optimise',  'We measure what matters and refine continuously, so results compound over time.' ],
                 ];
                 $step_i = 1;

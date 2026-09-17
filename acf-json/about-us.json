@@ -79,7 +79,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Vulkan Creative is a London digital agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.",
+            "default_value": "Vulkan Creative is a London digital marketing agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -938,7 +938,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.",
+            "default_value": "The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how we join strategy, design and campaigns under one team to turn attention into steady enquiries.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "rows": 3,
@@ -1034,5 +1034,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789634238
+    "modified": 1789643535
 }
