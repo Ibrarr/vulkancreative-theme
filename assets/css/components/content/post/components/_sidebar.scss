@@ -90,23 +90,39 @@
     gap: $space-3;
   }
 
+  // The founders' duotone from the About page (grayscale portrait under a
+  // brand-red soft-light wash), so an author looks the same here as there.
+  // Static: it never changes on hover.
   .insight-author-avatar {
+    position: relative;
     flex: 0 0 auto;
     width: 104px;
     height: 104px;
     border-radius: 2px; // house corners, as on the testimonial headshots
     overflow: hidden;
     line-height: 0;
+    background: $vc-text-dark;
 
     img {
       display: block;
       width: 104px;
       height: 104px;
       // The card sits inside .insight-content, so reset the prose image margin
-      // ($space-4) that would otherwise push the avatar down inside its circle.
+      // ($space-4) that would otherwise push the avatar down inside its frame.
       margin: 0;
       object-fit: cover;
-      border-radius: 2px; // house corners, as on the testimonial headshots
+      border-radius: 2px;
+      filter: grayscale(1);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: $vc-primary;
+      mix-blend-mode: soft-light;
+      opacity: 0.75;
+      pointer-events: none;
     }
   }
 
