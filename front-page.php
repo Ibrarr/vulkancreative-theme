@@ -435,6 +435,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     <?php $step_i++; endforeach; ?>
             <?php endif; ?>
         </div>
+        <?php get_template_part( 'template-parts/offer-links' ); ?>
     </div>
 </section>
 

@@ -111,6 +111,7 @@ get_template_part( 'template-parts/page', 'hero', [
 				</li>
 			<?php endforeach; ?>
 		</ul>
+		<?php get_template_part( 'template-parts/offer-links' ); ?>
 	</div>
 </section>
 
