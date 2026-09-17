@@ -82,7 +82,6 @@ assets/css/
     │       ├── _services.scss
     │       ├── _story.scss               # legacy, no longer imported (the story section moved to the About page)
     │       ├── _testimonials.scss        # section head + trust logos; the spotlight AND rating chip live in common/_testimonial-spotlight.scss
-    │       ├── _text-marquee.scss
     │       ├── _why.scss
     │       └── _work.scss
     ├── misc/
@@ -120,7 +119,7 @@ assets/css/
 
 ## Import order (`app.scss`)
 
-1. External libraries: video.js + city theme, theme-toggles, Splide core, Bootstrap SCSS
+1. External libraries: theme-toggles, Splide core, and a Bootstrap subset (functions, variables, maps, mixins, a trimmed `$utilities` map, root, reboot, containers, grid, visually-hidden, utilities API; see `docs/prelaunch-audit.md`)
 2. Core theme: `_fonts.scss`, `_variables.scss`, `_mixins.scss`
 3. Global styles: CSS custom properties (`--app-height`), base resets, dark mode body transition, a global `:focus-visible` outline ring for keyboard users
 4. Components: misc/motion, header, the shared common partials (page-hero, testimonial-spotlight), homepage, your-business, default-page, 404, contact-us, about-us, the insights partials (common post-grid + pagination, archive headings and grid, post content), footer
