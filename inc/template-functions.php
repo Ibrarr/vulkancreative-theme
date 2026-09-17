@@ -380,3 +380,50 @@ function vc_initials( $name ) {
 	$last  = count( $words ) > 1 ? ( function_exists( 'mb_substr' ) ? mb_substr( end( $words ), 0, 1 ) : substr( end( $words ), 0, 1 ) ) : '';
 	return strtoupper( $first . $last );
 }
+
+/**
+ * An <img> for an ACF image array or an attachment ID, through
+ * wp_get_attachment_image() so it always carries width, height and a srcset.
+ * Lazy and async by default; alt defaults to empty (decorative) because most
+ * call sites sit beside a caption that already names the image, so pass alt
+ * wherever the image is the only thing naming its subject.
+ */
+function vc_image( $image, $size = 'large', $attrs = array() ) {
+	$id = is_array( $image ) ? (int) ( $image['ID'] ?? 0 ) : (int) $image;
+	if ( ! $id ) {
+		return '';
+	}
+	$attrs = wp_parse_args( $attrs, array(
+		'alt'      => '',
+		'loading'  => 'lazy',
+		'decoding' => 'async',
+	) );
+	if ( 'eager' === $attrs['loading'] ) {
+		$attrs['loading'] = false; // wp_get_attachment_image() omits the attribute
+	}
+	return wp_get_attachment_image( $id, $size, false, $attrs );
+}
+
+/**
+ * Alt text for a logo image array: the media library alt, else its title.
+ */
+function vc_logo_alt( $image ) {
+	return is_array( $image ) ? (string) ( $image['alt'] ?: $image['title'] ) : '';
+}
+
+/**
+ * One slide of the "worked with" logo marquee. The first few are eager at low
+ * priority (the marquee sits in the first screen on most pages, and a lazy
+ * image there only loads after layout); the rest stay lazy.
+ */
+function vc_logo_slide( $logo, $index ) {
+	if ( ! $logo ) {
+		return '';
+	}
+	$attrs = array( 'alt' => vc_logo_alt( $logo ), 'sizes' => '160px' );
+	if ( $index < 6 ) {
+		$attrs['loading']       = 'eager';
+		$attrs['fetchpriority'] = 'low';
+	}
+	return '<li class="splide__slide">' . vc_image( $logo, 'medium', $attrs ) . '</li>';
+}

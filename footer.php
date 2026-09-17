@@ -118,7 +118,7 @@
                                                     $ft_name = get_sub_field( 'name' );
                                                     $ft_link = get_sub_field( 'url' );
                                                     if ( ! $ft_logo ) { continue; }
-                                                    $ft_img = '<img loading="lazy" src="' . esc_url( $ft_logo['url'] ) . '" alt="' . esc_attr( $ft_name ?: ( $ft_logo['alt'] ?: $ft_logo['title'] ) ) . '" width="' . (int) $ft_logo['width'] . '" height="' . (int) $ft_logo['height'] . '">';
+                                                    $ft_img = vc_image( $ft_logo, 'medium', [ 'alt' => $ft_name ?: vc_logo_alt( $ft_logo ), 'sizes' => '140px' ] );
                                                     if ( $ft_link ) : ?>
                                                         <a class="footer-press-logo" href="<?php echo esc_url( $ft_link ); ?>" target="_blank" rel="noopener"><?php echo $ft_img; ?></a>
                                                     <?php else : ?>

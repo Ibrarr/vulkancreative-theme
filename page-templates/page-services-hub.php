@@ -145,13 +145,10 @@ get_template_part( 'template-parts/page', 'hero', [
 				<div class="splide" id="logo-splide" aria-label="Companies we've worked with">
 					<div class="splide__track">
 						<ul class="splide__list">
-							<?php while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
-								$logo = get_sub_field( 'logo' );
-								if ( $logo ) : ?>
-									<li class="splide__slide">
-										<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-									</li>
-								<?php endif;
+							<?php // Below the fold here, so every slide stays lazy (index offset past the eager six).
+							$logo_i = 6;
+							while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
+								echo vc_logo_slide( get_sub_field( 'logo' ), $logo_i++ );
 							endwhile; ?>
 						</ul>
 					</div>

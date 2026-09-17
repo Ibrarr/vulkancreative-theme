@@ -53,7 +53,7 @@ function vc_enquiry_service_choice_icons( $choice_markup, $choice, $field, $valu
 		return $choice_markup;
 	}
 
-	$img = '<img class="choice-card-icon" src="' . esc_url( VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file ) . '" alt="" aria-hidden="true" loading="lazy">';
+	$img = '<img class="choice-card-icon" src="' . esc_url( VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file ) . '" alt="" width="56" height="56" loading="lazy" decoding="async">';
 
 	return str_replace( '</label>', $img . '</label>', $choice_markup );
 }

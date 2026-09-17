@@ -13,6 +13,7 @@ function vc_setup() {
 	add_theme_support( 'html5', array( 'search-form', 'navigation-widgets' ) );
 	add_theme_support( 'woocommerce' );
 	add_image_size( 'header-image', 1920, 1080 );
+	add_image_size( 'vc-1440', 1440, 1440 ); // the step between large (1024w) and header-image (1920w)
 	global $content_width;
 	if ( ! isset( $content_width ) ) {
 		$content_width = 1920;

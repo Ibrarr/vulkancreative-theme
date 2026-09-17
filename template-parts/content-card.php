@@ -54,9 +54,11 @@ $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
 			<?php if ( has_post_thumbnail() ) : ?>
 				<?php
 				the_post_thumbnail( 'large', [
-					'class'   => 'insight-card-img',
-					'loading' => 'lazy',
-					'alt'     => '',
+					'class'    => 'insight-card-img',
+					'loading'  => 'lazy',
+					'decoding' => 'async',
+					'sizes'    => '(min-width: 992px) 420px, (min-width: 768px) 50vw, 100vw',
+					'alt'      => '',
 				] );
 				?>
 			<?php else : ?>
@@ -66,7 +68,7 @@ $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
 			<span class="insight-card-scrim" aria-hidden="true"></span>
 		</span>
 
-		<span class="insight-card-body">
+		<div class="insight-card-body">
 			<h3 class="insight-card-title"><?php the_title(); ?></h3>
 
 			<p class="insight-card-excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 28, '…' ) ); ?></p>
@@ -78,7 +80,7 @@ $card_read_time = $card_words ? max( 1, (int) ceil( $card_words / 200 ) ) : 0;
 					<span class="insight-card-readtime"><?php echo esc_html( $card_read_time ); ?> min read</span>
 				<?php endif; ?>
 			</span>
-		</span>
+		</div>
 	</a>
 
 	<?php if ( $card_cat && $card_cat_url ) : ?>

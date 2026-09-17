@@ -56,6 +56,7 @@ if ( have_rows('ab_founders') ) {
 			'short_bio' => get_sub_field('short_bio'),
 			'long_bio'  => get_sub_field('long_bio'),
 			'photo'     => $photo ? $photo['url'] : '',
+			'photo_id'  => $photo ? (int) $photo['ID'] : 0,
 			'linkedin'  => get_sub_field('linkedin_url'),
 			'email'     => get_sub_field('email'),
 			'phone'     => get_sub_field('phone'),
@@ -173,7 +174,11 @@ get_template_part( 'template-parts/page', 'hero', [
 				<article class="founder-panel">
 					<div class="founder-media">
 						<?php // The caption announces the founder, so the image stays alt="". ?>
-						<img src="<?php echo esc_url( $photo_url ); ?>" alt="" loading="lazy">
+						<?php if ( ! empty( $founder['photo_id'] ) ) {
+							echo vc_image( $founder['photo_id'], 'full', [ 'sizes' => '(min-width: 992px) 50vw, 100vw' ] );
+						} else { ?>
+							<img src="<?php echo esc_url( $photo_url ); ?>" alt="" width="800" height="800" loading="lazy" decoding="async">
+						<?php } ?>
 						<div class="founder-caption">
 							<?php // Fixed-width inner so the text never re-wraps while the panel width tweens. ?>
 							<div class="caption-inner">
@@ -347,13 +352,10 @@ get_template_part( 'template-parts/page', 'hero', [
 				<div class="splide" id="logo-splide" aria-label="Companies we've worked with">
 					<div class="splide__track">
 						<ul class="splide__list">
-							<?php while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
-								$logo = get_sub_field( 'logo' );
-								if ( $logo ) : ?>
-									<li class="splide__slide">
-										<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-									</li>
-								<?php endif;
+							<?php // Below the fold here, so every slide stays lazy (index offset past the eager six).
+							$logo_i = 6;
+							while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
+								echo vc_logo_slide( get_sub_field( 'logo' ), $logo_i++ );
 							endwhile; ?>
 						</ul>
 					</div>
@@ -391,13 +393,16 @@ get_template_part( 'template-parts/page', 'hero', [
 		// and the CSS sizes the track from the count, so the loop slides by
 		// exactly one set; counts are sized so one set outspans the plane on
 		// viewports up to 2560px wide.
-		$rack_src = esc_url( $press_image['url'] );
-		$rack_w   = (int) $press_image['width'];
-		$rack_h   = (int) $press_image['height'];
+		// The copies render 470px wide at most, so the 1024px rendition covers
+		// a 2x screen at under a third of the full spread's weight.
+		$rack_large = ! empty( $press_image['sizes']['large'] ) && ! empty( $press_image['sizes']['large-width'] );
+		$rack_src   = esc_url( $rack_large ? $press_image['sizes']['large'] : $press_image['url'] );
+		$rack_w     = (int) ( $rack_large ? $press_image['sizes']['large-width'] : $press_image['width'] );
+		$rack_h     = (int) ( $rack_large ? $press_image['sizes']['large-height'] : $press_image['height'] );
 		$rack_row = function ( $class, $count ) use ( $rack_src, $rack_w, $rack_h ) {
 			echo '<div class="press-rack-row ' . esc_attr( $class ) . '" style="--set-count: ' . (int) $count . '"><div class="press-rack-track">';
 			for ( $i = 0; $i < 2 * $count; $i++ ) {
-				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
+				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '" loading="lazy" decoding="async">';
 			}
 			echo '</div></div>';
 		};

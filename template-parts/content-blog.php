@@ -89,9 +89,12 @@ $related = new WP_Query( [
             <div class="insight-hero-bg" aria-hidden="true">
                 <?php
                 the_post_thumbnail( 'large', [
-                    'class'   => 'insight-hero-img',
-                    'loading' => 'eager',
-                    'alt'     => '',
+                    'class'         => 'insight-hero-img',
+                    'loading'       => 'eager',
+                    'fetchpriority' => 'high',
+                    'decoding'      => 'async',
+                    'sizes'         => '100vw',
+                    'alt'           => '',
                 ] );
                 ?>
                 <span class="insight-hero-veil"></span>

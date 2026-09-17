@@ -196,13 +196,9 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
         <div class="splide" id="logo-splide" aria-label="Companies we've worked with">
             <div class="splide__track">
                 <ul class="splide__list">
-                    <?php while ( have_rows('worked_with_logos', 'options') ) : the_row();
-                        $logo = get_sub_field('logo');
-                        if ( $logo ) : ?>
-                            <li class="splide__slide">
-                                <img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-                            </li>
-                        <?php endif;
+                    <?php $logo_i = 0;
+                    while ( have_rows('worked_with_logos', 'options') ) : the_row();
+                        echo vc_logo_slide( get_sub_field('logo'), $logo_i++ );
                     endwhile; ?>
                 </ul>
             </div>
@@ -271,16 +267,16 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 $title = $service->name;
                 $description = wp_strip_all_tags( term_description($service->term_id, 'service') );
                 $icon = get_field('icon', 'service_' . $service->term_id);
-                $icon_url = trailingslashit( home_url('/wp-content/themes/vulkancreative-theme/assets/images/icons/services') ) . ltrim($icon, '/');
+                $icon_url = VC_TEMPLATE_URI . '/assets/images/icons/services/' . ltrim($icon, '/');
                 ?>
-                <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>" aria-label="Explore <?php echo esc_attr( $title ); ?>">
-                    <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
-                    <span class="service-main">
-                        <span class="service-title-row">
+                <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>">
+                    <img class="service-icon" loading="lazy" decoding="async" src="<?php echo esc_url( $icon_url ); ?>" alt="" width="130" height="130">
+                    <div class="service-main">
+                        <div class="service-title-row">
                             <h3 class="service-title"><?php echo esc_html( $title ); ?></h3>
-                        </span>
+                        </div>
                         <span class="service-desc"><?php echo esc_html( $description ); ?></span>
-                    </span>
+                    </div>
                     <span class="service-arrow" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </span>
@@ -308,27 +304,31 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                         <a class="case-row<?php echo $work_i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url( $work_case['link'] ); ?>" data-case="<?php echo (int) $work_i; ?>" aria-label="Read the <?php echo esc_attr( $work_case['client'] ); ?> case study">
                             <?php if ( $work_case['image'] ) : ?>
                                 <span class="case-bg" aria-hidden="true">
-                                    <img loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
+                                    <?php echo vc_image( $work_case['image'], 'large', [ 'sizes' => '(min-width: 992px) 560px, 100vw' ] ); ?>
                                 </span>
                             <?php endif; ?>
-                            <span class="case-overlay">
-                                <span class="case-text">
+                            <div class="case-overlay">
+                                <div class="case-text">
                                     <?php if ( $work_case['sector'] ) : ?><span class="case-sector"><?php echo esc_html( $work_case['sector'] ); ?></span><?php endif; ?>
                                     <h3 class="case-client"><?php echo esc_html( $work_case['client'] ); ?></h3>
                                     <span class="case-summary"><?php echo esc_html( $work_case['summary'] ); ?></span>
-                                </span>
+                                </div>
                                 <span class="case-metric">
                                     <span class="metric-value"><?php echo esc_html( $work_case['value'] ); ?></span>
                                     <span class="metric-label"><?php echo esc_html( $work_case['label'] ); ?></span>
                                 </span>
-                            </span>
+                            </div>
                         </a>
                     <?php endforeach; ?>
                 </div>
                 <div class="case-stage" aria-hidden="true">
                     <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
                         <?php if ( $work_case['image'] ) : ?>
-                            <img class="stage-img<?php echo $work_i === 0 ? ' is-active' : ''; ?>" data-case="<?php echo (int) $work_i; ?>" loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
+                            <?php echo vc_image( $work_case['image'], 'header-image', [
+                                'class'     => 'stage-img' . ( $work_i === 0 ? ' is-active' : '' ),
+                                'data-case' => (int) $work_i,
+                                'sizes'     => '(min-width: 992px) 50vw, 100vw',
+                            ] ); ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
@@ -452,7 +452,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     $logo = get_sub_field('logo');
                     $alt = get_sub_field('alt_text');
                     if ( $logo ) : ?>
-                        <img loading="lazy" src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $alt ?: $logo['alt'] ?: $logo['title'] ); ?>" class="trust-logo">
+                        <?php echo vc_image( $logo, 'medium', [ 'class' => 'trust-logo', 'alt' => $alt ?: vc_logo_alt( $logo ), 'sizes' => '160px' ] ); ?>
                     <?php endif;
                 endwhile; ?>
             </div>

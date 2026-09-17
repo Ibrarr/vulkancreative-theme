@@ -38,11 +38,13 @@ function vc_schema_url( $atts ) {
 add_filter( 'big_image_size_threshold', '__return_false' );
 
 /**
- * Override intermediate image sizes.
+ * Override intermediate image sizes. medium_large (768w) stays on: it is the
+ * rendition phones pick for cards and tiles, and without it a srcset jumps
+ * from 300w straight to 1024w. The two largest core sizes stay off; the
+ * theme's own vc-1440 and header-image cover the wide end.
  */
 add_filter( 'intermediate_image_sizes_advanced', 'vc_image_insert_override' );
 function vc_image_insert_override( $sizes ) {
-	unset( $sizes['medium_large'] );
 	unset( $sizes['1536x1536'] );
 	unset( $sizes['2048x2048'] );
 

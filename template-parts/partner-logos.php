@@ -43,7 +43,7 @@ $classes = 'partner-logos' . ( $on_dark ? ' is-on-dark' : '' ) . ( $is_footer ? 
 				<?php if ( $url ) : ?>
 					<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr( ( $name ?: 'Partner' ) . ' (opens in a new tab)' ); ?>">
 				<?php endif; ?>
-				<img loading="lazy"<?php echo $ratio >= 1.6 ? ' class="is-wide"' : ''; ?> src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $name ?: ( $logo['alt'] ?: $logo['title'] ) ); ?>" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>">
+				<img loading="lazy" decoding="async"<?php echo $ratio >= 1.6 ? ' class="is-wide"' : ''; ?> src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $name ?: ( $logo['alt'] ?: $logo['title'] ) ); ?>" width="<?php echo (int) $logo['width']; ?>" height="<?php echo (int) $logo['height']; ?>">
 				<?php if ( $url ) : ?>
 					</a>
 				<?php endif; ?>
