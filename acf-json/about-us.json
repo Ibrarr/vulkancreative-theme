@@ -511,7 +511,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "https://vulkancreative.com/wp-content/VulkanTrailer.mp4",
+            "default_value": "",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
