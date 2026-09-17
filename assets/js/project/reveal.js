@@ -16,26 +16,25 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
     const headings = gsap.utils.toArray([
-        '.work-hero h1',
-        '.project-hero h1',
+        ...(heroOnJs ? ['.work-hero h1', '.project-hero h1'] : []),
         '.project-overview .content h2',
         '.project-cta .content h2',
     ].join(', '));
 
-    const fades = gsap.utils.toArray([
+    // Only the hero's load sequence still fades (lg+). The hero image is never
+    // hidden (it is the page's largest paint), and the filter, ledger, lead and
+    // CTA copy simply sit there.
+    const fades = heroOnJs ? gsap.utils.toArray([
         '.work-hero .sub-heading',
-        '.work-index .work-filter',
         '.project-hero .hero-meta',
         '.project-hero .hero-actions',
-        '.project-hero .hero-media',
-        '.project-overview .overview-lead',
-        '.project-overview .fact-ledger',
-        '.project-overview .deliverables',
-        '.project-case-study-band .band-inner',
-        '.project-cta .content .sub-heading',
-        '.project-cta .cta-actions',
-    ].join(', '));
+    ].join(', ')) : [];
 
     // Staggered groups: the observer watches the container, the items cascade in.
     const groups = [
@@ -62,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

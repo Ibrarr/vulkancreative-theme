@@ -28,23 +28,24 @@ $card_show_index = ! isset( $args['show_index'] ) || false !== $args['show_index
 
 $card_desc = wp_strip_all_tags( term_description( $card_term->term_id ) );
 
-$card_icon     = get_field( 'icon', 'service_' . $card_term->term_id );
-$card_icon_url = $card_icon ? VC_TEMPLATE_URI . '/assets/images/icons/services/' . ltrim( $card_icon, '/' ) : '';
+// A child service carries a watermark only when it has an icon of its own
+// (vc_service_icon_url() drops one that merely repeats its pillar's).
+$card_icon_url = vc_service_icon_url( $card_term );
 ?>
 
 <a class="service-card service-card--<?php echo esc_attr( $card_variant ); ?>" href="<?php echo esc_url( $card_link ); ?>">
 	<?php if ( $card_icon_url ) : ?>
-		<img class="service-card-icon" loading="lazy" src="<?php echo esc_url( $card_icon_url ); ?>" alt="" aria-hidden="true">
+		<img class="service-card-icon" loading="lazy" decoding="async" src="<?php echo esc_url( $card_icon_url ); ?>" alt="" width="160" height="160">
 	<?php endif; ?>
 	<?php if ( $card_show_index ) : ?>
 		<span class="service-card-index" aria-hidden="true"><?php echo esc_html( str_pad( $card_index, 2, '0', STR_PAD_LEFT ) ); ?></span>
 	<?php endif; ?>
-	<span class="service-card-body">
+	<div class="service-card-body">
 		<h3 class="service-card-title"><?php echo esc_html( $card_term->name ); ?></h3>
 		<?php if ( $card_desc ) : ?>
 			<p class="service-card-desc"><?php echo esc_html( $card_desc ); ?></p>
 		<?php endif; ?>
-	</span>
+	</div>
 	<span class="service-card-arrow" aria-hidden="true">
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 	</span>

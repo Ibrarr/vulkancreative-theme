@@ -21,15 +21,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- Hero (above the fold: runs on load, once fonts have settled) ----
+    // lg+ only. Below lg the hero text paints with the first frame through the
+    // CSS entrance in misc/_motion.scss (it is the page's LCP element), and the
+    // stylesheet no longer pre-hides it there.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
     const heroH1 = hero.querySelector('h1');
     const heroSub = hero.querySelector('.sub-heading');
     const heroActions = hero.querySelector('.hero-actions');
     const heroNote = hero.querySelector('.hero-note');
     const heroRule = hero.querySelector('.hero-rule');
 
-    if (heroRule) gsap.set(heroRule, { scaleX: 0 });
+    if (heroRule && heroOnJs) gsap.set(heroRule, { scaleX: 0 });
 
-    document.fonts.ready.then(() => {
+    if (heroOnJs) document.fonts.ready.then(() => {
         const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
         if (heroH1) {
@@ -37,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: 'lines',
                 linesClass: 'line',
                 mask: 'lines',
+                aria: 'none',
                 autoSplit: false,
                 onSplit(self) {
                     gsap.set(heroH1, { opacity: 1 });
@@ -59,19 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Below the fold ----
     const headings = gsap.utils.toArray('.fw-how .content h2, .fw-ledger .content h2, .fw-contrast .content h2, .fw-proof .content h2, .fw-faq .content h2, .fw-enquire .content h2');
-    const fades = gsap.utils.toArray('.fw-how .fw-how-intro .sub-heading, .fw-ledger .fw-ledger-head .sub-heading, .fw-contrast .fw-contrast-intro .sub-heading, .fw-enquire .fw-enquire-intro .sub-heading, .fw-enquire .enquire-note');
+    // No blanket fade-ups: sub-headings, the FAQ and the form simply sit there
+    // (the form is what the page is for). Motion goes to the things that are
+    // sequences: the steps rise along their rail, the comparison rows land one
+    // by one, and the ledger prints itself (ledger.js).
+    const fades = [];
     const steps = gsap.utils.toArray('.fw-how .how-step');
     const contrastRows = gsap.utils.toArray('.fw-contrast .compare-row');
-    const faqItems = gsap.utils.toArray('.fw-faq .fw-faq-item');
-    const formPanel = document.querySelector('.fw-enquire .form-container');
 
-    gsap.set([...headings, ...fades, ...faqItems], { opacity: 0, y: 24 });
-    revealFailsafe([...headings, ...fades, ...faqItems], 4000);
+    gsap.set([...headings, ...fades], { opacity: 0, y: 24 });
+    revealFailsafe([...headings, ...fades], 4000);
     // Steps rise on entrance only; their opacity and the rail belong to the
     // scroll fill in how-scroll.js.
     gsap.set(steps, { y: 24 });
-    if (formPanel) gsap.set(formPanel, { opacity: 0, y: 28 });
-    if (formPanel) revealFailsafe(formPanel, 4000);
     if (contrastRows.length) gsap.set(contrastRows, { opacity: 0, y: 22 });
     if (contrastRows.length) revealFailsafe(contrastRows, 4000);
 
@@ -116,20 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contrastCompare && contrastRows.length) {
         handlers.set(contrastCompare, () => {
             gsap.to(contrastRows, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'power2.out' });
-        });
-    }
-
-    // FAQ items rise in sequence.
-    const faqList = document.querySelector('.fw-faq .fw-faq-list');
-    if (faqList && faqItems.length) {
-        handlers.set(faqList, () => {
-            gsap.to(faqItems, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out' });
-        });
-    }
-
-    if (formPanel) {
-        handlers.set(formPanel, () => {
-            gsap.to(formPanel, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' });
         });
     }
 

@@ -135,7 +135,6 @@
       }
 
       .service-arrow {
-        transform: translateX(6px);
         opacity: 1;
         color: $vc-primary;
       }
@@ -154,7 +153,6 @@
         }
 
         .service-arrow {
-          transform: translateX(6px);
           opacity: 1;
           color: $vc-primary;
         }
@@ -233,7 +231,7 @@
       &:focus-visible {
         background: $vc-surface-white;
         border-color: rgba($vc-primary, 0.55);
-        box-shadow: 0 18px 44px rgba(18, 18, 18, 0.08);
+        box-shadow: $vc-glow-card;
 
         .service-index {
           color: $vc-primary;
@@ -244,7 +242,7 @@
         &:hover {
           background: $vc-surface-white;
           border-color: rgba($vc-primary, 0.55);
-          box-shadow: 0 18px 44px rgba(18, 18, 18, 0.08);
+          box-shadow: $vc-glow-card;
 
           .service-index {
             color: $vc-primary;

@@ -7,10 +7,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const reduceMotion = prefersReducedMotion();
 
-// The hero reveal targets are hidden from first paint by the stylesheet
-// (html.js gate in _hero.scss) so a warm reload can never flash them; this
-// module only has to reveal them. A CSS failsafe shows everything at 2.8s
-// if this script never runs, and reduced motion is force-shown in CSS.
+// The headline and the buttons rise in as CSS animations from the first painted
+// frame (_hero.scss): the headline is the page's LCP element, so it cannot wait
+// for this bundle or for fonts. This module owns what genuinely needs JS: the
+// statue's scroll drift, the sub-line's SplitText line reveal (which needs
+// settled fonts, and is pre-hidden behind the html.js gate with a 2.8s CSS
+// failsafe) and the rolling words.
 
 // Simple loading state tracker
 let domReady = false;
@@ -23,10 +25,10 @@ function initializeWhenReady() {
 }
 
 function initializeAllAnimations() {
-    // Reduced motion: show everything statically. The first rolling word is shown
-    // by CSS; the remaining words stay in the DOM (for SEO) but out of view.
+    // Reduced motion: everything is static. The first rolling word is shown by
+    // CSS; the remaining words stay in the DOM but out of view.
     if (reduceMotion) {
-        gsap.set(['.hero h1', '.hero .bottom', '.split-text-hero', '.dynamic-text'], { opacity: 1, y: 0 });
+        gsap.set('.split-text-hero', { opacity: 1 });
         return;
     }
 
@@ -42,57 +44,27 @@ function initializeAllAnimations() {
         },
     });
 
-    // Hero heading: eyebrow first, then the headline rises in
-    const heroContentTimeline = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.hero',
-            start: 'top 100%',
-            toggleActions: 'play none none none',
-        }
-    });
+    // Sub-line: a line-by-line rise. aria: 'none' because SplitText's default
+    // writes aria-label onto the paragraph, a prohibited attribute there;
+    // reverting on completion hands assistive tech the untouched paragraph.
+    gsap.set('.split-text-hero', { opacity: 1 });
 
-    heroContentTimeline
-        .fromTo('.hero h1',
-            { opacity: 0, y: 60 },
-            { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
-        );
-
-    gsap.fromTo('.hero .bottom',
-        { opacity: 0, y: 30 },
-        {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.hero .bottom',
-                start: 'top 100%',
-                toggleActions: 'play none none none',
-            }
-        }
-    );
-
-    // Split text
-    gsap.set(".split-text-hero", { opacity: 1 });
-
-    let split;
-    SplitText.create(".split-text-hero", {
-        type: "words,lines",
-        linesClass: "line",
-        autoSplit: true,
-        mask: "lines",
-        onSplit: (self) => {
-            split = gsap.from(self.lines, {
+    SplitText.create('.split-text-hero', {
+        type: 'lines',
+        linesClass: 'line',
+        mask: 'lines',
+        aria: 'none',
+        autoSplit: false,
+        onSplit(self) {
+            return gsap.from(self.lines, {
                 duration: 0.8,
                 yPercent: 100,
-                opacity: 0,
                 stagger: 0.2,
                 delay: 0.4,
-                ease: "expo.out",
+                ease: 'expo.out',
+                onComplete: () => self.revert(),
             });
-            return split;
-        }
+        },
     });
 
     // Rolling words

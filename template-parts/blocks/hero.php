@@ -55,13 +55,11 @@ if ( ! empty( $args['show_logos'] ) && have_rows( 'worked_with_logos', 'options'
 		<div class="lp-hero-marquee">
 			<div class="splide lp-logo-splide" aria-label="Companies we have worked with">
 				<div class="splide__track">
-					<ul class="splide__list">
-						<?php foreach ( $logos as $img ) : ?>
-							<li class="splide__slide">
-								<img src="<?php echo esc_url( $img['url'] ); ?>" alt="<?php echo esc_attr( $img['alt'] ?: $img['title'] ); ?>" loading="lazy">
-							</li>
-						<?php endforeach; ?>
-					</ul>
+					<div class="splide__list">
+						<?php foreach ( array_values( $logos ) as $logo_i => $img ) {
+							echo vc_logo_slide( $img, $logo_i );
+						} ?>
+					</div>
 				</div>
 			</div>
 		</div>

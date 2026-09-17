@@ -67,6 +67,12 @@
       -webkit-mask-image: none;
     }
 
+    // The poster sits in a <picture> (mobile source, transparent desktop
+    // fallback); the wrapper must not become a positioning box of its own.
+    picture {
+      display: contents;
+    }
+
     .hero-poster,
     .hero-spline {
       position: absolute;
@@ -127,7 +133,6 @@
       text-transform: uppercase;
       margin-top: 0;
       margin-bottom: $space-3;
-      opacity: 0;
       transition: none;
 
       .h1-line {
@@ -155,8 +160,11 @@
         overflow: hidden;
       }
 
+      // The first word reads from the first frame; the rotation takes over
+      // once hero.js has measured the words.
       .word:first-child {
         transform: translateY(0);
+        opacity: 1;
       }
 
       .red {
@@ -168,7 +176,6 @@
       @include vc-p($vc-muted-on-dark);
       max-width: 560px;
       margin-bottom: $space-4;
-      opacity: 0;
       will-change: transform;
 
       & * {
@@ -177,7 +184,6 @@
     }
 
     .bottom {
-      opacity: 0;
       display: flex;
       gap: $space-3;
       flex-wrap: wrap;
@@ -251,24 +257,60 @@
   border-bottom: 1px solid $vc-ember-line !important;
 }
 
-// Hide the hero reveal targets from the very first paint (stylesheet-level,
-// so a warm reload can never flash them before the script-injected hiding
-// used to arrive). Gated on html.js, set by an inline pre-paint script; the
-// zero-duration delayed animation is a failsafe that shows everything at
-// 2.8s even if the bundle never runs. Reduced motion is force-shown by
-// misc/_motion.scss with !important.
-@at-root html.js body.home.page .hero {
-  h1,
-  .split-text-hero,
-  .bottom,
-  .dynamic-text {
-    opacity: 0;
-    animation: vc-hero-failsafe 0s 2.8s forwards;
+// Hero entrance. The headline and the buttons rise in from the first painted
+// frame as CSS animations: the headline is the page's LCP element, so it cannot
+// wait for a bundle or for fonts (that wait put mobile LCP at 7.6s). They start
+// a hair above zero opacity because the LCP algorithm ignores anything painted
+// at exactly 0. The curves match the GSAP eases they replace (power3.out for
+// the headline, power2.out for the buttons).
+@at-root body.home.page .hero {
+  @media (prefers-reduced-motion: no-preference) {
+    .content h1 {
+      animation: vc-hero-rise 1s cubic-bezier(0.165, 0.84, 0.44, 1) both;
+    }
+
+    .content .bottom {
+      animation: vc-hero-rise-soft 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0.6s both;
+    }
   }
+}
+
+// Only the sub-line waits for JS: its SplitText line reveal needs settled fonts.
+// Gated on html.js (set by an inline pre-paint script) so it is never hidden
+// without scripting; the zero-duration delayed animation shows it at 2.8s even
+// if the bundle never runs, and reduced motion is force-shown by
+// misc/_motion.scss.
+@at-root html.js body.home.page .hero .split-text-hero {
+  opacity: 0;
+  animation: vc-hero-failsafe 0s 2.8s forwards;
 }
 
 @keyframes vc-hero-failsafe {
   to {
     opacity: 1;
+  }
+}
+
+@keyframes vc-hero-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes vc-hero-rise-soft {
+  from {
+    opacity: 0.01;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

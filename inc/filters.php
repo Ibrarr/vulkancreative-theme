@@ -38,11 +38,13 @@ function vc_schema_url( $atts ) {
 add_filter( 'big_image_size_threshold', '__return_false' );
 
 /**
- * Override intermediate image sizes.
+ * Override intermediate image sizes. medium_large (768w) stays on: it is the
+ * rendition phones pick for cards and tiles, and without it a srcset jumps
+ * from 300w straight to 1024w. The two largest core sizes stay off; the
+ * theme's own vc-1440 and header-image cover the wide end.
  */
 add_filter( 'intermediate_image_sizes_advanced', 'vc_image_insert_override' );
 function vc_image_insert_override( $sizes ) {
-	unset( $sizes['medium_large'] );
 	unset( $sizes['1536x1536'] );
 	unset( $sizes['2048x2048'] );
 
@@ -154,6 +156,51 @@ add_filter(
 	}
 );
 
+// Yoast builds the XML sitemap from stored meta, which the template-level
+// noindex above never touches, so drop the preview page from it here too.
+add_filter(
+	'wpseo_exclude_from_sitemap_by_post_ids',
+	function ( $ids ) {
+		$previews = get_posts( [
+			'post_type'   => 'page',
+			'post_status' => 'publish',
+			'numberposts' => -1,
+			'fields'      => 'ids',
+			'meta_key'    => '_wp_page_template',
+			'meta_value'  => 'page-templates/page-404-preview.php',
+		] );
+		return array_merge( (array) $ids, $previews );
+	}
+);
+
+// Categories are indexed as topic hubs, but a hub holding one or two posts is
+// a thin page. Below three posts a category is noindexed AND dropped from the
+// category sitemap in the same breath, so robots meta and the sitemap can
+// never disagree; it rejoins both automatically once it holds three posts.
+function vc_is_thin_category( $term ) {
+	return $term instanceof WP_Term && 'category' === $term->taxonomy && (int) $term->count < 3;
+}
+add_filter(
+	'wpseo_robots_array',
+	function ( $robots ) {
+		if ( is_category() && vc_is_thin_category( get_queried_object() ) ) {
+			$robots['index'] = 'noindex';
+		}
+		return $robots;
+	}
+);
+add_filter(
+	'wpseo_sitemap_entry',
+	function ( $url, $type, $object ) {
+		if ( 'term' === $type && vc_is_thin_category( $object ) ) {
+			return false;
+		}
+		return $url;
+	},
+	10,
+	3
+);
+
 // Service term pages sit under the Services hub page in the site hierarchy,
 // so inject the hub crumb after Home; Yoast only knows the term itself.
 add_filter(
@@ -204,9 +251,10 @@ function vc_work_service_request( $qv ) {
 // Indexing policy (categories indexed as topic hubs; author/date/search out of
 // the index) is governed by Yoast's own Search Appearance settings, so robots
 // meta, the XML sitemap and canonicals stay consistent — see the wpseo_titles
-// options noindex-tax-category=false and noindex-author-wpseo=true. A theme
-// robots filter is deliberately NOT used: it would flip the meta tag but leave
-// the sitemap out of sync.
+// options noindex-tax-category=false and noindex-author-wpseo=true. A bare
+// theme robots filter would flip the meta tag but leave the sitemap out of
+// sync, so the two theme-level exceptions above (the 404 preview page and thin
+// categories) each pair their robots filter with a sitemap filter.
 // Enrich Yoast's Organization node (@id /#organization) with the company
 // contact details from Global Settings and the social profiles the footer
 // links to, so the knowledge graph matches the visible site. Yoast stays the
@@ -318,3 +366,54 @@ add_filter(
 	10,
 	4
 );
+
+/**
+ * Authors show the photo saved on their profile (the User group's
+ * profile_photo field) wherever WordPress asks for an avatar: the author box
+ * on articles, the author page, the admin. Without one the Gravatar default
+ * stands, which for the founders was the grey placeholder silhouette.
+ */
+add_filter( 'pre_get_avatar_data', 'vc_profile_photo_avatar', 10, 2 );
+function vc_profile_photo_avatar( $args, $id_or_email ) {
+	if ( ! function_exists( 'get_field' ) ) {
+		return $args;
+	}
+
+	$user_id = 0;
+	if ( is_numeric( $id_or_email ) ) {
+		$user_id = (int) $id_or_email;
+	} elseif ( $id_or_email instanceof WP_User ) {
+		$user_id = (int) $id_or_email->ID;
+	} elseif ( $id_or_email instanceof WP_Post ) {
+		$user_id = (int) $id_or_email->post_author;
+	} elseif ( $id_or_email instanceof WP_Comment ) {
+		$user_id = (int) $id_or_email->user_id;
+	} elseif ( is_string( $id_or_email ) && is_email( $id_or_email ) ) {
+		$user    = get_user_by( 'email', $id_or_email );
+		$user_id = $user ? (int) $user->ID : 0;
+	}
+	if ( ! $user_id ) {
+		return $args;
+	}
+
+	$photo_id = (int) get_field( 'profile_photo', 'user_' . $user_id );
+	if ( ! $photo_id ) {
+		return $args;
+	}
+
+	$source = wp_get_attachment_image_src( $photo_id, (int) $args['size'] <= 150 ? 'thumbnail' : 'medium' );
+	if ( $source ) {
+		$args['url']          = $source[0];
+		$args['found_avatar'] = true;
+	}
+	return $args;
+}
+
+/**
+ * Yoast prepends a UTF-8 byte-order mark to llms.txt. The llms.txt proposal
+ * wants the file to open with its H1, and Lighthouse's Agentic Browsing audit
+ * fails a file whose first character is anything else, so write it without one.
+ * Plain UTF-8 needs no BOM: the file is served as text/plain; charset=utf-8.
+ */
+add_filter( 'wpseo_llmstxt_encoding_prefix', '__return_empty_string' );
+

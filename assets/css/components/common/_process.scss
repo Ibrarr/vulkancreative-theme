@@ -1,6 +1,8 @@
-// From spark to scale: numbered steps on a horizontal rail (desktop) or a
-// vertical timeline with a left-hand rail (below lg). The ember line is
-// scrubbed by process.js in both orientations. Shared component (hoisted out
+// How a project runs: numbered steps in a row (desktop) or a vertical timeline
+// with a left-hand rail (below lg), scrubbed by process.js. On desktop every
+// step owns its top rule, with a gap between columns, so the ember fill is one
+// segment per step (.step-fill) and never crosses a gap. Below lg the track is
+// one continuous rail, so the fill is one continuous line (.process-progress). Shared component (hoisted out
 // of the .home.page scope July 2026): used by the homepage, the services hub
 // and the service pages, imported globally from app.scss.
 .process {
@@ -50,29 +52,24 @@
       }
     }
 
-    // Ember line that draws with the scroll (process.js scrubs the scale):
-    // across the top of the steps on desktop, down the left rail below lg.
+    // The continuous ember line, for the vertical rail below lg only. On
+    // desktop the fill lives on each step instead (.step-fill below).
     .process-progress {
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, $vc-primary, $vc-secondary);
-      transform: scaleX(0);
-      transform-origin: left center;
-      z-index: 1;
-      pointer-events: none;
-      will-change: transform;
+      display: none;
 
       @include media-breakpoint-down(lg) {
+        display: block;
+        position: absolute;
         top: 0;
         bottom: 0;
+        left: 0;
         width: 2px;
-        height: auto;
         background: linear-gradient(180deg, $vc-primary, $vc-secondary);
         transform: scaleY(0);
         transform-origin: top center;
+        z-index: 1;
+        pointer-events: none;
+        will-change: transform;
       }
     }
 
@@ -103,6 +100,21 @@
       // Filled in as the ember line passes (process.js toggles the class)
       &.is-passed .step-number {
         color: $vc-primary;
+      }
+
+      // This step's share of the ember line, laid over its own top rule and
+      // scaled by process.js. Injected by the script at lg and up only.
+      .step-fill {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $vc-primary;
+        transform: scaleX(0);
+        transform-origin: left center;
+        pointer-events: none;
+        will-change: transform;
       }
 
       h3 {

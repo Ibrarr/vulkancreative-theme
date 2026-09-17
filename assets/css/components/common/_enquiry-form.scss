@@ -500,9 +500,9 @@
       font-family: $vc-font-family !important;
       font-size: 16px !important;
       font-weight: $vc-bold !important;
-      background: $vc-primary !important;
+      background: $vc-button-red !important;
       color: $vc-surface-white !important;
-      border: 1px solid $vc-primary !important;
+      border: 1px solid $vc-button-red !important;
       border-radius: 2px !important;
       padding: 16px 35px !important;
       height: auto !important;
@@ -513,8 +513,8 @@
 
       @media (hover: hover) {
         &:hover {
-          background: $vc-secondary !important;
-          border-color: $vc-secondary !important;
+          background: $vc-button-red-hover !important;
+          border-color: $vc-button-red-hover !important;
           color: $vc-surface-white !important;
           box-shadow: $vc-glow-button !important;
         }
@@ -528,8 +528,8 @@
       }
 
       &:focus-visible {
-        background: $vc-secondary !important;
-        border-color: $vc-secondary !important;
+        background: $vc-button-red-hover !important;
+        border-color: $vc-button-red-hover !important;
         outline: 2px solid $vc-primary !important;
         outline-offset: 2px !important;
       }

@@ -10,14 +10,14 @@ get_header();
 // parts are blank.
 
 // Hero
-$hero_heading    = vc_heading_parts( 'ct_hero_heading', false, "Let's build something that <span>performs</span>." );
+$hero_heading    = vc_heading_parts( 'ct_hero_heading', false, 'Talk to us about <span>your project</span>.' );
 $hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to be. We reply within one working day with a clear next step, no pitch decks and no hard sell.';
 
 // Details — company contact info lives in Global Settings (options), so the
 // Contact page and the footer share one source of truth.
 $email           = get_field('company_email', 'options') ?: 'info@vulkancreative.com';
 $phone           = get_field('company_phone', 'options') ?: '020 3576 7525';
-$location        = get_field('company_location', 'options') ?: 'Dawson House, 5 Jewry Street, London, EC3N 2EX';
+$location        = get_field('company_location', 'options') ?: '70 Mark Lane, London, EC3R 7NQ';
 $map_url         = get_field('company_map_url', 'options') ?: 'https://maps.app.goo.gl/gSBBfZt45iUbm2UH7';
 // Strip everything but digits and a leading + for the tel: href.
 $phone_href      = $phone ? preg_replace( '/[^0-9+]/', '', $phone ) : '';
@@ -38,7 +38,7 @@ if ( have_rows('ct_next_steps') ) {
 $next_steps = $next_steps ?: $next_steps_default;
 
 // Form
-$form_heading = vc_heading_parts( 'ct_form_heading', false, 'Tell us about <span>your project</span>' );
+$form_heading = vc_heading_parts( 'ct_form_heading', false, 'A few details to <span>get started</span>' );
 $form_note    = get_field( 'ct_form_note' ) ?: 'It takes about a minute.';
 
 // Inline line icons for the contact channels (consistent stroke, SVG only).

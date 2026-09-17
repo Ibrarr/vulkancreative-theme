@@ -1,0 +1,80 @@
+// The offer links row (template-parts/offer-links.php): one lead line and the
+// two standing offers as text links, ruled off above. Sits at the foot of a
+// section on the homepage and the services hub. Feedback is colour only;
+// nothing moves on hover.
+.offer-links {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  margin-top: $space-6;
+  padding-top: $space-4;
+  border-top: 1px solid $vc-grey-200;
+  transition: border-color 0.3s;
+
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-5;
+  }
+
+  .offer-links-lead {
+    @include vc-p($vc-text-dark);
+    font-weight: $vc-semi-bold;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .offer-links-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 $space-5;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-size: 16px;
+    color: $vc-text-dark;
+    text-decoration: underline;
+    text-decoration-color: $vc-primary;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    transition: color 0.2s ease;
+
+    svg {
+      flex: 0 0 auto;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+  }
+}
+
+@at-root body.dark-mode .offer-links {
+  border-top-color: $vc-grey-dark-border !important;
+
+  .offer-links-lead {
+    color: $vc-text-light !important;
+  }
+
+  a {
+    color: $vc-text-light !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+      }
+    }
+  }
+}

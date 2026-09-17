@@ -5,6 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const scrollBehavior = () =>
         window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
+    // Cancelling the jump also cancels the browser's focus move, which left
+    // keyboard and screen-reader users on the link they had just followed
+    // (the skip link included). Hand focus to the target ourselves; sections
+    // are not focusable, so they take tabindex -1 for the purpose.
+    const moveFocus = (target) => {
+        if (!target.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(target.tagName)) {
+            target.setAttribute('tabindex', '-1');
+        }
+        target.focus({ preventScroll: true });
+    };
+
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', e => {
             const id = link.getAttribute('href').slice(1);   // "why"
@@ -12,13 +23,21 @@ document.addEventListener('DOMContentLoaded', function () {
             if (target) {
                 e.preventDefault();                          // stop the hash appearing
                 target.scrollIntoView({ behavior: scrollBehavior() });
+                moveFocus(target);
                 history.replaceState(null, '', cleanUrl());  // tidy URL, same page
             }
         });
     });
 
     if (window.location.hash) {
-        const target = document.querySelector(window.location.hash);
+        // getElementById, not querySelector: a hash such as #1 or #/path is not a
+        // valid CSS selector and threw an uncaught DOMException on load.
+        let target = null;
+        try {
+            target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        } catch (e) {
+            target = null;
+        }
         if (target) {
             setTimeout(() => {
                 target.scrollIntoView({ behavior: scrollBehavior() });

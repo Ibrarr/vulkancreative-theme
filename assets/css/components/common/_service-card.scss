@@ -63,15 +63,12 @@
     transition: color 0.3s;
   }
 
+  // The description is one real sentence and prints whole: a clamp cut it off
+  // mid-thought behind an ellipsis. Cards in a row share a height, so a longer
+  // sentence only lengthens its row.
   .service-card-desc {
     @include vc-body($vc-grey-600);
     margin: 12px 0 0;
-    display: -webkit-box;
-    // Three lines on the hub grid (the term descriptions are real sentences);
-    // the related variant tightens to two.
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
     transition: color 0.3s;
   }
 
@@ -122,7 +119,6 @@
       }
 
       .service-card-arrow {
-        transform: translateX(6px);
         opacity: 1;
         color: $vc-primary;
       }
@@ -147,12 +143,10 @@
     }
 
     .service-card-arrow {
-      transform: translateX(6px);
       opacity: 1;
       color: $vc-primary;
     }
   }
-
 }
 
 @at-root body.dark-mode .service-card {
@@ -201,5 +195,4 @@
       color: $vc-primary !important;
     }
   }
-
 }

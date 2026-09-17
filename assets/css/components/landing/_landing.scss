@@ -156,9 +156,14 @@
 // them at 2.8s if the script never gets there, and reduced-motion / no-JS keep
 // them visible (misc/_motion.scss forces opacity: 1).
 @at-root html.js body.page-template-page-landing-page {
-  .lp-hero [data-reveal] {
-    opacity: 0;
-    animation: vc-lp-reveal-failsafe 0s 2.8s forwards;
+  // lg+ only. Below lg the hero text is the page's LCP element, so it paints
+  // with the first frame through the CSS entrance in misc/_motion.scss and the
+  // JS reveal leaves it alone.
+  @include media-breakpoint-up(lg) {
+    .lp-hero [data-reveal] {
+      opacity: 0;
+      animation: vc-lp-reveal-failsafe 0s 2.8s forwards;
+    }
   }
 }
 

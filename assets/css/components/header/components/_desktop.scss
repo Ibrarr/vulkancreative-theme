@@ -25,23 +25,36 @@
         transition: fill 0.3s;
       }
 
-      > path:nth-of-type(7),
-      > path:nth-of-type(8),
-      > path:nth-of-type(9),
-      > path:nth-of-type(10),
-      > path:nth-of-type(11),
-      > path:nth-of-type(12),
-      > path:nth-of-type(13),
-      > path:nth-of-type(14),
-      > path:nth-of-type(15),
-      > path:nth-of-type(16) {
-        visibility: hidden;    /* keep in DOM so DrawSVGPlugin can measure */
-        fill: none;            /* we'll assign the fill colour in JS */
-        stroke: $vc-primary;   /* outline matches brand colour */
-        stroke-width: .5;
+      // The "creative." lettering (paths 7 to 16) draws itself in once per page
+      // load: each outline strokes on, then its fill fades up as the stroke
+      // fades out. Pure CSS: logo.svg gives those paths pathLength="1", so a
+      // dash of 1 is every outline's full length. It needs no JS (the GSAP
+      // DrawSVG version cost 75KB on every page and left the letters hidden
+      // when the bundle failed), and reduced motion lands on the finished mark
+      // through the zero-duration safety net in misc/_motion.scss.
+      > path:nth-of-type(n+7):nth-of-type(-n+16) {
         fill-opacity: 0;
+        stroke: $vc-primary;
+        stroke-width: .5;
         stroke-opacity: 1;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation:
+          vc-logo-draw 0.5s ease-in-out var(--logo-delay, 0s) forwards,
+          vc-logo-fill 0.2s ease-in-out calc(var(--logo-delay, 0s) + 0.3s) forwards;
       }
+
+      // Hand order of the strokes, each starting 0.3s after the one before.
+      > path:nth-of-type(10) { --logo-delay: 0s; }
+      > path:nth-of-type(13) { --logo-delay: 0.3s; }
+      > path:nth-of-type(7)  { --logo-delay: 0.6s; }
+      > path:nth-of-type(9)  { --logo-delay: 0.9s; }
+      > path:nth-of-type(12) { --logo-delay: 1.2s; }
+      > path:nth-of-type(15) { --logo-delay: 1.5s; }
+      > path:nth-of-type(14) { --logo-delay: 1.8s; }
+      > path:nth-of-type(11) { --logo-delay: 2.1s; }
+      > path:nth-of-type(8)  { --logo-delay: 2.4s; }
+      > path:nth-of-type(16) { --logo-delay: 2.7s; }
 
       @include media-breakpoint-between(md, lg) {
         width: 140px;
@@ -135,6 +148,13 @@
         text-transform: none;
         letter-spacing: 0;
         padding: 11px 24px;
+
+        // It is a button, not a nav link: the nav links' hover underline
+        // above must not reach it (the button's own hover is its fill and glow).
+        &:hover,
+        &:focus-visible {
+          text-decoration: none;
+        }
       }
 
       &::after {
@@ -420,5 +440,19 @@
 
   .mobile-menu-toggle svg {
     fill: $vc-text-light !important;
+  }
+}
+
+// Header logo draw-in (see .logo svg above).
+@keyframes vc-logo-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes vc-logo-fill {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
   }
 }

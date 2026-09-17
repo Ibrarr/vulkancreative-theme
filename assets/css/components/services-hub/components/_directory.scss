@@ -1,0 +1,242 @@
+// The services directory: split section head (h2 left, intro-lead right) over
+// one full-width row per pillar. Each row carries the pillar's name, its
+// one-line description and its child services as links, so the hub works as
+// a map of the whole offer rather than six teaser cards. The pillar link
+// stretches over its row; child links sit above it. Feedback on hover and
+// focus is colour only: nothing in the row moves, the arrow included. Rows
+// rise in one by one via services-hub/reveal.js.
+.hub-services {
+  @include vc-section-padding;
+
+  .hub-services-head {
+    align-items: flex-end;
+    margin-bottom: $space-6;
+
+    .content h2 {
+      @include vc-display-2($vc-text-dark);
+      margin: 0;
+      transition: color 0.3s;
+    }
+  }
+
+  // The intro-lead beside the heading is the shared component in
+  // common/_intro-lead.scss.
+
+  .services-directory {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid $vc-grey-200;
+    transition: border-color 0.3s;
+  }
+
+  .directory-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: $space-2 $space-3;
+    padding: $space-4 0;
+    border-top: 1px solid $vc-grey-200;
+    transition: border-color 0.3s;
+
+    @include media-breakpoint-up(lg) {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr) 44px;
+      column-gap: $space-6;
+      align-items: start;
+      padding: $space-5 0;
+    }
+  }
+
+  .directory-name {
+    @include vc-display-3($vc-text-dark);
+    margin: 0;
+    transition: color 0.2s ease;
+
+    .directory-link {
+      color: inherit;
+      text-decoration: none;
+
+      // Stretch the pillar link over the whole row.
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
+
+      &:focus-visible {
+        outline: none;
+
+        &::after {
+          outline: 2px solid $vc-primary;
+          outline-offset: 4px;
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  .directory-body {
+    grid-column: 1 / -1;
+
+    @include media-breakpoint-up(lg) {
+      grid-column: 2;
+    }
+  }
+
+  .directory-desc {
+    @include vc-p($vc-grey-700);
+    max-width: 60ch;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .directory-children {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    // The underlines separate the links; a dot between them ended up opening
+    // the second line whenever the list wrapped.
+    gap: 0 $space-3;
+    margin: $space-1 0 0;
+
+    @include media-breakpoint-up(lg) {
+      gap: 2px $space-3;
+      margin-top: $space-2;
+    }
+
+    padding: 0;
+
+    a {
+      // Above the stretched pillar link, so each child stays its own target.
+      position: relative;
+      z-index: $z-base;
+      display: inline-block;
+      // 44px targets on touch widths; tighter where a pointer is the norm.
+      padding: 11px 0;
+
+      @include media-breakpoint-up(lg) {
+        padding: 6px 0;
+      }
+
+      font-family: $vc-font-family;
+      font-weight: $vc-semi-bold;
+      font-size: 15px;
+      color: $vc-text-dark;
+      text-decoration: underline;
+      text-decoration-color: $vc-grey-400;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-primary;
+          text-decoration-color: $vc-primary;
+        }
+      }
+    }
+  }
+
+  // Square house arrow, top right of the row.
+  .directory-arrow {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid $vc-grey-400;
+    border-radius: 2px;
+    color: $vc-text-dark;
+    transition: border-color 0.2s ease, color 0.2s ease;
+
+    @include media-breakpoint-up(lg) {
+      grid-column: 3;
+    }
+
+    svg {
+      display: block;
+    }
+  }
+
+  @media (hover: hover) {
+    .directory-row:hover {
+      .directory-name {
+        color: $vc-primary;
+      }
+
+      .directory-arrow {
+        border-color: $vc-primary;
+        color: $vc-primary;
+      }
+    }
+  }
+
+  .directory-row:focus-within .directory-arrow {
+    border-color: $vc-primary;
+    color: $vc-primary;
+  }
+
+  // The directory closes on its own bottom rule, so the offer row beneath it
+  // drops its top rule (two hairlines 48px apart read as a mistake).
+  .offer-links {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: $space-4;
+  }
+}
+
+@at-root body.dark-mode.page-template-page-services-hub .hub-services {
+  .hub-services-head .content h2 {
+    color: $vc-text-light !important;
+  }
+
+  .services-directory,
+  .directory-row {
+    border-color: $vc-grey-dark-border !important;
+  }
+
+  .directory-name {
+    color: $vc-text-light !important;
+  }
+
+  .directory-desc {
+    color: $vc-muted-on-dark !important;
+  }
+
+  .directory-children a {
+    color: $vc-text-light !important;
+    text-decoration-color: rgba($vc-text-light, 0.4) !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+        text-decoration-color: $vc-primary !important;
+      }
+    }
+  }
+
+  .directory-arrow {
+    border-color: rgba($vc-text-light, 0.35) !important;
+    color: $vc-text-light !important;
+  }
+
+  @media (hover: hover) {
+    .directory-row:hover {
+      .directory-name {
+        color: $vc-primary !important;
+      }
+
+      .directory-arrow {
+        border-color: $vc-primary !important;
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  .directory-row:focus-within .directory-arrow {
+    border-color: $vc-primary !important;
+    color: $vc-primary !important;
+  }
+}

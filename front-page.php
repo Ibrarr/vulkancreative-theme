@@ -7,43 +7,115 @@ get_header();
 // when all three parts are blank.
 
 // Hero
-$hero_subheading       = get_field('hp_hero_subheading') ?: 'Strategy, design, development and content that turn attention into customers. One team, in person, accountable for the results.';
+$hero_subheading       = get_field('hp_hero_subheading') ?: 'Vulkan Creative is a London digital marketing agency run by its two founders. We plan, design, build and market in-house, so the people you meet are the people doing the work.';
 $hero_button           = get_field('hp_hero_button_text') ?: 'Start a Project';
-$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See the Results';
+$hero_secondary_button = get_field('hp_hero_secondary_button_text') ?: 'See Our Work';
 
 // Results
-$results_heading = vc_heading_parts( 'hp_results_heading', false, 'Results That <span>Matter</span>' );
+$results_heading = vc_heading_parts( 'hp_results_heading', false, 'The <span>numbers</span> so far' );
 
 // Services
-$services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Built around one goal: <span>your growth</span>.' );
-$services_description = get_field('hp_services_description') ?: 'Six services, one joined-up team. Pick what you need now and scale when you are ready.';
+$services_heading     = vc_heading_parts( 'hp_services_heading', false, 'Six services, <span>one team</span>' );
+$services_description = get_field('hp_services_description') ?: 'Take one service or combine several. One team plans and delivers all of it, so nothing is handed between suppliers.';
 
 // Work
 $work_heading = vc_heading_parts( 'hp_work_heading', false, 'Forged with <span>our clients</span>.' );
+$work_cases   = [];
+$case_studies = new WP_Query([
+    'post_type'      => 'case_study',
+    'posts_per_page' => 3,
+    'no_found_rows'  => true,
+    'meta_key'       => 'cs_featured',
+    'meta_value'     => '1',
+]);
+if ( $case_studies->have_posts() ) {
+    while ( $case_studies->have_posts() ) { $case_studies->the_post();
+        $work_cases[] = [
+            'client'  => get_field('cs_client_name') ?: get_the_title(),
+            'sector'  => get_field('cs_sector'),
+            'summary' => get_field('cs_summary'),
+            'value'   => get_field('cs_metric_value'),
+            'label'   => get_field('cs_metric_label'),
+            'image'   => get_field('cs_image'),
+            // Cards link to the case studies' own pages (July 2026,
+            // the case-studies build); the outro keeps the contact route.
+            'link'    => get_permalink(),
+        ];
+    }
+    wp_reset_postdata();
+}
 
 // Our Work
 $our_work_heading    = vc_heading_parts( 'hp_our_work_heading', false, 'More of <span>our work</span>.' );
-$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets the full story. Here is a wider cut of the brands, websites and campaigns that leave the forge.';
+// "More of our work" only reads right under the featured case studies. When
+// that section is absent this is the first work on the page, so the heading
+// drops its "More of" and becomes "Our work."
+if ( ! $work_cases ) {
+    $our_work_heading = preg_replace_callback( '/^More of\s+(<span>)?(\w)/iu', function ( $m ) {
+        return $m[1] . mb_strtoupper( $m[2] );
+    }, $our_work_heading );
+}
+$our_work_subheading = get_field('hp_our_work_subheading') ?: 'Not every project gets a full case study. Here is a wider selection of the brands, websites and campaigns we have delivered for clients in law, finance, property, recruitment and hospitality.';
+// Curated on the homepage: the hp_our_work_projects relationship field
+// sets both the selection and the order of the shelf.
+$our_work_ids  = get_field('hp_our_work_projects');
+$work_projects = [];
+if ( $our_work_ids ) {
+    foreach ( array_slice( (array) $our_work_ids, 0, 8 ) as $project_id ) {
+        $project_image = get_field('pj_image', $project_id);
+        if ( empty( $project_image ) ) { continue; }
+
+        // Service label: Yoast's primary term wins, then the first assigned term.
+        $service_label = '';
+        if ( function_exists('yoast_get_primary_term_id') ) {
+            $primary_id = yoast_get_primary_term_id( 'service', $project_id );
+            if ( $primary_id ) {
+                $primary_term = get_term( $primary_id, 'service' );
+                if ( $primary_term && ! is_wp_error( $primary_term ) ) {
+                    $service_label = $primary_term->name;
+                }
+            }
+        }
+        if ( ! $service_label ) {
+            $project_terms = get_the_terms( $project_id, 'service' );
+            if ( $project_terms && ! is_wp_error( $project_terms ) ) {
+                $service_label = $project_terms[0]->name;
+            }
+        }
+
+        $work_projects[] = [
+            'client'      => get_field('pj_client_name', $project_id) ?: get_the_title( $project_id ),
+            'sector'      => get_field('pj_sector', $project_id),
+            'description' => get_field('pj_description', $project_id),
+            'image'       => $project_image,
+            // Tiles link to the project's own page (July 2026, the
+            // work-pages build); the live-site link sits in that
+            // page's hero instead.
+            'link'        => get_permalink( $project_id ),
+            'service'     => $service_label,
+        ];
+    }
+}
 
 // Why
-$why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Why Choose <span>Vulkan</span>?' );
-$why_subheading = get_field('hp_why_subheading') ?: 'A dedicated partner, not a distant supplier. Three things we never compromise on.';
+$why_heading    = vc_heading_parts( 'hp_why_heading', false, 'Three things we <span>do not compromise</span> on' );
+$why_subheading = get_field('hp_why_subheading') ?: 'They apply to every project, from a single landing page to a full marketing retainer.';
 
 $why_items_default = [
 	[
-		'title'       => 'Hands-On, In Person',
+		'title'       => 'Hands on and in person',
 		'description' => 'We sit down with you and learn how the business actually runs. You deal with the people doing the work, not an account queue.',
-		'proof'       => '25+ years combined experience',
+		'proof'       => 'Both founders on every call',
 	],
 	[
-		'title'       => 'Bespoke, Never Templated',
-		'description' => 'We build every brand, website and campaign around your audience, from the ground up. Nothing off the shelf, nothing recycled.',
-		'proof'       => '120+ bespoke projects delivered',
+		'title'       => 'Built for you, never from a template',
+		'description' => 'We build every brand, website and campaign around your audience, starting from a blank page. You never get a template with your logo dropped in.',
+		'proof'       => 'Every build from a blank canvas',
 	],
 	[
-		'title'       => 'Results You Can Measure',
+		'title'       => 'Results you can measure',
 		'description' => 'We tie every engagement to numbers that matter: enquiries, rankings, revenue. You always know what is working and why.',
-		'proof'       => '5.0 rating on Google',
+		'proof'       => 'Reported monthly in plain English',
 	],
 ];
 $why_items = [];
@@ -60,18 +132,18 @@ if ( have_rows('hp_why_items') ) {
 $why_items = array_slice( $why_items ?: $why_items_default, 0, 3 );
 
 $why_stat_value = get_field('hp_why_stat_value') ?: '2.3x';
-$why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients. The number we hold ourselves to.';
-$why_note_title = get_field('hp_why_note_title') ?: 'Not the cheapest. The most accountable.';
-$why_note_text  = get_field('hp_why_note_text') ?: 'One partner answerable for strategy, design, build and growth. If something is not working, you hear it from us first, with a plan to fix it.';
-$why_cta_text   = get_field('hp_why_cta_text') ?: 'Sound like your kind of partner?';
+$why_stat_label = get_field('hp_why_stat_label') ?: 'Average lead growth across our clients, and the number we judge ourselves by.';
+$why_note_title = get_field('hp_why_note_title') ?: 'You always know who is responsible';
+$why_note_text  = get_field('hp_why_note_text') ?: 'We are not the cheapest option. One partner is answerable for strategy, design, build and growth, and if something is not working you hear it from us first, with a plan to fix it.';
+$why_cta_text   = get_field('hp_why_cta_text') ?: 'Want to talk it through?';
 $why_cta_label  = get_field('hp_why_cta_label') ?: 'Start a Project';
 
 // Process
-$process_heading     = vc_heading_parts( 'hp_process_heading', false, 'A Clear Path From <span>Spark to Scale</span>' );
-$process_description = get_field('hp_process_description') ?: 'A clear, collaborative process that takes you from first conversation to measurable results, with one partner accountable the whole way.';
+$process_heading     = vc_heading_parts( 'hp_process_heading', false, 'How a <span>project</span> runs' );
+$process_description = get_field('hp_process_description') ?: 'Four stages, from the first conversation to monthly reporting on results.';
 
 // Testimonials (the rating chip reads Global Settings via vc_google_reviews())
-$testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'Trusted by <span>Ambitious Brands</span>' );
+$testimonials_heading = vc_heading_parts( 'hp_testimonials_heading', false, 'What <span>clients</span> say' );
 
 // Contact
 $contact_heading    = vc_heading_parts( 'hp_contact_heading', false, 'Have a <span>project</span> you want to discuss?' );
@@ -83,13 +155,25 @@ $contact_subheading = get_field('hp_contact_subheading') ?: 'Tell us where you w
 
 // Latest insights
 $latest_heading    = vc_heading_parts( 'hp_latest_heading', false, 'Latest <span>insights</span>.' );
-$latest_subheading = get_field('hp_latest_subheading') ?: 'Fresh thinking on brand, web and marketing: what we’re learning, building and watching.';
+$latest_subheading = get_field('hp_latest_subheading') ?: 'Articles on marketing, web, SEO and AI, written from what we build and test for clients.';
 $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 ?>
 
 <section class="hero" id="top">
     <div class="hero-glow" aria-hidden="true"></div>
-    <div class="graphic" aria-hidden="true"></div>
+    <?php // Below lg the statue is a static poster and one of the first big paints,
+    // so it is server-rendered and preloaded (header.php) rather than injected by
+    // JS after the bundle parses. At lg+ the <img> carries a transparent pixel:
+    // the three.js scene fades in over the glow, and statue-hero.js swaps the
+    // desktop poster in only for reduced motion or a failed scene. ?>
+    <div class="graphic" aria-hidden="true">
+        <picture>
+            <source media="(max-width: 991.98px)"
+                    srcset="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile-800.webp' ); ?> 800w, <?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile.webp' ); ?> 1178w"
+                    sizes="100vw">
+            <img class="hero-poster" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="1178" height="1335" fetchpriority="high" decoding="async">
+        </picture>
+    </div>
     <div class="hero-content-wrap">
         <div class="container px-4">
             <div class="row">
@@ -104,13 +188,13 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                         </span>
                         <?php // The rotating words are decorative; give assistive tech and search
                         // engines one clean, keyword-complete reading of the heading. ?>
-                        <span class="visually-hidden">brands, websites, marketing and content,</span>
-                        <span class="h1-line">built to perform<span class="red">.</span></span>
+                        <span class="visually-hidden">brands, websites, marketing and content</span>
+                        <span class="h1-line">that bring in customers<span class="red">.</span></span>
                     </h1>
                     <p class="split-text-hero"><?php echo esc_html( $hero_subheading ); ?></p>
                     <div class="bottom">
                         <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button"><?php echo esc_html( $hero_button ); ?></a>
-                        <a href="#work" class="button-ghost"><?php echo esc_html( $hero_secondary_button ); ?></a>
+                        <a href="<?php echo esc_url( $work_cases ? '#work' : ( $work_projects ? '#our-work' : home_url( '/work/' ) ) ); ?>" class="button-ghost"><?php echo esc_html( $hero_secondary_button ); ?></a>
                     </div>
                 </div>
             </div>
@@ -119,16 +203,12 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     <div class="hero-marquee">
         <div class="splide" id="logo-splide" aria-label="Companies we've worked with">
             <div class="splide__track">
-                <ul class="splide__list">
-                    <?php while ( have_rows('worked_with_logos', 'options') ) : the_row();
-                        $logo = get_sub_field('logo');
-                        if ( $logo ) : ?>
-                            <li class="splide__slide">
-                                <img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-                            </li>
-                        <?php endif;
+                <div class="splide__list">
+                    <?php $logo_i = 0;
+                    while ( have_rows('worked_with_logos', 'options') ) : the_row();
+                        echo vc_logo_slide( get_sub_field('logo'), $logo_i++ );
                     endwhile; ?>
-                </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -194,17 +274,18 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             foreach ($services as $service) {
                 $title = $service->name;
                 $description = wp_strip_all_tags( term_description($service->term_id, 'service') );
-                $icon = get_field('icon', 'service_' . $service->term_id);
-                $icon_url = trailingslashit( home_url('/wp-content/themes/vulkancreative-theme/assets/images/icons/services') ) . ltrim($icon, '/');
+                $icon_url = vc_service_icon_url( $service );
                 ?>
-                <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>" aria-label="Explore <?php echo esc_attr( $title ); ?>">
-                    <img class="service-icon" loading="lazy" src="<?php echo esc_url( $icon_url ); ?>" alt="" aria-hidden="true">
-                    <span class="service-main">
-                        <span class="service-title-row">
+                <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>">
+                    <?php if ( $icon_url ) : ?>
+                        <img class="service-icon" loading="lazy" decoding="async" src="<?php echo esc_url( $icon_url ); ?>" alt="" width="130" height="130">
+                    <?php endif; ?>
+                    <div class="service-main">
+                        <div class="service-title-row">
                             <h3 class="service-title"><?php echo esc_html( $title ); ?></h3>
-                        </span>
+                        </div>
                         <span class="service-desc"><?php echo esc_html( $description ); ?></span>
-                    </span>
+                    </div>
                     <span class="service-arrow" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </span>
@@ -219,115 +300,59 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     </div>
 </section>
 
+<?php // Hidden outright until a featured case study exists (Sep 2026). ?>
+<?php if ( $work_cases ) : ?>
 <section class="work" id="work">
     <div class="container px-4">
         <div class="content">
             <h2><?php echo wp_kses_post( $work_heading ); ?></h2>
         </div>
-        <?php
-        $case_studies = new WP_Query([
-            'post_type'      => 'case_study',
-            'posts_per_page' => 3,
-            'no_found_rows'  => true,
-            'meta_key'       => 'cs_featured',
-            'meta_value'     => '1',
-        ]);
-        if ( $case_studies->have_posts() ) :
-            $work_cases = [];
-            while ( $case_studies->have_posts() ) { $case_studies->the_post();
-                $work_cases[] = [
-                    'client'  => get_field('cs_client_name') ?: get_the_title(),
-                    'sector'  => get_field('cs_sector'),
-                    'summary' => get_field('cs_summary'),
-                    'value'   => get_field('cs_metric_value'),
-                    'label'   => get_field('cs_metric_label'),
-                    'image'   => get_field('cs_image'),
-                    // Cards link to the case studies' own pages (July 2026,
-                    // the case-studies build); the outro keeps the contact route.
-                    'link'    => get_permalink(),
-                ];
-            }
-            wp_reset_postdata(); ?>
             <div class="work-showcase">
                 <div class="case-list">
                     <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
                         <a class="case-row<?php echo $work_i === 0 ? ' is-active' : ''; ?>" href="<?php echo esc_url( $work_case['link'] ); ?>" data-case="<?php echo (int) $work_i; ?>" aria-label="Read the <?php echo esc_attr( $work_case['client'] ); ?> case study">
                             <?php if ( $work_case['image'] ) : ?>
                                 <span class="case-bg" aria-hidden="true">
-                                    <img loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
+                                    <?php echo vc_image( $work_case['image'], 'large', [ 'sizes' => '(min-width: 992px) 560px, 100vw' ] ); ?>
                                 </span>
                             <?php endif; ?>
-                            <span class="case-overlay">
-                                <span class="case-text">
+                            <div class="case-overlay">
+                                <div class="case-text">
                                     <?php if ( $work_case['sector'] ) : ?><span class="case-sector"><?php echo esc_html( $work_case['sector'] ); ?></span><?php endif; ?>
                                     <h3 class="case-client"><?php echo esc_html( $work_case['client'] ); ?></h3>
                                     <span class="case-summary"><?php echo esc_html( $work_case['summary'] ); ?></span>
-                                </span>
+                                </div>
                                 <span class="case-metric">
                                     <span class="metric-value"><?php echo esc_html( $work_case['value'] ); ?></span>
                                     <span class="metric-label"><?php echo esc_html( $work_case['label'] ); ?></span>
                                 </span>
-                            </span>
+                            </div>
                         </a>
                     <?php endforeach; ?>
                 </div>
                 <div class="case-stage" aria-hidden="true">
                     <?php foreach ( $work_cases as $work_i => $work_case ) : ?>
                         <?php if ( $work_case['image'] ) : ?>
-                            <img class="stage-img<?php echo $work_i === 0 ? ' is-active' : ''; ?>" data-case="<?php echo (int) $work_i; ?>" loading="lazy" src="<?php echo esc_url( $work_case['image']['sizes']['large'] ?? $work_case['image']['url'] ); ?>" alt="">
+                            <?php echo vc_image( $work_case['image'], 'header-image', [
+                                'class'     => 'stage-img' . ( $work_i === 0 ? ' is-active' : '' ),
+                                'data-case' => (int) $work_i,
+                                'sizes'     => '(min-width: 992px) 50vw, 100vw',
+                            ] ); ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
-            <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a project</a></p>
-        <?php endif; ?>
+            <p class="work-outro">Your project could be next. <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a></p>
     </div>
 </section>
+<?php endif; ?>
 
-<section class="our-work" id="our-work">
+<?php // Hidden outright until the wheel has a project; is-first-work takes the
+// white pairing when the case-study section above is absent (Sep 2026). ?>
+<?php if ( $work_projects ) : ?>
+<section class="our-work<?php echo $work_cases ? '' : ' is-first-work'; ?>" id="our-work">
     <div class="container px-4">
         <?php
-        // Curated on the homepage: the hp_our_work_projects relationship field
-        // sets both the selection and the order of the shelf.
-        $our_work_ids  = get_field('hp_our_work_projects');
-        $work_projects = [];
-        if ( $our_work_ids ) {
-            foreach ( array_slice( (array) $our_work_ids, 0, 8 ) as $project_id ) {
-                $project_image = get_field('pj_image', $project_id);
-                if ( empty( $project_image ) ) { continue; }
-
-                // Service label: Yoast's primary term wins, then the first assigned term.
-                $service_label = '';
-                if ( function_exists('yoast_get_primary_term_id') ) {
-                    $primary_id = yoast_get_primary_term_id( 'service', $project_id );
-                    if ( $primary_id ) {
-                        $primary_term = get_term( $primary_id, 'service' );
-                        if ( $primary_term && ! is_wp_error( $primary_term ) ) {
-                            $service_label = $primary_term->name;
-                        }
-                    }
-                }
-                if ( ! $service_label ) {
-                    $project_terms = get_the_terms( $project_id, 'service' );
-                    if ( $project_terms && ! is_wp_error( $project_terms ) ) {
-                        $service_label = $project_terms[0]->name;
-                    }
-                }
-
-                $work_projects[] = [
-                    'client'      => get_field('pj_client_name', $project_id) ?: get_the_title( $project_id ),
-                    'sector'      => get_field('pj_sector', $project_id),
-                    'description' => get_field('pj_description', $project_id),
-                    'image'       => $project_image,
-                    // Tiles link to the project's own page (July 2026, the
-                    // work-pages build); the live-site link sits in that
-                    // page's hero instead.
-                    'link'        => get_permalink( $project_id ),
-                    'service'     => $service_label,
-                ];
-            }
-        }
-
         // The wheel itself is the shared template part (centre-out slotting
         // included), also used by the service pages' recent work section.
         get_template_part( 'template-parts/work-wheel', null, [
@@ -339,6 +364,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
         ?>
     </div>
 </section>
+<?php endif; ?>
 
 <section class="why" id="why">
     <div class="container px-4">
@@ -373,14 +399,6 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     </div>
 </section>
 
-<?php // The Our Story section moved to the About page (page-templates/page-about-us.php). ?>
-<div class="text-marquee" aria-hidden="true">
-    <div class="text-marquee-track">
-        <span class="text-marquee-row">Strategy<em>&bull;</em>Design<em>&bull;</em>Development<em>&bull;</em>Content<em>&bull;</em>SEO<em>&bull;</em>Paid media<em>&bull;</em></span>
-        <span class="text-marquee-row">Strategy<em>&bull;</em>Design<em>&bull;</em>Development<em>&bull;</em>Content<em>&bull;</em>SEO<em>&bull;</em>Paid media<em>&bull;</em></span>
-    </div>
-</div>
-
 <section class="process" id="process">
     <div class="container px-4">
         <div class="content">
@@ -403,7 +421,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                 $placeholder_steps = [
                     [ 'Discover',  'We get to know your business, your customers and your goals, and audit where you are now.' ],
                     [ 'Strategy',  'We set the plan: positioning, priorities and the channels that will actually move the needle.' ],
-                    [ 'Build',     'We design and develop the brand, website and campaigns, built bespoke around your audience.' ],
+                    [ 'Build',     'We design and build the brand, website and campaigns set out in the plan.' ],
                     [ 'Optimise',  'We measure what matters and refine continuously, so results compound over time.' ],
                 ];
                 $step_i = 1;
@@ -418,6 +436,7 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     <?php $step_i++; endforeach; ?>
             <?php endif; ?>
         </div>
+        <?php get_template_part( 'template-parts/offer-links' ); ?>
     </div>
 </section>
 
@@ -435,77 +454,15 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
                     $logo = get_sub_field('logo');
                     $alt = get_sub_field('alt_text');
                     if ( $logo ) : ?>
-                        <img loading="lazy" src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $alt ?: $logo['alt'] ?: $logo['title'] ); ?>" class="trust-logo">
+                        <?php echo vc_image( $logo, 'medium', [ 'class' => 'trust-logo', 'alt' => $alt ?: vc_logo_alt( $logo ), 'sizes' => '160px' ] ); ?>
                     <?php endif;
                 endwhile; ?>
             </div>
         <?php endif; ?>
         <?php
-        $testimonial_posts = new WP_Query([
-            'post_type'      => 'testimonial',
-            'posts_per_page' => 6,
-            'no_found_rows'  => true,
-        ]);
-        $testimonial_items = [];
-        if ( $testimonial_posts->have_posts() ) {
-            while ( $testimonial_posts->have_posts() ) { $testimonial_posts->the_post();
-                $tm_photo = get_field('tm_photo');
-                $testimonial_items[] = [
-                    'quote'   => get_field('tm_quote'),
-                    'name'    => get_field('tm_name'),
-                    'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-                    'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
-                ];
-            }
-            wp_reset_postdata();
-        }
+        $testimonial_items = vc_testimonial_items( 6 );
         if ( $testimonial_items ) : ?>
-            <div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">
-                <div class="spotlight-layout">
-                    <div class="spotlight-photo" aria-hidden="true">
-                        <?php foreach ( $testimonial_items as $tm_i => $tm_item ) : ?>
-                            <img class="spotlight-portrait<?php echo $tm_i === 0 ? ' is-active' : ''; ?>" loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-                        <?php endforeach; ?>
-                    </div>
-                    <div class="spotlight-main">
-                        <div class="spotlight-mark" aria-hidden="true">“</div>
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <?php foreach ( $testimonial_items as $tm_item ) : ?>
-                                    <li class="splide__slide">
-                                        <blockquote>
-                                            <p class="spotlight-quote"><?php echo esc_html( $tm_item['quote'] ); ?></p>
-                                            <cite>
-                                                <span class="cite-avatar" aria-hidden="true">
-                                                    <img loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-                                                </span>
-                                                <span class="cite-text">
-                                                    <span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
-                                                    <span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
-                                                </span>
-                                            </cite>
-                                        </blockquote>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                        <div class="spotlight-footer">
-                            <div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
-                            <div class="spotlight-controls">
-                                <span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
-                                <div class="splide__arrows">
-                                    <button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-                                    </button>
-                                    <button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php get_template_part( 'template-parts/testimonial-spotlight', null, [ 'items' => $testimonial_items ] ); ?>
         <?php endif; ?>
     </div>
 </section>

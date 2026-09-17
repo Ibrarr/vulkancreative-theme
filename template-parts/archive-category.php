@@ -21,7 +21,7 @@ get_header();
 	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
-        <h1 class="insights-title"><?php single_cat_title(); ?> <span>News &amp; Insights</span>.</h1>
+        <h1 class="insights-title"><span><?php single_cat_title(); ?></span> insights</h1>
         <?php if ( $cat_description ) : ?>
             <p class="insights-standfirst"><?php echo esc_html( $cat_description ); ?></p>
         <?php endif; ?>
@@ -32,12 +32,13 @@ get_header();
     <div class="container px-4">
         <?php get_template_part( 'template-parts/insights-filter' ); ?>
 
-        <h2 class="visually-hidden"><?php single_cat_title(); ?> insights</h2>
+        <h2 class="visually-hidden">Latest articles</h2>
 
         <div class="row g-4" data-insights-grid>
             <?php if ( $query->have_posts() ) : ?>
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-                    <?php get_template_part( 'template-parts/content', 'card' ); ?>
+                    <?php // The newest post opens page one as the wide lead card.
+                    get_template_part( 'template-parts/content', 'card', [ 'lead' => 1 === $paged && 0 === $query->current_post ] ); ?>
                 <?php endwhile; ?>
             <?php else : ?>
                 <p class="insights-empty">No insights in this category yet.</p>

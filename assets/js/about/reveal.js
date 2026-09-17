@@ -5,21 +5,36 @@ import { revealFailsafe } from '../components/reveal-failsafe';
 
 gsap.registerPlugin(SplitText);
 
-// Section entrances for the About page, mirroring the contact page reveal:
-// with motion allowed, targets are hidden at load and revealed by
-// IntersectionObserver as they enter the viewport — headings rise with a
-// SplitText line mask, the rest fade up. Under reduced motion, without JS, or
-// without IntersectionObserver nothing is ever hidden (misc/_motion.scss is
-// the CSS safety net). The story section owns its own reveals (story.js).
+// Section entrances for the About page. Headings rise with a SplitText line
+// mask; beyond that each section gets the motion that belongs to it rather
+// than a blanket fade-up: the founder panels wipe open, the how-we-work rows
+// cascade down their rail, and body copy simply sits there. Under reduced
+// motion, without JS, or without IntersectionObserver nothing is ever hidden
+// (misc/_motion.scss is the CSS safety net). The film's sub-line and frame are
+// owned by story.js.
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.about-hero h1, .about-founders .content h2, .about-values .content h2, .about-how .content h2, .about-proof .content h2, .about-press .content h2');
-    const fades = gsap.utils.toArray('.about-hero .sub-heading, .about-founders .intro-statement, .about-founders .intro-support, .about-how .content .sub-heading, .about-press .press-body, .about-press .press-cta, .about-press .press-rack');
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
+    const headings = gsap.utils.toArray(`${heroOnJs ? '.about-hero h1, ' : ''}.about-founders .content h2, .about-story .content h2, .about-values .content h2, .about-how .content h2, .about-proof .content h2, .about-press .content h2`);
+    // The hero sub-line is the one fade left: it is part of the hero's load sequence.
+    const fades = heroOnJs ? gsap.utils.toArray('.about-hero .sub-heading') : [];
     // Staggered groups: the observer watches the list, the items cascade in.
     const groups = gsap.utils.toArray('.about-how .how-rows');
+    // The founder panels wipe open from the base, second panel a beat later.
+    const duo = document.querySelector('.about-founders .founders-duo');
+    const panels = duo ? gsap.utils.toArray(duo.querySelectorAll('.founder-panel')) : [];
 
-    if (!headings.length && !fades.length && !groups.length) return;
+    if (!headings.length && !fades.length && !groups.length && !panels.length) return;
+
+    if (panels.length) {
+        gsap.set(panels, { clipPath: 'inset(0% 0% 100% 0%)' });
+        setTimeout(() => gsap.set(panels, { clearProps: 'clipPath' }), 5000); // never stay clipped
+    }
 
     // animation:none cancels the CSS 2.5s failsafe once JS owns the reveal —
     // its `forwards` fill outranks inline styles, so left alive it would force
@@ -36,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });
@@ -67,7 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const showPanels = () => {
+        gsap.to(panels, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.7, stagger: 0.12, ease: 'expo.out', clearProps: 'clipPath' });
+    };
+
     const handlers = new Map();
+    if (duo && panels.length) handlers.set(duo, showPanels);
     headings.forEach((el) => handlers.set(el, showHeading));
     fades.forEach((el) => handlers.set(el, showFade));
     groups.forEach((el) => handlers.set(el, showGroup));

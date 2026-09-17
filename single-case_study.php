@@ -58,13 +58,13 @@ while ( have_posts() ) :
 	// The client's testimonial, from the shared testimonial CPT.
 	$cs_tm = null;
 	if ( $cs_testimonial && 'publish' === get_post_status( $cs_testimonial ) ) {
-		$cs_tm_photo = get_field( 'tm_photo', $cs_testimonial );
-		$cs_tm       = [
-			'quote'   => get_field( 'tm_quote', $cs_testimonial ),
-			'name'    => get_field( 'tm_name', $cs_testimonial ),
-			'company' => trim( get_field( 'tm_role', $cs_testimonial ) . ', ' . get_field( 'tm_company', $cs_testimonial ), ', ' ),
-			'photo'   => $cs_tm_photo['sizes']['large'] ?? $cs_tm_photo['url'] ?? '',
-		];
+		$cs_tm = vc_testimonial_item(
+			get_field( 'tm_quote', $cs_testimonial ),
+			get_field( 'tm_name', $cs_testimonial ),
+			get_field( 'tm_role', $cs_testimonial ),
+			get_field( 'tm_company', $cs_testimonial ),
+			get_field( 'tm_photo', $cs_testimonial )
+		);
 		if ( ! $cs_tm['quote'] ) {
 			$cs_tm = null;
 		}
@@ -140,7 +140,7 @@ while ( have_posts() ) :
 						<div class="overview-lead">
 							<p class="overview-statement"><?php echo esc_html( $cs_ov_statement ?: $cs_summary ); ?></p>
 							<?php if ( $cs_ov_support ) : ?>
-								<p class="overview-support"><?php echo esc_html( $cs_ov_support ); ?></p>
+								<?php vc_text_paragraphs( $cs_ov_support, 'overview-support' ); ?>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
@@ -312,7 +312,7 @@ while ( have_posts() ) :
 					</div>
 				<?php endif; ?>
 				<?php if ( $cs_narrative ) : ?>
-					<p class="results-narrative"><?php echo esc_html( $cs_narrative ); ?></p>
+					<?php vc_text_paragraphs( $cs_narrative, 'results-narrative' ); ?>
 				<?php endif; ?>
 				<div class="results-actions">
 					<a class="button-ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
@@ -331,28 +331,8 @@ while ( have_posts() ) :
 						</div>
 					</div>
 				</div>
-				<?php // The shared spotlight anatomy in its static variant: one quote, no carousel. ?>
-				<div class="testimonial-spotlight spotlight-static<?php echo $cs_tm['photo'] ? '' : ' spotlight-static--no-photo'; ?>">
-					<div class="spotlight-layout">
-						<?php if ( $cs_tm['photo'] ) : ?>
-							<div class="spotlight-photo" aria-hidden="true">
-								<img class="spotlight-portrait is-active" loading="lazy" src="<?php echo esc_url( $cs_tm['photo'] ); ?>" alt="">
-							</div>
-						<?php endif; ?>
-						<div class="spotlight-main">
-							<div class="spotlight-mark" aria-hidden="true">“</div>
-							<blockquote>
-								<p class="spotlight-quote"><?php echo esc_html( $cs_tm['quote'] ); ?></p>
-								<cite>
-									<span class="cite-text">
-										<span class="t-name"><?php echo esc_html( $cs_tm['name'] ); ?></span>
-										<span class="t-company"><?php echo esc_html( $cs_tm['company'] ); ?></span>
-									</span>
-								</cite>
-							</blockquote>
-						</div>
-					</div>
-				</div>
+				<?php // The shared spotlight in its static variant: one quote, no carousel.
+				get_template_part( 'template-parts/testimonial-spotlight', null, [ 'items' => [ $cs_tm ], 'carousel' => false ] ); ?>
 			</div>
 		</section>
 	<?php endif; ?>

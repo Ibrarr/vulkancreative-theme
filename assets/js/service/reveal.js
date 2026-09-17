@@ -17,8 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // (.service-deliverables is absent on purpose: the welded lattice owns
     // every entrance inside its section, heading included.)
-    const headings = gsap.utils.toArray('.service-hero h1, .service-journey .content h2, .service-results .content h2, .service-work .content h2, .service-case-studies .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2');
-    const fades = gsap.utils.toArray('.service-hero .sub-heading, .service-hero .hero-actions, .service-journey .content .sub-heading, .service-cta .content .sub-heading, .service-cta .cta-actions');
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
+    const headings = gsap.utils.toArray(`${heroOnJs ? '.service-hero h1, ' : ''}.service-journey .content h2, .service-results .content h2, .service-work .content h2, .service-case-studies .content h2, .service-insights .content h2, .service-related .content h2, .service-cta .content h2`);
+    // The hero sub-line and button are the only fades left: the hero's load sequence.
+    const fades = heroOnJs ? gsap.utils.toArray('.service-hero .sub-heading, .service-hero .hero-actions') : [];
     // Staggered groups: the observer watches the container, the items cascade
     // in. Each group carries its own child selector. (The journey plates and
     // the deliverables stack get no entrance — the scrub and the deck are
@@ -52,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

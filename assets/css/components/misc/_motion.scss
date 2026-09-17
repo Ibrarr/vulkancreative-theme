@@ -1,3 +1,67 @@
+// First-paint hero entrance, below lg.
+//
+// On a phone the hero text is the page's Largest Contentful Paint. A JS reveal
+// cannot start until the bundle and the fonts arrive, which held mobile LCP at
+// 5 to 10s. So below lg the hero text rises in as a CSS animation from the first
+// painted frame, starting a hair above zero opacity (the LCP algorithm ignores
+// anything painted at exactly 0). At lg+ the JS line reveal still owns the hero:
+// each page's html.js pre-hide block is gated to lg+, and each reveal module
+// skips its hero targets below lg.
+@keyframes vc-first-paint-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 991.98px) and (prefers-reduced-motion: no-preference) {
+  .page-hero .content,
+  .fw-hero .content,
+  .lp-hero .content,
+  .insights-header,
+  .insight-hero-inner {
+    h1 {
+      animation: vc-first-paint-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .sub-heading,
+    .insights-standfirst,
+    .insight-hero-excerpt {
+      animation: vc-first-paint-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+    }
+
+    .hero-actions,
+    .hero-meta,
+    .hero-metric,
+    .hero-note,
+    .insight-hero-meta {
+      animation: vc-first-paint-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+    }
+  }
+}
+
+// Blog h1s at lg+: pre-hidden for the JS line reveal (the blog family had no
+// stylesheet-level hide, so a deferred bundle could flash the title before
+// hiding it). Same failsafe as every other page.
+@media (min-width: 992px) {
+  html.js .insights-header .insights-title,
+  html.js .insight-hero-inner .insight-hero-title {
+    opacity: 0;
+    animation: vc-blog-reveal-failsafe 0s 2.5s forwards;
+  }
+}
+
+@keyframes vc-blog-reveal-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
 // Respect prefers-reduced-motion. Strip non-essential motion and guarantee that
 // any content revealed by GSAP (split text, hero, stats) stays visible even if a
 // script is slow or blocked. The JS modules also branch on this query.

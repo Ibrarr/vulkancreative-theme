@@ -16,6 +16,42 @@ function vc_enquiry_disable_gf_scroll( $anchor, $form ) {
 	return $anchor;
 }
 
+// A form with conditional logic is rendered display:none and only revealed by
+// GF's script. On a phone, where the contact details sit under the form, that
+// reveal pushed them down once jQuery landed (0.15 CLS on Contact). The hiding
+// exists to stop a conditional field flashing before its rule runs, so when
+// the page being rendered has no conditional field or button, show the form
+// from the first paint; GF's own .show() is then a no-op. Later pages that do
+// carry rules keep GF's behaviour.
+add_filter( 'gform_get_form_filter', 'vc_show_form_when_page_has_no_rules', 10, 2 );
+function vc_show_form_when_page_has_no_rules( $form_string, $form ) {
+	if ( false === strpos( $form_string, "style='display:none'" ) || ! class_exists( 'GFFormDisplay' ) ) {
+		return $form_string;
+	}
+
+	$current = max( 1, (int) GFFormDisplay::get_current_page( $form['id'] ) );
+	$page    = 1;
+	foreach ( $form['fields'] as $field ) {
+		if ( 'page' === $field->type ) {
+			// A page break's next-button rule belongs to the page it closes.
+			if ( $page === $current && ! empty( $field->nextButton['conditionalLogic'] ) ) {
+				return $form_string;
+			}
+			$page++;
+			continue;
+		}
+		if ( $page === $current && ! empty( $field->conditionalLogic ) ) {
+			return $form_string;
+		}
+	}
+	if ( $current === $page && ! empty( $form['button']['conditionalLogic'] ) ) {
+		return $form_string;
+	}
+
+	$wrapper = "id='gform_wrapper_" . (int) $form['id'] . "'";
+	return preg_replace( '/(' . preg_quote( $wrapper, '/' ) . ")\s+style='display:none'/", '$1', $form_string, 1 );
+}
+
 // Suppress GF's default AJAX spinner GIF on every form. The theme renders its
 // own spinner over the pressed button (assets/js/global/form-loading.js +
 // common/_form-loading.scss); GF's default is a footer sibling that shifts the
@@ -48,12 +84,12 @@ function vc_enquiry_service_choice_icons( $choice_markup, $choice, $field, $valu
 		return $choice_markup;
 	}
 
-	$file = get_field( 'icon', 'service_' . $term->term_id );
-	if ( ! $file ) {
+	$icon_url = vc_service_icon_url( $term );
+	if ( ! $icon_url ) {
 		return $choice_markup;
 	}
 
-	$img = '<img class="choice-card-icon" src="' . esc_url( VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file ) . '" alt="" aria-hidden="true" loading="lazy">';
+	$img = '<img class="choice-card-icon" src="' . esc_url( $icon_url ) . '" alt="" width="56" height="56" loading="lazy" decoding="async">';
 
 	return str_replace( '</label>', $img . '</label>', $choice_markup );
 }
@@ -275,4 +311,23 @@ function vc_load_gravity_form_choices( $field ) {
 	}
 
 	return $field;
+}
+
+// reCAPTCHA v3 only where a form rendered. The add-on enqueues Google's script
+// on every front-end page so v3 can score the whole visit; that is roughly
+// 400KB of third-party JS on pages with no form to protect. By footer-print time
+// Gravity Forms has fired gform_enqueue_scripts for every form the template
+// rendered, so "no form on this page" is known and the two handles can go.
+// Trade-off, accepted Sep 2026: a visitor's first submission is scored on the
+// form page alone rather than on the pages before it.
+add_action( 'wp_print_footer_scripts', 'vc_recaptcha_only_with_forms', 1 );
+function vc_recaptcha_only_with_forms() {
+	if ( did_action( 'gform_enqueue_scripts' ) ) {
+		return;
+	}
+	if ( class_exists( 'GFFormDisplay' ) && ! empty( GFFormDisplay::$init_scripts ) ) {
+		return;
+	}
+	wp_dequeue_script( 'gforms_recaptcha_frontend' );
+	wp_dequeue_script( 'gforms_recaptcha_recaptcha' );
 }

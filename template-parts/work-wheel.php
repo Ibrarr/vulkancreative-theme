@@ -29,6 +29,11 @@ foreach ( $wheel_projects as $pick_i => $wheel_project ) {
 }
 ksort( $wheel_slots );
 $wheel_projects = array_values( $wheel_slots );
+
+// Nothing to show renders nothing: a headed empty section is worse than none.
+if ( empty( $wheel_projects ) ) {
+	return;
+}
 ?>
 <div class="work-wheel" id="work-wheel">
 	<div class="shelf-head">
@@ -52,7 +57,6 @@ $wheel_projects = array_values( $wheel_slots );
 			</div>
 		<?php endif; ?>
 	</div>
-	<?php if ( ! empty( $wheel_projects ) ) : ?>
 		<div class="wheel-stage" role="group" aria-roledescription="carousel" aria-label="<?php echo esc_attr( $wheel_label ); ?>">
 			<ul class="wheel-track">
 				<?php foreach ( $wheel_projects as $wheel_project ) :
@@ -73,10 +77,10 @@ $wheel_projects = array_values( $wheel_slots );
 					?>
 					<li class="wheel-card">
 						<<?php echo $tile_tag; ?> class="tile-media"<?php echo $tile_attrs; ?>>
-							<img class="tile-img" loading="lazy" src="<?php echo esc_url( $wheel_project['image']['sizes']['large'] ?? $wheel_project['image']['url'] ); ?>" alt="">
+							<?php echo vc_image( $wheel_project['image'], 'large', [ 'class' => 'tile-img', 'sizes' => '(min-width: 992px) 520px, (min-width: 768px) 60vw, 86vw' ] ); ?>
 							<span class="tile-scrim" aria-hidden="true"></span>
 							<?php if ( $wheel_project['service'] ) : ?><span class="tile-service"><?php echo esc_html( $wheel_project['service'] ); ?></span><?php endif; ?>
-							<span class="tile-caption">
+							<div class="tile-caption">
 								<?php if ( $wheel_project['sector'] ) : ?><span class="tile-sector"><?php echo esc_html( $wheel_project['sector'] ); ?></span><?php endif; ?>
 								<?php if ( $tile_internal ) : ?>
 									<h3 class="tile-client"><?php echo $client_head ? esc_html( $client_head ) . ' ' : ''; ?><span class="tile-client-end"><?php echo esc_html( $client_last ); ?><svg class="tile-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></h3>
@@ -86,11 +90,10 @@ $wheel_projects = array_values( $wheel_slots );
 									<h3 class="tile-client"><?php echo esc_html( $wheel_project['client'] ); ?></h3>
 								<?php endif; ?>
 								<?php if ( $wheel_project['description'] ) : ?><span class="tile-line"><?php echo esc_html( $wheel_project['description'] ); ?></span><?php endif; ?>
-							</span>
+							</div>
 						</<?php echo $tile_tag; ?>>
 					</li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
-	<?php endif; ?>
 </div>

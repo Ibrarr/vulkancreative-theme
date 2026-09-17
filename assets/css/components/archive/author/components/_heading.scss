@@ -14,20 +14,37 @@
     }
   }
 
+  // The founders' duotone from the About page (grayscale portrait under a
+  // brand-red soft-light wash), so a founder looks the same wherever they
+  // appear. Static: it never changes on hover. House 2px corners.
   .author-avatar {
+    position: relative;
     flex: 0 0 auto;
     display: block;
     width: 112px;
     height: 112px;
-    border-radius: 50%;
+    border-radius: 2px;
     overflow: hidden;
     border: 1px solid $vc-grey-dark-border;
+    background: $vc-text-dark;
 
     .author-avatar-img {
+      display: block;
       width: 112px;
       height: 112px;
       object-fit: cover;
-      border-radius: 50%;
+      border-radius: 2px;
+      filter: grayscale(1);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: $vc-primary;
+      mix-blend-mode: soft-light;
+      opacity: 0.75;
+      pointer-events: none;
     }
   }
 

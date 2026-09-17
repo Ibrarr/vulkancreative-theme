@@ -15,24 +15,21 @@ get_header();
 $front_page_id = (int) get_option( 'page_on_front' );
 
 // Hero
-$hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'What we <span>do</span>.' );
-$hero_subheading = get_field('sh_hero_subheading') ?: 'Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.';
+$hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'Digital marketing services from <span>one London team</span>' );
+$hero_subheading = get_field('sh_hero_subheading') ?: 'Web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one service or combine several.';
 
 // Services grid
-$grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'Six services. <span>One team</span>.' );
-$grid_statement = get_field('sh_grid_statement');
-if ( ! $grid_statement || 'Everything you need to grow, under one roof.' === $grid_statement ) {
-	$grid_statement = 'Everything you need to grow, <span>under one roof</span>.';
-}
-$grid_support   = get_field('sh_grid_support') ?: 'Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.';
+$grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'What each <span>service</span> covers' );
+$grid_statement = get_field('sh_grid_statement') ?: 'Each service works on its own. Combined, they run to one plan, so your website, search and ads pull in the same direction.';
+$grid_support   = get_field('sh_grid_support') ?: 'Every discipline here is handled by the same team, so nothing gets lost between agencies and you always know who to call.';
 
-// The grid lists the parent services in the order set in Global Settings >
-// Service List (parents ticked to show on the hub). Each parent's children
-// live on its own page.
+// The directory lists the parent services in the order set in Global Settings >
+// Service List (parents ticked to show on the hub), each with its child
+// services in their editable order (vc_service_children()).
 $services = vc_ordered_services( 'hub' );
 
 // Process (steps cross-read from the homepage so the site keeps one process)
-$process_heading    = vc_heading_parts( 'sh_process_heading', false, 'From brief to <span>results</span>.' );
+$process_heading    = vc_heading_parts( 'sh_process_heading', false, 'How every <span>project</span> runs' );
 $process_subheading = get_field('sh_process_subheading') ?: 'The same clear process behind every service, with one partner accountable the whole way.';
 
 $process_steps = [];
@@ -45,33 +42,16 @@ if ( have_rows( 'hp_process_steps', $front_page_id ) ) {
 if ( ! $process_steps ) {
 	$process_steps = [
 		[ 'title' => 'Discover',  'description' => 'We get to know your business, your customers and your goals, and audit where you are now.' ],
-		[ 'title' => 'Strategy',  'description' => 'We set the plan: positioning, priorities and the channels that will actually move the needle.' ],
-		[ 'title' => 'Build',     'description' => 'We design and develop the brand, website and campaigns, built bespoke around your audience.' ],
-		[ 'title' => 'Optimise',  'description' => 'We measure what matters and refine continuously, so results compound over time.' ],
+		[ 'title' => 'Strategy',  'description' => 'We set the plan: positioning, priorities and the channels most likely to bring enquiries.' ],
+		[ 'title' => 'Build',     'description' => 'We design and build the brand, website and campaigns set out in the plan.' ],
+		[ 'title' => 'Optimise',  'description' => 'We measure enquiries, rankings and revenue each month and adjust the work based on what the numbers show.' ],
 	];
 }
 
 // Proof (the rating chip reads Global Settings via vc_google_reviews())
-$proof_heading = vc_heading_parts( 'sh_proof_heading', false, '<span>Proof</span>, not promises.' );
+$proof_heading = vc_heading_parts( 'sh_proof_heading', false, 'What <span>clients</span> say' );
 
-$testimonial_posts = new WP_Query([
-	'post_type'      => 'testimonial',
-	'posts_per_page' => 6,
-	'no_found_rows'  => true,
-]);
-$testimonial_items = [];
-if ( $testimonial_posts->have_posts() ) {
-	while ( $testimonial_posts->have_posts() ) { $testimonial_posts->the_post();
-		$tm_photo = get_field('tm_photo');
-		$testimonial_items[] = [
-			'quote'   => get_field('tm_quote'),
-			'name'    => get_field('tm_name'),
-			'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
-		];
-	}
-	wp_reset_postdata();
-}
+$testimonial_items = vc_testimonial_items( 6 );
 
 // CTA
 $cta_heading    = vc_heading_parts( 'sh_cta_heading', false, 'Start a <span>project</span>.' );
@@ -103,25 +83,35 @@ get_template_part( 'template-parts/page', 'hero', [
 				</div>
 			</div>
 		</div>
-		<div class="row g-4 services-grid">
-			<?php
-			$card_i = 1;
-			foreach ( $services as $service ) {
-				echo '<div class="col-lg-4 col-md-6 col-12 service-card-col">';
-				get_template_part( 'template-parts/service', 'card', [
-					'term'       => $service,
-					'index'      => $card_i,
-					'variant'    => 'grid',
-					// Services are an unordered set, so the outlined 01-06 numeral
-					// reads as decorative scaffolding; the varying watermark icon
-					// and title carry the card instead.
-					'show_index' => false,
-				] );
-				echo '</div>';
-				$card_i++;
-			}
-			?>
-		</div>
+		<?php // A directory, not a card grid: one full-width row per pillar with its
+		// child services as links. The pillar link stretches over the row, the
+		// child links sit above it, and the arrow is decoration. ?>
+		<ul class="services-directory">
+			<?php foreach ( $services as $service ) :
+				$directory_desc     = wp_strip_all_tags( term_description( $service->term_id, 'service' ) );
+				$directory_children = vc_service_children( $service->term_id );
+				?>
+				<li class="directory-row">
+					<h3 class="directory-name"><a class="directory-link" href="<?php echo esc_url( get_term_link( $service ) ); ?>"><?php echo esc_html( $service->name ); ?></a></h3>
+					<div class="directory-body">
+						<?php if ( $directory_desc ) : ?>
+							<p class="directory-desc"><?php echo esc_html( $directory_desc ); ?></p>
+						<?php endif; ?>
+						<?php if ( $directory_children ) : ?>
+							<ul class="directory-children" aria-label="<?php echo esc_attr( $service->name ); ?> services">
+								<?php foreach ( $directory_children as $directory_child ) : ?>
+									<li><a href="<?php echo esc_url( get_term_link( $directory_child ) ); ?>"><?php echo esc_html( $directory_child->name ); ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</div>
+					<span class="directory-arrow" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+					</span>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php get_template_part( 'template-parts/offer-links' ); ?>
 	</div>
 </section>
 
@@ -155,67 +145,19 @@ get_template_part( 'template-parts/page', 'hero', [
 			<?php get_template_part( 'template-parts/rating-chip' ); ?>
 		</div>
 		<?php if ( $testimonial_items ) : ?>
-			<div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">
-				<div class="spotlight-layout">
-					<div class="spotlight-photo" aria-hidden="true">
-						<?php foreach ( $testimonial_items as $tm_i => $tm_item ) : ?>
-							<img class="spotlight-portrait<?php echo $tm_i === 0 ? ' is-active' : ''; ?>" loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-						<?php endforeach; ?>
-					</div>
-					<div class="spotlight-main">
-						<div class="spotlight-mark" aria-hidden="true">“</div>
-						<div class="splide__track">
-							<ul class="splide__list">
-								<?php foreach ( $testimonial_items as $tm_item ) : ?>
-									<li class="splide__slide">
-										<blockquote>
-											<p class="spotlight-quote"><?php echo esc_html( $tm_item['quote'] ); ?></p>
-											<cite>
-												<span class="cite-avatar" aria-hidden="true">
-													<img loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-												</span>
-												<span class="cite-text">
-													<span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
-													<span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
-												</span>
-											</cite>
-										</blockquote>
-									</li>
-								<?php endforeach; ?>
-							</ul>
-						</div>
-						<div class="spotlight-footer">
-							<div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
-							<div class="spotlight-controls">
-								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
-								<div class="splide__arrows">
-									<button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-									</button>
-									<button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<?php get_template_part( 'template-parts/testimonial-spotlight', null, [ 'items' => $testimonial_items ] ); ?>
 		<?php endif; ?>
 		<?php if ( have_rows( 'worked_with_logos', 'options' ) ) : ?>
 			<div class="hub-logos">
 				<div class="splide" id="logo-splide" aria-label="Companies we've worked with">
 					<div class="splide__track">
-						<ul class="splide__list">
-							<?php while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
-								$logo = get_sub_field( 'logo' );
-								if ( $logo ) : ?>
-									<li class="splide__slide">
-										<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-									</li>
-								<?php endif;
+						<div class="splide__list">
+							<?php // Below the fold here, so every slide stays lazy (index offset past the eager six).
+							$logo_i = 6;
+							while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
+								echo vc_logo_slide( get_sub_field( 'logo' ), $logo_i++ );
 							endwhile; ?>
-						</ul>
+						</div>
 					</div>
 				</div>
 			</div>

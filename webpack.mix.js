@@ -15,10 +15,6 @@ mix.js([
 ], 'js/header.js');
 
 mix.js([
-    'assets/js/footer/footer.js',
-], 'js/footer.js');
-
-mix.js([
     'assets/js/spline/statue-hero.js',
     'assets/js/homepage/hero.js',
     'assets/js/homepage/marquee.js',
@@ -78,7 +74,6 @@ mix.js([
 
 mix.js([
     'assets/js/services-hub/reveal.js',
-    'assets/js/services-hub/grid.js',
     // Shared homepage modules: process.js binds .process .process-steps,
     // testimonials.js/marquee.js bind by element id (the about.js precedent).
     'assets/js/homepage/process.js',
@@ -146,13 +141,13 @@ mix.sass('assets/css/app.scss', 'css/app.css')
         processCssUrls: false
     });
 
+// Mix already runs autoprefixer; this only sets its options. Targets come from
+// the browserslist field in package.json ("defaults"), which Babel shares, so
+// CSS prefixes and JS transpilation always aim at the same browsers.
 mix.options({
-    postCss: [
-        require('autoprefixer')({
-            overrideBrowserslist: ['last 3 versions'],
-            cascade: false
-        })
-    ]
+    autoprefixer: {
+        options: { cascade: false }
+    }
 });
 
 mix.setPublicPath('dist');

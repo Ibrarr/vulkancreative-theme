@@ -47,6 +47,15 @@ if ( $full_content ) {
         },
         $full_content
     );
+
+    // Key takeaways become a labelled region of their own, so an answer engine
+    // (or a screen reader) can lift the summary without the intro around it.
+    $full_content = preg_replace(
+        '/(<h2 id="key-takeaways">.*?<\/h2>\s*<ul[^>]*>.*?<\/ul>)/s',
+        '<section class="insight-takeaways" aria-labelledby="key-takeaways">$1</section>',
+        $full_content,
+        1
+    );
 }
 
 // Table of contents from the in-content h1/h2 (computed once, reused).
@@ -59,6 +68,8 @@ $read_time  = $read_words ? max( 1, (int) ceil( $read_words / 200 ) ) : 0;
 $author_id   = (int) get_the_author_meta( 'ID' );
 $author_bio  = get_the_author_meta( 'description', $author_id );
 $author_role = get_field( 'job_title', 'user_' . $author_id );
+// Yoast's profile field: the same URL feeds the Person schema's sameAs.
+$author_linkedin = get_the_author_meta( 'linkedin', $author_id );
 
 $has_hero_image = has_post_thumbnail();
 
@@ -80,9 +91,12 @@ $related = new WP_Query( [
             <div class="insight-hero-bg" aria-hidden="true">
                 <?php
                 the_post_thumbnail( 'large', [
-                    'class'   => 'insight-hero-img',
-                    'loading' => 'eager',
-                    'alt'     => '',
+                    'class'         => 'insight-hero-img',
+                    'loading'       => 'eager',
+                    'fetchpriority' => 'high',
+                    'decoding'      => 'async',
+                    'sizes'         => '100vw',
+                    'alt'           => '',
                 ] );
                 ?>
                 <span class="insight-hero-veil"></span>
@@ -108,6 +122,11 @@ $related = new WP_Query( [
                     <?php endif; ?>
                     <span class="meta-dot" aria-hidden="true">·</span>
                     <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></time>
+                    <?php // Only a genuine later edit earns an "Updated" date: freshness is a ranking and citation signal, but a same-day touch is not news. ?>
+                    <?php if ( get_the_modified_date( 'Ymd' ) > get_the_date( 'Ymd' ) ) : ?>
+                        <span class="meta-dot" aria-hidden="true">·</span>
+                        <span class="meta-updated">Updated <time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo esc_html( get_the_modified_date( 'M j, Y' ) ); ?></time></span>
+                    <?php endif; ?>
                     <?php if ( $read_time ) : ?>
                         <span class="meta-dot" aria-hidden="true">·</span>
                         <span class="meta-readtime"><?php echo esc_html( $read_time ); ?> min read</span>
@@ -151,6 +170,9 @@ $related = new WP_Query( [
                                 <?php if ( $author_role ) : ?>
                                     <span class="insight-author-role"><?php echo esc_html( $author_role ); ?></span>
                                 <?php endif; ?>
+                                <?php if ( $author_linkedin ) : ?>
+                                    <a class="insight-author-linkedin" href="<?php echo esc_url( $author_linkedin ); ?>" target="_blank" rel="noopener me">LinkedIn<span class="visually-hidden"> profile of <?php echo esc_html( get_the_author_meta( 'display_name', $author_id ) ); ?> (opens in a new tab)</span></a>
+                                <?php endif; ?>
                             </span>
                         </div>
                         <?php if ( $author_bio ) : ?>
@@ -191,6 +213,7 @@ $related = new WP_Query( [
                             <div class="form">
                                 <?php vc_render_form( 3, 'options', 'newsletter_form_id' ); ?>
                             </div>
+                            <p class="insight-newsletter-consent">By subscribing, you consent to our <a href="<?php echo esc_url( get_privacy_policy_url() ?: home_url( '/privacy-policy/' ) ); ?>">Privacy Policy</a> and agree to receive updates.</p>
                         </div>
                     </div>
                 </aside>

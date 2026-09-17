@@ -110,11 +110,13 @@ if ( have_rows( 'lp_sections' ) ) :
 				$block['stats']      = [];
 				if ( have_rows( 'stats' ) ) {
 					while ( have_rows( 'stats' ) ) { the_row();
+						// {rating} / {reviews} resolve to the Global Settings figures, so a
+						// landing page never carries its own copy of the Google rating.
 						$block['stats'][] = [
-							'number' => get_sub_field( 'number' ),
+							'number' => vc_review_tokens( (string) get_sub_field( 'number' ) ),
 							'prefix' => get_sub_field( 'prefix' ),
 							'suffix' => get_sub_field( 'suffix' ),
-							'label'  => get_sub_field( 'label' ),
+							'label'  => vc_review_tokens( (string) get_sub_field( 'label' ) ),
 						];
 					}
 				}
@@ -129,26 +131,10 @@ if ( have_rows( 'lp_sections' ) ) :
 				$items  = [];
 				if ( 'manual' === $source && have_rows( 'items' ) ) {
 					while ( have_rows( 'items' ) ) { the_row();
-						$photo = get_sub_field( 'photo' );
-						$items[] = [
-							'quote'   => get_sub_field( 'quote' ),
-							'name'    => get_sub_field( 'name' ),
-							'company' => trim( get_sub_field( 'role' ) . ', ' . get_sub_field( 'company' ), ', ' ),
-							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
-						];
+						$items[] = vc_testimonial_item( get_sub_field( 'quote' ), get_sub_field( 'name' ), get_sub_field( 'role' ), get_sub_field( 'company' ), get_sub_field( 'photo' ) );
 					}
 				} else {
-					$tq = new WP_Query( [ 'post_type' => 'testimonial', 'posts_per_page' => $count, 'no_found_rows' => true ] );
-					while ( $tq->have_posts() ) { $tq->the_post();
-						$photo = get_field( 'tm_photo' );
-						$items[] = [
-							'quote'   => get_field( 'tm_quote' ),
-							'name'    => get_field( 'tm_name' ),
-							'company' => trim( get_field( 'tm_role' ) . ', ' . get_field( 'tm_company' ), ', ' ),
-							'photo'   => $photo['sizes']['medium'] ?? $photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
-						];
-					}
-					wp_reset_postdata();
+					$items = vc_testimonial_items( $count );
 				}
 				$block['items'] = $items;
 				break;

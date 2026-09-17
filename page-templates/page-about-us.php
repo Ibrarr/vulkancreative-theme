@@ -11,8 +11,8 @@ get_header();
 // or still the plain default, the span-highlighted version is used.
 
 // Hero
-$hero_heading    = vc_heading_parts( 'ab_hero_heading', false, "The people you'll <span>actually</span> work with." );
-$hero_subheading = get_field('ab_hero_subheading') ?: 'Vulkan is an in-house agency run by its two founders. You deal with us from the first call to the final build, and nothing gets handed off or watered down.';
+$hero_heading    = vc_heading_parts( 'ab_hero_heading', false, 'The <span>two people</span> you will work with.' );
+$hero_subheading = get_field('ab_hero_subheading') ?: 'Vulkan Creative is a London digital marketing agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.';
 
 // Intro
 $intro_statement = get_field('ab_intro_statement');
@@ -22,13 +22,13 @@ if ( ! $intro_statement || 'Everything in-house. Everyone accountable.' === $int
 $intro_support   = get_field('ab_intro_support') ?: 'Most agencies put layers between you and the people doing the work. We built Vulkan to remove them. Strategy, design, development, content, SEO and paid media all happen in-house, led by the two of us, so decisions move quickly, standards stay ours and nobody can pass the buck.';
 
 // Founders
-$founders_heading  = vc_heading_parts( 'ab_founders_heading', false, "Who you'll <span>work with</span>." );
+$founders_heading  = vc_heading_parts( 'ab_founders_heading', false, 'Meet <span>Flynn and Ibrarr</span>.' );
 $founders_fallback = [
 	[
 		'name'      => 'Flynn Forster',
 		'role'      => 'Co-Founder · Paid Media & PPC',
 		'short_bio' => 'Flynn runs the paid side of Vulkan: paid search, PPC and the campaigns that turn ad budgets into enquiries. More than ten years of managing spend have made him allergic to waste. If a campaign does not return, it does not run.',
-		'long_bio'  => '<p>Flynn has spent more than ten years planning and running paid campaigns: Google Ads, paid social and the digital marketing that sits around them. At Vulkan he owns everything paid, from first keyword research to the weekly optimisation calls, so the person who builds your campaign is the same person answering for its results.</p><p>He is direct about budgets. Before anything goes live you will know what we expect it to return, and once it is live you will see plain-English reports that show spend, results and what changes next. No dashboards you need a translator for, and no burying a bad month.</p><p>Flynn is also the one who will sit at your table and ask the awkward commercial questions early, because campaigns built on honest answers perform better.</p>',
+		'long_bio'  => '<p>Flynn plans and runs paid campaigns: Google Ads, paid social and the digital marketing that sits around them. At Vulkan he owns everything paid, from first keyword research to the weekly optimisation calls, so the person who builds your campaign is the same person answering for its results.</p><p>He is direct about budgets. Before anything goes live you will know what we expect it to return, and once it is live you will see plain-English reports that show spend, results and what changes next. No dashboards you need a translator for, and no burying a bad month.</p><p>Flynn is also the one who will sit at your table and ask the awkward commercial questions early, because campaigns built on honest answers perform better.</p>',
 		'photo'     => '',
 		'linkedin'  => 'https://www.linkedin.com/in/flynn-forster/',
 		'email'     => 'flynn@vulkancreative.com',
@@ -38,7 +38,7 @@ $founders_fallback = [
 		'name'      => 'Ibrarr Khan',
 		'role'      => 'Co-Founder · Web, SEO & AI',
 		'short_bio' => 'Ibrarr leads design, development and search: the websites Vulkan builds and the visibility that makes them earn. He has built sites for more than ten years, and pairs that craft with SEO and AI so every launch keeps earning.',
-		'long_bio'  => '<p>Ibrarr has designed and built websites for more than ten years, and at Vulkan he owns that whole side of the studio: design, development, SEO and the practical use of AI. When we build your site, his hands are on it, from the first wireframe to the code that ships.</p><p>His rule is that a site has to earn its keep. Design decisions get made for clarity and conversion, builds are fast and accessible, and search is planned in from the start rather than bolted on. As AI changes how people find and choose companies, he keeps Vulkan\'s clients visible in the answers as well as the rankings.</p><p>Ask him how something works and you will get a straight explanation, not jargon. He builds it, so he can explain it.</p>',
+		'long_bio'  => '<p>At Vulkan, Ibrarr owns the whole build side of the studio: design, development, SEO and the practical use of AI. When we build your site, his hands are on it, from the first wireframe to the code that ships.</p><p>His rule is that a site has to earn its keep. Design decisions get made for clarity and conversion, builds are fast and accessible, and search is planned in from the start rather than bolted on. As AI changes how people find and choose companies, he keeps Vulkan\'s clients visible in the answers as well as the rankings.</p><p>Ask him how something works and you will get a straight explanation, not jargon. He builds it, so he can explain it.</p>',
 		'photo'     => '',
 		'linkedin'  => 'https://www.linkedin.com/in/ibrarr-khan/',
 		'email'     => 'ibrarr@vulkancreative.com',
@@ -56,6 +56,7 @@ if ( have_rows('ab_founders') ) {
 			'short_bio' => get_sub_field('short_bio'),
 			'long_bio'  => get_sub_field('long_bio'),
 			'photo'     => $photo ? $photo['url'] : '',
+			'photo_id'  => $photo ? (int) $photo['ID'] : 0,
 			'linkedin'  => get_sub_field('linkedin_url'),
 			'email'     => get_sub_field('email'),
 			'phone'     => get_sub_field('phone'),
@@ -79,9 +80,9 @@ $ab_icons = [
 $values_heading  = vc_heading_parts( 'ab_values_heading', false, 'What we <span>stand by</span>.' );
 $values_fallback = [
 	[ 'word' => 'Honesty', 'line' => 'We tell you what will work and what will not, before you spend a penny.' ],
-	[ 'word' => 'Craft',   'line' => 'Design and build happen in-house, to a standard we are happy to put our name on.' ],
+	[ 'word' => 'Craft',   'line' => 'We design and build everything ourselves, to a standard we are happy to put our name on.' ],
 	[ 'word' => 'Proof',   'line' => 'Every project is measured by what it returns, and reported in plain English.' ],
-	[ 'word' => 'Graft',   'line' => 'Hands-on and quick to move: no layers, no waiting, no excuses.' ],
+	[ 'word' => 'Graft',   'line' => 'We are hands-on and quick to move, because the people you speak to are the people who do the work.' ],
 ];
 $values = [];
 if ( have_rows('ab_values') ) {
@@ -99,7 +100,7 @@ $how_fallback = [
 	[ 'title' => 'You talk to the founders',       'description' => 'Every call, plan and build decision involves one of us directly. Nothing is delegated to a team you have never met.' ],
 	[ 'title' => 'One team under one roof',        'description' => 'Strategy, design, development, content, SEO and paid media sit together, so nothing gets lost between suppliers.' ],
 	[ 'title' => 'In person where it counts',      'description' => 'We are London based and happy to sit around your table. Big decisions go better face to face.' ],
-	[ 'title' => 'Measured and reported plainly',  'description' => 'You see what we did, what it cost and what it returned, in reports written in plain English.' ],
+	[ 'title' => 'Measured and reported plainly',  'description' => 'You see what we did, what it cost and what it returned, every month.' ],
 ];
 $how_items = [];
 if ( have_rows('ab_how_items') ) {
@@ -114,27 +115,10 @@ $how_items = $how_items ?: $how_fallback;
 // the client logo marquee from Global Settings. The rating chip reads the
 // shared Google reviews options via vc_google_reviews().
 $proof_heading = vc_heading_parts( 'ab_proof_heading', false, "Don't take <span>our word</span> for it." );
-$testimonial_posts = new WP_Query([
-	'post_type'      => 'testimonial',
-	'posts_per_page' => 6,
-	'no_found_rows'  => true,
-]);
-$testimonial_items = [];
-if ( $testimonial_posts->have_posts() ) {
-	while ( $testimonial_posts->have_posts() ) { $testimonial_posts->the_post();
-		$tm_photo = get_field('tm_photo');
-		$testimonial_items[] = [
-			'quote'   => get_field('tm_quote'),
-			'name'    => get_field('tm_name'),
-			'company' => trim( get_field('tm_role') . ', ' . get_field('tm_company'), ', ' ),
-			'photo'   => $tm_photo['sizes']['medium'] ?? $tm_photo['url'] ?? VC_TEMPLATE_URI . '/assets/images/testimonials/avatar-placeholder.webp',
-		];
-	}
-	wp_reset_postdata();
-}
+$testimonial_items = vc_testimonial_items( 6 );
 
 // Story (migrated from the homepage)
-$story_heading     = vc_heading_parts( 'ab_story_heading', false, 'Our <span>Story</span>' );
+$story_heading     = vc_heading_parts( 'ab_story_heading', false, 'Why we <span>started Vulkan</span>' );
 $story_description = get_field('ab_story_description') ?: "We started Vulkan because agency work had drifted: bloated teams, vague reports and clients kept at arm's length. We do it differently: in person, honest about what works and measured by what it returns. Press play for the story in our own words.";
 $story_button      = get_field('ab_story_button_label') ?: 'Watch the Film';
 $story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.com/wp-content/VulkanTrailer.mp4';
@@ -143,7 +127,7 @@ $story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.
 // press field in admin removes it; the fallbacks only cover partial blanks.
 $press_has_content = get_field('ab_press_heading_start') || get_field('ab_press_heading_red') || get_field('ab_press_heading_end') || get_field('ab_press_body');
 $press_heading = vc_heading_parts( 'ab_press_heading', false, 'As featured in <span>Your Business</span> magazine.' );
-$press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.';
+$press_body    = get_field('ab_press_body') ?: 'The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how we join strategy, design and campaigns under one team to turn attention into steady enquiries.';
 $press_label   = get_field('ab_press_link_label') ?: 'Read the Feature';
 $press_url     = get_field('ab_press_link_url') ?: 'https://europe.nxtbook.com/emp/AtHome/your-business-with-james-caan-spring-2026/index.php#/p/50';
 $press_image   = get_field('ab_press_image');
@@ -190,7 +174,11 @@ get_template_part( 'template-parts/page', 'hero', [
 				<article class="founder-panel">
 					<div class="founder-media">
 						<?php // The caption announces the founder, so the image stays alt="". ?>
-						<img src="<?php echo esc_url( $photo_url ); ?>" alt="" loading="lazy">
+						<?php if ( ! empty( $founder['photo_id'] ) ) {
+							echo vc_image( $founder['photo_id'], 'full', [ 'sizes' => '(min-width: 992px) 50vw, 100vw' ] );
+						} else { ?>
+							<img src="<?php echo esc_url( $photo_url ); ?>" alt="" width="800" height="800" loading="lazy" decoding="async">
+						<?php } ?>
 						<div class="founder-caption">
 							<?php // Fixed-width inner so the text never re-wraps while the panel width tweens. ?>
 							<div class="caption-inner">
@@ -273,17 +261,27 @@ get_template_part( 'template-parts/page', 'hero', [
 				<div class="bottom"><a href="#watch" class="button"><?php echo esc_html( $story_button ); ?></a></div>
 			</div>
 		</div>
+		<?php // Native player: one progressive MP4 needs no player library. It ships
+		// with `controls` so it works without JS; about/story.js swaps them for the
+		// house play button until the film starts. preload="none" keeps the file
+		// off the wire until someone presses play. ?>
 		<div class="video-wrapper" id="watch">
 			<video
 					id="our-story"
-					class="video-js vjs-theme-city"
 					controls
-					preload="metadata"
-					poster="<?php echo VC_TEMPLATE_URI . '/assets/images/hero/story-poster.webp'; ?>"
+					playsinline
+					preload="none"
+					width="1280"
+					height="720"
+					poster="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/story-poster.webp' ); ?>"
 					title="Our story"
 			>
 				<source src="<?php echo esc_url( $story_video ); ?>" type="video/mp4" />
 			</video>
+			<button type="button" class="video-play" hidden>
+				<span class="visually-hidden">Play the film</span>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg>
+			</button>
 		</div>
 	</div>
 </section>
@@ -347,67 +345,19 @@ get_template_part( 'template-parts/page', 'hero', [
 			<?php get_template_part( 'template-parts/rating-chip' ); ?>
 		</div>
 		<?php if ( $testimonial_items ) : ?>
-			<div class="splide testimonial-spotlight" id="testimonial-splide" aria-label="Client testimonials">
-				<div class="spotlight-layout">
-					<div class="spotlight-photo" aria-hidden="true">
-						<?php foreach ( $testimonial_items as $tm_i => $tm_item ) : ?>
-							<img class="spotlight-portrait<?php echo $tm_i === 0 ? ' is-active' : ''; ?>" loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-						<?php endforeach; ?>
-					</div>
-					<div class="spotlight-main">
-						<div class="spotlight-mark" aria-hidden="true">“</div>
-						<div class="splide__track">
-							<ul class="splide__list">
-								<?php foreach ( $testimonial_items as $tm_item ) : ?>
-									<li class="splide__slide">
-										<blockquote>
-											<p class="spotlight-quote"><?php echo esc_html( $tm_item['quote'] ); ?></p>
-											<cite>
-												<span class="cite-avatar" aria-hidden="true">
-													<img loading="lazy" src="<?php echo esc_url( $tm_item['photo'] ); ?>" alt="">
-												</span>
-												<span class="cite-text">
-													<span class="t-name"><?php echo esc_html( $tm_item['name'] ); ?></span>
-													<span class="t-company"><?php echo esc_html( $tm_item['company'] ); ?></span>
-												</span>
-											</cite>
-										</blockquote>
-									</li>
-								<?php endforeach; ?>
-							</ul>
-						</div>
-						<div class="spotlight-footer">
-							<div class="spotlight-progress" aria-hidden="true"><div class="spotlight-progress-bar"></div></div>
-							<div class="spotlight-controls">
-								<span class="spotlight-counter" aria-hidden="true"><span class="current">01</span> / <span class="total"><?php echo str_pad( count( $testimonial_items ), 2, '0', STR_PAD_LEFT ); ?></span></span>
-								<div class="splide__arrows">
-									<button class="splide__arrow splide__arrow--prev" type="button" aria-label="Previous testimonial">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-									</button>
-									<button class="splide__arrow splide__arrow--next" type="button" aria-label="Next testimonial">
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<?php get_template_part( 'template-parts/testimonial-spotlight', null, [ 'items' => $testimonial_items ] ); ?>
 		<?php endif; ?>
 		<?php if ( have_rows( 'worked_with_logos', 'options' ) ) : ?>
 			<div class="about-logos">
 				<div class="splide" id="logo-splide" aria-label="Companies we've worked with">
 					<div class="splide__track">
-						<ul class="splide__list">
-							<?php while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
-								$logo = get_sub_field( 'logo' );
-								if ( $logo ) : ?>
-									<li class="splide__slide">
-										<img src="<?php echo esc_url( $logo['url'] ); ?>" alt="<?php echo esc_attr( $logo['alt'] ?: $logo['title'] ); ?>" loading="lazy">
-									</li>
-								<?php endif;
+						<div class="splide__list">
+							<?php // Below the fold here, so every slide stays lazy (index offset past the eager six).
+							$logo_i = 6;
+							while ( have_rows( 'worked_with_logos', 'options' ) ) : the_row();
+								echo vc_logo_slide( get_sub_field( 'logo' ), $logo_i++ );
 							endwhile; ?>
-						</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -443,13 +393,16 @@ get_template_part( 'template-parts/page', 'hero', [
 		// and the CSS sizes the track from the count, so the loop slides by
 		// exactly one set; counts are sized so one set outspans the plane on
 		// viewports up to 2560px wide.
-		$rack_src = esc_url( $press_image['url'] );
-		$rack_w   = (int) $press_image['width'];
-		$rack_h   = (int) $press_image['height'];
+		// The copies render 470px wide at most, so the 1024px rendition covers
+		// a 2x screen at under a third of the full spread's weight.
+		$rack_large = ! empty( $press_image['sizes']['large'] ) && ! empty( $press_image['sizes']['large-width'] );
+		$rack_src   = esc_url( $rack_large ? $press_image['sizes']['large'] : $press_image['url'] );
+		$rack_w     = (int) ( $rack_large ? $press_image['sizes']['large-width'] : $press_image['width'] );
+		$rack_h     = (int) ( $rack_large ? $press_image['sizes']['large-height'] : $press_image['height'] );
 		$rack_row = function ( $class, $count ) use ( $rack_src, $rack_w, $rack_h ) {
 			echo '<div class="press-rack-row ' . esc_attr( $class ) . '" style="--set-count: ' . (int) $count . '"><div class="press-rack-track">';
 			for ( $i = 0; $i < 2 * $count; $i++ ) {
-				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '">';
+				echo '<img class="press-print" style="--i: ' . $i . '" src="' . $rack_src . '" alt="" width="' . $rack_w . '" height="' . $rack_h . '" loading="lazy" decoding="async">';
 			}
 			echo '</div></div>';
 		};

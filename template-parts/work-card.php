@@ -64,10 +64,10 @@ $card_classes = 'work-card col-12 col-md-6 ' . ( 'wide' === $card_pattern ? 'col
 		] ); ?>
 		<span class="work-card-scrim" aria-hidden="true"></span>
 		<?php if ( $card_service ) : ?><span class="work-card-plate"><?php echo esc_html( $card_service ); ?></span><?php endif; ?>
-		<span class="work-card-caption">
+		<div class="work-card-caption">
 			<?php if ( $card_sector ) : ?><span class="work-card-sector"><?php echo esc_html( $card_sector ); ?></span><?php endif; ?>
 			<h3 class="work-card-client"><?php echo $card_head ? esc_html( $card_head ) . ' ' : ''; ?><span class="work-card-client-end"><?php echo esc_html( $card_last ); ?><svg class="work-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></h3>
 			<?php if ( $card_description ) : ?><span class="work-card-line"><?php echo esc_html( $card_description ); ?></span><?php endif; ?>
-		</span>
+		</div>
 	</a>
 </article>

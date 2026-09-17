@@ -49,7 +49,7 @@ function vc_insights_filter_endpoint( WP_REST_Request $request ) {
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			get_template_part( 'template-parts/content', 'card' );
+			get_template_part( 'template-parts/content', 'card', [ 'lead' => 1 === $paged && '' === $search && 0 === $query->current_post ] );
 		}
 	} else {
 		echo '<p class="insights-empty">No insights match that filter. Try another category or search.</p>';

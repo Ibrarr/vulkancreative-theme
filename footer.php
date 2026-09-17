@@ -20,7 +20,7 @@
                     <?php if ( ! $vc_hide_footer_cta ) : ?>
                     <div class="row footer-cta">
                         <div class="col-lg-8">
-                            <p class="footer-cta-heading">Ready to forge something that <span>performs</span>?</p>
+                            <p class="footer-cta-heading">Ready to talk about <span>your project</span>?</p>
                         </div>
                         <div class="col-lg-4 footer-cta-action">
                             <a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
@@ -29,8 +29,9 @@
                     <?php endif; ?>
                     <div class="row footer-main">
                         <div class="col-lg-5 left">
-                            <div class="footer-logo"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/logos/logo.svg' ) ?></div>
-                            <p class="footer-line">Brand, web and marketing that performs, built in-house and measured by results.</p>
+                            <?php // An <img>, not a second inline copy of the SVG: the footer never animates or recolours the mark (it is #0D0D0D in both modes), and the file caches once for the whole site. ?>
+                            <div class="footer-logo"><img src="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/logo-white.svg' ); ?>" alt="Vulkan Creative" width="134" height="38" loading="lazy" decoding="async"></div>
+                            <p class="footer-line">A London digital marketing agency: web design, social media management, paid media, SEO and AI search, content, branding and strategy.</p>
                             <div class="footer-socials">
                                 <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank" rel="noopener" aria-label="Vulkan Creative on LinkedIn"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></a>
                                 <a href="https://www.tiktok.com/@vulkancreative" target="_blank" rel="noopener" aria-label="Vulkan Creative on TikTok"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></a>
@@ -61,7 +62,7 @@
                         <?php endif; ?>
                         <div class="col-lg-2 footer-menu">
                             <p class="footer-heading">Explore</p>
-                            <nav id="footer-menu" role="navigation" itemscope
+                            <nav id="footer-menu" aria-label="Explore" itemscope
                                  itemtype="https://schema.org/SiteNavigationElement">
                                 <?php
                                 // The Explore list mirrors the header nav minus the services
@@ -117,7 +118,7 @@
                                                     $ft_name = get_sub_field( 'name' );
                                                     $ft_link = get_sub_field( 'url' );
                                                     if ( ! $ft_logo ) { continue; }
-                                                    $ft_img = '<img loading="lazy" src="' . esc_url( $ft_logo['url'] ) . '" alt="' . esc_attr( $ft_name ?: ( $ft_logo['alt'] ?: $ft_logo['title'] ) ) . '" width="' . (int) $ft_logo['width'] . '" height="' . (int) $ft_logo['height'] . '">';
+                                                    $ft_img = vc_image( $ft_logo, 'medium', [ 'alt' => $ft_name ?: vc_logo_alt( $ft_logo ), 'sizes' => '140px' ] );
                                                     if ( $ft_link ) : ?>
                                                         <a class="footer-press-logo" href="<?php echo esc_url( $ft_link ); ?>" target="_blank" rel="noopener"><?php echo $ft_img; ?></a>
                                                     <?php else : ?>
@@ -152,7 +153,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="footer-wordmark" aria-hidden="true">Vulkan</div>
+                <?php // Decorative: the word is painted from CSS (::before), so it is neither read out nor measured as low-contrast text by accessibility audits. ?>
+                <div class="footer-wordmark" aria-hidden="true"></div>
             </footer>
         </div>
     </div>

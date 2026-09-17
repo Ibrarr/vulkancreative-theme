@@ -6,10 +6,15 @@
 
     <script>document.documentElement.classList.add('js');</script>
 
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Archivo-Variable.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Regular.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-SemiBold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <?php if ( is_front_page() ) : // the mobile hero poster, ahead of the fonts ?>
+    <link rel="preload" as="image" media="(max-width: 991.98px)" fetchpriority="high"
+          imagesrcset="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile-800.webp' ); ?> 800w, <?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile.webp' ); ?> 1178w"
+          imagesizes="100vw">
+    <?php endif; ?>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Archivo-Display.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Regular-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-SemiBold-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
 
 	<?php wp_head(); ?>
 
@@ -17,8 +22,9 @@
     <script id="cookieyes" async type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
     <!-- End cookieyes banner -->
 
-    <!-- Meta Pixel Code -->
-    <script>
+    <!-- Meta Pixel Code: CookieYes holds this script as text/plain and only
+         runs it once the visitor accepts advertising cookies. -->
+    <script type="text/plain" data-cookieyes="cookieyes-advertisement">
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -30,9 +36,6 @@
         fbq('init', '1622042995562129');
         fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=1622042995562129&ev=PageView&noscript=1"
-        /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
 <body <?php body_class(); ?>>
@@ -44,6 +47,7 @@
     } catch (e) {}
 </script>
 <?php wp_body_open(); ?>
+<a class="skip-link" href="#content">Skip to Content</a>
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="hero-active">
@@ -59,7 +63,7 @@
                 <?php list( $vc_slim_cta_label, $vc_slim_cta_href ) = vc_slim_header_cta(); ?>
                 <div class="menu-theme-toggle fw-header-actions">
                     <a class="fw-header-cta" href="<?php echo esc_attr( $vc_slim_cta_href ); ?>"><?php echo esc_html( $vc_slim_cta_label ); ?></a>
-                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                    <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -92,7 +96,7 @@
                 </div>
                 <?php else : ?>
                 <div class="menu-theme-toggle">
-                    <nav id="nav" role="navigation" itemscope
+                    <nav id="nav" aria-label="Main" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
                         wp_nav_menu( array(
@@ -100,7 +104,7 @@
                         ) );
                         ?>
                     </nav>
-                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                    <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -141,7 +145,7 @@
             <?php if ( ! vc_is_slim_header() ) : ?>
             <div class="mobile-menu" id="mobile-menu">
                 <div class="px-4 menu-theme-mobile">
-                    <nav id="nav-mobile" role="navigation" itemscope
+                    <nav id="nav-mobile" aria-label="Main, mobile" itemscope
                          itemtype="https://schema.org/SiteNavigationElement">
                         <?php
                         wp_nav_menu( array(
@@ -150,7 +154,7 @@
                         ?>
                     </nav>
                     <div class="mobile-menu-extras">
-                        <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                        <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  aria-hidden="true"
                                  width="2em"
@@ -194,4 +198,4 @@
     </header>
     <div id="smooth-wrapper">
         <div id="smooth-content">
-            <main id="content" role="main">
+            <main id="content" role="main" tabindex="-1">

@@ -15,8 +15,6 @@ assets/js/
 │   ├── header.js
 │   ├── mobile-menu.js
 │   └── scrollspy.js
-├── footer/                     # Always loaded
-│   └── footer.js
 ├── homepage/                   # Front page only (testimonials.js and marquee.js also ship in the about bundle)
 │   ├── hero.js
 │   ├── marquee.js
@@ -71,7 +69,6 @@ assets/js/
 |---|---|---|
 | `global.js` | dark-mode, load-at-top, smooth-scrolling, remove-anchor-from-url | Always |
 | `header.js` | header, mobile-menu, scrollspy | Always |
-| `footer.js` | footer | Always |
 | `homepage.js` | spline-viewer, hero, marquee, why, services, work, our-work, process, testimonials, reveal, counter, contact | `is_front_page()` |
 | `single-blog.js` | blog/reveal, blog/filter, blog/toc | `is_single()` |
 | `archive-blog.js` | blog/reveal, blog/filter, blog/toc | `is_home() \|\| is_category()` |
@@ -88,7 +85,6 @@ GSAP v3.12.5 is imported as an npm module. Plugins used:
 |---|---|---|
 | `ScrollTrigger` | Homepage hero, services, process, contact; the About founders, story, values and how modules; the your-business modules | Scroll-based animation triggers |
 | `SplitText` | Homepage hero, reveal, contact; About reveal and story; the contact and blog reveals; the your-business modules | Text line/word splitting for reveal animations |
-| `DrawSVGPlugin` | `header/header.js` | SVG path draw animation for the logo |
 
 The newer homepage modules (`reveal.js`, `work.js`, `our-work.js`, `why.js`, `counter.js`) deliberately use `IntersectionObserver` instead of ScrollTrigger, so content can never be left stuck hidden under fast scrolling. Every animation module branches on the reduced-motion query, via the shared `prefersReducedMotion()` helper from `assets/js/components/reduced-motion.js`, or a `gsap.matchMedia('(prefers-reduced-motion: no-preference)')` context in the About founders/values/how modules, and falls back to a static, fully visible state. Aug 2026 trust-signals additions ride the existing lists with no new modules or bundles: `homepage/reveal.js` fades gained `.why .partner-logos`, and `about/reveal.js` gained `.about-press .content h2` (headings) plus `.about-press .press-body`, `.about-press .press-cta` and `.about-press .press-rack` (fades; the fade targets the rack, never the tilted `.press-rack-plane` inside it, because GSAP's inline transform would overwrite the CSS tilt; the run itself is a CSS keyframe marquee, no JS).
 
@@ -214,15 +210,15 @@ Nothing is pre-hidden, so content cannot be left invisible if a script fails. Us
 
 - **`load-at-top.js`**: Sets `history.scrollRestoration = 'manual'`.
 - **`remove-anchor-from-url.js`**: Intercepts `#` links, smooth scrolls to target, removes hash from URL via `history.replaceState()`.
-- **`header/header.js`**: Class-based fixed header states: `header--scrolled` (gains a surface after 24px) and `header--hidden` (hides on scroll down past 160px, reappears on scroll up). Static on the your-business template. Also runs the DrawSVG logo draw animation, with a reduced-motion fallback that shows the finished logo immediately.
+- **`header/header.js`**: Class-based fixed header states: `header--scrolled` (gains a surface after 24px) and `header--hidden` (hides on scroll down past 160px, reappears on scroll up). Static on the landing template. No GSAP since Sep 2026: the logo draws in with CSS keyframes (`header/components/_desktop.scss`), so the header bundle is 6KB.
 - **`header/scrollspy.js`**: One-page nav highlight. Marks the nav `<li>` whose anchor target is in view with `.current-anchor` (last section whose top sits above 40% of the viewport, rAF-throttled). No-ops on pages whose nav has no same-page anchors.
-- **`header/mobile-menu.js`**: Full-screen overlay menu (jQuery). Toggles `mobile-menu-active` on the header and `no-scroll` on the body, updates `aria-expanded`/`aria-label`, moves focus into the menu once the overlay transition finishes, closes on Escape, traps Tab focus while open, and closes then animates scroll for in-menu anchor links.
-- **`footer/footer.js`**: Empty stub. The custom cursor and mouse-follow glow were removed; hover/focus states live in CSS.
+- **`header/mobile-menu.js`**: Full-screen overlay menu (vanilla JS since Sep 2026; also sets `inert` on `#smooth-wrapper` while open). Toggles `mobile-menu-active` on the header and `no-scroll` on the body, updates `aria-expanded`/`aria-label`, moves focus into the menu once the overlay transition finishes, closes on Escape, traps Tab focus while open, and closes then animates scroll for in-menu anchor links.
+- **Footer**: no bundle. The wordmark rises on a CSS scroll-driven animation (`animation-timeline: view()`, static where unsupported) and the logo is an `<img>`.
 - **`spline/spline-viewer.js`**: Prepends the poster (`assets/images/hero/statue-poster.webp`) into `.hero .graphic` as an instant visual. Then, only on viewports >= 992px without reduced motion, lazy-loads `@splinetool/viewer` via dynamic `import()` (code-split chunk; `__webpack_public_path__` is set from the inline `window.__vc_public_path`) once fonts are ready, on `requestIdleCallback`, and appends a `<spline-viewer>` for `assets/spline/scene.splinecode`. On mobile and under reduced motion the poster stays as a faint backdrop (`.graphic` at 0.28 opacity, masked).
 - **Splide carousels**: homepage `marquee.js` (hero logo marquee `#logo-splide`: loop, free drag, AutoScroll at speed 0.8, 6/4/3 logos per page; static but draggable under reduced motion), homepage `testimonials.js` (`#testimonial-splide`), plus the your-business `logo-bar.js` and `testimonials.js`. The homepage `marquee.js` and `testimonials.js` are also concatenated into the about bundle: they bind by element id, and the About proof section renders the same `#logo-splide` and `#testimonial-splide` ids.
 - **`homepage/our-work.js`**: The work wheel, a fully custom GSAP arc carousel (no Splide). One `progress` value drives everything: each card's transform derives from its angle on a large wheel (`x = sin·R`, `y = (1−cos)·R`, tangent rotation damped), so drag, momentum, arrow steps and the fan-open entrance are all tweens of `progress` (or `spread` for the entrance). It starts on the middle card (the template orders cards centre-out) and toggles `is-front` on whichever card holds the centre slot; the hover layers themselves are pure CSS. The drag input pipeline is smoothed: pointer moves only record a target and a rAF loop eases progress toward it (input-rate jitter never reaches the cards), the wheel does not move at all below the 6px threshold (clicks stay still), the start is re-based at the threshold so crossing it never jumps, a mostly-vertical touch gesture hands back to page scrolling, and the release velocity is an exponential moving average so equal flicks throw equally. Gotchas baked in: pointer capture is taken only after the 6px drag threshold (capturing on pointerdown makes the browser retarget the subsequent click to the stage, killing card links); a real drag suppresses the click behind it (capture-phase listener) and blurs any focused card; the spin range clamps to [1, count−2] so the stage never shows a dead half; far cards get `inert` + `aria-hidden`; `touch-action: pan-y` keeps page scroll alive on touch. Reduced motion keeps the wheel fully working with direct pointer tracking, instant steps and no entrance.
 - **`homepage/counter.js`**: Counts the `.results` stat numbers up from zero on first view (requestAnimationFrame + IntersectionObserver; keeps prefixes, suffixes and decimals; instant under reduced motion).
-- **Video.js**: `about/story.js` initialises a Video.js player on element `#our-story` (city theme; the videojs-youtube plugin is bundled), lazily via IntersectionObserver just before the story section scrolls into view. It ships in the about bundle only; the homepage dropped story.js and Video.js when the story section moved to the About page.
+- **About film**: `about/story.js` drives a native `<video preload="none">`: it swaps the browser controls for the house play button, starts playback from that button or the "Watch the Film" link, line-reveals the sub-line with SplitText (`aria: 'none'`, reverted on completion) and wipes the frame in with a clip-path. Video.js was removed in Sep 2026 (about.js went from 903KB to 170KB).
 
 
 ## Work bundle (July 2026)

@@ -38,10 +38,10 @@ and the related wheel), both gated on the linked case study being public.
   Article branch: archive → `CollectionPage`, single → `WebPage` (plus a
   `CreativeWork` JSON-LD node in the template).
 - Yoast: breadcrumbs emit `Home > Our Work > {name}` natively from
-  `has_archive`. Search Appearance holds the title templates and, while the
-  `[SAMPLE]` content is live, **noindex on both the singles and the archive**
-  (`wpseo_titles`: `noindex-project`, `noindex-ptarchive-project`). Flip both
-  when real client work replaces the samples.
+  `has_archive`. Search Appearance holds the title templates; the noindex
+  toggles (`wpseo_titles`: `noindex-project`, `noindex-ptarchive-project`)
+  are off locally since the `[SAMPLE]` content was deleted (Sep 2026).
+  Confirm them on live at deploy.
 - Menus: "Our Work" sits after "What We Do" in both `main-menu` and the footer
   Explore menu (custom items pointing at `/work/`).
 
@@ -143,23 +143,4 @@ visually-hidden note); the live-site link lives in each project page's hero.
 
 ## Seeder and sample content
 
-`inc/project-seed.php` (Settings > Seed Work, the service-seed pattern):
-slug-matched, fills empty fields only (overwrite checkbox), seeds year,
-overview, deliverables and per-page Yoast meta descriptions, and carries the
-canonical gallery caption copy. The `fix` entries repair known-incoherent
-sample base data and always apply. All nine projects carry `[SAMPLE]` titles
-and `_vc_sample_content` meta; hero and gallery imagery was generated with the
-Higgsfield MCP (never stock-scraped) and attached per environment, with
-`pj_image` set to each project's wide 21:9 shot so tiles and heroes share it.
-
-## SCSS / JS map
-
-- SCSS: `assets/css/components/project/` — `_project.scss` (scope for both
-  body classes: uppercase h2 + red span, `surface-white/grey` pairs with
-  chained `body.dark-mode` overrides, `html.js` pre-hide + failsafe, the
-  `.project-related` wheel-host rules) and `components/{_index,_filter,_hero,
-  _overview,_gallery,_cta}.scss`. Imported in `app.scss` after the service
-  family. New pre-hidden selectors live in `misc/_motion.scss`.
-- JS bundle `js/project.js` = `project/reveal.js` (services-hub reveal pattern
-  with the work/project selector lists) + `project/filter.js` +
-  `homepage/our-work.js` (the related wheel; no-ops on the archive).
+The seeders (`inc/project-seed.php`, `inc/case-study-seed.php`, `inc/service-seed.php`) were deleted in July 2026 and the `[SAMPLE]` projects, case studies and testimonials they created were removed from the local database on 16 Sep 2026 (`feat/real-work-entries`), together with their attachments. Real entries are published through the content pipeline (`docs/publishing-pipeline.md`): one `content/work/<slug>.md` per project in the content repo, whose `date` front matter sets the post date and therefore the archive order. With no featured case study the homepage work section hides outright and the Our Work wheel takes the white pairing as the first section after services (Sep 2026).

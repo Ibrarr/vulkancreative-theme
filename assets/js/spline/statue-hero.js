@@ -16,26 +16,17 @@ const BASE = (window.__vc_public_path || `${window.location.origin}/wp-content/t
 // revision must ship under a new name or long-lived caches serve the old one.
 const MODEL_URL = `${BASE}/models/statue-marble-2.glb`;
 const POSTER_URL = `${BASE}/images/hero/statue-desktop.webp`;
-// Below lg the poster is a forward-facing transparent cut-out (face and hammer
-// to camera) rather than the bowed-head scene render.
-const POSTER_MOBILE_URL = `${BASE}/images/hero/statue-mobile.webp`;
 const DESKTOP_MIN = 992;
 
-// Show a lightweight poster if one exists, so there is an instant visual while
-// the heavier interactive scene loads (and a fallback if it never does).
-function addPoster(container) {
-    const url = window.innerWidth < DESKTOP_MIN ? POSTER_MOBILE_URL : POSTER_URL;
-    const probe = new Image();
-    probe.onload = () => {
-        if (container.querySelector('.hero-poster')) return;
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = '';
-        img.className = 'hero-poster';
-        img.setAttribute('aria-hidden', 'true');
-        container.prepend(img);
-    };
-    probe.src = url;
+// The poster <img> is server-rendered (front-page.php). Below lg its <picture>
+// source already shows the mobile cut-out, preloaded from <head>; at lg+ it
+// carries a transparent pixel, because the scene fades in over the glow. This
+// only hands it the desktop still for the two cases with no scene: reduced
+// motion, and a scene that failed to load.
+function showDesktopPoster(container) {
+    if (window.innerWidth < DESKTOP_MIN) return;
+    const img = container.querySelector('.hero-poster');
+    if (img) img.src = POSTER_URL;
 }
 
 // Code-split: three.js and its WebGL runtime only download on capable desktop
@@ -51,15 +42,15 @@ function loadHero(container) {
             container.appendChild(canvas);
             buildScene(container, canvas, MODEL_URL, () => {
                 canvas.remove();
-                addPoster(container);
+                showDesktopPoster(container);
             });
         })
-        .catch((err) => {
+        .catch(() => {
             // Runtime failed to load (missing chunk, blocked WebGL, etc.): fall
-            // back to the static poster, but surface why so a stale deploy does
-            // not fail silently.
-            console.warn('[vc] statue hero failed to load; showing poster fallback.', err);
-            addPoster(container);
+            // back to the static poster. Deliberately quiet: a console warning
+            // here counted as a page error in audits for any visitor without
+            // WebGL, and the poster is a complete experience.
+            showDesktopPoster(container);
         });
 }
 
@@ -71,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // static poster. Desktop gets no placeholder at all: the scene fades in over
     // the molten glow once it has rendered.
     if (prefersReducedMotion() || window.innerWidth < DESKTOP_MIN) {
-        addPoster(container);
+        showDesktopPoster(container);
         return;
     }
 

@@ -5,8 +5,8 @@
 // one plane and cut by the band's edges. Every visible slice is the left of
 // the spread (the headline and the statue) because each copy overlaps the
 // one before it. Hairline paper edges, 2px corners, no shadows, resting
-// desaturation; the CSS marquee follows the homepage text-marquee recipe and
-// the reduced-motion safety net flattens it to a still rack.
+// desaturation; the marquee is a plain CSS keyframe loop and the
+// reduced-motion safety net flattens it to a still rack.
 .about-press {
   @include vc-section-padding;
   // The print run is the band's bottom edge: no padding under it at any
@@ -19,8 +19,7 @@
   }
 
   // clip, not hidden: hidden makes the band a scroll container that anchors
-  // and focus can scroll internally by the run's overflow (the homepage
-  // text-marquee precedent).
+  // and focus can scroll internally by the run's overflow.
   overflow: clip;
   background: $vc-background-white;
   transition: background 0.3s;

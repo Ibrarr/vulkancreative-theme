@@ -1,118 +1,90 @@
-import videojs from 'video.js';
-import 'videojs-youtube';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { prefersReducedMotion } from '../components/reduced-motion';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText);
 
-const reduceMotion = prefersReducedMotion();
-
+// The film: a native <video>. It ships with `controls` so it plays without
+// this script; here the controls step aside for the house play button until
+// the film starts, then come back for scrubbing and volume. This is state, not
+// motion, so it runs under reduced motion too.
 document.addEventListener('DOMContentLoaded', () => {
-    if (reduceMotion) return;
+    const wrapper = document.querySelector('.about-story .video-wrapper');
+    const video = document.getElementById('our-story');
+    const play = wrapper ? wrapper.querySelector('.video-play') : null;
+    if (!wrapper || !video || !play) return;
 
-    const storyTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: '.about-story',
-            start: 'top 100%',
-            toggleActions: 'play none none none'
-        }
-    });
+    video.removeAttribute('controls');
+    play.hidden = false;
 
-    storyTl.from('.about-story h2', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power2.out'
-    });
-
-    gsap.from('.about-story .bottom', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        delay: 0.75,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.about-story .bottom',
-            start: 'top 100%',
-            toggleActions: 'play none none none'
-        }
-    });
-
-    gsap.from('.video-wrapper', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-            trigger: '.video-wrapper',
-            start: 'top 100%',
-            toggleActions: 'play none none none'
-        }
-    });
-});
-
-document.fonts.ready.then(() => {
-    gsap.set('.split-text-story', { opacity: 1 });
-
-    if (reduceMotion) return;
-
-    SplitText.create('.split-text-story', {
-        type: 'words,lines',
-        linesClass: 'line',
-        autoSplit: true,
-        mask: 'lines',
-        onSplit: ({ lines }) => {
-            gsap.from(lines, {
-                yPercent: 100,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                delay: 0.2,
-                ease: 'expo.out',
-                scrollTrigger: {
-                    trigger: '.split-text-story',
-                    start: 'top 100%',
-                    toggleActions: 'play none none none'
-                }
-            });
-        }
-    });
-
-    ScrollTrigger.refresh();
-});
-
-// Lazily initialise the video player just before the story section comes
-// into view: booting it at page load competes with the entrance reveals and
-// adds a visible stutter on warm reloads. The native poster shows until then.
-document.addEventListener('DOMContentLoaded', () => {
-    const story = document.querySelector('.about-story');
-    const videoEl = document.getElementById('our-story');
-    if (!videoEl) return;
-
-    let initialised = false;
-    const init = () => {
-        if (initialised) return;
-        initialised = true;
-        videojs('our-story');
+    const start = () => {
+        video.setAttribute('controls', '');
+        const attempt = video.play();
+        if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
     };
 
-    if (!story || !('IntersectionObserver' in window)) {
-        init();
-        return;
-    }
+    play.addEventListener('click', start);
+    video.addEventListener('play', () => wrapper.classList.add('is-playing'));
+    // The head's "Watch the Film" button scrolls here; starting playback from a
+    // click keeps it inside the browser's user-gesture rule.
+    document.querySelectorAll('.about-story a[href="#watch"]').forEach((link) => {
+        link.addEventListener('click', start);
+    });
+});
+
+// Motion. The heading's line reveal lives in about/reveal.js with the other
+// section headings; this module owns the two entrances that belong to the
+// film: the description's line-by-line rise and the frame's cinema wipe.
+document.addEventListener('DOMContentLoaded', () => {
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
+
+    const copy = document.querySelector('.split-text-story');
+    const frame = document.querySelector('.about-story .video-wrapper');
+
+    if (frame) gsap.set(frame, { clipPath: 'inset(100% 0% 0% 0%)' });
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
-            init();
-            obs.disconnect();
+            obs.unobserve(entry.target);
+
+            if (entry.target === frame) {
+                gsap.to(frame, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'expo.out', clearProps: 'clipPath' });
+                return;
+            }
+
+            // aria: 'none' because SplitText's default writes aria-label onto the
+            // paragraph, which is a prohibited attribute there; reverting on
+            // completion hands assistive tech the untouched paragraph.
+            gsap.set(copy, { opacity: 1 });
+            SplitText.create(copy, {
+                type: 'lines',
+                linesClass: 'line',
+                mask: 'lines',
+                aria: 'none',
+                autoSplit: false,
+                onSplit(self) {
+                    return gsap.from(self.lines, {
+                        yPercent: 100,
+                        duration: 0.8,
+                        stagger: 0.1,
+                        ease: 'expo.out',
+                        onComplete: () => self.revert(),
+                    });
+                },
+            });
         });
-    }, { rootMargin: '800px 0px' });
+    }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
 
-    observer.observe(story);
+    // Fonts first: the split must measure the settled line breaks.
+    document.fonts.ready.then(() => {
+        if (copy) observer.observe(copy);
+        if (frame) observer.observe(frame);
+    });
 
-    // Failsafe: make sure the player exists even if the observer never fires.
-    setTimeout(init, 8000);
+    // Never leave the frame clipped or the copy hidden if the observer stalls.
+    setTimeout(() => {
+        if (frame) gsap.set(frame, { clearProps: 'clipPath' });
+        if (copy) gsap.set(copy, { opacity: 1 });
+    }, 4000);
 });

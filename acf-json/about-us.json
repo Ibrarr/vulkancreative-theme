@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "The people you'll",
+            "default_value": "The",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -37,7 +37,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "actually",
+            "default_value": "two people",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -58,7 +58,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "work with.",
+            "default_value": "you will work with.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -79,7 +79,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Vulkan is an in-house agency run by its two founders. You deal with us from the first call to the final build, and nothing gets handed off or watered down.",
+            "default_value": "Vulkan Creative is a London digital marketing agency run by its two founders, Flynn Forster and Ibrarr Khan. You deal with us from the first call to the final build, and nothing gets handed off or watered down.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -100,7 +100,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Everything in-house. Everyone accountable.",
+            "default_value": "Everything is done here, and the two of us answer for it.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -121,7 +121,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Most agencies put layers between you and the people doing the work. We built Vulkan to remove them. Strategy, design, development, content, SEO and paid media all happen in-house, led by the two of us, so decisions move quickly, standards stay ours and nobody can pass the buck.",
+            "default_value": "Most agencies put layers between you and the people doing the work. We built Vulkan to remove them. Strategy, design, development, content, SEO and paid media all happen in-house, led by the two of us, so decisions move quickly, standards stay ours and nobody can pass the blame.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -142,7 +142,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Who you'll",
+            "default_value": "Meet",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -163,7 +163,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "work with",
+            "default_value": "Flynn and Ibrarr",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -406,7 +406,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Our",
+            "default_value": "Why we",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -427,7 +427,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Story",
+            "default_value": "started Vulkan",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -511,7 +511,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "https:\/\/vulkancreative.com\/wp-content\/VulkanTrailer.mp4",
+            "default_value": "https://vulkancreative.com/wp-content/VulkanTrailer.mp4",
             "allow_in_bindings": 0,
             "placeholder": ""
         },
@@ -938,7 +938,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how our in-house, end-to-end approach turns attention into consistent enquiries.",
+            "default_value": "The Spring 2026 issue of Your Business, the magazine fronted by James Caan CBE, carries a two-page feature on Vulkan Creative. It looks at why so much SME marketing underperforms, and how we join strategy, design and campaigns under one team to turn attention into steady enquiries.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "rows": 3,
@@ -1006,7 +1006,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "https:\/\/europe.nxtbook.com\/emp\/AtHome\/your-business-with-james-caan-spring-2026\/index.php#\/p\/50",
+            "default_value": "https://europe.nxtbook.com/emp/AtHome/your-business-with-james-caan-spring-2026/index.php#/p/50",
             "allow_in_bindings": 0,
             "placeholder": ""
         }
@@ -1016,7 +1016,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-templates\/page-about-us.php"
+                "value": "page-templates/page-about-us.php"
             }
         ]
     ],
@@ -1034,5 +1034,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787306691
+    "modified": 1789643535
 }

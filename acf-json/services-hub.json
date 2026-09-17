@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "What we",
+            "default_value": "Digital marketing services from",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -37,7 +37,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "do",
+            "default_value": "one London team",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -58,7 +58,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": ".",
+            "default_value": "",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -79,7 +79,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.",
+            "default_value": "Web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one service or combine several.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -100,7 +100,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Six services.",
+            "default_value": "What each",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -121,7 +121,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "One team",
+            "default_value": "service",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -142,7 +142,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": ".",
+            "default_value": "covers",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -163,7 +163,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Everything you need to grow, under one roof.",
+            "default_value": "Each service works on its own. Combined, they run to one plan, so your website, search and ads pull in the same direction.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -184,7 +184,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.",
+            "default_value": "Every discipline here is handled by the same team, so nothing gets lost between agencies and you always know who to call.",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -205,7 +205,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "From brief to",
+            "default_value": "How every",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -226,7 +226,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "results",
+            "default_value": "project",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -247,7 +247,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": ".",
+            "default_value": "runs",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -289,7 +289,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "What",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -310,7 +310,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Proof",
+            "default_value": "clients",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -331,7 +331,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": ", not promises.",
+            "default_value": "say",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -428,7 +428,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-templates\/page-services-hub.php"
+                "value": "page-templates/page-services-hub.php"
             }
         ]
     ],
@@ -446,5 +446,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783080655
+    "modified": 1789643535
 }

@@ -107,7 +107,10 @@
   }
 
   // Fixed heights reserve the wheel's space in both the enhanced and the
-  // fallback state, so initialising never shifts the page.
+  // fallback state, so initialising never shifts the page. Each is the lowest
+  // point a visible card reaches on its arc (the neighbours dip as they turn)
+  // plus a little air; the old small-screen values left a 126px empty band
+  // under the tile.
   .wheel-stage {
     position: relative;
     height: 560px;
@@ -120,11 +123,11 @@
     }
 
     @include media-breakpoint-down(lg) {
-      height: 480px;
+      height: 430px;
     }
 
     @include media-breakpoint-down(sm) {
-      height: 420px;
+      height: 340px;
     }
   }
 
@@ -331,12 +334,10 @@
     }
   }
 
-  // The centred card carries a quiet depth shadow so the wheel always has a
-  // clear front; state-driven, not a hover affordance. It sits on the list
-  // item, not the tile, so the tile's own hover glow stacks on top of it.
+  // The centred card needs no shadow to read as the front: it is the only
+  // one at full size and full colour, and it overlaps its neighbours.
   .wheel-card.is-front {
     border-radius: 2px;
-    box-shadow: 0 22px 60px rgba(13, 13, 13, 0.18);
   }
 }
 
@@ -391,9 +392,5 @@
       border-color: rgba($vc-secondary, 0.55) !important;
       box-shadow: $vc-glow-card-dark !important;
     }
-  }
-
-  .wheel-card.is-front {
-    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55) !important;
   }
 }

@@ -112,6 +112,24 @@ function vc_heading_parts_sub( $base, $fallback = '' ) {
 }
 
 /**
+ * Echo a plain-text field as one or more <p> tags of the given class,
+ * splitting on blank lines, single newlines kept as <br>. The
+ * multi-paragraph textareas (overview support, results narrative) store
+ * raw text with no new_lines processing, so paragraph rendering is the
+ * template's job; without this their breaks collapse into one block.
+ */
+function vc_text_paragraphs( $text, $class ) {
+	$paragraphs = preg_split( '/\r?\n\s*\r?\n/', trim( (string) $text ) );
+	foreach ( $paragraphs as $paragraph ) {
+		$paragraph = trim( $paragraph );
+		if ( '' === $paragraph ) {
+			continue;
+		}
+		echo '<p class="' . esc_attr( $class ) . '">' . nl2br( esc_html( $paragraph ) ) . "</p>\n";
+	}
+}
+
+/**
  * Templates that use the slim header variant (logo + theme toggle + one CTA,
  * no nav, no hamburger) and the mobile sticky CTA: the free-website offer page
  * and the reusable Landing Page template. Keep this list as the single source
@@ -291,3 +309,153 @@ function vc_service_children( $parent_id ) {
 	$cache[ $parent_id ] = array_merge( $ordered, array_values( $by_id ) );
 	return $cache[ $parent_id ];
 }
+/**
+ * Testimonials for the shared spotlight (template-parts/testimonial-spotlight.php),
+ * normalised to quote / name / company / photo_id. A review without a saved
+ * photo carries photo_id 0 and renders no portrait: the spotlight never puts
+ * a stand-in face beside a named client's words.
+ *
+ * @param int $count How many to fetch, newest first.
+ * @return array[]
+ */
+function vc_testimonial_items( $count = 6 ) {
+	$query = new WP_Query( array(
+		'post_type'      => 'testimonial',
+		'posts_per_page' => (int) $count,
+		'no_found_rows'  => true,
+	) );
+
+	$items = array();
+	foreach ( $query->posts as $post ) {
+		$quote = trim( (string) get_field( 'tm_quote', $post->ID ) );
+		if ( '' === $quote ) {
+			continue;
+		}
+		$items[] = vc_testimonial_item(
+			$quote,
+			get_field( 'tm_name', $post->ID ),
+			get_field( 'tm_role', $post->ID ),
+			get_field( 'tm_company', $post->ID ),
+			get_field( 'tm_photo', $post->ID )
+		);
+	}
+	return $items;
+}
+
+/**
+ * One spotlight item from raw field values. $photo accepts an ACF image
+ * array or a bare attachment ID.
+ */
+function vc_testimonial_item( $quote, $name, $role, $company, $photo ) {
+	$photo_id = is_array( $photo ) ? (int) ( $photo['ID'] ?? 0 ) : (int) $photo;
+	return array(
+		'quote'    => trim( (string) $quote ),
+		'name'     => trim( (string) $name ),
+		'company'  => trim( trim( (string) $role ) . ', ' . trim( (string) $company ), ', ' ),
+		'photo_id' => $photo_id && wp_attachment_is_image( $photo_id ) ? $photo_id : 0,
+	);
+}
+
+/**
+ * Type scale for a pull quote, from its length: a short review sets at the
+ * full display size and a long one steps down, so every slide fills a similar
+ * area and the carousel has no dead space under its shortest quote. Returns
+ * the multiplier the stylesheet applies to the largest size (0.55 to 1).
+ */
+function vc_quote_scale( $text ) {
+	$length = max( 1, function_exists( 'mb_strlen' ) ? mb_strlen( (string) $text ) : strlen( (string) $text ) );
+	return round( max( 0.55, min( 1, sqrt( 210 / $length ) ) ), 3 );
+}
+
+/**
+ * Initials for the portrait panel's monogram, used only when a carousel
+ * mixes reviews with and without photos.
+ */
+function vc_initials( $name ) {
+	$words = preg_split( '/\s+/', trim( (string) $name ), -1, PREG_SPLIT_NO_EMPTY );
+	if ( ! $words ) {
+		return '';
+	}
+	$first = function_exists( 'mb_substr' ) ? mb_substr( $words[0], 0, 1 ) : substr( $words[0], 0, 1 );
+	$last  = count( $words ) > 1 ? ( function_exists( 'mb_substr' ) ? mb_substr( end( $words ), 0, 1 ) : substr( end( $words ), 0, 1 ) ) : '';
+	return strtoupper( $first . $last );
+}
+
+/**
+ * An <img> for an ACF image array or an attachment ID, through
+ * wp_get_attachment_image() so it always carries width, height and a srcset.
+ * Lazy and async by default; alt defaults to empty (decorative) because most
+ * call sites sit beside a caption that already names the image, so pass alt
+ * wherever the image is the only thing naming its subject.
+ */
+function vc_image( $image, $size = 'large', $attrs = array() ) {
+	$id = is_array( $image ) ? (int) ( $image['ID'] ?? 0 ) : (int) $image;
+	if ( ! $id ) {
+		return '';
+	}
+	$attrs = wp_parse_args( $attrs, array(
+		'alt'      => '',
+		'loading'  => 'lazy',
+		'decoding' => 'async',
+	) );
+	if ( 'eager' === $attrs['loading'] ) {
+		$attrs['loading'] = false; // wp_get_attachment_image() omits the attribute
+	}
+	return wp_get_attachment_image( $id, $size, false, $attrs );
+}
+
+/**
+ * Alt text for a logo image array: the media library alt, else its title.
+ */
+function vc_logo_alt( $image ) {
+	return is_array( $image ) ? (string) ( $image['alt'] ?: $image['title'] ) : '';
+}
+
+/**
+ * One slide of the "worked with" logo marquee. The first few are eager at low
+ * priority (the marquee sits in the first screen on most pages, and a lazy
+ * image there only loads after layout); the rest stay lazy.
+ */
+function vc_logo_slide( $logo, $index ) {
+	if ( ! $logo ) {
+		return '';
+	}
+	$attrs = array( 'alt' => vc_logo_alt( $logo ), 'sizes' => '160px' );
+	if ( $index < 6 ) {
+		$attrs['loading']       = 'eager';
+		$attrs['fetchpriority'] = 'low';
+	}
+	// A div, not an li: Splide gives every slide role="group", which ARIA does
+	// not allow on a list item (Lighthouse's accessibility-tree audit fails on it).
+	return '<div class="splide__slide">' . vc_image( $logo, 'medium', $attrs ) . '</div>';
+}
+
+/**
+ * The watermark icon for a service term, as a theme URL, or '' for none.
+ *
+ * A pillar shows the file named in its `icon` field. A child service shows an
+ * icon only when it has one of its own: every child had been saved with its
+ * pillar's file, so a pillar page printed the same mark on all of its cards.
+ * Give a child its own file (assets/images/icons/services/, same Font Awesome
+ * Slab pack as the pillars) and name it in the term's icon field, and it shows.
+ */
+function vc_service_icon_url( $term ) {
+	if ( ! $term instanceof WP_Term || ! function_exists( 'get_field' ) ) {
+		return '';
+	}
+	$file = ltrim( (string) get_field( 'icon', 'service_' . $term->term_id ), '/' );
+	if ( '' === $file ) {
+		return '';
+	}
+	if ( $term->parent ) {
+		$parent_file = ltrim( (string) get_field( 'icon', 'service_' . $term->parent ), '/' );
+		if ( $file === $parent_file ) {
+			return '';
+		}
+	}
+	if ( ! is_file( VC_TEMPLATE_DIR . '/assets/images/icons/services/' . $file ) ) {
+		return '';
+	}
+	return VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file;
+}
+

@@ -18,8 +18,8 @@ get_header();
 	<div class="page-hero-glow" aria-hidden="true"></div>
     <div class="container px-4">
         <div class="breadcrumbs"><?php echo do_shortcode('[wpseo_breadcrumb]'); ?></div>
-        <h1 class="insights-title">News, Insights &amp; What We’re Building at <span>Vulkan Creative</span>.</h1>
-        <p class="insights-standfirst">Sharp takes on brand, web and marketing: what we're learning, building and watching in the industry.</p>
+        <h1 class="insights-title">Insights on <span>web, SEO, AI</span> and marketing</h1>
+        <p class="insights-standfirst">Practical articles on web design, SEO, AI and marketing, written by the two of us from what we build and test for clients.</p>
     </div>
 </section>
 
@@ -32,7 +32,8 @@ get_header();
         <div class="row g-4" data-insights-grid>
             <?php if ( $query->have_posts() ) : ?>
                 <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-                    <?php get_template_part( 'template-parts/content', 'card' ); ?>
+                    <?php // The newest post opens page one as the wide lead card.
+                    get_template_part( 'template-parts/content', 'card', [ 'lead' => 1 === $paged && 0 === $query->current_post ] ); ?>
                 <?php endwhile; ?>
             <?php else : ?>
                 <p class="insights-empty">No insights published yet.</p>

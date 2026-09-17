@@ -27,9 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const stats = new Map();
 
     // Zero everything up front (the section is below the fold at load)
-    nums.forEach((el) => {
+    nums.forEach((el, i) => {
+        // Stagger index for the rule draw: position within its own row.
+        const cell = el.closest('.stat');
+        if (cell) {
+            const row = cell.closest('.row, .stats-grid');
+            const siblings = row ? Array.from(row.querySelectorAll('.stat')) : [cell];
+            cell.style.setProperty('--stat-i', Math.max(0, siblings.indexOf(cell)));
+        }
+
         const stat = parse(el.textContent.trim());
-        if (!stat || !stat.target) return;
+        if (!stat || !stat.target) {
+            // Nothing to count (a non-numeric value): its rule still draws.
+            if (cell) cell.classList.add('is-drawn');
+            return;
+        }
         stats.set(el, stat);
         el.textContent = stat.prefix + (0).toFixed(stat.decimals) + stat.suffix;
     });
@@ -37,6 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const run = (el) => {
         const stat = stats.get(el);
         if (!stat) return;
+
+        // Draw the rule above the figure as its count starts (common/_results.scss).
+        const cell = el.closest('.stat');
+        if (cell) cell.classList.add('is-drawn');
 
         const duration = 1400;
         const start = performance.now();

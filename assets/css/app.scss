@@ -1,8 +1,5 @@
 @use "sass:math";
 
-// videojs
-@import 'video.js/dist/video-js.css';
-@import '@videojs/themes/dist/city/index.css';
 
 // Fonts
 @import 'fonts';
@@ -13,8 +10,31 @@
 // Splide (logo carousel)
 @import '@splidejs/splide/dist/css/splide-core.min.css';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Bootstrap: only what the theme uses. The templates lean on the grid
+// (container, row, col-*, offset-*, g-*/gx-*/gy-*), reboot, three utility
+// groups (order-*, align-items-lg-end, px-4) and visually-hidden; the SCSS leans on
+// the breakpoint mixins. The full framework added about 200KB of unused CSS.
+// Adding a Bootstrap class that is not listed here? Add its partial or its
+// utility group below first.
+$enable-dark-mode: false; // the theme runs its own body.dark-mode system
+$grid-row-columns: 0;     // no .row-cols-* in use
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark'; // maps reads it even with dark mode off
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/utilities';
+$utilities: (
+  "align-items": map-get($utilities, "align-items"),
+  "order": map-get($utilities, "order"),
+  "padding-x": map-merge(map-get($utilities, "padding-x"), (responsive: false)),
+);
+@import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/containers';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/helpers/visually-hidden';
+@import '~bootstrap/scss/utilities/api';
 
 // Variables
 @import 'variables';
@@ -40,7 +60,8 @@
 }
 
 body {
-  transition: $vc-transition-all;
+  // Named properties only: the mode switch fades the surface, nothing else.
+  transition: background-color .3s ease, color .3s ease;
 
   &.dark-mode {
     background-color: $dark-vc-background-dark;
@@ -54,6 +75,40 @@ body {
   border-radius: 2px;
 }
 
+// Skip link: the first stop for a keyboard user, off-screen until focused,
+// then a forge button pinned to the top-left corner above the header.
+.skip-link {
+  position: fixed;
+  top: $space-2;
+  left: $space-2;
+  z-index: $z-overlay + 1;
+  padding: 12px 20px;
+  background: $vc-button-red;
+  color: $vc-surface-white;
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: 2px;
+  transform: translateY(-200%);
+
+  &:focus,
+  &:focus-visible {
+    transform: none;
+    color: $vc-surface-white;
+    outline: 2px solid $vc-surface-white;
+    outline-offset: 2px;
+  }
+}
+
+// In-page anchors (the skip link included) hand focus to their target, a
+// section or <main> carrying tabindex -1. That is a landing point, not a
+// control, so it takes focus without a ring around the whole block.
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
+
 @import "components/misc/motion";
 
 // Components
@@ -64,6 +119,7 @@ body {
 
 // Shared testimonial spotlight (homepage testimonials, About proof).
 @import "components/common/testimonial-spotlight";
+@import "components/common/offer-links";
 
 // Shared contact channel rows (Contact page, About founder plates).
 @import "components/common/contact-channels";

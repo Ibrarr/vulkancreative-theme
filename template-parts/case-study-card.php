@@ -54,7 +54,7 @@ $cs_card_head  = implode( ' ', $cs_card_words );
 			<span class="cs-card-scrim" aria-hidden="true"></span>
 			<?php if ( $cs_card_sector ) : ?><span class="cs-card-plate"><?php echo esc_html( $cs_card_sector ); ?></span><?php endif; ?>
 		</span>
-		<span class="cs-card-body">
+		<div class="cs-card-body">
 			<?php if ( $cs_card_value ) : ?>
 				<span class="cs-card-metric">
 					<span class="cs-card-metric-value"><?php echo esc_html( $cs_card_value ); ?></span>
@@ -63,6 +63,6 @@ $cs_card_head  = implode( ' ', $cs_card_words );
 			<?php endif; ?>
 			<h3 class="cs-card-client"><?php echo $cs_card_head ? esc_html( $cs_card_head ) . ' ' : ''; ?><span class="cs-card-client-end"><?php echo esc_html( $cs_card_last ); ?><svg class="cs-card-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></h3>
 			<?php if ( $cs_card_summary ) : ?><span class="cs-card-line"><?php echo esc_html( $cs_card_summary ); ?></span><?php endif; ?>
-		</span>
+		</div>
 	</a>
 </article>
