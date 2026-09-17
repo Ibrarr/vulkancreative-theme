@@ -1,9 +1,8 @@
-// The testimonial spotlight: one oversized quote at a time beside a
-// crossfading duotone portrait, with autoplay progress, counter and custom
-// arrows (driven by homepage/testimonials.js via #testimonial-splide).
-// Extracted from the homepage testimonials partial so the About page's proof
-// section renders the identical component; styles key off the component
-// class (the shared page-hero / error-section pattern).
+// The testimonial spotlight (template-parts/testimonial-spotlight.php): one
+// review at a time with autoplay progress, counter and custom arrows, driven
+// by homepage/testimonials.js via #testimonial-splide. One partial serves the
+// homepage, About, the services hub, the free-website page, the landing
+// block and the case study singles; styles key off the component class.
 // The aggregate rating chip that sits beside the section heading wherever the
 // spotlight appears (homepage testimonials head, About proof head).
 .rating-chip {
@@ -113,29 +112,41 @@ a.rating-chip {
 }
 
 .testimonial-spotlight {
+  // Every quote sets between these two sizes by its own --q, a multiplier
+  // vc_quote_scale() derives from the review's length: a short review runs
+  // at the full display size and a long one steps down, so each slide fills
+  // a similar area. (Splide's fade track is always as tall as its tallest
+  // slide, so equal areas are what keeps a short quote from floating above
+  // a gap.)
+  --q-max: clamp(1.625rem, 2.2vw + 1.1rem, 2.5rem);
+  --q-min: clamp(1rem, 0.4vw + 0.9rem, 1.25rem);
+  --mark-size: clamp(5rem, 7vw, 7.5rem);
+
   position: relative;
   border-top: 1px solid $vc-grey-200;
   padding-top: $space-6;
   transition: border-color .3s;
 
-  .spotlight-layout {
+  // With portraits: the crossfading panel beside the quote from lg up.
+  &.has-photos .spotlight-layout {
     @include media-breakpoint-up(lg) {
       display: grid;
       grid-template-columns: 400px minmax(0, 1fr);
       gap: $space-8;
+      align-items: start;
     }
   }
 
-  // Crossfading portrait of the active voice (decorative; the cite carries
-  // the information). Stacked absolutely so height never moves, desaturated
-  // with a brand-red duotone overlay (multiply over greyscale).
+  // Crossfading portrait of the active voice (decorative; the caption carries
+  // the information). A fixed 4:5 plate, so its crop never depends on how
+  // long the quotes run; desaturated with a brand-red duotone overlay.
   .spotlight-photo {
     display: none;
 
     @include media-breakpoint-up(lg) {
       display: block;
       position: relative;
-      min-height: 420px;
+      aspect-ratio: 4 / 5;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid $vc-grey-200;
@@ -155,6 +166,20 @@ a.rating-chip {
         &.is-active {
           opacity: 1;
         }
+      }
+
+      // A review with no photo, in a carousel where others have one.
+      .spotlight-monogram {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: $vc-display-font;
+        font-weight: $vc-black;
+        font-stretch: $vc-display-stretch;
+        font-size: 7rem;
+        letter-spacing: -0.02em;
+        color: rgba($vc-text-light, 0.9);
+        filter: none;
       }
 
       &::after {
@@ -180,7 +205,7 @@ a.rating-chip {
     font-family: $vc-display-font;
     font-weight: $vc-black;
     font-stretch: $vc-display-stretch;
-    font-size: clamp(5rem, 7vw, 7.5rem);
+    font-size: var(--mark-size);
     line-height: 0.5;
     height: 0.5em;
     color: $vc-primary;
@@ -188,87 +213,194 @@ a.rating-chip {
     user-select: none;
   }
 
-  // Equal slide heights: quotes differ in length, and without a floor the
-  // track height changes per slide, shifting everything below mid-fade.
-  // testimonials.js measures the tallest blockquote and applies it as a
-  // min-height to all of them (re-measured on resize), so the section is
-  // never taller than its longest quote. The .spotlight-static variant is the
-  // case study pages' single static quote: same anatomy, no Splide wrappers.
-  .splide__slide blockquote,
-  &.spotlight-static blockquote {
+  .spotlight-figure {
+    margin: 0;
+  }
+
+  blockquote {
     margin: 0;
     max-width: 56rem;
+  }
 
-    .spotlight-quote {
+  .spotlight-quote {
+    font-family: $vc-font-family;
+    font-weight: $vc-medium;
+    font-size: max(var(--q-min), calc(var(--q-max) * var(--q, 1)));
+    // Looser leading as the size comes down: 1.35 at full size, 1.6 at the floor.
+    line-height: calc(1.9 - var(--q, 1) * 0.55);
+    color: $vc-text-dark;
+    margin: 0;
+    text-wrap: pretty;
+    transition: color 0.3s;
+  }
+
+  // A very long review is held to a fixed number of lines once scripts are
+  // running, and testimonials.js adds the control that opens it. Without JS
+  // nothing is clamped.
+  @at-root html.js .testimonial-spotlight.splide .spotlight-quote:not(.is-open) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+    overflow: hidden;
+
+    @include media-breakpoint-up(lg) {
+      -webkit-line-clamp: 12;
+      line-clamp: 12;
+    }
+  }
+
+  .spotlight-more {
+    display: inline-block;
+    margin-top: $space-2;
+    padding: 0;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    font-family: $vc-font-family;
+    font-weight: $vc-semi-bold;
+    font-size: 15px;
+    color: $vc-text-dark;
+    text-decoration: underline;
+    text-decoration-color: $vc-primary;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    cursor: pointer;
+    transition: color .2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $vc-primary;
+      outline-offset: 3px;
+    }
+  }
+
+  .spotlight-who {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: $space-4;
+
+    // Small duotone headshot beside the attribution; the big portrait
+    // panel takes over from lg up.
+    .cite-avatar {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid $vc-grey-200;
+      background: $vc-text-dark;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(1);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: $vc-primary;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+      }
+
+      @include media-breakpoint-up(lg) {
+        display: none;
+      }
+    }
+
+    .cite-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .t-name {
       font-family: $vc-font-family;
-      font-weight: $vc-medium;
-      font-size: clamp(1.375rem, 1.5vw + 0.75rem, 2rem);
-      line-height: 1.5;
+      font-weight: $vc-semi-bold;
+      font-size: 16px;
       color: $vc-text-dark;
-      margin-bottom: $space-4;
       transition: color 0.3s;
     }
 
-    cite {
-      font-style: normal;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .t-company {
+      @include vc-body($vc-grey-600);
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+  }
 
-      // Small duotone headshot beside the attribution; the big portrait
-      // panel takes over from lg up.
-      .cite-avatar {
+  // Without portraits the slide becomes an attribution / quote split from lg
+  // up: the name hangs in the left column under the mark, set in the display
+  // face, and the quote takes the wide column. DOM order stays quote then
+  // attribution; only the placement changes.
+  &.no-photos {
+    @include media-breakpoint-up(lg) {
+      .spotlight-main {
         position: relative;
-        width: 52px;
-        height: 52px;
-        flex: 0 0 auto;
-        border-radius: 2px;
-        overflow: hidden;
-        border: 1px solid $vc-grey-200;
-        background: $vc-text-dark;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          filter: grayscale(1);
-        }
-
-        &::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: $vc-primary;
-          mix-blend-mode: soft-light;
-          pointer-events: none;
-        }
-
-        @include media-breakpoint-up(lg) {
-          display: none;
-        }
       }
 
-      .cite-text {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+      .spotlight-mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
       }
 
-      .t-name {
-        font-family: $vc-font-family;
-        font-weight: $vc-semi-bold;
-        font-size: 16px;
-        color: $vc-text-dark;
-        transition: color 0.3s;
+      .spotlight-figure {
+        display: grid;
+        grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+        column-gap: $space-8;
+        align-items: start;
       }
 
-      .t-company {
-        @include vc-body($vc-grey-600);
-        font-size: 14px;
-        transition: color 0.3s;
+      blockquote {
+        grid-column: 2;
+        grid-row: 1;
+        max-width: none;
+      }
+
+      .spotlight-who {
+        grid-column: 1;
+        grid-row: 1;
+        margin-top: 0;
+        padding-top: calc(var(--mark-size) * 0.5 + #{$space-4});
+
+        .t-name {
+          @include vc-display-3($vc-text-dark);
+          text-transform: uppercase;
+        }
+
+        .t-company {
+          font-size: 15px;
+        }
       }
     }
+  }
+
+  // The static variant: the same anatomy stacked, no Splide hooks (a single
+  // case study quote, or a page's second spotlight).
+  .spotlight-stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .spotlight-stack-item + .spotlight-stack-item {
+    margin-top: $space-8;
+    padding-top: $space-6;
+    border-top: 1px solid $vc-grey-200;
   }
 
   .spotlight-footer {
@@ -329,7 +461,7 @@ a.rating-chip {
           color: $vc-text-dark;
           opacity: 1;
           cursor: pointer;
-          transition: border-color .3s, color .3s;
+          transition: border-color .2s ease, color .2s ease, transform .16s ease-out;
 
           svg {
             fill: none;
@@ -342,6 +474,15 @@ a.rating-chip {
               border-color: $vc-primary;
               color: $vc-primary;
             }
+          }
+
+          &:focus-visible {
+            outline: 2px solid $vc-primary;
+            outline-offset: 3px;
+          }
+
+          &:active {
+            transform: scale(0.96);
           }
         }
       }
@@ -356,25 +497,36 @@ a.rating-chip {
     border-color: $vc-grey-dark-border !important;
   }
 
-  .splide__slide blockquote,
-  &.spotlight-static blockquote {
-    cite .cite-avatar {
+  .spotlight-quote {
+    color: $vc-text-light !important;
+  }
+
+  .spotlight-more {
+    color: $vc-text-light !important;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $vc-primary !important;
+      }
+    }
+  }
+
+  .spotlight-who {
+    .cite-avatar {
       border-color: $vc-grey-dark-border !important;
     }
 
-    .spotlight-quote {
+    .t-name {
       color: $vc-text-light !important;
     }
 
-    cite {
-      .t-name {
-        color: $vc-text-light !important;
-      }
-
-      .t-company {
-        color: $vc-muted-on-dark !important;
-      }
+    .t-company {
+      color: $vc-muted-on-dark !important;
     }
+  }
+
+  .spotlight-stack-item + .spotlight-stack-item {
+    border-top-color: $vc-grey-dark-border !important;
   }
 
   .spotlight-footer {
