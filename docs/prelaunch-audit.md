@@ -2,19 +2,23 @@
 
 Build notes for `fix/prelaunch-audit`: the slop, design, SEO and Lighthouse pass done before the site went live. Read this before touching script loading, the first-paint motion, the shared testimonial partial, the services hub directory or the replay pack.
 
-## Results (local, mobile Lighthouse, medians vary by a few points run to run)
+## Results (local, Lighthouse 13, 17 Sep 2026)
+
+Twelve pages, mobile as the median of three runs, desktop one run each.
 
 | | Before | After |
 |---|---|---|
-| Performance | 66 to 80 | 87 to 97 |
-| Accessibility | 92 to 96 | 100 |
+| Mobile performance | 66 to 80 | 87 to 97 (eleven of twelve pages at 90 or more; the homepage 87) |
+| Desktop performance | 90 to 99 | 97 to 100 (eight pages at 100) |
+| Accessibility | 92 to 96 | 100 on every page, and no serious axe violations in light mode either |
 | SEO | 100 | 100 |
 | Best practices | 96 | 96 (CookieYes throws on any domain that is not the registered one; it clears on production) |
+| Mobile LCP (simulated) | 4.8 to 10.0s | 2.5 to 4.0s |
 | app.css | 812KB | about 420KB |
 | about.js | 903KB | 170KB |
 | header.js | 79KB | 6KB |
 
-Lantern (Lighthouse's simulator) counts every byte that lands before the observed LCP, and the local server answers in 500 to 600ms under test. Expect production with LiteSpeed page cache to score higher, not lower.
+**Read local mobile scores with one caveat.** With no network latency the `load` event fires at about 0.45s. If a page's first frame is not out before `load`, headless Chrome drops every frame for roughly the next second, so the first paint is recorded near 1.4s and Lighthouse's simulator then counts every byte on the page against LCP. Heavier pages (home, Contact) lose that race on most runs; lighter ones win it. It is a property of the local setup, not of the pages: with applied throttling (`--throttling-method=devtools`) the homepage scores 94 to 95 with LCP at 2.3 to 2.4s, and on a real host `load` fires long after first paint. Single runs also swing by up to ten points, so compare medians. Lighthouse only ever audits dark mode (the default); light mode was checked with axe-core directly.
 
 ## Performance architecture
 

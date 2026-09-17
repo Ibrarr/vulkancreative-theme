@@ -303,7 +303,7 @@ The redesign has rolled out page by page. On the forge language: `front-page.php
 
 ## Pre-launch audit (Sep 2026)
 
-The slop, design, SEO and Lighthouse pass before launch (`fix/prelaunch-audit`). Mobile Lighthouse went from 66 to 80 performance and 92 to 96 accessibility to roughly 87 to 97 and 100. Full notes, including the rules that keep it that way, are in `docs/prelaunch-audit.md`: read it before touching script loading, first-paint motion, the testimonial partial, the hub directory or the replay pack. The standing decisions from it:
+The slop, design, SEO and Lighthouse pass before launch (`fix/prelaunch-audit`). Mobile Lighthouse went from 66 to 80 performance and 92 to 96 accessibility to 87 to 97 and 100 on every page; desktop sits at 97 to 100. Full notes, including the rules that keep it that way, are in `docs/prelaunch-audit.md`: read it before touching script loading, first-paint motion, the testimonial partial, the hub directory or the replay pack. The standing decisions from it:
 
 - **Motion:** the SplitText heading reveals stay; blanket fade-ups are gone; each section gets motion that fits it (see Motion and interaction). The LCP element never waits for script.
 - **Buttons** use `$vc-button-red` (#D93B30); every other red stays `$vc-primary`.
