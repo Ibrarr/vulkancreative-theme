@@ -22,7 +22,9 @@
   .lattice-cell {
     position: relative;
     padding: $space-5 $space-4;
-    min-height: 280px;
+    // Enough for a title and two lines of copy; the old 280px left most cells
+    // half empty. Cells in a row still share the tallest one's height.
+    min-height: 200px;
   }
 
   // Open lattice: internal rules only. DOM order — head(1) d1(2) / d2(3)

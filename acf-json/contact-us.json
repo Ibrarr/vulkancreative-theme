@@ -16,7 +16,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Let's build something that",
+            "default_value": "Talk to us about",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -37,7 +37,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "performs",
+            "default_value": "your project",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -189,7 +189,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Tell us about",
+            "default_value": "A few details to",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -210,7 +210,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "your project",
+            "default_value": "get started",
             "maxlength": "",
             "allow_in_bindings": 0,
             "placeholder": "",
@@ -265,7 +265,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-templates\/page-contact-us.php"
+                "value": "page-templates/page-contact-us.php"
             }
         ]
     ],
@@ -283,5 +283,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783256552
+    "modified": 1789634238
 }

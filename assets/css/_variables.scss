@@ -61,9 +61,11 @@ $vc-glow: rgba($vc-primary, 0.22); // radial glow centre on dark surfaces
 $vc-glow-soft: rgba($vc-primary, 0.10); // outer glow / light mode heat tint
 $vc-ember-line: rgba($vc-secondary, 0.35); // hot hairline rules on dark
 $vc-ember-line-light: rgba($vc-secondary, 0.25); // hot hairline rules on light
-$vc-glow-card: 0 16px 44px rgba($vc-primary, 0.22); // card hover glow, light surfaces
-$vc-glow-card-dark: 0 18px 56px rgba($vc-primary, 0.4); // card hover glow, dark surfaces
-$vc-glow-button: 0 8px 30px rgba($vc-primary, 0.35); // forge button hover glow
+// Hover heat, not a drop shadow: a tight ember edge plus a soft glow centred on
+// the element (no y offset, so nothing appears to lift off the page).
+$vc-glow-card: 0 0 0 1px rgba($vc-secondary, 0.35), 0 0 32px rgba($vc-primary, 0.18); // card hover glow, light surfaces
+$vc-glow-card-dark: 0 0 0 1px rgba($vc-secondary, 0.45), 0 0 40px rgba($vc-primary, 0.3); // card hover glow, dark surfaces
+$vc-glow-button: 0 0 24px rgba($vc-primary, 0.35); // forge button hover glow
 
 // Bootstrap override (kept after the tokens it reads)
 :root {

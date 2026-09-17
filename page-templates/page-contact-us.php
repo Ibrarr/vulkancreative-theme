@@ -10,7 +10,7 @@ get_header();
 // parts are blank.
 
 // Hero
-$hero_heading    = vc_heading_parts( 'ct_hero_heading', false, "Let's build something that <span>performs</span>." );
+$hero_heading    = vc_heading_parts( 'ct_hero_heading', false, 'Talk to us about <span>your project</span>.' );
 $hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to be. We reply within one working day with a clear next step, no pitch decks and no hard sell.';
 
 // Details — company contact info lives in Global Settings (options), so the
@@ -38,7 +38,7 @@ if ( have_rows('ct_next_steps') ) {
 $next_steps = $next_steps ?: $next_steps_default;
 
 // Form
-$form_heading = vc_heading_parts( 'ct_form_heading', false, 'Tell us about <span>your project</span>' );
+$form_heading = vc_heading_parts( 'ct_form_heading', false, 'A few details to <span>get started</span>' );
 $form_note    = get_field( 'ct_form_note' ) ?: 'It takes about a minute.';
 
 // Inline line icons for the contact channels (consistent stroke, SVG only).

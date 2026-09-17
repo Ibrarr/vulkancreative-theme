@@ -15,8 +15,8 @@ get_header();
 $front_page_id = (int) get_option( 'page_on_front' );
 
 // Hero
-$hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'What we <span>do</span>.' );
-$hero_subheading = get_field('sh_hero_subheading') ?: 'Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.';
+$hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'Digital marketing services from <span>one London team</span>' );
+$hero_subheading = get_field('sh_hero_subheading') ?: 'Six services from one London team: web design and development, SEO and AI search, paid media, content and social, branding, and strategy and analytics. Take one or combine them.';
 
 // Services grid
 $grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'What each <span>service</span> covers' );
@@ -29,7 +29,7 @@ $grid_support   = get_field('sh_grid_support') ?: 'Every discipline here is hand
 $services = vc_ordered_services( 'hub' );
 
 // Process (steps cross-read from the homepage so the site keeps one process)
-$process_heading    = vc_heading_parts( 'sh_process_heading', false, 'From brief to <span>results</span>.' );
+$process_heading    = vc_heading_parts( 'sh_process_heading', false, 'How every <span>project</span> runs' );
 $process_subheading = get_field('sh_process_subheading') ?: 'The same clear process behind every service, with one partner accountable the whole way.';
 
 $process_steps = [];
@@ -42,14 +42,14 @@ if ( have_rows( 'hp_process_steps', $front_page_id ) ) {
 if ( ! $process_steps ) {
 	$process_steps = [
 		[ 'title' => 'Discover',  'description' => 'We get to know your business, your customers and your goals, and audit where you are now.' ],
-		[ 'title' => 'Strategy',  'description' => 'We set the plan: positioning, priorities and the channels that will actually move the needle.' ],
+		[ 'title' => 'Strategy',  'description' => 'We set the plan: positioning, priorities and the channels most likely to bring enquiries.' ],
 		[ 'title' => 'Build',     'description' => 'We design and develop the brand, website and campaigns, built bespoke around your audience.' ],
-		[ 'title' => 'Optimise',  'description' => 'We measure what matters and refine continuously, so results compound over time.' ],
+		[ 'title' => 'Optimise',  'description' => 'We measure enquiries, rankings and revenue each month and adjust the work based on what the numbers show.' ],
 	];
 }
 
 // Proof (the rating chip reads Global Settings via vc_google_reviews())
-$proof_heading = vc_heading_parts( 'sh_proof_heading', false, '<span>Proof</span>, not promises.' );
+$proof_heading = vc_heading_parts( 'sh_proof_heading', false, 'What <span>clients</span> say' );
 
 $testimonial_items = vc_testimonial_items( 6 );
 
