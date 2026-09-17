@@ -274,11 +274,12 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
             foreach ($services as $service) {
                 $title = $service->name;
                 $description = wp_strip_all_tags( term_description($service->term_id, 'service') );
-                $icon = get_field('icon', 'service_' . $service->term_id);
-                $icon_url = VC_TEMPLATE_URI . '/assets/images/icons/services/' . ltrim($icon, '/');
+                $icon_url = vc_service_icon_url( $service );
                 ?>
                 <a class="service-row" href="<?php echo esc_url( get_term_link( $service ) ); ?>">
-                    <img class="service-icon" loading="lazy" decoding="async" src="<?php echo esc_url( $icon_url ); ?>" alt="" width="130" height="130">
+                    <?php if ( $icon_url ) : ?>
+                        <img class="service-icon" loading="lazy" decoding="async" src="<?php echo esc_url( $icon_url ); ?>" alt="" width="130" height="130">
+                    <?php endif; ?>
                     <div class="service-main">
                         <div class="service-title-row">
                             <h3 class="service-title"><?php echo esc_html( $title ); ?></h3>

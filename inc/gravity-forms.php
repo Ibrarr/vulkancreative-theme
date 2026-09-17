@@ -84,12 +84,12 @@ function vc_enquiry_service_choice_icons( $choice_markup, $choice, $field, $valu
 		return $choice_markup;
 	}
 
-	$file = get_field( 'icon', 'service_' . $term->term_id );
-	if ( ! $file ) {
+	$icon_url = vc_service_icon_url( $term );
+	if ( ! $icon_url ) {
 		return $choice_markup;
 	}
 
-	$img = '<img class="choice-card-icon" src="' . esc_url( VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file ) . '" alt="" width="56" height="56" loading="lazy" decoding="async">';
+	$img = '<img class="choice-card-icon" src="' . esc_url( $icon_url ) . '" alt="" width="56" height="56" loading="lazy" decoding="async">';
 
 	return str_replace( '</label>', $img . '</label>', $choice_markup );
 }

@@ -28,8 +28,9 @@ $card_show_index = ! isset( $args['show_index'] ) || false !== $args['show_index
 
 $card_desc = wp_strip_all_tags( term_description( $card_term->term_id ) );
 
-$card_icon     = get_field( 'icon', 'service_' . $card_term->term_id );
-$card_icon_url = $card_icon ? VC_TEMPLATE_URI . '/assets/images/icons/services/' . ltrim( $card_icon, '/' ) : '';
+// A child service carries a watermark only when it has an icon of its own
+// (vc_service_icon_url() drops one that merely repeats its pillar's).
+$card_icon_url = vc_service_icon_url( $card_term );
 ?>
 
 <a class="service-card service-card--<?php echo esc_attr( $card_variant ); ?>" href="<?php echo esc_url( $card_link ); ?>">
