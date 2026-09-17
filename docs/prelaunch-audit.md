@@ -79,23 +79,33 @@ After it runs on production: regenerate Yoast's `llms.txt` (SEO > Settings > llm
 - **Nothing moves on hover, arrows included.** Measured by hovering every link and button on eleven pages and diffing computed transforms: the 3 to 6px arrow nudge came off the hub directory, the offer links, the homepage service rows, service cards, work cards, case-study cards, the case-study band, the related strip, the slim header CTA and the author Read More link. What still transforms on hover: images zooming inside their frame, the service card watermark drift (an earlier ruling), and the dropdown caret flip, which marks the menu opening.
 - **Header CTA:** `.menu-button a` sets `text-decoration: none` on hover and focus. The nav link underline rule reached it, and the dark-context reset skipped `.menu-button`.
 - **Hub directory foot:** `.hub-services .offer-links` drops its own top border; the directory's bottom rule is the only line.
-- **Service icons:** `vc_service_icon_url( $term )` returns nothing when a child's icon file is the same as its parent's, so children never borrow a pillar icon (pillar children grids, the homepage rail, the Contact picker). The pillar icons are Font Awesome Pro 7.1 Slab Regular. The Font Awesome API token on file has no Pro SVG scope (the API returns no Slab SVGs and the npm registry answers 401), so new Slab icons have to be supplied as SVG files: drop them in `assets/images/icons/services/`, name the file in the child's `icon` field, and they render with no code change.
+- **Service icons:** every term, pillar and child, has its own Slab Regular mark. `vc_service_icon_url( $term )` still returns nothing when a child's icon file matches its parent's, so a child can never silently borrow a pillar icon.
+- **Fetching a Pro icon (Slab Regular).** The Font Awesome **API token** only carries `svg_icons_free`, so the GraphQL `svg` field answers `forbidden` and the npm registry answers 401. The Pro artwork comes from the account's **kit** instead (the "Vulkan Creative" kit, Pro licence), whose CDN serves single SVGs:
+
+  ```
+  curl -H "Referer: https://vulkancreative.test/" \
+    "https://ka-p.fontawesome.com/releases/v7.1.0/svgs/slab-regular/<icon>.svg?token=<kit-token>"
+  ```
+
+  The kit token is a credential and is deliberately not written down here: read it from the kit list with the account token (`me { kits { name token } }`), or copy it from the kit's page in the Font Awesome account. It belongs in the request only, never in a committed file or in front-end code. To list what exists in the family (Slab Regular carries about 209 icons, far fewer than Classic), page the API with the account token:
+  `me { kit(token:…) { familyStyleMember(selector:{prefix:"faslr"}) { iconVariantsPaginated(page:N,pageSize:50) { iconVariants { name } } } } }` (pageSize is capped at 50).
+
+  **House normalisation:** the pillar files centre the icon in a 576 square and bake the brand red, so a fetched icon is wrapped as `<g transform="translate((576-w)/2,(576-h)/2)">` inside `viewBox="0 0 576 576"` with `fill="#ff3b30"`, keeping the Font Awesome licence comment. Files are named after the service slug, and the name goes in the term's `icon` field.
 - **Author photos take the About duotone:** grayscale image under a `$vc-primary` soft-light wash at 0.75 (`.insight-author-avatar`, `.author-avatar`), static on hover.
-- **The About film is self-hosted:** `vulkan-creative-film-1080p.mp4` in the media library (1080p H.264, about 30MB, fast-start), encoded from the 4K master with `ffmpeg -vf scale=1920:-2:flags=lanczos -c:v libx264 -preset slow -crf 23 -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart`. The 453MB master sits at `wp-content/VulkanTrailer.mp4` and must not travel with the site.
+- **The About film is self-hosted:** `vulkan-creative-film-1080p.mp4` in the media library (1080p H.264, about 30MB, fast-start), encoded from the 4K master with `ffmpeg -vf scale=1920:-2:flags=lanczos -c:v libx264 -preset slow -crf 23 -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart`. The 432MB 4K master now lives outside the site at `~/repos/vulkancreative-content/masters/VulkanTrailer-4k-master.mp4` (gitignored), so copying the site never carries it and it is not downloadable from a URL. The template has no fallback video URL on purpose: it used to point at the master on the live domain, which would have streamed the 4K file to every visitor if the field were ever cleared.
 - **Positioning:** "London digital marketing agency" everywhere the site describes itself (home title and description, tagline, hero, About hero, footer strapline, archive descriptions), with social media management named in the description, tagline and strapline because it is one of the biggest services. The founders are mentioned once in the homepage hero and once as a Why proof line; other sections say something new instead. The Our Work sub-heading names the sectors served (law, finance, property, recruitment, hospitality), taken from the published work entries.
 - **Cost FAQs carry no figures, on purpose** (Ibrar's call). Each answer names what drives the price and how it is agreed (fixed price before a build, monthly scope for retainers), which is what answer engines can lift in place of a number.
 
 ## Before go-live (parked for staging and production)
 
-1. Move `wp-content/VulkanTrailer.mp4` (the 453MB 4K master) out of the site folder before copying it anywhere.
-2. After the URL search-replace on each environment: regenerate `llms.txt` with the command above, flush permalinks, purge LiteSpeed.
-3. Security headers: confirm nosniff, SAMEORIGIN, the referrer policy and the Permissions-Policy still arrive on a LiteSpeed cache hit; move them to `.htaccess` if the cache strips them.
-4. CookieYes: confirm the banner loads without the console error it throws on the local domain (Best Practices should reach 100), and that the Meta Pixel fires only after consent.
-5. reCAPTCHA v3: confirm the keys cover the staging and live domains and that every form submits (forms 2, 3, 5, 7, 8, 10).
-6. 404s: unknown top-level URLs must return a 404 (Valet sends them to the homepage locally).
-7. Delete the draft `[SAMPLE]` case study (#1200) once the real case studies are in.
-8. The `claude` administrator account was created for the publishing pipeline; its author archive is noindexed, but decide whether the account should exist on production.
-9. Ibrar runs `/review-animations` over the motion changes.
+1. After the URL search-replace on each environment: regenerate `llms.txt` with the command above, flush permalinks, purge LiteSpeed.
+2. Security headers: confirm nosniff, SAMEORIGIN, the referrer policy and the Permissions-Policy still arrive on a LiteSpeed cache hit; move them to `.htaccess` if the cache strips them.
+3. CookieYes: confirm the banner loads without the console error it throws on the local domain (Best Practices should reach 100), and that the Meta Pixel fires only after consent.
+4. reCAPTCHA v3: confirm the keys cover the staging and live domains and that every form submits (forms 2, 3, 5, 7, 8, 10).
+5. 404s: unknown top-level URLs must return a 404 (Valet sends them to the homepage locally).
+6. Delete the draft `[SAMPLE]` case study (#1200) once the real case studies are in.
+7. The `claude` administrator account was created for the publishing pipeline; its author archive is noindexed, but decide whether the account should exist on production.
+8. Ibrar runs `/review-animations` over the motion changes.
 
 ## Local quirks worth knowing
 

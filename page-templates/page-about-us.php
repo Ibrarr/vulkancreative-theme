@@ -121,7 +121,10 @@ $testimonial_items = vc_testimonial_items( 6 );
 $story_heading     = vc_heading_parts( 'ab_story_heading', false, 'Why we <span>started Vulkan</span>' );
 $story_description = get_field('ab_story_description') ?: "We started Vulkan because agency work had drifted: bloated teams, vague reports and clients kept at arm's length. We do it differently: in person, honest about what works and measured by what it returns. Press play for the story in our own words.";
 $story_button      = get_field('ab_story_button_label') ?: 'Watch the Film';
-$story_video       = get_field('ab_story_video_url') ?: 'https://vulkancreative.com/wp-content/VulkanTrailer.mp4';
+// No fallback URL on purpose: the film is an upload, so the saved field is the
+// only source. The old default pointed at the 453MB 4K master on the live
+// domain, which would have streamed the master to every visitor if cleared.
+$story_video       = get_field('ab_story_video_url');
 
 // Press feature (As featured in). The raw parts gate the section: wiping every
 // press field in admin removes it; the fallbacks only cover partial blanks.
