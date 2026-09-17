@@ -271,7 +271,9 @@
 // misc/_motion.scss forces the finished state.
 @at-root html.js .tax-service .service-journey .step-index {
   color: transparent;
-  -webkit-text-stroke: 1.5px $vc-grey-400;
+  // The outline is the numeral's only ink until the scrub forges it red, so
+  // it holds 3:1 against both light surfaces (large text).
+  -webkit-text-stroke: 1.5px #858585;
   transition: color 0.4s ease, -webkit-text-stroke-color 0.4s ease;
 }
 
@@ -325,7 +327,7 @@
 }
 
 @at-root html.js body.dark-mode.tax-service .service-journey .step-index {
-  -webkit-text-stroke-color: rgba($vc-text-light, 0.3);
+  -webkit-text-stroke-color: rgba($vc-text-light, 0.42); // 3.8:1 on #121212, 3.3:1 on #1E1E1E
 }
 
 @at-root html.js body.dark-mode.tax-service .service-journey .journey-step.is-forged .step-index {

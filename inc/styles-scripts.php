@@ -143,3 +143,25 @@ function vc_resource_hints( $urls, $relation_type ) {
     }
     return $urls;
 }
+
+/**
+ * Gravity Forms ships about 38KB of render-blocking CSS in four files. Only
+ * Contact shows its form in the first screen; everywhere else the form sits at
+ * the foot of the page, so its styles load without holding the first paint
+ * (print media, swapped to all on load, with a noscript fallback). Order in
+ * the document is unchanged, so the theme's overrides still win.
+ */
+add_filter( 'style_loader_tag', 'vc_defer_form_styles', 10, 2 );
+function vc_defer_form_styles( $tag, $handle ) {
+	if ( is_admin() || ( 0 !== strpos( $handle, 'gravity_forms_' ) && 0 !== strpos( $handle, 'gform_' ) ) ) {
+		return $tag;
+	}
+	if ( is_page_template( 'page-templates/page-contact-us.php' ) ) {
+		return $tag;
+	}
+	$deferred = str_replace( "media='all'", "media='print' onload=\"this.media='all'\"", $tag );
+	if ( $deferred === $tag ) {
+		return $tag;
+	}
+	return $deferred . '<noscript>' . trim( preg_replace( "/\sid='[^']*'/", '', $tag, 1 ) ) . "</noscript>\n";
+}

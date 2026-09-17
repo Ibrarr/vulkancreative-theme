@@ -97,11 +97,17 @@ header {
     padding: 0;
     line-height: 0;
     color: $vc-text-dark;
-    transition: color .3s;
+    transition: color .2s ease;
+    // The library's sun/moon morph overshoots (a 1.25 bezier) over 500ms;
+    // the house version lands without bounce inside the UI band.
+    --theme-toggle__classic--duration: 300ms;
 
     svg {
       fill: currentColor;
-      transition: $vc-transition-all;
+    }
+
+    .theme-toggle__classic path {
+      transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     @media (hover: hover) {

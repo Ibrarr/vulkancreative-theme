@@ -16,6 +16,42 @@ function vc_enquiry_disable_gf_scroll( $anchor, $form ) {
 	return $anchor;
 }
 
+// A form with conditional logic is rendered display:none and only revealed by
+// GF's script. On a phone, where the contact details sit under the form, that
+// reveal pushed them down once jQuery landed (0.15 CLS on Contact). The hiding
+// exists to stop a conditional field flashing before its rule runs, so when
+// the page being rendered has no conditional field or button, show the form
+// from the first paint; GF's own .show() is then a no-op. Later pages that do
+// carry rules keep GF's behaviour.
+add_filter( 'gform_get_form_filter', 'vc_show_form_when_page_has_no_rules', 10, 2 );
+function vc_show_form_when_page_has_no_rules( $form_string, $form ) {
+	if ( false === strpos( $form_string, "style='display:none'" ) || ! class_exists( 'GFFormDisplay' ) ) {
+		return $form_string;
+	}
+
+	$current = max( 1, (int) GFFormDisplay::get_current_page( $form['id'] ) );
+	$page    = 1;
+	foreach ( $form['fields'] as $field ) {
+		if ( 'page' === $field->type ) {
+			// A page break's next-button rule belongs to the page it closes.
+			if ( $page === $current && ! empty( $field->nextButton['conditionalLogic'] ) ) {
+				return $form_string;
+			}
+			$page++;
+			continue;
+		}
+		if ( $page === $current && ! empty( $field->conditionalLogic ) ) {
+			return $form_string;
+		}
+	}
+	if ( $current === $page && ! empty( $form['button']['conditionalLogic'] ) ) {
+		return $form_string;
+	}
+
+	$wrapper = "id='gform_wrapper_" . (int) $form['id'] . "'";
+	return preg_replace( '/(' . preg_quote( $wrapper, '/' ) . ")\s+style='display:none'/", '$1', $form_string, 1 );
+}
+
 // Suppress GF's default AJAX spinner GIF on every form. The theme renders its
 // own spinner over the pressed button (assets/js/global/form-loading.js +
 // common/_form-loading.scss); GF's default is a footer sibling that shifts the

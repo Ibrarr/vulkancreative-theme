@@ -47,6 +47,7 @@
     } catch (e) {}
 </script>
 <?php wp_body_open(); ?>
+<a class="skip-link" href="#content">Skip to Content</a>
 
 <div id="wrapper" class="hfeed">
     <header id="header" role="banner" class="hero-active">
@@ -62,7 +63,7 @@
                 <?php list( $vc_slim_cta_label, $vc_slim_cta_href ) = vc_slim_header_cta(); ?>
                 <div class="menu-theme-toggle fw-header-actions">
                     <a class="fw-header-cta" href="<?php echo esc_attr( $vc_slim_cta_href ); ?>"><?php echo esc_html( $vc_slim_cta_label ); ?></a>
-                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                    <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -103,7 +104,7 @@
                         ) );
                         ?>
                     </nav>
-                    <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                    <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                         <svg xmlns="http://www.w3.org/2000/svg"
                              aria-hidden="true"
                              width="2.5em"
@@ -153,7 +154,7 @@
                         ?>
                     </nav>
                     <div class="mobile-menu-extras">
-                        <button type="button" class="theme-toggle" title="Toggle theme" aria-label="Toggle colour theme">
+                        <button type="button" class="theme-toggle" aria-label="Dark mode" aria-pressed="true">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  aria-hidden="true"
                                  width="2em"
@@ -197,4 +198,4 @@
     </header>
     <div id="smooth-wrapper">
         <div id="smooth-content">
-            <main id="content" role="main">
+            <main id="content" role="main" tabindex="-1">

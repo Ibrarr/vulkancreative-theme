@@ -43,11 +43,6 @@
     }
   }
 
-  .insights-eyebrow {
-    @include vc-eyebrow($vc-primary);
-    margin: 0 0 $space-2;
-  }
-
   .insights-title {
     @include vc-display-2($vc-text-light);
     text-transform: uppercase;

@@ -60,7 +60,8 @@ $utilities: (
 }
 
 body {
-  transition: $vc-transition-all;
+  // Named properties only: the mode switch fades the surface, nothing else.
+  transition: background-color .3s ease, color .3s ease;
 
   &.dark-mode {
     background-color: $dark-vc-background-dark;
@@ -72,6 +73,38 @@ body {
   outline: 2px solid $vc-primary;
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+// Skip link: the first stop for a keyboard user, off-screen until focused,
+// then a forge button pinned to the top-left corner above the header.
+.skip-link {
+  position: fixed;
+  top: $space-2;
+  left: $space-2;
+  z-index: $z-overlay + 1;
+  padding: 12px 20px;
+  background: $vc-button-red;
+  color: $vc-surface-white;
+  font-family: $vc-font-family;
+  font-weight: $vc-bold;
+  font-size: 15px;
+  text-decoration: none;
+  border-radius: 2px;
+  transform: translateY(-200%);
+
+  &:focus,
+  &:focus-visible {
+    transform: none;
+    color: $vc-surface-white;
+    outline: 2px solid $vc-surface-white;
+    outline-offset: 2px;
+  }
+}
+
+// The skip link lands on <main>; it takes focus without drawing a ring
+// around the whole page.
+main#content:focus {
+  outline: none;
 }
 
 @import "components/misc/motion";
