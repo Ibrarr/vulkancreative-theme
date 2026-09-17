@@ -92,12 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const slides = Array.from(el.querySelectorAll('.splide__slide'));
+
     splide.on('mounted move', () => {
         if (counter) {
             counter.textContent = String(splide.index + 1).padStart(2, '0');
         }
         portraits.forEach((portrait, i) => {
             portrait.classList.toggle('is-active', i === splide.index);
+        });
+        // Splide marks the slides it is not showing aria-hidden, but leaves
+        // what is inside them focusable. inert takes the Read Full Review
+        // control (and anything else) out of the tab order with them.
+        slides.forEach((slide, i) => {
+            slide.inert = i !== splide.index;
         });
     });
 
