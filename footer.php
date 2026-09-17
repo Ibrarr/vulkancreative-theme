@@ -20,7 +20,7 @@
                     <?php if ( ! $vc_hide_footer_cta ) : ?>
                     <div class="row footer-cta">
                         <div class="col-lg-8">
-                            <p class="footer-cta-heading">Ready to forge something that <span>performs</span>?</p>
+                            <p class="footer-cta-heading">Ready to talk about <span>your project</span>?</p>
                         </div>
                         <div class="col-lg-4 footer-cta-action">
                             <a class="button" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Start a Project</a>
@@ -31,7 +31,7 @@
                         <div class="col-lg-5 left">
                             <?php // An <img>, not a second inline copy of the SVG: the footer never animates or recolours the mark (it is #0D0D0D in both modes), and the file caches once for the whole site. ?>
                             <div class="footer-logo"><img src="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/logos/logo-white.svg' ); ?>" alt="Vulkan Creative" width="134" height="38" loading="lazy" decoding="async"></div>
-                            <p class="footer-line">Brand, web and marketing that performs, built in-house and measured by results.</p>
+                            <p class="footer-line">A London digital agency run by its two founders: web design, SEO and AI search, paid media, content, branding and strategy.</p>
                             <div class="footer-socials">
                                 <a href="https://www.linkedin.com/company/vulkan-creative/" target="_blank" rel="noopener" aria-label="Vulkan Creative on LinkedIn"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/linkedin.svg' ) ?></a>
                                 <a href="https://www.tiktok.com/@vulkancreative" target="_blank" rel="noopener" aria-label="Vulkan Creative on TikTok"><?php echo file_get_contents( VC_TEMPLATE_DIR . '/assets/images/socials/tiktok.svg' ) ?></a>

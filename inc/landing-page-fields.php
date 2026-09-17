@@ -110,7 +110,7 @@ function vc_register_landing_page_fields() {
 	$layouts['hero'] = [
 		'key' => 'layout_lp_hero', 'name' => 'hero', 'label' => 'Hero', 'display' => 'block',
 		'sub_fields' => array_merge(
-			vc_lp_heading( 'lp_hero', 'Build something', 'that performs', '.' ),
+			vc_lp_heading( 'lp_hero', 'Say what this page', 'offers', ', in one line' ),
 			[
 				vc_lp_textarea( 'field_lp_hero_sub', 'Sub-heading', 'subheading', 'A short, specific promise that tells the visitor exactly what they get and why it matters.', 3 ),
 				vc_lp_text( 'field_lp_hero_pl', 'Primary button label', 'primary_label', 'Start a Project', '50' ),
