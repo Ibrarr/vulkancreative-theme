@@ -408,3 +408,12 @@ function vc_profile_photo_avatar( $args, $id_or_email ) {
 	}
 	return $args;
 }
+
+/**
+ * Yoast prepends a UTF-8 byte-order mark to llms.txt. The llms.txt proposal
+ * wants the file to open with its H1, and Lighthouse's Agentic Browsing audit
+ * fails a file whose first character is anything else, so write it without one.
+ * Plain UTF-8 needs no BOM: the file is served as text/plain; charset=utf-8.
+ */
+add_filter( 'wpseo_llmstxt_encoding_prefix', '__return_empty_string' );
+

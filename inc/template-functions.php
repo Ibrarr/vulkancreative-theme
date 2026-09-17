@@ -425,5 +425,37 @@ function vc_logo_slide( $logo, $index ) {
 		$attrs['loading']       = 'eager';
 		$attrs['fetchpriority'] = 'low';
 	}
-	return '<li class="splide__slide">' . vc_image( $logo, 'medium', $attrs ) . '</li>';
+	// A div, not an li: Splide gives every slide role="group", which ARIA does
+	// not allow on a list item (Lighthouse's accessibility-tree audit fails on it).
+	return '<div class="splide__slide">' . vc_image( $logo, 'medium', $attrs ) . '</div>';
 }
+
+/**
+ * The watermark icon for a service term, as a theme URL, or '' for none.
+ *
+ * A pillar shows the file named in its `icon` field. A child service shows an
+ * icon only when it has one of its own: every child had been saved with its
+ * pillar's file, so a pillar page printed the same mark on all of its cards.
+ * Give a child its own file (assets/images/icons/services/, same Font Awesome
+ * Slab pack as the pillars) and name it in the term's icon field, and it shows.
+ */
+function vc_service_icon_url( $term ) {
+	if ( ! $term instanceof WP_Term || ! function_exists( 'get_field' ) ) {
+		return '';
+	}
+	$file = ltrim( (string) get_field( 'icon', 'service_' . $term->term_id ), '/' );
+	if ( '' === $file ) {
+		return '';
+	}
+	if ( $term->parent ) {
+		$parent_file = ltrim( (string) get_field( 'icon', 'service_' . $term->parent ), '/' );
+		if ( $file === $parent_file ) {
+			return '';
+		}
+	}
+	if ( ! is_file( VC_TEMPLATE_DIR . '/assets/images/icons/services/' . $file ) ) {
+		return '';
+	}
+	return VC_TEMPLATE_URI . '/assets/images/icons/services/' . $file;
+}
+

@@ -55,11 +55,11 @@ if ( ! empty( $args['show_logos'] ) && have_rows( 'worked_with_logos', 'options'
 		<div class="lp-hero-marquee">
 			<div class="splide lp-logo-splide" aria-label="Companies we have worked with">
 				<div class="splide__track">
-					<ul class="splide__list">
+					<div class="splide__list">
 						<?php foreach ( array_values( $logos ) as $logo_i => $img ) {
 							echo vc_logo_slide( $img, $logo_i );
 						} ?>
-					</ul>
+					</div>
 				</div>
 			</div>
 		</div>

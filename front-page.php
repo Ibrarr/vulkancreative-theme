@@ -203,12 +203,12 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
     <div class="hero-marquee">
         <div class="splide" id="logo-splide" aria-label="Companies we've worked with">
             <div class="splide__track">
-                <ul class="splide__list">
+                <div class="splide__list">
                     <?php $logo_i = 0;
                     while ( have_rows('worked_with_logos', 'options') ) : the_row();
                         echo vc_logo_slide( get_sub_field('logo'), $logo_i++ );
                     endwhile; ?>
-                </ul>
+                </div>
             </div>
         </div>
     </div>

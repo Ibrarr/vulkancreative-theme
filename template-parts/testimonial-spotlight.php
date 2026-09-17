@@ -57,9 +57,13 @@ if ( $carousel ) {
 		<div class="spotlight-main">
 			<div class="spotlight-mark" aria-hidden="true">“</div>
 			<div class="<?php echo $carousel ? 'splide__track' : 'spotlight-stack'; ?>">
-				<ul class="<?php echo $carousel ? 'splide__list' : 'spotlight-stack-list'; ?>">
+				<?php // Carousel slides are divs: Splide gives each role="group", which ARIA
+				// does not allow on an li. The static stack keeps a real list.
+				$list_tag = $carousel ? 'div' : 'ul';
+				$item_tag = $carousel ? 'div' : 'li'; ?>
+				<<?php echo $list_tag; ?> class="<?php echo $carousel ? 'splide__list' : 'spotlight-stack-list'; ?>">
 					<?php foreach ( $items as $item ) : ?>
-						<li class="<?php echo $carousel ? 'splide__slide' : 'spotlight-stack-item'; ?>">
+						<<?php echo $item_tag; ?> class="<?php echo $carousel ? 'splide__slide' : 'spotlight-stack-item'; ?>">
 							<figure class="spotlight-figure">
 								<blockquote>
 									<p class="spotlight-quote" style="--q: <?php echo esc_attr( vc_quote_scale( $item['quote'] ) ); ?>"><?php echo esc_html( $item['quote'] ); ?></p>
@@ -78,9 +82,9 @@ if ( $carousel ) {
 									</span>
 								</figcaption>
 							</figure>
-						</li>
+						</<?php echo $item_tag; ?>>
 					<?php endforeach; ?>
-				</ul>
+				</<?php echo $list_tag; ?>>
 			</div>
 			<?php if ( $carousel && $count > 1 ) : ?>
 				<div class="spotlight-footer">
