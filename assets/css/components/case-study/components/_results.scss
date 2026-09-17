@@ -15,13 +15,28 @@
     @include vc-display-2($vc-text-light);
   }
 
+  // Each stat is its own size container, and every number in the set takes one
+  // size worked out from the longest value (--stat-chars, printed by the
+  // template) and the cell's real width: a display digit runs about 0.79em
+  // wide, so dividing by 0.82 per character leaves a little air. A figure such
+  // as 43,605 or +27.8% can therefore never outgrow its cell (Sep 2026, after
+  // fixed 77px numbers collided in 250px cells). The vw clamp is the fallback
+  // for browsers without container query units.
   .stat {
+    container-type: inline-size;
     border-top: 0;
-    padding-top: 0;
+    padding-top: $space-3;
+
+    // The band is dark in both modes, so the shared rule takes the dark tone.
+    &::before {
+      background: $vc-grey-dark-border;
+    }
 
     .stat-number {
-      font-size: clamp(3.25rem, 4.5vw + 0.75rem, 5.5rem);
+      font-size: clamp(1.5rem, 2.2vw + 0.75rem, 3rem);
+      font-size: clamp(1.5rem, calc(100cqi / (var(--stat-chars, 5) * 0.82)), 5.5rem);
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     .stat-label {
@@ -39,6 +54,41 @@
     }
   }
 
+  // Split band at lg: the stats column stretches to the story's height and its
+  // rows share that height equally, each figure centred in its row, so neither
+  // column leaves a hole beside the other.
+  @include media-breakpoint-up(lg) {
+    .results-row.is-split {
+      .stats-grid {
+        height: 100%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        --bs-gutter-y: 0;
+
+        > div {
+          flex: 1 1 0;
+          display: flex;
+        }
+      }
+
+      .stat {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: $space-3;
+        padding-bottom: $space-3;
+      }
+    }
+  }
+
+  // Beside the stats the story starts level with the first figure's rule.
+  @include media-breakpoint-up(lg) {
+    .results-row.is-split .results-text > .results-narrative:first-child {
+      margin-top: 0;
+    }
+  }
+
   .results-actions {
     margin-top: $space-5;
 
@@ -47,21 +97,8 @@
     }
   }
 
-  // Vertical hairline dividers between the counters on desktop; below lg the
-  // grid takes a top rule per stat instead.
-  @include media-breakpoint-up(lg) {
-    .stats-grid > div + div .stat {
-      border-left: 1px solid $vc-grey-dark-border;
-      padding-left: $space-4;
-    }
-  }
-
-  @include media-breakpoint-down(lg) {
-    .stat {
-      border-top: 1px solid $vc-grey-dark-border;
-      padding-top: $space-3;
-    }
-  }
+  // Every stat carries the shared top rule that draws in with its count, at
+  // every width. The old vertical dividers ran through long figures.
 }
 
 @at-root body.dark-mode.single-case_study .cs-results {
@@ -74,8 +111,6 @@
   }
 
   .stat {
-    border-top-color: $vc-grey-dark-border !important;
-
     .stat-label {
       color: $vc-muted-on-dark !important;
     }
