@@ -54,9 +54,11 @@ if ( have_rows( 'sv_deliverables', $acf_id ) ) {
 	}
 }
 
-// Process: per-term steps, then the parent pillar's (for a leaf), then the
-// sitewide homepage steps.
-$process_heading    = vc_heading_parts( 'sv_process_heading', $acf_id, 'From brief to <span>results</span>.' );
+// Process: a term's own steps only. A child service used to borrow its
+// pillar's steps (Personal Branding showed Branding's), and the same four
+// generic stages ended up on 25 pages; a leaf with no steps of its own now
+// shows no process section. A pillar still falls back to the sitewide steps.
+$process_heading    = vc_heading_parts( 'sv_process_heading', $acf_id, 'How it <span>works</span>, step by step' );
 $process_subheading = get_field( 'sv_process_subheading', $acf_id );
 $process_steps      = [];
 if ( have_rows( 'sv_process_steps', $acf_id ) ) {
@@ -65,15 +67,7 @@ if ( have_rows( 'sv_process_steps', $acf_id ) ) {
 		$process_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
 	}
 }
-// A leaf with no steps of its own inherits its parent pillar's process, so it
-// never falls through to the generic homepage steps.
-if ( ! $process_steps && ! $is_pillar && $term->parent && have_rows( 'sv_process_steps', 'service_' . $term->parent ) ) {
-	while ( have_rows( 'sv_process_steps', 'service_' . $term->parent ) ) {
-		the_row();
-		$process_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
-	}
-}
-if ( ! $process_steps && have_rows( 'hp_process_steps', $front_page_id ) ) {
+if ( ! $process_steps && $is_pillar && have_rows( 'hp_process_steps', $front_page_id ) ) {
 	while ( have_rows( 'hp_process_steps', $front_page_id ) ) {
 		the_row();
 		$process_steps[] = [ 'title' => get_sub_field('title'), 'description' => get_sub_field('description') ];
