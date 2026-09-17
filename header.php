@@ -17,8 +17,9 @@
     <script id="cookieyes" async type="text/javascript" src="https://cdn-cookieyes.com/client_data/8d9aad33234792349a620516/script.js"></script>
     <!-- End cookieyes banner -->
 
-    <!-- Meta Pixel Code -->
-    <script>
+    <!-- Meta Pixel Code: CookieYes holds this script as text/plain and only
+         runs it once the visitor accepts advertising cookies. -->
+    <script type="text/plain" data-cookieyes="cookieyes-advertisement">
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -30,9 +31,6 @@
         fbq('init', '1622042995562129');
         fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-                   src="https://www.facebook.com/tr?id=1622042995562129&ev=PageView&noscript=1"
-        /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
 <body <?php body_class(); ?>>

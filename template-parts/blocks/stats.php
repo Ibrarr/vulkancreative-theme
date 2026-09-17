@@ -17,8 +17,9 @@ if ( empty( $stats ) ) { return; }
 			<?php endif; ?>
 		</div>
 		<div class="row gx-4 gy-4 stats-grid" data-reveal="stagger">
+			<?php $stat_col = count( $stats ) > 3 ? 'col-lg-3' : 'col-lg-4'; // three or fewer stats share the row evenly ?>
 			<?php foreach ( $stats as $stat ) : ?>
-				<div class="col-lg-3 col-6">
+				<div class="<?php echo esc_attr( $stat_col ); ?> col-6">
 					<div class="stat">
 						<span class="stat-number"><?php echo esc_html( $stat['prefix'] . $stat['number'] . $stat['suffix'] ); ?></span>
 						<p class="stat-label"><?php echo esc_html( $stat['label'] ); ?></p>

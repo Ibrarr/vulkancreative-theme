@@ -110,11 +110,13 @@ if ( have_rows( 'lp_sections' ) ) :
 				$block['stats']      = [];
 				if ( have_rows( 'stats' ) ) {
 					while ( have_rows( 'stats' ) ) { the_row();
+						// {rating} / {reviews} resolve to the Global Settings figures, so a
+						// landing page never carries its own copy of the Google rating.
 						$block['stats'][] = [
-							'number' => get_sub_field( 'number' ),
+							'number' => vc_review_tokens( (string) get_sub_field( 'number' ) ),
 							'prefix' => get_sub_field( 'prefix' ),
 							'suffix' => get_sub_field( 'suffix' ),
-							'label'  => get_sub_field( 'label' ),
+							'label'  => vc_review_tokens( (string) get_sub_field( 'label' ) ),
 						];
 					}
 				}

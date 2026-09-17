@@ -94,3 +94,37 @@ function mix( string $path ) {
     // Fallback to the un-versioned file under /dist
     return '/dist' . $path;
 }
+
+/**
+ * Pages that render a Gravity Form, by conditional tag. Asset decisions made
+ * in <head> (preconnects) cannot wait for the template to render the form, so
+ * this mirrors the vc_render_form() call sites.
+ */
+function vc_page_has_form() {
+    return is_front_page()
+        || is_tax( 'service' )
+        || is_singular( 'post' )
+        || is_page_template( [
+            'page-templates/page-services-hub.php',
+            'page-templates/page-contact-us.php',
+            'page-templates/page-free-website.php',
+            'page-templates/page-landing-page.php',
+        ] );
+}
+
+/**
+ * Open the third-party connections early: the consent banner on every page,
+ * and reCAPTCHA's two origins where a form renders.
+ */
+add_filter( 'wp_resource_hints', 'vc_resource_hints', 10, 2 );
+function vc_resource_hints( $urls, $relation_type ) {
+    if ( 'preconnect' !== $relation_type ) {
+        return $urls;
+    }
+    $urls[] = 'https://cdn-cookieyes.com';
+    if ( vc_page_has_form() ) {
+        $urls[] = 'https://www.google.com';
+        $urls[] = 'https://www.gstatic.com';
+    }
+    return $urls;
+}

@@ -17,7 +17,7 @@ $hero_subheading = get_field('ct_hero_subheading') ?: 'Tell us where you want to
 // Contact page and the footer share one source of truth.
 $email           = get_field('company_email', 'options') ?: 'info@vulkancreative.com';
 $phone           = get_field('company_phone', 'options') ?: '020 3576 7525';
-$location        = get_field('company_location', 'options') ?: 'Dawson House, 5 Jewry Street, London, EC3N 2EX';
+$location        = get_field('company_location', 'options') ?: '70 Mark Lane, London, EC3R 7NQ';
 $map_url         = get_field('company_map_url', 'options') ?: 'https://maps.app.goo.gl/gSBBfZt45iUbm2UH7';
 // Strip everything but digits and a leading + for the tel: href.
 $phone_href      = $phone ? preg_replace( '/[^0-9+]/', '', $phone ) : '';

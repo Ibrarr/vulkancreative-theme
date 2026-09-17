@@ -181,18 +181,41 @@
 // Newsletter (Gravity Form id=3): forge inputs, a full-width forge submit
 // stacked below the email so it fits the narrow sidebar column.
 .insight-newsletter {
+  // The consent line is real markup (template-parts/content-blog.php), so
+  // assistive tech reads it and the Privacy Policy link works.
+  .insight-newsletter-consent {
+    color: $vc-grey-600;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: $space-2 0 0;
+    transition: color 0.3s;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      @media (hover: hover) {
+        &:hover {
+          color: $vc-text-dark;
+        }
+      }
+
+      &:focus-visible {
+        color: $vc-text-dark;
+      }
+    }
+  }
+
+  // Once the form is replaced by its confirmation the consent line has done its job.
+  .form:has(.gform_confirmation_message) ~ .insight-newsletter-consent {
+    display: none;
+  }
+
   .form {
     .gform_wrapper.newsletter-form_wrapper {
       .gform_heading {
         display: none;
-      }
-
-      .gform_body:after {
-        content: "By subscribing, you consent to our Privacy Policy and agree to receive updates.";
-        display: block;
-        color: $vc-grey-600;
-        font-size: 12px;
-        margin-top: $space-2;
       }
 
       .gform_fields {
@@ -327,11 +350,21 @@
     }
   }
 
-  .insight-newsletter .form .gform_wrapper.newsletter-form_wrapper {
-    .gform_body:after {
-      color: $vc-muted-on-dark !important;
+  .insight-newsletter-consent {
+    color: $vc-muted-on-dark !important;
+
+    a:focus-visible {
+      color: $vc-text-light !important;
     }
 
+    @media (hover: hover) {
+      a:hover {
+        color: $vc-text-light !important;
+      }
+    }
+  }
+
+  .insight-newsletter .form .gform_wrapper.newsletter-form_wrapper {
     input[type="email"] {
       color: $vc-text-light !important;
       border-color: $vc-grey-dark-border !important;
