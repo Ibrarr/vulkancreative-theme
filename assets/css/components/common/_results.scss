@@ -20,11 +20,28 @@
     }
   }
 
+  // The rule above each figure is drawn, not just shown: it runs out from the
+  // left as the count-up starts (counter.js adds is-drawn and the stagger
+  // index), so the row assembles instead of fading up. It is a pseudo-element
+  // because a border cannot scale; without JS or under reduced motion it is
+  // simply there.
   .stat {
-    border-top: 1px solid $vc-grey-200;
+    position: relative;
     padding-top: $space-3;
     padding-right: $space-3;
-    transition: border-color .3s;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: $vc-grey-200;
+      transform-origin: left center;
+      transition: background-color .3s, transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: 0s, calc(var(--stat-i, 0) * 80ms);
+    }
 
     .stat-number {
       font-family: $vc-display-font;
@@ -51,10 +68,28 @@
   }
 
   .stat {
-    border-top-color: $vc-grey-dark-border !important;
+    &::before {
+      background: $vc-grey-dark-border !important;
+    }
 
     .stat-label {
       color: $vc-muted-on-dark !important;
     }
+  }
+}
+
+// Collapsed until the row is counted, with motion allowed and scripts running.
+// The zero-duration animation is the failsafe: if counter.js never reaches the
+// row, the rules appear by themselves after four seconds.
+@media (prefers-reduced-motion: no-preference) {
+  @at-root html.js .results .stat:not(.is-drawn)::before {
+    transform: scaleX(0);
+    animation: vc-stat-rule-failsafe 0s 4s forwards;
+  }
+}
+
+@keyframes vc-stat-rule-failsafe {
+  to {
+    transform: none;
   }
 }
