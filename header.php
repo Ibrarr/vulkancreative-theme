@@ -6,10 +6,15 @@
 
     <script>document.documentElement.classList.add('js');</script>
 
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Archivo-Variable.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Regular.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-SemiBold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <?php if ( is_front_page() ) : // the mobile hero poster, ahead of the fonts ?>
+    <link rel="preload" as="image" media="(max-width: 991.98px)" fetchpriority="high"
+          imagesrcset="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile-800.webp' ); ?> 800w, <?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile.webp' ); ?> 1178w"
+          imagesizes="100vw">
+    <?php endif; ?>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Archivo-Display.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Regular-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-SemiBold-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="<?php echo VC_TEMPLATE_URI . '/assets/fonts/Poppins-Bold-latin.woff2'; ?>" as="font" type="font/woff2" crossorigin>
 
 	<?php wp_head(); ?>
 

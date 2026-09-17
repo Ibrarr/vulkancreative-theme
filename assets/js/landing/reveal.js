@@ -20,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- Hero (above the fold: runs on load once fonts settle) ----
-    if (hero) {
+    // lg+ only. Below lg the hero text paints with the first frame through the
+    // CSS entrance in misc/_motion.scss (it is the page's LCP element), and the
+    // stylesheet no longer pre-hides it there.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+    if (hero && heroOnJs) {
         const heroHeading = hero.querySelector('[data-reveal="heading"]');
         const heroFades = gsap.utils.toArray(hero.querySelectorAll('[data-reveal="fade"]'));
         const heroRule = hero.querySelector('[data-reveal="rule"]');
@@ -59,7 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const targets = gsap.utils.toArray('[data-reveal]').filter((el) => !inHero(el));
     if (!targets.length) return;
 
-    // Pre-hide by type.
+    // Pre-hide by type. "fade" is deliberately static now: body copy, notes and
+    // forms simply sit there, and motion goes to headings (line reveal), lists
+    // (stagger) and rules (draw).
     targets.forEach((el) => {
         const type = el.getAttribute('data-reveal');
         if ('stagger' === type) {
@@ -67,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             revealFailsafe(Array.from(el.children), 4000);
         } else if ('rule' === type) {
             gsap.set(el, { scaleX: 0 });
-        } else {
+        } else if ('heading' === type) {
             gsap.set(el, { opacity: 0, y: 24 });
             revealFailsafe(el, 4000);
         }
@@ -97,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.to(Array.from(el.children), { opacity: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'power2.out' });
         } else if ('rule' === type) {
             gsap.to(el, { scaleX: 1, duration: 0.8, ease: 'power3.out' });
-        } else {
-            gsap.to(el, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' });
         }
     };
 

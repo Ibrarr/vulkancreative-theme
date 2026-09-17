@@ -18,19 +18,23 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.insights-title, .insight-hero-title, .insight-related-heading, .insight-faqs h2');
-    const fades = gsap.utils.toArray(
-        '.insights-header .breadcrumbs, .insights-standfirst, ' +
-        '.insights-filter, .insights-header--author .author-bio, ' +
-        '.insight-hero .breadcrumbs, .insight-hero-excerpt, .insight-hero-meta, ' +
-        '.insight-content, .insight-sidebar, .pagination'
-    );
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
+    // Titles at lg+ only (below lg the CSS first-paint entrance owns them).
+    const headings = gsap.utils.toArray(`${heroOnJs ? '.insights-title, .insight-hero-title, ' : ''}.insight-related-heading, .insight-faqs h2`);
+    // Nothing else is hidden. The article body, sidebar, filter, breadcrumbs
+    // and pagination are content people came to read or use, and hiding the
+    // article until a script ran also held back the page's largest paint.
+    const fades = [];
     const grids = gsap.utils.toArray('.insights-grid .row, .insight-related .row');
 
     if (!headings.length && !fades.length && !grids.length) return;
 
     // Hide up front, after the guards — so no-JS / reduced-motion keep content.
-    gsap.set([...headings, ...fades], { opacity: 0, y: 24 });
+    gsap.set([...headings, ...fades], { opacity: 0, y: 24, animation: 'none' });
     grids.forEach((grid) => gsap.set(grid.querySelectorAll('.insight-card'), { opacity: 0, y: 24 }));
 
     // Failsafe: nothing on the insights family stays hidden if a reveal never
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

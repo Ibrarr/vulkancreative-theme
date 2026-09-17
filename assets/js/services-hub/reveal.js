@@ -14,8 +14,14 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
-    const headings = gsap.utils.toArray('.hub-hero h1, .hub-services .content h2, .hub-process .content h2, .hub-proof .content h2, .hub-cta .content h2');
-    const fades = gsap.utils.toArray('.hub-hero .sub-heading, .hub-services .intro-lead, .hub-process .content .sub-heading, .hub-cta .content .sub-heading, .hub-cta .form-container');
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
+    const headings = gsap.utils.toArray(`${heroOnJs ? '.hub-hero h1, ' : ''}.hub-services .content h2, .hub-process .content h2, .hub-proof .content h2, .hub-cta .content h2`);
+    // The hero sub-line is the one fade left (part of the hero's load sequence).
+    const fades = heroOnJs ? gsap.utils.toArray('.hub-hero .sub-heading') : [];
     // Staggered groups: the observer watches the container, the items cascade in.
     const groups = gsap.utils.toArray('.hub-process .process-steps');
 
@@ -36,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

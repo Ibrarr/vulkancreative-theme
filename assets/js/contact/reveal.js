@@ -14,8 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Direct-child h2 only: GF's validation summary heading is also an h2
     // inside this column and must never be split or pre-hidden.
-    const headings = gsap.utils.toArray('.contact-hero h1, .contact-main .contact-form-col > h2');
-    const fades = gsap.utils.toArray('.contact-hero .sub-heading, .contact-main .contact-form-col .form-note, .contact-main .contact-form-col .form-container');
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
+    const headings = gsap.utils.toArray(`${heroOnJs ? '.contact-hero h1, ' : ''}.contact-main .contact-form-col > h2`);
+    // The hero sub-line is the one fade left (part of the hero's load sequence).
+    // The form, its note and its panel are never hidden: the form is the page.
+    const fades = heroOnJs ? gsap.utils.toArray('.contact-hero .sub-heading') : [];
     // Staggered groups: the observer watches the list, the items cascade in.
     // (.contact-next is owned by next-steps.js so the rail draw and the step
     // stagger sequence as one timeline.)
@@ -36,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

@@ -22,12 +22,17 @@
 // shows them at 2.5s if the script never gets there, and the reduced-motion /
 // no-JS paths keep them visible (misc/_motion.scss forces opacity: 1).
 @at-root html.js body.page-template-page-free-website {
-  .fw-hero h1,
-  .fw-hero .sub-heading,
-  .fw-hero .hero-actions,
-  .fw-hero .hero-note {
-    opacity: 0;
-    animation: vc-fw-reveal-failsafe 0s 2.5s forwards;
+  // lg+ only. Below lg the hero text is the page's LCP element, so it paints
+  // with the first frame through the CSS entrance in misc/_motion.scss and the
+  // JS reveal leaves it alone.
+  @include media-breakpoint-up(lg) {
+    .fw-hero h1,
+    .fw-hero .sub-heading,
+    .fw-hero .hero-actions,
+    .fw-hero .hero-note {
+      opacity: 0;
+      animation: vc-fw-reveal-failsafe 0s 2.5s forwards;
+    }
   }
 }
 

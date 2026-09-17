@@ -153,7 +153,19 @@ $latest_cta_label  = get_field('hp_latest_cta_label') ?: 'View All Insights';
 
 <section class="hero" id="top">
     <div class="hero-glow" aria-hidden="true"></div>
-    <div class="graphic" aria-hidden="true"></div>
+    <?php // Below lg the statue is a static poster and one of the first big paints,
+    // so it is server-rendered and preloaded (header.php) rather than injected by
+    // JS after the bundle parses. At lg+ the <img> carries a transparent pixel:
+    // the three.js scene fades in over the glow, and statue-hero.js swaps the
+    // desktop poster in only for reduced motion or a failed scene. ?>
+    <div class="graphic" aria-hidden="true">
+        <picture>
+            <source media="(max-width: 991.98px)"
+                    srcset="<?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile-800.webp' ); ?> 800w, <?php echo esc_url( VC_TEMPLATE_URI . '/assets/images/hero/statue-mobile.webp' ); ?> 1178w"
+                    sizes="100vw">
+            <img class="hero-poster" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="1178" height="1335" fetchpriority="high" decoding="async">
+        </picture>
+    </div>
     <div class="hero-content-wrap">
         <div class="container px-4">
             <div class="row">

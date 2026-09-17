@@ -1,10 +1,44 @@
-  @font-face {
-    font-family: 'Poppins';
-    src: url('../../assets/fonts/Poppins-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+// Self-hosted fonts.
+//
+// Every face is split by unicode-range: a small Latin file that covers the whole
+// site's copy, and an extended file the browser only fetches if a page actually
+// contains a character outside Latin (a client name with a diacritic, say).
+// The Latin Poppins files are fontTools subsets of the full files (about 9KB
+// each, down from 50KB); the full files stay on disk as the extended faces.
+// Archivo is instanced to the only axis ranges the theme uses, weight 700 to 900
+// and width 100% to 125% (44KB, down from 90KB). To regenerate:
+//   python3 -m fontTools.subset Poppins-Regular.woff2 --flavor=woff2 \
+//     --layout-features='*' --unicodes="<the Latin range below>" \
+//     --output-file=Poppins-Regular-latin.woff2
+//   fontTools.varLib.instancer: {'wght': (700, 900), 'wdth': (100, 125)}
+// Italic exists at 400 only (figcaptions and <em>); bolder italics synthesise.
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../assets/fonts/Poppins-Regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../assets/fonts/Poppins-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../assets/fonts/Poppins-Italic-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @font-face {
   font-family: 'Poppins';
@@ -12,6 +46,16 @@
   font-weight: 400;
   font-style: italic;
   font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../assets/fonts/Poppins-Medium-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -20,14 +64,16 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('../../assets/fonts/Poppins-MediumItalic.woff2') format('woff2');
-  font-weight: 500;
-  font-style: italic;
+  src: url('../../assets/fonts/Poppins-SemiBold-latin.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -36,14 +82,16 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('../../assets/fonts/Poppins-SemiBoldItalic.woff2') format('woff2');
-  font-weight: 600;
-  font-style: italic;
+  src: url('../../assets/fonts/Poppins-Bold-latin.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
@@ -52,21 +100,14 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('../../assets/fonts/Poppins-BoldItalic.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
   font-family: 'Archivo';
-  src: url('../../assets/fonts/Archivo-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
+  src: url('../../assets/fonts/Archivo-Display.woff2') format('woff2');
+  font-weight: 700 900;
+  font-stretch: 100% 125%;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -74,9 +115,9 @@
 
 @font-face {
   font-family: 'Archivo';
-  src: url('../../assets/fonts/Archivo-Variable-ext.woff2') format('woff2');
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
+  src: url('../../assets/fonts/Archivo-Display-ext.woff2') format('woff2');
+  font-weight: 700 900;
+  font-stretch: 100% 125%;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;

@@ -16,9 +16,13 @@ gsap.registerPlugin(SplitText);
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
+    // Below lg the hero text paints with the first frame through the CSS
+    // entrance in misc/_motion.scss (it is the page's LCP element), so this
+    // module only owns the hero at lg+.
+    const heroOnJs = window.matchMedia('(min-width: 992px)').matches;
+
     const headings = gsap.utils.toArray([
-        '.case-studies-hero h1',
-        '.cs-hero h1',
+        ...(heroOnJs ? ['.case-studies-hero h1', '.cs-hero h1'] : []),
         '.cs-overview .content h2',
         '.cs-challenge .content h2',
         '.cs-approach .content h2',
@@ -28,26 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
         '.cs-cta .content h2',
     ].join(', '));
 
-    const fades = gsap.utils.toArray([
+    // Only the hero's load sequence still fades (lg+). The hero image is never
+    // hidden (it is the page's largest paint), and narrative copy, ledgers and
+    // CTA copy simply sit there.
+    const fades = heroOnJs ? gsap.utils.toArray([
         '.case-studies-hero .sub-heading',
-        '.cs-index .work-filter',
         '.cs-hero .sub-heading',
         '.cs-hero .hero-meta',
         '.cs-hero .hero-metric',
-        '.cs-hero .hero-media',
-        '.cs-overview .overview-lead',
-        '.cs-overview .fact-ledger',
-        '.cs-challenge .statement',
-        '.cs-challenge .narrative-body',
-        '.cs-approach .narrative-body',
-        '.cs-approach .deliverables',
-        '.cs-results .results-narrative',
-        '.cs-results .results-actions',
-        '.cs-testimonial .testimonial-spotlight',
-        '.cs-related .related-project',
-        '.cs-cta .content .sub-heading',
-        '.cs-cta .cta-actions',
-    ].join(', '));
+    ].join(', ')) : [];
 
     // Staggered groups: the observer watches the container, the items cascade in.
     const groups = [
@@ -76,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });

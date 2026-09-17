@@ -14,19 +14,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
     const headings = gsap.utils.toArray('.results .content h2, .work .content h2, .our-work .content h2, .why .content h2, .process .content h2, .testimonials .content h2, .latest-insights .content h2');
-    const fades = gsap.utils.toArray('.why .content .sub-heading, .our-work .content .sub-heading, .process .content .sub-heading, .latest-insights .content .sub-heading, .latest-insights .latest-insights-all, .why .partner-logos');
+    // No blanket fade-ups: sub-headings and links simply sit there. Motion goes
+    // to the things that are lists of objects (steps, cards, badges cascade in).
+    const fades = [];
     const steps = gsap.utils.toArray('.process .process-steps .process-step');
     const latestCards = gsap.utils.toArray('.latest-insights .insight-card');
+    const badges = gsap.utils.toArray('.why .partner-logos-row .partner-logos-item');
 
     // Hide up front, before the user can ever see these sections.
     gsap.set([...headings, ...fades, ...steps, ...latestCards], { opacity: 0, y: 24 });
-    revealFailsafe([...headings, ...fades, ...steps, ...latestCards], 4000);
+    gsap.set(badges, { opacity: 0, y: 12 });
+    revealFailsafe([...headings, ...fades, ...steps, ...latestCards, ...badges], 4000);
 
     const showHeading = (el) => {
         SplitText.create(el, {
             type: 'lines',
             linesClass: 'line',
             mask: 'lines',
+            aria: 'none',
             autoSplit: false,
             onSplit(self) {
                 gsap.set(el, { opacity: 1, y: 0 });
@@ -58,6 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stepsGrid && steps.length) {
         handlers.set(stepsGrid, () => {
             gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' });
+        });
+    }
+
+    // The partner badges land one after another, left to right
+    const badgeRow = document.querySelector('.why .partner-logos-row');
+    if (badgeRow && badges.length) {
+        handlers.set(badgeRow, () => {
+            gsap.to(badges, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' });
         });
     }
 

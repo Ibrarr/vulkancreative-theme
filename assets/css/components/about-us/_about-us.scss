@@ -20,8 +20,18 @@
 // and the reduced-motion / no-JS paths keep them visible (the misc/_motion.scss
 // safety net forces opacity: 1).
 @at-root html.js body.page-template-page-about-us {
-  .about-hero h1,
-  .about-hero .sub-heading,
+  // lg+ only. Below lg the hero text is the page's LCP element, so it paints
+  // with the first frame through the CSS entrance in misc/_motion.scss and the
+  // JS reveal leaves it alone.
+  @include media-breakpoint-up(lg) {
+    .about-hero h1,
+    .about-hero .sub-heading {
+      opacity: 0;
+      animation: vc-about-reveal-failsafe 0s 2.5s forwards;
+    }
+  }
+
+  // The story's sub-line waits for its line reveal at every width (below the fold).
   .about-story .split-text-story {
     opacity: 0;
     animation: vc-about-reveal-failsafe 0s 2.5s forwards;
