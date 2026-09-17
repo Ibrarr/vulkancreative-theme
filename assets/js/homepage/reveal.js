@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stepsGrid = document.querySelector('.process .process-steps');
     if (stepsGrid && steps.length) {
         handlers.set(stepsGrid, () => {
-            gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' });
+            gsap.to(steps, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' });
         });
     }
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const latestGrid = document.querySelector('.latest-insights .row');
     if (latestGrid && latestCards.length) {
         handlers.set(latestGrid, () => {
-            gsap.to(latestCards, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
+            gsap.to(latestCards, { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out' });
         });
     }
 

@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.to(answer, {
                     height: 0,
                     opacity: 0,
-                    duration: 0.3,
-                    ease: 'power2.in',
+                    duration: 0.25,
+                    ease: 'power2.out',
                     onComplete: () => {
                         answer.hidden = true;
                         gsap.set(answer, { clearProps: 'height,opacity' });
