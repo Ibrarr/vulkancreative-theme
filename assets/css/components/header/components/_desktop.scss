@@ -17,7 +17,13 @@
     cursor: pointer;
 
     svg {
-      transition: width 0.3s;
+      // The compact bar scales the mark rather than resizing it: width is a
+      // layout property, and this transition fires while the page is
+      // scrolling, which is the worst moment to ask for a layout pass. The
+      // bar's own height comes from the nav, not the logo, so scaling from
+      // the left edge leaves every other measurement where it was.
+      transition: transform 0.3s;
+      transform-origin: left center;
       width: 150px;
       height: auto;
 
@@ -376,11 +382,17 @@
 @at-root header.header--scrolled .main-menu {
   padding: 12px 0;
 
+  // Each scale is the old compact width over the resting width at that
+  // breakpoint, so the mark lands exactly where it used to.
   .logo svg {
-    width: 130px;
+    transform: scale(#{math.div(130, 150)}); // 150 to 130
+
+    @include media-breakpoint-between(md, lg) {
+      transform: scale(#{math.div(130, 140)}); // 140 to 130
+    }
 
     @include media-breakpoint-down(md) {
-      width: 100px;
+      transform: scale(#{math.div(100, 110)}); // 110 to 100
     }
   }
 }

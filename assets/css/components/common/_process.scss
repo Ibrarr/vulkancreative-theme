@@ -65,11 +65,9 @@
         left: 0;
         width: 2px;
         background: linear-gradient(180deg, $vc-primary, $vc-secondary);
-        transform: scaleY(0);
         transform-origin: top center;
         z-index: 1;
         pointer-events: none;
-        will-change: transform;
       }
     }
 
@@ -84,22 +82,20 @@
         padding-top: 0;
       }
 
+      // Solid at rest, so reduced motion and a blocked script both get the
+      // finished state. It is hollowed out only while the line is there to
+      // fill it (the block below the component).
       .step-number {
         font-family: $vc-display-font;
         font-weight: $vc-black;
         font-stretch: $vc-display-stretch;
         font-size: 48px;
         line-height: 1;
-        color: transparent;
+        color: $vc-primary;
         -webkit-text-stroke: 1.5px $vc-primary;
         display: block;
         margin-bottom: $space-2;
         transition: color .4s ease;
-      }
-
-      // Filled in as the ember line passes (process.js toggles the class)
-      &.is-passed .step-number {
-        color: $vc-primary;
       }
 
       // This step's share of the ember line, laid over its own top rule and
@@ -159,5 +155,38 @@
     p {
       color: $vc-muted-on-dark !important;
     }
+  }
+}
+
+// The rail and the outlined numerals exist only where the line can actually
+// draw: motion allowed, and scripts running. Under reduced motion, or if the
+// bundle never arrives, the section renders finished instead of empty (the
+// same treatment the stat rules take in common/_results.scss). The
+// zero-duration animations are the failsafe: if process.js never reaches the
+// section, it completes by itself after four seconds.
+@media (prefers-reduced-motion: no-preference) {
+  @at-root html.js .process {
+    .process-progress {
+      transform: scaleY(0);
+      will-change: transform;
+      animation: vc-process-rail-failsafe 0s 4s forwards;
+    }
+
+    .process-step:not(.is-passed) .step-number {
+      color: transparent;
+      animation: vc-process-number-failsafe 0s 4s forwards;
+    }
+  }
+}
+
+@keyframes vc-process-rail-failsafe {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes vc-process-number-failsafe {
+  to {
+    color: $vc-primary;
   }
 }
