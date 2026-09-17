@@ -74,7 +74,6 @@ mix.js([
 
 mix.js([
     'assets/js/services-hub/reveal.js',
-    'assets/js/services-hub/grid.js',
     // Shared homepage modules: process.js binds .process .process-steps,
     // testimonials.js/marquee.js bind by element id (the about.js precedent).
     'assets/js/homepage/process.js',

@@ -1,7 +1,7 @@
 // Page scope for the services hub (page-templates/page-services-hub.php).
 // The hero band is the shared page-hero component (common/_page-hero.scss),
-// the process band is the shared common/_process.scss component, the service
-// cards are common/_service-card.scss, and the spotlight + rating chip are
+// the process band is the shared common/_process.scss component, the services
+// directory is components/_directory.scss, and the spotlight + rating chip are
 // common/_testimonial-spotlight.scss.
 .page-template-page-services-hub {
   // Section headings run all-caps to match the homepage sections.
@@ -26,7 +26,7 @@
     transition: background 0.3s;
   }
 
-  @import "components/grid";
+  @import "components/directory";
   @import "components/proof";
   @import "components/cta";
 }

@@ -19,16 +19,13 @@ $hero_heading    = vc_heading_parts( 'sh_hero_heading', false, 'What we <span>do
 $hero_subheading = get_field('sh_hero_subheading') ?: 'Strategy, design and marketing that work together. We build systems that turn attention into action and visitors into customers.';
 
 // Services grid
-$grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'Six services. <span>One team</span>.' );
-$grid_statement = get_field('sh_grid_statement');
-if ( ! $grid_statement || 'Everything you need to grow, under one roof.' === $grid_statement ) {
-	$grid_statement = 'Everything you need to grow, <span>under one roof</span>.';
-}
-$grid_support   = get_field('sh_grid_support') ?: 'Pick the service you need now or combine them. Every discipline here is delivered in-house by the same team, so nothing gets lost between agencies.';
+$grid_heading   = vc_heading_parts( 'sh_grid_heading', false, 'What each <span>service</span> covers' );
+$grid_statement = get_field('sh_grid_statement') ?: 'Pick one service or combine several. The same two founders lead all of it.';
+$grid_support   = get_field('sh_grid_support') ?: 'Every discipline here is handled by the same team, so nothing gets lost between agencies and you always know who to call.';
 
-// The grid lists the parent services in the order set in Global Settings >
-// Service List (parents ticked to show on the hub). Each parent's children
-// live on its own page.
+// The directory lists the parent services in the order set in Global Settings >
+// Service List (parents ticked to show on the hub), each with its child
+// services in their editable order (vc_service_children()).
 $services = vc_ordered_services( 'hub' );
 
 // Process (steps cross-read from the homepage so the site keeps one process)
@@ -86,25 +83,34 @@ get_template_part( 'template-parts/page', 'hero', [
 				</div>
 			</div>
 		</div>
-		<div class="row g-4 services-grid">
-			<?php
-			$card_i = 1;
-			foreach ( $services as $service ) {
-				echo '<div class="col-lg-4 col-md-6 col-12 service-card-col">';
-				get_template_part( 'template-parts/service', 'card', [
-					'term'       => $service,
-					'index'      => $card_i,
-					'variant'    => 'grid',
-					// Services are an unordered set, so the outlined 01-06 numeral
-					// reads as decorative scaffolding; the varying watermark icon
-					// and title carry the card instead.
-					'show_index' => false,
-				] );
-				echo '</div>';
-				$card_i++;
-			}
-			?>
-		</div>
+		<?php // A directory, not a card grid: one full-width row per pillar with its
+		// child services as links. The pillar link stretches over the row, the
+		// child links sit above it, and the arrow is decoration. ?>
+		<ul class="services-directory">
+			<?php foreach ( $services as $service ) :
+				$directory_desc     = wp_strip_all_tags( term_description( $service->term_id, 'service' ) );
+				$directory_children = vc_service_children( $service->term_id );
+				?>
+				<li class="directory-row">
+					<h3 class="directory-name"><a class="directory-link" href="<?php echo esc_url( get_term_link( $service ) ); ?>"><?php echo esc_html( $service->name ); ?></a></h3>
+					<div class="directory-body">
+						<?php if ( $directory_desc ) : ?>
+							<p class="directory-desc"><?php echo esc_html( $directory_desc ); ?></p>
+						<?php endif; ?>
+						<?php if ( $directory_children ) : ?>
+							<ul class="directory-children" aria-label="<?php echo esc_attr( $service->name ); ?> services">
+								<?php foreach ( $directory_children as $directory_child ) : ?>
+									<li><a href="<?php echo esc_url( get_term_link( $directory_child ) ); ?>"><?php echo esc_html( $directory_child->name ); ?></a></li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</div>
+					<span class="directory-arrow" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+					</span>
+				</li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </section>
 

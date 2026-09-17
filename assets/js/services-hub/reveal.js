@@ -10,7 +10,7 @@ gsap.registerPlugin(SplitText);
 // IntersectionObserver as they enter the viewport — headings rise with a
 // SplitText line mask, the rest fade up. Under reduced motion, without JS, or
 // without IntersectionObserver nothing is ever hidden (misc/_motion.scss is
-// the CSS safety net). The services grid cards are owned by grid.js.
+// the CSS safety net). The services directory rows rise one by one.
 document.addEventListener('DOMContentLoaded', () => {
     if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
 
@@ -73,6 +73,29 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'power2.out',
         });
     };
+
+    // Directory rows rise one by one as they enter. Rows arriving in the same
+    // frame (the first screen, or a fast scroll) cascade 60ms apart, so the
+    // list reads top to bottom instead of landing as a block.
+    const rows = gsap.utils.toArray('.services-directory .directory-row');
+    if (rows.length) {
+        gsap.set(rows, { opacity: 0, y: 16 });
+        revealFailsafe(rows, 4000);
+        const rowObserver = new IntersectionObserver((entries, obs) => {
+            entries.filter((entry) => entry.isIntersecting).forEach((entry, i) => {
+                gsap.to(entry.target, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: i * 0.06,
+                    ease: 'power2.out',
+                    clearProps: 'transform',
+                });
+                obs.unobserve(entry.target);
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
+        rows.forEach((row) => rowObserver.observe(row));
+    }
 
     const handlers = new Map();
     headings.forEach((el) => handlers.set(el, showHeading));
